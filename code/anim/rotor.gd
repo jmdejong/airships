@@ -1,7 +1,8 @@
 extends Node3D
 
-var rpm: float = 60
-@onready var rot_speed: float = 60 / rpm * PI * 2.0
+var rps: float = 1
+#@onready var rot_speed: float = 1 / rps * PI * 2.0
 
 func _process(delta: float) -> void:
-	$Propellor.rotate_x(delta * rot_speed)
+	if rps > 0:
+		$Propellor.rotate_x(delta * rps * PI * 2.0)

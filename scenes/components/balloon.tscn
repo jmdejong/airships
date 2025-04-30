@@ -25,3 +25,6 @@ shape = SubResource("SphereShape3D_3ev3o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 mesh = SubResource("SphereMesh_3ev3o")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
+
+[node name="CenterOfMass" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)

@@ -1,3 +1,14 @@
-[gd_scene format=3 uid="uid://4ev7n8xin8g8"]
+[gd_scene load_steps=3 format=3 uid="uid://4ev7n8xin8g8"]
 
-[node name="Button3d" type="Node2D"]
+[ext_resource type="Script" uid="uid://cuiyitoas3wtg" path="res://code/button3d.gd" id="1_1l3cu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_173dd"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="Button3d" type="Area3D"]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_1l3cu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_173dd")

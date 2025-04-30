@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bacp7ifjnlyi6"]
+[gd_scene load_steps=10 format=3 uid="uid://bacp7ifjnlyi6"]
 
 [ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="1_3qy7f"]
 [ext_resource type="Script" uid="uid://xq10sq0rmxby" path="res://code/airship.gd" id="1_81adk"]
@@ -8,7 +8,15 @@
 [ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="5_kamen"]
 [ext_resource type="PackedScene" uid="uid://y3r5symbcup6" path="res://scenes/components/ballast.tscn" id="7_gy0ok"]
 
-[node name="Airship" type="Node3D"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_gy0ok"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_iu160"]
+
+[node name="Airship" type="RigidBody3D"]
+mass = 0.001
+center_of_mass_mode = 1
+linear_damp = 5.0
+angular_damp = 10.0
 script = ExtResource("1_81adk")
 
 [node name="Components" type="Node3D" parent="."]
@@ -64,10 +72,10 @@ transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -2, 0, 3
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0, 3)
 
 [node name="EngineHor" parent="Components" instance=ExtResource("4_lht5w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -4)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, -4)
 
 [node name="EngineHor2" parent="Components" instance=ExtResource("4_lht5w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 4)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 4)
 
 [node name="Cable" parent="Components" instance=ExtResource("5_kamen")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
@@ -89,3 +97,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
 
 [node name="Ballast" parent="Components" instance=ExtResource("7_gy0ok")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0.5, 0)
+
+[node name="CenterOfMassMarker" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_gy0ok")
+
+[node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PrismMesh_iu160")
