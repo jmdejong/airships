@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://bacp7ifjnlyi6"]
+
+[ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="1_3qy7f"]
+[ext_resource type="Script" uid="uid://xq10sq0rmxby" path="res://code/airship.gd" id="1_81adk"]
+[ext_resource type="PackedScene" uid="uid://6uk8wipb78fu" path="res://scenes/components/floor_panel.tscn" id="2_g6i7b"]
+[ext_resource type="PackedScene" uid="uid://difyk6mcupirs" path="res://scenes/components/wall_panel.tscn" id="3_fo1p0"]
+[ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine_hor.tscn" id="4_lht5w"]
+[ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="5_kamen"]
+[ext_resource type="PackedScene" uid="uid://y3r5symbcup6" path="res://scenes/components/ballast.tscn" id="7_gy0ok"]
+
+[node name="Airship" type="Node3D"]
+script = ExtResource("1_81adk")
+
+[node name="Components" type="Node3D" parent="."]
+
+[node name="Balloon" parent="Components" instance=ExtResource("1_3qy7f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="FloorPanel" parent="Components" instance=ExtResource("2_g6i7b")]
+
+[node name="FloorPanel2" parent="Components" instance=ExtResource("2_g6i7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="FloorPanel3" parent="Components" instance=ExtResource("2_g6i7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="FloorPanel4" parent="Components" instance=ExtResource("2_g6i7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="FloorPanel5" parent="Components" instance=ExtResource("2_g6i7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="FloorPanel6" parent="Components" instance=ExtResource("2_g6i7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="FloorPanel7" parent="Components" instance=ExtResource("2_g6i7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="WallPanel" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="WallPanel2" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="WallPanel3" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -3)
+
+[node name="WallPanel4" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, -3)
+
+[node name="WallPanel5" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, -2)
+
+[node name="WallPanel6" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, 0)
+
+[node name="WallPanel7" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, 2)
+
+[node name="WallPanel8" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -2, 0, 3)
+
+[node name="WallPanel9" parent="Components" instance=ExtResource("3_fo1p0")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0, 3)
+
+[node name="EngineHor" parent="Components" instance=ExtResource("4_lht5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -4)
+
+[node name="EngineHor2" parent="Components" instance=ExtResource("4_lht5w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 4)
+
+[node name="Cable" parent="Components" instance=ExtResource("5_kamen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
+
+[node name="Cable2" parent="Components" instance=ExtResource("5_kamen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
+
+[node name="Cable3" parent="Components" instance=ExtResource("5_kamen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+
+[node name="Cable5" parent="Components" instance=ExtResource("5_kamen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
+
+[node name="Cable6" parent="Components" instance=ExtResource("5_kamen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+
+[node name="Cable4" parent="Components" instance=ExtResource("5_kamen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
+
+[node name="Ballast" parent="Components" instance=ExtResource("7_gy0ok")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0.5, 0)

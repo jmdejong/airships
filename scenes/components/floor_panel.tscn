@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://6uk8wipb78fu"]
+
+[ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_6d7c6"]
+[ext_resource type="Material" uid="uid://bev5qvka8ffsn" path="res://materials/ship_wood.tres" id="1_kj4qi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3qy7f"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g6i7b"]
+size = Vector3(2, 0.5, 2)
+
+[node name="FloorPanel" type="StaticBody3D"]
+script = ExtResource("1_6d7c6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_3qy7f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("BoxMesh_g6i7b")
+surface_material_override/0 = ExtResource("1_kj4qi")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://37i3vkcqr8ef"]
+
+[ext_resource type="Script" uid="uid://e8guogssdweh" path="res://code/components/engine.gd" id="1_dxaiv"]
+[ext_resource type="Script" uid="uid://w74q5f1ednux" path="res://code/anim/rotor.gd" id="2_dxaiv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dv5nn"]
+size = Vector3(1, 0.75, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxaiv"]
+albedo_color = Color(0.26, 0.26, 0.26, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dn7b6"]
+material = SubResource("StandardMaterial3D_dxaiv")
+size = Vector3(1, 0.75, 0.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jt3t8"]
+size = Vector3(0.125, 0.125, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dxaiv"]
+size = Vector3(0.25, 0.125, 0.125)
+
+[node name="EngineHor" type="StaticBody3D"]
+script = ExtResource("1_dxaiv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_dv5nn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_dn7b6")
+
+[node name="Rotor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+script = ExtResource("2_dxaiv")
+
+[node name="Propellor" type="MeshInstance3D" parent="Rotor"]
+mesh = SubResource("BoxMesh_jt3t8")
+
+[node name="Axle" type="MeshInstance3D" parent="Rotor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, 0, 0)
+mesh = SubResource("BoxMesh_dxaiv")
