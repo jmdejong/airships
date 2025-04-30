@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://e8guogssdweh" path="res://code/components/engine.gd" id="1_dxaiv"]
 [ext_resource type="Script" uid="uid://w74q5f1ednux" path="res://code/anim/rotor.gd" id="2_dxaiv"]
-[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/Button3d.tscn" id="3_dn7b6"]
+[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="3_dn7b6"]
 [ext_resource type="Texture2D" uid="uid://carh7wcvr4a6b" path="res://textures/less.png" id="4_3ouc1"]
 [ext_resource type="Texture2D" uid="uid://rsylrmgcr5lb" path="res://textures/more.png" id="5_lieb6"]
 
