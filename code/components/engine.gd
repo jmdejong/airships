@@ -4,7 +4,7 @@ var power: float:
 	set(value):
 		power = value
 		$StatusPanel.text = "%2.0f N" % power
-		$Rotor.rps = power / 500 + 0.05
+		$Rotor.rps = power / 500 + 0.02
 var step: float = 200
 var max_power: float = 2000
 

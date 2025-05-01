@@ -9,9 +9,6 @@ var gravity_enabled: bool = false
 
 signal viewpoint_changed(pos: Vector3)
 
-func _physics_process(_delta: float) -> void:
-	move()
-
 func adjust_direction() -> void:
 	var down = get_gravity()
 	if down.length_squared() == 0:
@@ -19,14 +16,16 @@ func adjust_direction() -> void:
 	look_at(global_position + (quaternion * Vector3.RIGHT).cross(down).normalized(), -down.normalized())
 	
 
-func move() -> void:
+func _physics_process(delta: float) -> void:
 	var input_movement: Vector2 = Input.get_vector("left", "right", "forwards", "backwards")
 	var s: float = speed
 	if Input.is_action_pressed("sprint"):
 		s = sprint_speed
 	var movement: Vector3 = (Vector3(input_movement.x, 0, input_movement.y) * s)
 	if gravity_enabled:
-		pass
+		movement.y = velocity.y - Atmosphere.gravity()*delta
+		if Input.is_action_pressed("up"):
+			movement.y = s
 	else:
 		movement.y = s * (float(Input.is_action_pressed("up")) - float(Input.is_action_pressed("down")))
 	velocity = movement.rotated(Vector3(0, 1, 0), rotation.y)

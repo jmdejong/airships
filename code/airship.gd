@@ -1,6 +1,5 @@
 extends RigidBody3D
 
-const BASE_AIR_DENSITY := 1.2
 #var velocity := Vector3(0,0,0)
 var wait_time := 0.0
 var displaced_volume: float
@@ -41,9 +40,9 @@ func calculate_components() -> void:
 
 func _physics_process(delta: float) -> void:
 	calculate_components()
-	var displaced_air_mass := displaced_volume * air_density(to_global(center_of_volume).y)
+	var displaced_air_mass := displaced_volume * Atmosphere.air_density(to_global(center_of_volume).y)
 	var weight := mass - displaced_air_mass
-	apply_force(-displaced_air_mass * gravity_vec(), to_global(center_of_volume) - global_position)
+	apply_force(-displaced_air_mass * Atmosphere.gravity_vec(), to_global(center_of_volume) - global_position)
 	if wait_time < 0:
 		prints(displaced_volume, mass, displaced_air_mass, weight)
 		wait_time = 5.0
@@ -52,13 +51,3 @@ func _physics_process(delta: float) -> void:
 	for component in $Components.get_children():
 		if component.has_method("force"):
 			apply_force(component.force(), component.get_node("CenterOfMass").global_position - global_position)
-
-
-func gravity_vec() -> Vector3:
-	var space := get_viewport().find_world_3d().space
-	return PhysicsServer3D.area_get_param(space, PhysicsServer3D.AREA_PARAM_GRAVITY) \
-	 * PhysicsServer3D.area_get_param(space, PhysicsServer3D.AREA_PARAM_GRAVITY_VECTOR)
-
-# todo: good place fo this function
-func air_density(height: float) -> float:
-	return BASE_AIR_DENSITY / (1 + 0.05 * height)
