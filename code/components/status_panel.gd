@@ -7,7 +7,7 @@ func _physics_process(delta: float) -> void:
 	previous_position = global_position
 	%Dashboard.text = "Altitude: %4.1f m\nAir: %2.2f kg/m^3\nHor speed: %2.1f m/s\nVert speed: %2.1f m/s" % [
 		global_position.y,
-		 get_parent().get_parent().air_density($%Dashboard.global_position.y),
+		 Atmosphere.air_density($%Dashboard.global_position.y),
 		Vector2(velocity.x, velocity.z).length(),
 		velocity.y
 	]
