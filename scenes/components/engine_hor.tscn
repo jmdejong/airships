@@ -39,7 +39,7 @@ alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("5_lieb6")
 
-[node name="EngineHor" type="StaticBody3D"]
+[node name="EngineHor" type="Node3D"]
 script = ExtResource("1_dxaiv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

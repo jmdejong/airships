@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckvhddih8pih4"]
+[gd_scene load_steps=6 format=3 uid="uid://ckvhddih8pih4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e5uuo"]
 size = Vector3(5, 5, 10)
@@ -12,7 +12,10 @@ size = Vector3(5, 2.5, 10)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wyf3"]
 albedo_color = Color(0.52549, 0, 0, 1)
 
-[node name="House" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_x8wvn"]
+size = Vector3(5, 5, 10)
+
+[node name="House" type="StaticBody3D"]
 
 [node name="Walls" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
@@ -23,3 +26,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_nnsk1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.25, 0)
 mesh = SubResource("PrismMesh_rwgxs")
 surface_material_override/0 = SubResource("StandardMaterial3D_4wyf3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_x8wvn")

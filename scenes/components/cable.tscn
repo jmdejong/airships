@@ -12,7 +12,7 @@ albedo_color = Color(0.2, 0.2, 0.2, 1)
 material = SubResource("StandardMaterial3D_uw4vd")
 size = Vector3(0.063, 8, 0.063)
 
-[node name="Cable" type="StaticBody3D"]
+[node name="Cable" type="Node3D"]
 script = ExtResource("1_uw4vd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

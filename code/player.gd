@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 		s = sprint_speed
 	var movement: Vector3 = (Vector3(input_movement.x, 0, input_movement.y) * s)
 	if gravity_enabled:
-		movement.y = velocity.y - Atmosphere.gravity()*delta
+		movement.y = velocity.y - Atmosphere.gravity() * delta
 		if Input.is_action_pressed("up"):
 			movement.y = s
 	else:

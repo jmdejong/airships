@@ -14,7 +14,7 @@ rings = 16
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qy7f"]
 albedo_color = Color(0.51452, 0.3268, 0.76, 1)
 
-[node name="Balloon" type="StaticBody3D"]
+[node name="Balloon" type="Node3D"]
 script = ExtResource("1_vcytr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

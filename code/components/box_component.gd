@@ -1,5 +1,7 @@
 extends Node3D
 
+signal changed
+
 @export var density = 10
 @onready var volume = _calculate_volume()
 
@@ -13,3 +15,13 @@ func displaced_volume() -> float:
 func mass() -> float:
 	return density * volume
 	
+func center_of_mass() -> Vector3:
+	return $CenterOfMass.position
+	
+
+func shapes() -> Array[CollisionShape3D]:
+	var s: Array[CollisionShape3D] = []
+	for child in get_children():
+		if child is CollisionShape3D:
+			s.append(child)
+	return s
