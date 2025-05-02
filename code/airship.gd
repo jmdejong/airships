@@ -16,7 +16,7 @@ func calculate_components() -> void:
 	self.displaced_volume = $Components.displaced_volume()
 	self.forces = $Components.forces()
 	set_shapes()
-	prints("m:", mass, "v", displaced_volume, "f", forces)
+	#prints("m:", mass, "v", displaced_volume, "f", forces)
 	$CenterOfMassMarker.position = center_of_mass
 	$CenterOfVolumeMarker.position = center_of_volume
 
@@ -34,4 +34,4 @@ func _physics_process(delta: float) -> void:
 	apply_force(-displaced_air_mass * Atmosphere.gravity_vec(), to_global(center_of_volume) - global_position)
 	for force: Force in forces:
 		var global_force: Force = force.transformed(global_transform)
-		apply_force(force.direction, force.pos)
+		apply_force(global_force.direction, global_force.pos - global_position)

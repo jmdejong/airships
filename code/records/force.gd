@@ -8,4 +8,4 @@ func _init(pos: Vector3, direction: Vector3) -> void:
 	self.direction = direction
 
 func transformed(t: Transform3D) -> Force:
-	return Force.new(pos * t, direction * t.basis.get_rotation_quaternion())
+	return Force.new(t * pos, t.basis.get_rotation_quaternion() * direction)
