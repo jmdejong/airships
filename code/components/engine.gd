@@ -5,11 +5,11 @@ signal changed
 var power: float:
 	set(value):
 		power = value
-		$StatusPanel.text = "%2.0f N" % power
+		$StatusPanel.text = "%2.2f kN" % (power / 1000.0)
 		$Rotor.rps = power / 500 + 0.02
 		changed.emit()
-var step: float = 200
-var max_power: float = 2000
+var step: float = 250
+var max_power: float = 5000
 
 func _ready() -> void:
 	power = 1000
