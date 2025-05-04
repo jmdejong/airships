@@ -5,7 +5,7 @@ const speed: float = 4
 const sprint_speed: float = 40
 const jump_speed: float = 10
 
-var gravity_enabled: bool = false
+var gravity_enabled: bool = true
 
 signal viewpoint_changed(pos: Vector3)
 
