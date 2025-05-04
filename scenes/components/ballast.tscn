@@ -63,6 +63,7 @@ description = "Decrease ballast"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Less"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+cast_shadow = 0
 mesh = SubResource("QuadMesh_ugx7q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_ugx7q")
@@ -73,6 +74,7 @@ description = "Increase ballast"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="More"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+cast_shadow = 0
 mesh = SubResource("QuadMesh_ugx7q")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_k8sc4")
