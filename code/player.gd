@@ -107,7 +107,7 @@ func try_build() -> void:
 		%BuildPreview.position = Vector3(0, 0, -2)
 	
 func try_press() -> void:
-	var collider = %Eyecast.get_collider()
+	var collider = %EyeCast.get_collider()
 	if collider != null and collider.has_method("press"):
 		collider.press()
 

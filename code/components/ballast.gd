@@ -23,7 +23,7 @@ func displaced_volume() -> float:
 	return 1.0
 
 func center_of_mass() -> Vector3:
-	return $CenterOfMass.position
+	return transform * $CenterOfMass.position
 
 func _on_less_pressed() -> void:
 	filling = max(filling - step, 0.0)
@@ -36,5 +36,7 @@ func shapes() -> Array[CollisionShape3D]:
 	var s: Array[CollisionShape3D] = []
 	for child in get_children():
 		if child is CollisionShape3D:
-			s.append(child)
+			var c: CollisionShape3D = child.duplicate()
+			c.transform = transform * c.transform
+			s.append(c)
 	return s

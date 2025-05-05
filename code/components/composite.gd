@@ -30,20 +30,20 @@ func _recalculate() -> void:
 		assert(v > 0)
 		_mass += m
 		_displaced_volume += v
-		var com: Vector3 = component.transform * component.center_of_mass()
+		var com: Vector3 = transform * component.center_of_mass()
 		_center_of_mass += com * m
 		var cov: Vector3
 		if component.has_method("center_of_volume"):
-			cov = component.transform * component.center_of_volume()
+			cov = transform * component.center_of_volume()
 		else:
 			cov = com
 		_center_of_volume += cov * v
 		if component.has_method("forces"):
 			for force: Force in component.forces():
-				_forces.append(force.transformed(component.transform))
+				_forces.append(force.transformed(transform))
 		for source_shape: CollisionShape3D in component.shapes():
 			var shape = source_shape.duplicate()
-			shape.transform = component.transform * shape.transform
+			shape.transform = transform * shape.transform
 			_shapes.append(shape)
 	if (_mass == 0.0):
 		_center_of_mass = Vector3(0, 0, 0)

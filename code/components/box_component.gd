@@ -16,12 +16,13 @@ func mass() -> float:
 	return density * volume
 	
 func center_of_mass() -> Vector3:
-	return $CenterOfMass.position
-	
+	return transform * $CenterOfMass.position
 
 func shapes() -> Array[CollisionShape3D]:
 	var s: Array[CollisionShape3D] = []
 	for child in get_children():
 		if child is CollisionShape3D:
-			s.append(child)
+			var c: CollisionShape3D = child.duplicate()
+			c.transform = transform * c.transform
+			s.append(c)
 	return s
