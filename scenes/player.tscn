@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://xt6mcv6w5ri5"]
+[gd_scene load_steps=6 format=3 uid="uid://xt6mcv6w5ri5"]
 
 [ext_resource type="Script" uid="uid://pwyriqsixxyi" path="res://code/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://yrqwva1k2mo1" path="res://scenes/build_tab.tscn" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dtiu5fu6b3v3b" path="res://textures/ui/crosshair.png" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
@@ -24,11 +25,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
-[node name="Eyecast" type="RayCast3D" parent="Head"]
+[node name="EyeCast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -4)
 collision_mask = 128
 collide_with_areas = true
+
+[node name="BuildCast" type="RayCast3D" parent="Head"]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -4)
+collision_mask = 64
+collide_with_areas = true
+
+[node name="BuildPreview" type="Node3D" parent="Head"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+visible = false
 
 [node name="Crosshair" type="CenterContainer" parent="."]
 anchors_preset = 8
@@ -68,3 +80,7 @@ grow_horizontal = 2
 text = "Tooltip"
 label_settings = SubResource("LabelSettings_g2els")
 horizontal_alignment = 1
+
+[node name="BuildTab" parent="." instance=ExtResource("3_dqkch")]
+
+[connection signal="select_build" from="BuildTab" to="." method="_on_build_tab_select_build"]

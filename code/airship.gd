@@ -35,3 +35,9 @@ func _physics_process(delta: float) -> void:
 	for force: Force in forces:
 		var global_force: Force = force.transformed(global_transform)
 		apply_force(global_force.direction, global_force.pos - global_position)
+
+func build_target() -> bool:
+	return true
+
+#func component_at(pos: Vector3) -> Node3d:
+	#$Component.component_at(pos)

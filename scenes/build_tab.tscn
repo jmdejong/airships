@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://yrqwva1k2mo1"]
+
+[ext_resource type="Script" uid="uid://cfsxknagvrr2v" path="res://code/build_tab.gd" id="1_h025f"]
+[ext_resource type="Script" uid="uid://bwgdnm1xngtk0" path="res://code/select_build.gd" id="3_0pqg7"]
+
+[node name="BuildTab" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_h025f")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -91.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Woodblock" type="ColorRect" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+script = ExtResource("3_0pqg7")
+component = null
+
+[node name="Cancel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cancel
+"
+
+[connection signal="gui_input" from="PanelContainer/VBoxContainer/Woodblock" to="PanelContainer/VBoxContainer/Woodblock" method="_on_gui_input"]

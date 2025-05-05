@@ -27,12 +27,10 @@ func center_of_mass() -> Vector3:
 
 func _on_less_pressed() -> void:
 	filling = max(filling - step, 0.0)
-	prints("Dropping ballast", mass())
 
 
 func _on_more_pressed() -> void:
 	filling = min(filling + step, 1.0)
-	prints("Filling ballast", mass())
 
 func shapes() -> Array[CollisionShape3D]:
 	var s: Array[CollisionShape3D] = []

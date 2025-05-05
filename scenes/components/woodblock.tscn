@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b77yk6svjkh0k"]
+
+[ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_dyvjv"]
+[ext_resource type="Material" uid="uid://bev5qvka8ffsn" path="res://materials/ship_wood.tres" id="2_pjy7c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3qy7f"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g6i7b"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Woodblock" type="Node3D"]
+script = ExtResource("1_dyvjv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_3qy7f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+mesh = SubResource("BoxMesh_g6i7b")
+surface_material_override/0 = ExtResource("2_pjy7c")
+
+[node name="CenterOfMass" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)

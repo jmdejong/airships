@@ -8,6 +8,7 @@ var _center_of_mass: Vector3
 var _center_of_volume: Vector3
 var _shapes: Array[CollisionShape3D]
 var _forces: Array[Force]
+var component_cells: Dictionary[Vector2, Node3D]
 
 func _ready() -> void:
 	for child in get_children():
@@ -21,6 +22,7 @@ func _recalculate() -> void:
 	_center_of_volume = Vector3(0, 0, 0)
 	_shapes = []
 	_forces = []
+	#component_cells += 
 	for component in get_children():
 		var m: float = component.mass()
 		var v: float = component.displaced_volume()
