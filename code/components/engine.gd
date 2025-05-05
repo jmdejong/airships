@@ -5,7 +5,7 @@ signal changed
 var power: float:
 	set(value):
 		power = value
-		$StatusPanel.text = "%2.2f kN" % (power / 1000.0)
+		%StatusPanel.text = "%2.2f kN" % (power / 1000.0)
 		if power == 0:
 			$Rotor.rps = sign($Rotor.rps) * 0.02
 		else:

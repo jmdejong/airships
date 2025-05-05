@@ -6,38 +6,39 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_obbup"]
 size = Vector3(1, 0.1, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_obbup"]
+size = Vector3(1, 0.1, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_88f4g"]
 material = ExtResource("2_obbup")
 size = Vector3(0.25, 0.4, 0.25)
-
-[sub_resource type="BoxMesh" id="BoxMesh_obbup"]
-size = Vector3(1, 0.1, 1)
 
 [node name="StatusPanel" type="Node3D"]
 script = ExtResource("1_88f4g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.15, 0.25)
 shape = SubResource("BoxShape3D_obbup")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-mesh = SubResource("BoxMesh_88f4g")
-surface_material_override/0 = ExtResource("2_obbup")
-
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.15, 0.25)
 mesh = SubResource("BoxMesh_obbup")
-skeleton = NodePath("../MeshInstance3D")
+skeleton = NodePath("MeshInstance3D")
 surface_material_override/0 = ExtResource("2_obbup")
 
-[node name="Dashboard" type="Label3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = SubResource("BoxMesh_88f4g")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_obbup")
+
+[node name="Dashboard" type="Label3D" parent="MeshInstance3D2"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
 text = "Altitude
 Air
 speed"
 font_size = 16
 
 [node name="CenterOfMass" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)

@@ -97,7 +97,7 @@ func try_build() -> void:
 		%BuildPreview.global_rotation = collider.global_rotation
 		var p: Vector3 = collider.to_local(%BuildCast.get_collision_point())
 		
-		var cpos: Vector3 = (collider.to_local(%BuildCast.get_collision_point() + %BuildCast.get_collision_normal() * 0.25) / 0.5).floor() * 0.5 
+		var cpos: Vector3 = collider.to_local(%BuildCast.get_collision_point() + %BuildCast.get_collision_normal() * 0.25).snappedf(0.5)
 		%BuildPreview.global_position = collider.to_global(cpos)
 			
 				
