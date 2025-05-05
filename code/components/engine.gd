@@ -6,10 +6,14 @@ var power: float:
 	set(value):
 		power = value
 		$StatusPanel.text = "%2.2f kN" % (power / 1000.0)
-		$Rotor.rps = power / 500 + 0.02
+		if power == 0:
+			$Rotor.rps = sign($Rotor.rps) * 0.02
+		else:
+			$Rotor.rps = value / 500
 		changed.emit()
 var step: float = 250
 var max_power: float = 5000
+var min_power: float = -2000
 
 func _ready() -> void:
 	power = 1000
@@ -27,7 +31,7 @@ func center_of_mass() -> Vector3:
 	return $CenterOfMass.position
 
 func _on_less_pressed() -> void:
-	power = max(power - step, 0)
+	power = max(power - step, min_power)
 
 
 func _on_more_pressed() -> void:

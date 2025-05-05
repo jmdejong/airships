@@ -50,6 +50,7 @@ func _input(event: InputEvent):
 		$Head.rotation.x = clamp($Head.rotation.x - event.relative.y * MOUSE_SENSITIVITY, -PI/2, PI/2)
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 
+
 func _process(delta: float) -> void:
 	var collider = %Eyecast.get_collider()
 	if collider != null and collider.has_method("mouseover_description"):

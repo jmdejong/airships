@@ -10,6 +10,7 @@ size = Vector3(2048, 256, 2048)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7141"]
 albedo_texture = ExtResource("1_0ybx1")
+uv1_scale = Vector3(512, 512, 512)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_nnsk1"]
 material = SubResource("StandardMaterial3D_i7141")

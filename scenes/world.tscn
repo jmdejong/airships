@@ -14,7 +14,7 @@ background_mode = 2
 sky = SubResource("Sky_4wyf3")
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.04
+ambient_light_energy = 0.1
 
 [node name="World" type="Node3D"]
 
