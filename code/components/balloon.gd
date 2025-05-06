@@ -15,10 +15,7 @@ func center_of_mass() -> Vector3:
 	return transform * $CenterOfMass.position
 
 func shapes() -> Array[CollisionShape3D]:
-	var s: Array[CollisionShape3D] = []
-	for child in get_children():
-		if child is CollisionShape3D:
-			var c: CollisionShape3D = child.duplicate()
-			c.transform = transform * c.transform
-			s.append(c)
-	return s
+	var c: CollisionShape3D = $CollisionShape3D.duplicate()
+	c.set_meta("component", self)
+	c.transform = transform * c.transform
+	return [c]

@@ -1,14 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt2l34ey576cd"]
+[gd_scene load_steps=5 format=3 uid="uid://dt2l34ey576cd"]
+
+[ext_resource type="Script" uid="uid://7a33njbtkfx8" path="res://code/preview.gd" id="1_dl7gd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkhw5"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.533333)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6v37h"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6v37h"]
-transparency = 1
-albedo_color = Color(0.533333, 0.533333, 1, 0.533333)
+[sub_resource type="BoxShape3D" id="BoxShape3D_6v37h"]
+size = Vector3(0.45, 0.45, 0.45)
 
-[node name="Woodblock" type="Node3D"]
+[node name="Woodblock" type="Area3D"]
+collision_layer = 0
+collision_mask = 67
+script = ExtResource("1_dl7gd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_rkhw5")
 mesh = SubResource("BoxMesh_6v37h")
-surface_material_override/0 = SubResource("StandardMaterial3D_6v37h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_6v37h")

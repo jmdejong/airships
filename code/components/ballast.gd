@@ -32,11 +32,19 @@ func _on_less_pressed() -> void:
 func _on_more_pressed() -> void:
 	filling = min(filling + step, 1.0)
 
+
 func shapes() -> Array[CollisionShape3D]:
-	var s: Array[CollisionShape3D] = []
-	for child in get_children():
-		if child is CollisionShape3D:
-			var c: CollisionShape3D = child.duplicate()
-			c.transform = transform * c.transform
-			s.append(c)
-	return s
+	var c: CollisionShape3D = $CollisionShape3D.duplicate()
+	c.set_meta("component", self)
+	c.transform = transform * c.transform
+	return [c]
+
+	
+func block_components() -> Dictionary[Vector3, Node3D]:
+	var d: Dictionary[Vector3, Node3D]
+	var aabb: AABB = transform * $CollisionShape3D.transform * AABB(-$CollisionShape3D.size / 2.0, $CollisionShape3D.size) / Global.block_size
+	for x in range(aabb.position.x, aabb.end.x + 1):
+		for y in range(aabb.position.y, aabb.end.y + 1):
+			for z in range(aabb.position.z, aabb.end.z + 1):
+				d[Vector3(x, y, z)/2.0] = self
+	return d

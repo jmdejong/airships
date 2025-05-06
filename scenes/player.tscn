@@ -13,7 +13,8 @@ font_color = Color(1, 1, 1, 0.666667)
 outline_color = Color(0, 0, 0, 0.8)
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 0
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -82,5 +83,7 @@ label_settings = SubResource("LabelSettings_g2els")
 horizontal_alignment = 1
 
 [node name="BuildTab" parent="." instance=ExtResource("3_dqkch")]
+visible = false
 
 [connection signal="select_build" from="BuildTab" to="." method="_on_build_tab_select_build"]
+[connection signal="select_remove" from="BuildTab" to="." method="_on_build_tab_select_remove"]

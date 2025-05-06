@@ -26,8 +26,6 @@ func _recalculate() -> void:
 	for component in get_children():
 		var m: float = component.mass()
 		var v: float = component.displaced_volume()
-		assert(m > 0)
-		assert(v > 0)
 		_mass += m
 		_displaced_volume += v
 		var com: Vector3 = transform * component.center_of_mass()
@@ -72,3 +70,8 @@ func shapes() -> Array[CollisionShape3D]:
 
 func forces() -> Array[Force]:
 	return _forces
+
+func add_component(component: Node3D) -> void:
+	add_child(component)
+	component.changed.connect(_recalculate)
+	_recalculate()

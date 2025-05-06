@@ -39,5 +39,7 @@ func _physics_process(delta: float) -> void:
 func build_target() -> bool:
 	return true
 
-#func component_at(pos: Vector3) -> Node3d:
-	#$Component.component_at(pos)
+func build_component(pos: Vector3, component: Component) -> void:
+	var comp_node: Node3D = component.scene.instantiate()
+	comp_node.position = pos
+	$Components/Custom.add_component(comp_node)
