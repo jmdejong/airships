@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://xt6mcv6w5ri5"]
+[gd_scene load_steps=7 format=3 uid="uid://xt6mcv6w5ri5"]
 
 [ext_resource type="Script" uid="uid://pwyriqsixxyi" path="res://code/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://yrqwva1k2mo1" path="res://scenes/build_tab.tscn" id="3_dqkch"]
@@ -11,6 +11,9 @@ height = 1.6
 [sub_resource type="LabelSettings" id="LabelSettings_g2els"]
 font_color = Color(1, 1, 1, 0.666667)
 outline_color = Color(0, 0, 0, 0.8)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
+radius = 0.25
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -84,6 +87,13 @@ horizontal_alignment = 1
 
 [node name="BuildTab" parent="." instance=ExtResource("3_dqkch")]
 visible = false
+
+[node name="ZoneFinder" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ZoneFinder"]
+shape = SubResource("SphereShape3D_qhqgy")
 
 [connection signal="select_build" from="BuildTab" to="." method="_on_build_tab_select_build"]
 [connection signal="select_remove" from="BuildTab" to="." method="_on_build_tab_select_remove"]

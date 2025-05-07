@@ -143,9 +143,10 @@ mesh = SubResource("CylinderMesh_gy0ok")
 visible = false
 mesh = SubResource("PrismMesh_iu160")
 
-[node name="SphereOfInfluence" type="Area3D" parent="."]
-visible = false
+[node name="ZoneOfInfluence" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SphereOfInfluence"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ZoneOfInfluence"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
 shape = SubResource("BoxShape3D_17pty")
