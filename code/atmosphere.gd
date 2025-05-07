@@ -3,7 +3,7 @@ extends Node
 const BASE_AIR_DENSITY := 1.2
 
 func air_density(height: float) -> float:
-	return BASE_AIR_DENSITY / (1 + 0.05 * height)
+	return BASE_AIR_DENSITY / (1.0 + 0.008 * height)
 
 func gravity_vec() -> Vector3:
 	var space := get_viewport().find_world_3d().space

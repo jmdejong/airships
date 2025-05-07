@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://xt6mcv6w5ri5"]
+[gd_scene load_steps=8 format=3 uid="uid://xt6mcv6w5ri5"]
 
 [ext_resource type="Script" uid="uid://pwyriqsixxyi" path="res://code/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bnmp0q34upwxe" path="res://code/build.gd" id="2_dqkch"]
 [ext_resource type="PackedScene" uid="uid://yrqwva1k2mo1" path="res://scenes/build_tab.tscn" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dtiu5fu6b3v3b" path="res://textures/ui/crosshair.png" id="3_qhqgy"]
 
@@ -40,10 +41,13 @@ unique_name_in_owner = true
 target_position = Vector3(0, 0, -4)
 collision_mask = 64
 collide_with_areas = true
+script = ExtResource("2_dqkch")
 
-[node name="BuildPreview" type="Node3D" parent="Head"]
+[node name="Node3D" type="Node3D" parent="Head/BuildCast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="BuildPreview" type="Node3D" parent="Head/BuildCast/Node3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 visible = false
 
 [node name="Crosshair" type="CenterContainer" parent="."]
@@ -90,7 +94,7 @@ visible = false
 
 [node name="ZoneFinder" type="Area3D" parent="."]
 collision_layer = 0
-collision_mask = 32
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ZoneFinder"]
 shape = SubResource("SphereShape3D_qhqgy")

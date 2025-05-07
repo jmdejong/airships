@@ -91,10 +91,10 @@ cancel_click={
 
 [layer_names]
 
+3d_physics/layer_3="Ships"
 3d_physics/layer_6="Zones"
 3d_physics/layer_7="BuildAttach"
 3d_physics/layer_8="clickable"
-3d_physics/layer_16="Layer 16"
 
 [rendering]
 

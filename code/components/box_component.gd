@@ -2,7 +2,8 @@ extends Node3D
 
 signal changed
 
-@export var density = 10
+@export var density: float = 100
+@export var own_mass: float = 0.0
 @onready var volume = _calculate_volume()
 
 func _calculate_volume() -> float:
