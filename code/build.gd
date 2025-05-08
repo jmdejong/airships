@@ -15,7 +15,7 @@ func select_build(component: Component) -> void:
 
 func place_preview() -> void:
 	var collider = %BuildCast.get_collider()
-	if collider != null and collider.has_method("build_target"):
+	if collider != null and collider.has_method("is_build_target"):
 		%BuildPreview.global_rotation = collider.global_rotation
 		var cpos: Vector3 = collider.to_local(%BuildCast.get_collision_point() + %BuildCast.get_collision_normal() * 0.24).snappedf(0.5)
 		%BuildPreview.global_position = collider.to_global(cpos)
@@ -28,7 +28,7 @@ func place_preview() -> void:
 
 func try_build() -> void:
 	var collider = %BuildCast.get_collider()
-	if collider != null and collider.has_method("build_target"):
+	if collider != null and collider.has_method("is_build_target"):
 		%BuildPreview.global_rotation = collider.global_rotation
 		var cpos: Vector3 = collider.to_local(%BuildCast.get_collision_point() + %BuildCast.get_collision_normal() * 0.24).snappedf(0.5)
 		%BuildPreview.global_position = collider.to_global(cpos)

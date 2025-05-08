@@ -36,7 +36,10 @@ func _physics_process(delta: float) -> void:
 		var global_force: Force = force.transformed(global_transform)
 		apply_force(global_force.direction, global_force.pos - global_position)
 
-func build_target() -> bool:
+func is_build_target() -> bool:
+	return true
+
+func is_floor() -> bool:
 	return true
 
 func build_component(pos: Vector3, component: Component) -> void:
