@@ -2,7 +2,7 @@ extends Node3D
 
 signal changed
 
-@export var power: float = 2000:
+@export var power: float = 0.0:
 	set(value):
 		power = value
 		%StatusPanel.text = "%2.2f kN" % (power / 1000.0)

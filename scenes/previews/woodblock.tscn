@@ -1,10 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dt2l34ey576cd"]
 
 [ext_resource type="Script" uid="uid://7a33njbtkfx8" path="res://code/preview.gd" id="1_dl7gd"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkhw5"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.533333)
+[ext_resource type="Material" uid="uid://c0ualx0f2hu7y" path="res://materials/build/preview.tres" id="2_rkhw5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6v37h"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -17,8 +14,8 @@ collision_layer = 0
 collision_mask = 67
 script = ExtResource("1_dl7gd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_rkhw5")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["visual"]]
+material_override = ExtResource("2_rkhw5")
 mesh = SubResource("BoxMesh_6v37h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

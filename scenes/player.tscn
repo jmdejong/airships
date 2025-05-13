@@ -30,6 +30,7 @@ mass = 70.0
 can_sleep = false
 contact_monitor = true
 max_contacts_reported = 15
+linear_damp_mode = 1
 script = ExtResource("1_3vyb7")
 
 [node name="Info" type="Label" parent="."]

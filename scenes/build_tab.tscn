@@ -35,5 +35,16 @@ script = ExtResource("3_0pqg7")
 layout_mode = 2
 text = "Wood block"
 
+[node name="EngineHor" type="Container" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+script = ExtResource("3_0pqg7")
+component = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/EngineHor"]
+layout_mode = 2
+text = "Engine"
+
 [connection signal="gui_input" from="PanelContainer/VBoxContainer/Remove" to="." method="_on_remove_gui_input"]
 [connection signal="gui_input" from="PanelContainer/VBoxContainer/Woodblock" to="PanelContainer/VBoxContainer/Woodblock" method="_on_gui_input"]
+[connection signal="gui_input" from="PanelContainer/VBoxContainer/EngineHor" to="PanelContainer/VBoxContainer/EngineHor" method="_on_gui_input"]

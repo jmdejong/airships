@@ -9,11 +9,11 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_dv5nn"]
 size = Vector3(1, 0.7, 0.7)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxaiv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ouc1"]
 albedo_color = Color(0.26, 0.26, 0.26, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_dn7b6"]
-material = SubResource("StandardMaterial3D_dxaiv")
+material = SubResource("StandardMaterial3D_3ouc1")
 size = Vector3(1, 0.7, 0.7)
 
 [sub_resource type="QuadMesh" id="QuadMesh_nhv66"]
