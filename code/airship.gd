@@ -42,7 +42,8 @@ func is_build_target() -> bool:
 func is_floor() -> bool:
 	return true
 
-func build_component(pos: Vector3, component: Component) -> void:
+func build_component(pos: Vector3, component: Component, transform) -> void:
 	var comp_node: Node3D = component.scene.instantiate()
-	comp_node.position = pos
+	comp_node.transform = transform
+	comp_node.position += pos
 	$Components/Custom.add_component(comp_node)
