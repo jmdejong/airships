@@ -20,3 +20,8 @@ func shapes() -> Array[CollisionShape3D]:
 	c.set_meta("component", self)
 	c.transform = transform * c.transform
 	return [c]
+
+func destroy(_where: Vector3) -> void:
+	get_parent().remove_child(self)
+	changed.emit()
+	queue_free()

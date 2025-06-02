@@ -53,6 +53,4 @@ func try_remove() -> void:
 		return
 	var shape: CollisionShape3D = collider.shape_owner_get_owner(collider.shape_find_owner(%BuildCast.get_collider_shape()))
 	var component: Node3D = shape.get_meta("component")
-	component.get_parent().remove_child(component)
-	component.changed.emit()
-	component.queue_free()
+	component.destroy(%BuildCast.get_collision_point() * collider.transform)
