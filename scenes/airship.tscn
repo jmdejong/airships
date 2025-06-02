@@ -47,11 +47,11 @@ initial_filling = 100.0
 
 [node name="Ballast3" parent="Components/Machines" instance=ExtResource("7_gy0ok")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0.5, -2)
-initial_filling = 500.0
+initial_filling = 100.0
 
 [node name="Ballast4" parent="Components/Machines" instance=ExtResource("7_gy0ok")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0.5, 3)
-initial_filling = 500.0
+initial_filling = 100.0
 
 [node name="StatusPanel" parent="Components/Machines" instance=ExtResource("8_iu160")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.5, 0.5, 0)
