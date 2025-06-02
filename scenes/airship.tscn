@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bacp7ifjnlyi6"]
+[gd_scene load_steps=13 format=3 uid="uid://bacp7ifjnlyi6"]
 
 [ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="1_3qy7f"]
 [ext_resource type="Script" uid="uid://xq10sq0rmxby" path="res://code/airship.gd" id="1_81adk"]
@@ -14,9 +14,6 @@
 [sub_resource type="CylinderMesh" id="CylinderMesh_gy0ok"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_iu160"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_17pty"]
-size = Vector3(20, 27, 20)
 
 [node name="Airship" type="RigidBody3D"]
 collision_layer = 197
@@ -44,19 +41,19 @@ power = 1000.0
 
 [node name="Ballast" parent="Components/Machines" instance=ExtResource("7_gy0ok")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0.5, 3)
-initial_filling = 0.1
+initial_filling = 100.0
 
 [node name="Ballast2" parent="Components/Machines" instance=ExtResource("7_gy0ok")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0.5, -2)
-initial_filling = 0.1
+initial_filling = 100.0
 
 [node name="Ballast3" parent="Components/Machines" instance=ExtResource("7_gy0ok")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0.5, -2)
-initial_filling = 0.5
+initial_filling = 500.0
 
 [node name="Ballast4" parent="Components/Machines" instance=ExtResource("7_gy0ok")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0.5, 3)
-initial_filling = 0.5
+initial_filling = 500.0
 
 [node name="StatusPanel" parent="Components/Machines" instance=ExtResource("8_iu160")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 0.5, 0)
@@ -145,11 +142,3 @@ mesh = SubResource("CylinderMesh_gy0ok")
 [node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("PrismMesh_iu160")
-
-[node name="ZoneOfInfluence" type="Area3D" parent="."]
-collision_layer = 32
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ZoneOfInfluence"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
-shape = SubResource("BoxShape3D_17pty")
