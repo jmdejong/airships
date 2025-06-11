@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://c80fsqccc2hnu"]
+
+[node name="Connection" type="Area3D"]
+collision_layer = 16
+collision_mask = 16

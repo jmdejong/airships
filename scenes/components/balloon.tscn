@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdrckp34pfx8q"]
+[gd_scene load_steps=7 format=3 uid="uid://cdrckp34pfx8q"]
 
 [ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_vcytr"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_tvt4f"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3ev3o"]
 radius = 10.0
@@ -14,6 +15,9 @@ rings = 16
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qy7f"]
 albedo_color = Color(0.51452, 0.3268, 0.76, 1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_ivyex"]
+radius = 9.5
+
 [node name="Balloon" type="Node3D"]
 script = ExtResource("1_vcytr")
 
@@ -26,3 +30,8 @@ mesh = SubResource("SphereMesh_3ev3o")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
 
 [node name="CenterOfMass" type="Node3D" parent="."]
+
+[node name="Connection" parent="." instance=ExtResource("2_tvt4f")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+shape = SubResource("SphereShape3D_ivyex")

@@ -90,6 +90,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	#movement.y = s * (float(Input.is_action_pressed("up")) - float(Input.is_action_pressed("down")))
 	if Input.is_action_pressed("up"):
 		linear_velocity.y = jump_speed
+		if Input.is_action_pressed("sprint"):
+			linear_velocity.y *= sprint_multiplier
 	#if input_movement != Vector2.ZERO:
 		#apply_central_force(movement * mass)
 		#linear_velocity.x = movement.x
@@ -156,7 +158,7 @@ func try_press() -> void:
 	if collider != null and collider.has_method("press"):
 		collider.press()
 
-func _on_build_tab_select_build(component: Component) -> void:
+func _on_build_tab_select_build(component: ComponentBlueprint) -> void:
 	mouse_mode = MouseMode.Build
 	%BuildCast.select_build(component)
 

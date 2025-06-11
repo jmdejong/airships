@@ -1,4 +1,4 @@
-class_name Component
+class_name ComponentBlueprint
 extends Object
 
 var scene: PackedScene
@@ -12,23 +12,23 @@ func _init(scene: PackedScene, preview: PackedScene, area: AABB):
 
 enum ComponentType { Woodblock, EngineHor }
 
-static var WoodBlock: Component = Component.new(
+static var WoodBlock: ComponentBlueprint = ComponentBlueprint.new(
 	preload("res://scenes/components/woodblock.tscn"),
 	preload("res://scenes/previews/woodblock.tscn"),
 	AABB(-Vector3.ONE*Global.block_size/2, Vector3.ONE*Global.block_size)
 )
-static var EngineHor: Component = Component.new(
+static var EngineHor: ComponentBlueprint = ComponentBlueprint.new(
 	preload("res://scenes/components/engine_hor.tscn"),
 	preload("res://scenes/previews/engine.tscn"),
 	AABB(-Vector3.ONE*Global.block_size/2, Vector3(1.5, 1.0, 1.0))
 )
 
-static var components: Dictionary[ComponentType, Component] = {
+static var components: Dictionary[ComponentType, ComponentBlueprint] = {
 	ComponentType.Woodblock: WoodBlock,
 	ComponentType.EngineHor: EngineHor
 }
 
-static func from_type(typ: ComponentType):
+static func from_type(typ: ComponentType) -> ComponentBlueprint:
 	return components[typ]
 
 

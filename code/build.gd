@@ -1,7 +1,7 @@
 extends RayCast3D
 
 var preview: Area3D = null
-var build_component: Component = null
+var build_component: ComponentBlueprint = null
 var component_position: Vector3
 var rotation_mode: int = 2:
 	set(value):
@@ -9,7 +9,7 @@ var rotation_mode: int = 2:
 		rotation_transform = Transform3D(Basis(Vector3.UP, rotation_mode * PI / 2), Vector3.ZERO)
 var rotation_transform: Transform3D = Transform3D(Basis(Vector3.UP, rotation_mode * PI / 2), Vector3.ZERO)
 
-func select_build(component: Component) -> void:
+func select_build(component: ComponentBlueprint) -> void:
 	for child in %BuildPreview.get_children():
 		child.queue_free()
 	build_component = component
@@ -49,8 +49,11 @@ func try_build() -> void:
 
 func try_remove() -> void:
 	var collider: CollisionObject3D = %BuildCast.get_collider()
-	if collider == null:
+	if collider == null or not collider is Airship:
 		return
 	var shape: CollisionShape3D = collider.shape_owner_get_owner(collider.shape_find_owner(%BuildCast.get_collider_shape()))
+	if !is_instance_valid(shape) || !is_instance_valid(shape.get_meta("component")):
+		return
 	var component: Node3D = shape.get_meta("component")
-	component.destroy(%BuildCast.get_collision_point() * collider.transform)
+	var ship: Airship = collider
+	ship.destroy_component(component, %BuildCast.get_collision_point() * collider.transform)

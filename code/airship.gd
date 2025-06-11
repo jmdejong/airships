@@ -1,12 +1,17 @@
+class_name Airship
 extends RigidBody3D
 
 var displaced_volume: float
 var center_of_volume: Vector3
 var forces: Array[Force]
+static var CompositeComponent = preload("res://scenes/components/composite.tscn")
 
 func _ready() -> void:
 	$Components.changed.connect(calculate_components)
 	calculate_components()
+	await get_tree().create_timer(0.1).timeout
+	check_connections()
+	
 
 func calculate_components() -> void:
 
@@ -42,8 +47,56 @@ func is_build_target() -> bool:
 func is_floor() -> bool:
 	return true
 
-func build_component(pos: Vector3, component: Component, transform) -> void:
+func check_connections() -> void:
+	var all_components: Array[Component] = $Components.all_components()
+	#for c: Component in all_components:
+		#if c.connected_components().is_empty():
+			#prints("s", c)
+	if all_components.is_empty():
+		return
+	var start: Component = all_components[0]
+	prints("start", start)
+	var known: Dictionary[Component, bool] = {}
+	for c in all_components:
+		known[c] = false
+	known[start] = true
+	var fringe: Array[Component] = [start]
+	while !fringe.is_empty():
+		#prints("f", fringe)
+		var c: Component = fringe.pop_back()
+		#prints(c, c.connected_components())
+		for n in c.connected_components():
+			if known.has(n) and !known[n]:
+				known[n] = true
+				fringe.append(n)
+	#prints(all_components.size(), known.size())
+	var unconnected: Array[Component] = []
+	var holders: Dictionary[CompositeComponent, bool]
+	for c: Component in all_components:
+		if !known[c]:
+			unconnected.append(c)
+			c.remove()
+	if !unconnected.is_empty():
+		var components_holder: Component = $Components
+		remove_child(components_holder)
+		var new_ship: Airship = duplicate()
+		new_ship.remove_child(new_ship.get_node("Components"))
+		add_child(components_holder)
+		var new_components: CompositeComponent = CompositeComponent.instantiate()
+		new_components.name = "Components"
+		for c in unconnected:
+			new_components.add_component(c)
+		new_ship.add_child(new_components)
+		get_parent().add_child(new_ship)
+
+func build_component(pos: Vector3, component: ComponentBlueprint, transform) -> void:
 	var comp_node: Node3D = component.scene.instantiate()
 	comp_node.transform = transform
 	comp_node.position += pos
 	$Components/Custom.add_component(comp_node)
+	$Components/Custom.recalculate()
+
+func destroy_component(component: Component, pos: Vector3):
+	component.destroy(pos)
+	await get_tree().create_timer(0.1).timeout
+	check_connections()

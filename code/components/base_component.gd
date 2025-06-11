@@ -1,10 +1,11 @@
 class_name BaseComponent
-extends Node3D
+extends Component
 
 signal changed
 
 var mass_: float
 var volume: float
+var ship: Airship
 
 func displaced_volume() -> float:
 	return volume
@@ -21,7 +22,20 @@ func shapes() -> Array[CollisionShape3D]:
 	c.transform = transform * c.transform
 	return [c]
 
-func destroy(_where: Vector3) -> void:
+func remove() -> void:
+	if get_parent() == null:
+		return
 	get_parent().remove_child(self)
 	changed.emit()
+
+func destroy(_where: Vector3) -> void:
+	remove()
 	queue_free()
+
+func all_components() -> Array[Component]:
+	return [self]
+
+func connected_components() -> Array[Component]:
+	var connected: Array[Component] = []
+	connected.assign($Connection.get_overlapping_areas().map(func(area): return area.get_parent()))
+	return connected

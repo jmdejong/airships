@@ -1,4 +1,5 @@
-extends Node3D
+class_name CompositeComponent
+extends Component
 
 signal changed
 
@@ -9,13 +10,21 @@ var _center_of_volume: Vector3
 var _shapes: Array[CollisionShape3D]
 var _forces: Array[Force]
 var component_cells: Dictionary[Vector2, Node3D]
+var ship: Airship
+var has_changed: bool = true
 
 func _ready() -> void:
 	for child in get_children():
-		child.changed.connect(_recalculate)
-	_recalculate()
+		child.ship = ship
+		child.changed.connect(func():has_changed = true; check_recalculate.call_deferred())
+	recalculate()
 
-func _recalculate() -> void:
+func check_recalculate() -> void:
+	if !has_changed:
+		return
+	recalculate()
+
+func recalculate() -> void:
 	_mass = 0
 	_displaced_volume = 0
 	_center_of_mass = Vector3(0, 0, 0)
@@ -52,6 +61,7 @@ func _recalculate() -> void:
 	else:
 		_center_of_volume /= _displaced_volume
 	changed.emit()
+	has_changed = false
 
 func displaced_volume() -> float:
 	return _displaced_volume
@@ -73,5 +83,14 @@ func forces() -> Array[Force]:
 
 func add_component(component: Node3D) -> void:
 	add_child(component)
-	component.changed.connect(_recalculate)
-	_recalculate()
+	component.ship = ship
+	component.changed.connect(recalculate)
+
+func all_components() -> Array[Component]:
+	var ac: Array[Component] = []
+	for c: Component in get_children():
+		ac.append_array(c.all_components())
+	return ac
+
+func connected_components() -> Array[Component]:
+	return []

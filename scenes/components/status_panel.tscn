@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5dw13s3ysqsr"]
+[gd_scene load_steps=9 format=3 uid="uid://b5dw13s3ysqsr"]
 
 [ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_wql8p"]
 [ext_resource type="Material" uid="uid://l8gakslgrmhi" path="res://materials/apparatus.tres" id="2_obbup"]
 [ext_resource type="Script" uid="uid://cuy0wihf3c0a4" path="res://code/status_dashboard.gd" id="3_wql8p"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="4_81m0m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_obbup"]
 size = Vector3(1, 0.1, 1)
@@ -13,6 +14,9 @@ size = Vector3(1, 0.1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_88f4g"]
 material = ExtResource("2_obbup")
 size = Vector3(0.25, 0.4, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_744bp"]
+size = Vector3(0.25, 0.1, 0.25)
 
 [node name="StatusPanel" type="Node3D"]
 script = ExtResource("1_wql8p")
@@ -44,3 +48,9 @@ script = ExtResource("3_wql8p")
 
 [node name="CenterOfMass" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
+
+[node name="Connection" parent="." instance=ExtResource("4_81m0m")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.25, 0.25)
+shape = SubResource("BoxShape3D_744bp")
