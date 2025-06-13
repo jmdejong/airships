@@ -11,20 +11,22 @@ var _shapes: Array[CollisionShape3D]
 var _forces: Array[Force]
 var component_cells: Dictionary[Vector2, Node3D]
 var ship: Airship
-var has_changed: bool = true
+var should_recalculate := true
 
 func _ready() -> void:
 	for child in get_children():
 		child.ship = ship
-		child.changed.connect(func():has_changed = true; check_recalculate.call_deferred())
-	recalculate()
-
-func check_recalculate() -> void:
-	if !has_changed:
-		return
+		child.changed.connect(recalculate)
 	recalculate()
 
 func recalculate() -> void:
+	should_recalculate = true
+	await get_tree().create_timer(0.01).timeout
+	if should_recalculate:
+		should_recalculate = false
+		_recalculate()
+
+func _recalculate() -> void:
 	_mass = 0
 	_displaced_volume = 0
 	_center_of_mass = Vector3(0, 0, 0)
@@ -61,7 +63,8 @@ func recalculate() -> void:
 	else:
 		_center_of_volume /= _displaced_volume
 	changed.emit()
-	has_changed = false
+
+
 
 func displaced_volume() -> float:
 	return _displaced_volume
@@ -81,10 +84,11 @@ func shapes() -> Array[CollisionShape3D]:
 func forces() -> Array[Force]:
 	return _forces
 
-func add_component(component: Node3D) -> void:
+func add_component(component: Component) -> void:
 	add_child(component)
 	component.ship = ship
 	component.changed.connect(recalculate)
+	recalculate()
 
 func all_components() -> Array[Component]:
 	var ac: Array[Component] = []

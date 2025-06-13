@@ -9,15 +9,18 @@ static var CompositeComponent = preload("res://scenes/components/composite.tscn"
 func _ready() -> void:
 	$Components.changed.connect(calculate_components)
 	calculate_components()
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.05).timeout
 	check_connections()
+	for child in get_children():
+		if child is Component and child != $Components:
+			child.reparent($Comonents)
 	
 
 func calculate_components() -> void:
 
 	self.center_of_volume = $Components.center_of_volume()
 	self.center_of_mass = $Components.center_of_mass()
-	self.mass = $Components.mass()
+	self.mass = max(0.01, $Components.mass())
 	self.displaced_volume = $Components.displaced_volume()
 	self.forces = $Components.forces()
 	set_shapes()
@@ -84,19 +87,18 @@ func check_connections() -> void:
 		add_child(components_holder)
 		var new_components: CompositeComponent = CompositeComponent.instantiate()
 		new_components.name = "Components"
-		for c in unconnected:
-			new_components.add_component(c)
 		new_ship.add_child(new_components)
 		get_parent().add_child(new_ship)
+		for c in unconnected:
+			new_components.add_component(c)
 
 func build_component(pos: Vector3, component: ComponentBlueprint, transform) -> void:
 	var comp_node: Node3D = component.scene.instantiate()
 	comp_node.transform = transform
 	comp_node.position += pos
 	$Components/Custom.add_component(comp_node)
-	$Components/Custom.recalculate()
 
 func destroy_component(component: Component, pos: Vector3):
 	component.destroy(pos)
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.05).timeout
 	check_connections()
