@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cfu5yqefxgq4y"]
 
 [ext_resource type="PackedScene" uid="uid://dwxvd73ri3t0s" path="res://scenes/land.tscn" id="1_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/starter_ship.tscn" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="2_rwgxs"]
-[ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="3_4wyf3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwgxs"]
 
@@ -30,7 +30,7 @@ shadow_enabled = true
 shadow_opacity = 0.9
 shadow_blur = 10.0
 
-[node name="Airship" parent="." instance=ExtResource("3_4wyf3")]
+[node name="StarterShip" parent="." instance=ExtResource("2_4wyf3")]
 transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 0, 24, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_rwgxs")]

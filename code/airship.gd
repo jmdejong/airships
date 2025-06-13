@@ -52,9 +52,6 @@ func is_floor() -> bool:
 
 func check_connections() -> void:
 	var all_components: Array[Component] = $Components.all_components()
-	#for c: Component in all_components:
-		#if c.connected_components().is_empty():
-			#prints("s", c)
 	if all_components.is_empty():
 		return
 	var start: Component = all_components[0]
@@ -80,15 +77,10 @@ func check_connections() -> void:
 			unconnected.append(c)
 			c.remove()
 	if !unconnected.is_empty():
-		var components_holder: Component = $Components
-		remove_child(components_holder)
-		var new_ship: Airship = duplicate()
-		new_ship.remove_child(new_ship.get_node("Components"))
-		add_child(components_holder)
-		var new_components: CompositeComponent = CompositeComponent.instantiate()
-		new_components.name = "Components"
-		new_ship.add_child(new_components)
+		var new_ship: Airship = preload("res://scenes/airship.tscn").instantiate()
+		new_ship.transform = transform
 		get_parent().add_child(new_ship)
+		var new_components: CompositeComponent = new_ship.get_node("Components")
 		for c in unconnected:
 			new_components.add_component(c)
 
