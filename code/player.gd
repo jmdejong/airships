@@ -15,6 +15,7 @@ const last_since_floor_max: float = 5
 
 enum MouseMode {Unfocused, Play, Select, Build, Remove}
 
+
 var mouse_mode: MouseMode = MouseMode.Unfocused:
 	set(value):
 		mouse_mode = value

@@ -4,4 +4,4 @@ var radius = 10
 
 func _ready() -> void:
 	volume = 4.0/3 * PI * radius * radius * radius
-	mass_ = 10
+	mass_ = 2 + 0.1 * volume

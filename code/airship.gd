@@ -55,7 +55,6 @@ func check_connections() -> void:
 	if all_components.is_empty():
 		return
 	var start: Component = all_components[0]
-	prints("start", start)
 	var known: Dictionary[Component, bool] = {}
 	for c in all_components:
 		known[c] = false
