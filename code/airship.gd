@@ -84,7 +84,7 @@ func check_connections() -> void:
 			new_components.add_component(c)
 
 func build_component(pos: Vector3, component: ComponentBlueprint, transform) -> void:
-	var comp_node: Node3D = component.scene.instantiate()
+	var comp_node: Component = component.create()
 	comp_node.transform = transform
 	comp_node.position += pos
 	$Components/Custom.add_component(comp_node)
