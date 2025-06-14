@@ -70,18 +70,24 @@ func check_connections() -> void:
 				fringe.append(n)
 	#prints(all_components.size(), known.size())
 	var unconnected: Array[Component] = []
-	var holders: Dictionary[CompositeComponent, bool]
+	var parents: Dictionary[CompositeComponent, bool]
 	for c: Component in all_components:
 		if !known[c]:
 			unconnected.append(c)
-			c.remove()
+			var parent: CompositeComponent = c.get_parent()
+			parent.remove_child(c)
+			parents[parent] = true
+	for parent: CompositeComponent in parents.keys():
+		parent.recalculate()
 	if !unconnected.is_empty():
 		var new_ship: Airship = preload("res://scenes/airship.tscn").instantiate()
 		new_ship.transform = transform
-		get_parent().add_child(new_ship)
+		new_ship.linear_velocity = linear_velocity
+		new_ship.angular_velocity = angular_velocity
 		var new_components: CompositeComponent = new_ship.get_node("Components")
 		for c in unconnected:
-			new_components.add_component(c)
+			new_components.add_child(c)
+		get_parent().add_child(new_ship)
 
 func build_component(pos: Vector3, component: ComponentBlueprint, transform) -> void:
 	var comp_node: Component = component.create()

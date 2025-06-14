@@ -22,14 +22,11 @@ func shapes() -> Array[CollisionShape3D]:
 	c.transform = transform * c.transform
 	return [c]
 
-func remove() -> void:
+func destroy(_where: Vector3) -> void:
 	if get_parent() == null:
 		return
 	get_parent().remove_child(self)
 	changed.emit()
-
-func destroy(_where: Vector3) -> void:
-	remove()
 	queue_free()
 
 func all_components() -> Array[Component]:

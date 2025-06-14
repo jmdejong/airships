@@ -74,6 +74,8 @@ func _block_positions() -> Array[Vector3]:
 	return p
 
 func destroy(where: Vector3) -> void:
+	if get_parent() == null:
+		return
 	var local_where: Vector3 = where * transform
 	var closest: Vector3
 	var closest_score: float = INF
@@ -82,6 +84,7 @@ func destroy(where: Vector3) -> void:
 			if pos.distance_squared_to(local_where) < closest_score:
 				closest = pos
 				closest_score = pos.distance_squared_to(local_where)
+		var new_components: Array[Component] = []
 		for pos in _block_positions():
 			if pos == closest:
 				continue
@@ -89,8 +92,10 @@ func destroy(where: Vector3) -> void:
 			clone.size = Vector3.ONE * Global.block_size
 			#clone.get_node().set_meta("component", clone)
 			clone.position = transform * pos
-			get_parent().add_component(clone)
-	remove()
+			new_components.append(clone)
+		get_parent().add_components(new_components)
+	get_parent().remove_child(self)
+	changed.emit()
 	queue_free()
 
 func _box_shape(size: Vector3) -> BoxShape3D:
