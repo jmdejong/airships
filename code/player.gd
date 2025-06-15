@@ -25,6 +25,10 @@ var mouse_mode: MouseMode = MouseMode.Unfocused:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		$BuildTab.visible = mouse_mode == MouseMode.Select
 		%BuildPreview.visible = mouse_mode == MouseMode.Build
+		if value == MouseMode.Remove:
+			%CrosshairTexture.texture = preload("res://textures/ui/break.png")
+		else:
+			%CrosshairTexture.texture = preload("res://textures/ui/crosshair.png")
 
 var build_mode: bool = false:
 	set(value):

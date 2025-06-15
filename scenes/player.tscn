@@ -82,7 +82,8 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Crosshair"]
+[node name="CrosshairTexture" type="TextureRect" parent="Crosshair"]
+unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_qhqgy")
 
