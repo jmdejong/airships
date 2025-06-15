@@ -4,6 +4,7 @@ extends RigidBody3D
 var displaced_volume: float
 var center_of_volume: Vector3
 var forces: Array[Force]
+var drag_area_coefficient: float
 static var CompositeComponent = preload("res://scenes/components/composite.tscn")
 
 func _ready() -> void:
@@ -23,8 +24,9 @@ func calculate_components() -> void:
 	self.mass = max(0.01, $Components.mass())
 	self.displaced_volume = $Components.displaced_volume()
 	self.forces = $Components.forces()
+	self.drag_area_coefficient = pow(self.displaced_volume, 2.0/3.0) * 2.0
 	set_shapes()
-	#prints("m:", mass, "v", displaced_volume, "f", forces)
+	prints("m:", mass, "v", displaced_volume, "d", self.drag_area_coefficient)
 	$CenterOfMassMarker.position = center_of_mass
 	$CenterOfVolumeMarker.position = center_of_volume
 
@@ -37,12 +39,16 @@ func set_shapes() -> void:
 		add_child(shape)
 
 func _physics_process(delta: float) -> void:
-	var displaced_air_mass := displaced_volume * Atmosphere.air_density(to_global(center_of_volume).y)
+	var air_density: float = Atmosphere.air_density(to_global(center_of_volume).y)
+	var displaced_air_mass := displaced_volume * air_density
 	var weight := mass - displaced_air_mass
 	apply_force(-displaced_air_mass * Atmosphere.gravity_vec(), to_global(center_of_volume) - global_position)
 	for force: Force in forces:
 		var global_force: Force = force.transformed(global_transform)
 		apply_force(global_force.direction, global_force.pos - global_position)
+	# https://en.wikipedia.org/wiki/Drag_(physics)#The_drag_equation
+	var drag: float = 0.5 * air_density * linear_velocity.length_squared() * drag_area_coefficient
+	apply_central_force(-linear_velocity.normalized() * drag)
 
 func is_build_target() -> bool:
 	return true
