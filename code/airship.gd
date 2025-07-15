@@ -14,7 +14,8 @@ func _ready() -> void:
 	check_connections()
 	for child in get_children():
 		if child is Component and child != $Components:
-			child.reparent($Comonents)
+			child.reparent($Components)
+	$Components.ship = self
 	
 
 func calculate_components() -> void:
@@ -59,6 +60,7 @@ func is_floor() -> bool:
 func check_connections() -> void:
 	var all_components: Array[Component] = $Components.all_components()
 	if all_components.is_empty():
+		queue_free()
 		return
 	var start: Component = all_components[0]
 	var known: Dictionary[Component, bool] = {}

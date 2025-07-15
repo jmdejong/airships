@@ -17,8 +17,10 @@ angular_damp = 5.0
 script = ExtResource("1_81adk")
 
 [node name="Components" parent="." instance=ExtResource("9_17pty")]
+keep_empty = true
 
 [node name="Custom" parent="Components" instance=ExtResource("9_17pty")]
+keep_empty = true
 
 [node name="CenterOfMassMarker" type="MeshInstance3D" parent="."]
 visible = false

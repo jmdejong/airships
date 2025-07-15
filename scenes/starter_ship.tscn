@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d38pbjc6hq7vv"]
+[gd_scene load_steps=10 format=3 uid="uid://d38pbjc6hq7vv"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_rb74k"]
 [ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="2_iel0n"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine_hor.tscn" id="4_qxl6t"]
 [ext_resource type="PackedScene" uid="uid://y3r5symbcup6" path="res://scenes/components/ballast.tscn" id="5_7pqw8"]
 [ext_resource type="PackedScene" uid="uid://b5dw13s3ysqsr" path="res://scenes/components/status_panel.tscn" id="6_0m87h"]
+[ext_resource type="PackedScene" uid="uid://dmsj4uy2vf3wu" path="res://scenes/components/cannon.tscn" id="7_3nb3f"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="7_vq8bv"]
 [ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="8_iel0n"]
 
@@ -33,24 +34,27 @@ initial_filling = 300.0
 
 [node name="Ballast3" parent="Components/Machines" index="4" instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0.5, -2)
-initial_filling = 300.0
+initial_filling = 0.0
 
 [node name="Ballast4" parent="Components/Machines" index="5" instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0.5, 3)
-initial_filling = 300.0
+initial_filling = 100.0
 
 [node name="StatusPanel" parent="Components/Machines" index="6" instance=ExtResource("6_0m87h")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.5, 0.5, 0)
+
+[node name="Cannon" parent="Components/Machines" index="7" instance=ExtResource("7_3nb3f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -1.5)
 
 [node name="Basket" parent="Components" index="2" instance=ExtResource("3_3nb3f")]
 
 [node name="BigFloor" parent="Components/Basket" index="0" instance=ExtResource("7_vq8bv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -2.5)
-size = Vector3(6, 0.5, 6)
+size = Vector3(6.5, 0.5, 6)
 
 [node name="FrontFloor" parent="Components/Basket" index="1" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -0.5)
-size = Vector3(2, 0.5, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -0.5)
+size = Vector3(1.5, 0.5, 2)
 
 [node name="LeftWall" parent="Components/Basket" index="2" instance=ExtResource("7_vq8bv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -3)
@@ -65,12 +69,12 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0,
 size = Vector3(6, 1, 0.5)
 
 [node name="Frontwall1" parent="Components/Basket" index="5" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -2.5)
-size = Vector3(0.5, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, -2.5)
+size = Vector3(0.5, 0.5, 1)
 
 [node name="Frontwall2" parent="Components/Basket" index="6" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 1.5)
-size = Vector3(0.5, 1, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 1.5)
+size = Vector3(0.5, 0.5, 2)
 
 [node name="Rigging" parent="Components" index="3" instance=ExtResource("3_3nb3f")]
 

@@ -3,6 +3,8 @@ extends Component
 
 signal changed
 
+@export var keep_empty: bool
+
 var _mass: float
 var _displaced_volume: float
 var _center_of_mass: Vector3
@@ -10,7 +12,11 @@ var _center_of_volume: Vector3
 var _shapes: Array[CollisionShape3D]
 var _forces: Array[Force]
 var component_cells: Dictionary[Vector2, Node3D]
-var ship: Airship
+var ship: Airship:
+	set(s):
+		for child in get_children():
+			child.ship = s
+		ship = s
 var should_recalculate := false
 
 func _ready() -> void:
@@ -36,7 +42,10 @@ func _recalculate() -> void:
 	_center_of_volume = Vector3(0, 0, 0)
 	_shapes = []
 	_forces = []
-	#component_cells += 
+	if !keep_empty and get_child_count() == 0 and get_parent != null:
+		get_parent().remove_child(self)
+		changed.emit()
+		queue_free()
 	for component in get_children():
 		var m: float = component.mass()
 		var v: float = component.displaced_volume()
