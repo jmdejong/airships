@@ -13,7 +13,8 @@ metallic = 1.0
 metallic_specular = 1.0
 
 [node name="CannonBall" type="RigidBody3D"]
-mass = 10.0
+mass = 15.0
+linear_damp_mode = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_srq8n")

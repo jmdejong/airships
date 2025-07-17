@@ -13,7 +13,8 @@ collision_mask = 5
 mass = 0.001
 center_of_mass_mode = 1
 linear_damp_mode = 1
-angular_damp = 5.0
+angular_damp_mode = 1
+angular_damp = 1.0
 script = ExtResource("1_81adk")
 
 [node name="Components" parent="." instance=ExtResource("9_17pty")]

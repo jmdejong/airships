@@ -6,11 +6,12 @@ const sprint_multiplier: float = 10
 const jump_speed: float = 4
 const walk_force: float = 1000
 
-var gravity_enabled: bool = true
+var move_fly: bool = false
 var mouse_motion: Vector2 = Vector2.ZERO
 var used_platform: RigidBody3D = null
 var platform_movement: Vector3 = Vector3.ZERO
 var last_since_floor: float = 0
+var was_on_ground := false
 const last_since_floor_max: float = 5
 
 enum MouseMode {Unfocused, Play, Select, Build, Remove}
@@ -55,10 +56,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		mouse_motion = Vector2.ZERO
 	
 	var is_on_ground: bool = false#%GroundCheck.get_collision_count() > 0
+	var contact_point = null
 	for i in state.get_contact_count():
 		if state.get_contact_local_normal(i).y > 0.7:# and state.get_contact_local_position(i).y < 0.2:
 			is_on_ground = true
 			var o: Node3D = state.get_contact_collider_object(i)
+			contact_point = state.get_contact_collider_position(i)
 			if o is RigidBody3D:
 				used_platform = o
 				platform_movement = o.linear_velocity
@@ -70,39 +73,38 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if used_platform != null:
 		floor_movement = platform_movement * (last_since_floor_max - last_since_floor) / last_since_floor_max
 	var input_movement: Vector2 = Input.get_vector("left", "right", "forwards", "backwards")
-	var s: float = speed
-	if Input.is_action_pressed("sprint"):
-		s *= sprint_multiplier
-	var movement: Vector3 = (Vector3(input_movement.x, 0, input_movement.y) * s).rotated(Vector3(0, 1, 0), rotation.y)
+	var movement: Vector3 = (Vector3(input_movement.x, 0, input_movement.y) * speed) \
+		.rotated(Vector3(0, 1, 0), rotation.y)
+		
 	var desired_velocity: Vector3 = floor_movement + movement
 	var deltav: Vector3 = desired_velocity - linear_velocity
-	deltav.y = 0
-	if is_on_ground:
-		var force: Vector3 = deltav * mass * 10
-		#linear_velocity.x = desired_velocity.x
-		#linear_velocity.z = desired_velocity.z
-		apply_central_force(force)
+	if move_fly:
+		desired_velocity.y = Input.get_axis("down", "up") * speed
+		if Input.is_action_pressed("sprint"):
+			desired_velocity *= sprint_multiplier
+		linear_velocity = desired_velocity
 	else:
-		apply_central_force(deltav * mass)
+		deltav.y = 0
+		if is_on_ground:
+			var force: Vector3 = deltav * mass * 10
+			apply_force(force, contact_point - global_position)
+			if used_platform != null:
+				used_platform.apply_force(-force, contact_point - used_platform.global_position)
+			if Input.is_action_pressed("up") and was_on_ground:
+				var jump_strength: Vector3 = Vector3(0, 200, 0)
+				apply_impulse(jump_strength, contact_point - global_position)
+				if used_platform != null:
+					used_platform.apply_impulse(-jump_strength, contact_point - used_platform.global_position)
+			was_on_ground = true
+		else:
+			was_on_ground = false
+			apply_central_force(deltav * mass * 0.5)
 	
 	%Info.text = "speed: %1.1f m/s\n%1.1f\n%1.1f" % [
 		Vector2(linear_velocity.x, linear_velocity.z).length(),
 		Vector2(desired_velocity.x, desired_velocity.z).length(),
 		Vector2(deltav.x, deltav.z).length()
 	]
-	#if gravity_enabled:
-	#else:
-	#movement.y = s * (float(Input.is_action_pressed("up")) - float(Input.is_action_pressed("down")))
-	if Input.is_action_pressed("up"):
-		linear_velocity.y = jump_speed
-		if Input.is_action_pressed("sprint"):
-			linear_velocity.y *= sprint_multiplier
-	#if input_movement != Vector2.ZERO:
-		#apply_central_force(movement * mass)
-		#linear_velocity.x = movement.x
-		#linear_velocity.z = movement.z
-	#linear_velocity = movement.rotated(Vector3(0, 1, 0), rotation.y)
-	#move_and_slide()
 	
 	try_interact()
 	if mouse_mode == MouseMode.Build:
@@ -116,8 +118,8 @@ func _unhandled_input(event: InputEvent):
 		mouse_motion += event.relative
 	
 	if Input.is_action_just_pressed("toggle_gravity"):
-		gravity_enabled = !gravity_enabled
-		gravity_scale = float(gravity_enabled)
+		move_fly = !move_fly
+		gravity_scale = float(!move_fly)
 	
 	if Input.is_action_just_pressed("toggle_build"):
 		if mouse_mode == MouseMode.Select:

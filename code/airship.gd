@@ -27,7 +27,7 @@ func calculate_components() -> void:
 	self.forces = $Components.forces()
 	self.drag_area_coefficient = pow(self.displaced_volume, 2.0/3.0) * 2.0
 	set_shapes()
-	prints("m:", mass, "v", displaced_volume, "d", self.drag_area_coefficient)
+	#prints("m:", mass, "v", displaced_volume, "d", self.drag_area_coefficient)
 	$CenterOfMassMarker.position = center_of_mass
 	$CenterOfVolumeMarker.position = center_of_volume
 
