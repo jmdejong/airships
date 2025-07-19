@@ -3,6 +3,7 @@ extends RigidBody3D
 const MOUSE_SENSITIVITY: float = 0.003
 const speed: float = 5
 const sprint_multiplier: float = 10
+const ultra_sprint_multiplier: float = 100
 const jump_speed: float = 4
 const walk_force: float = 1000
 
@@ -82,6 +83,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		desired_velocity.y = Input.get_axis("down", "up") * speed
 		if Input.is_action_pressed("sprint"):
 			desired_velocity *= sprint_multiplier
+		if Input.is_action_pressed("ultrasprint"):
+			desired_velocity *= ultra_sprint_multiplier
 		linear_velocity = desired_velocity
 	else:
 		deltav.y = 0

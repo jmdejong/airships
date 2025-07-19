@@ -6,17 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://7aus8kw62omx" path="res://scenes/nature/small_tree.tscn" id="4_gissy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e5uuo"]
-size = Vector3(2048, 256, 2048)
+size = Vector3(8192, 256, 8192)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7141"]
 albedo_texture = ExtResource("1_0ybx1")
-uv1_scale = Vector3(512, 512, 512)
+uv1_scale = Vector3(2048, 2048, 2048)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_nnsk1"]
 material = SubResource("StandardMaterial3D_i7141")
-size = Vector2(2048, 2048)
-subdivide_width = 64
-subdivide_depth = 64
+size = Vector2(8192, 8192)
+subdivide_width = 256
+subdivide_depth = 256
 
 [node name="Land" type="Node3D"]
 
@@ -31,56 +31,68 @@ mesh = SubResource("PlaneMesh_nnsk1")
 
 [node name="Villages" type="Node3D" parent="."]
 
-[node name="House3" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1, 0, 184)
+[node name="Mid" type="Node3D" parent="Villages"]
 
-[node name="House" parent="Villages" instance=ExtResource("2_qcyry")]
+[node name="House" parent="Villages/Mid" instance=ExtResource("2_qcyry")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
 
-[node name="House15" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -25)
-
-[node name="House14" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 17)
-
-[node name="House12" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, -200, 0, 12)
-
-[node name="House13" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -181, 0, -16)
-
-[node name="House5" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -175)
-
-[node name="House6" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -178)
-
-[node name="House7" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, -3, 0, -207)
-
-[node name="House2" parent="Villages" instance=ExtResource("2_qcyry")]
+[node name="House2" parent="Villages/Mid" instance=ExtResource("2_qcyry")]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -12, 0, -26)
 
-[node name="House16" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -12, 0, 29)
-
-[node name="House4" parent="Villages" instance=ExtResource("2_qcyry")]
+[node name="House4" parent="Villages/Mid" instance=ExtResource("2_qcyry")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
 
-[node name="House17" parent="Villages" instance=ExtResource("2_qcyry")]
+[node name="House15" parent="Villages/Mid" instance=ExtResource("2_qcyry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -25)
+
+[node name="House14" parent="Villages/Mid" instance=ExtResource("2_qcyry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 17)
+
+[node name="House16" parent="Villages/Mid" instance=ExtResource("2_qcyry")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -12, 0, 29)
+
+[node name="House17" parent="Villages/Mid" instance=ExtResource("2_qcyry")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, 31)
 
-[node name="House8" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204, 0, 0)
+[node name="East" type="Node3D" parent="Villages"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -1, 0, 500)
 
-[node name="House9" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 169, 0, 0)
+[node name="House3" parent="Villages/East" instance=ExtResource("2_qcyry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="House10" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 190, 0, 27)
+[node name="South" type="Node3D" parent="Villages"]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, -500, 0, 12)
 
-[node name="House11" parent="Villages" instance=ExtResource("2_qcyry")]
-transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 190, 0, -18)
+[node name="House12" parent="Villages/South" instance=ExtResource("2_qcyry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="House13" parent="Villages/South" instance=ExtResource("2_qcyry")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 33.7487, 0, 2.45448)
+
+[node name="West" type="Node3D" parent="Villages"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -500)
+
+[node name="House5" parent="Villages/West" instance=ExtResource("2_qcyry")]
+
+[node name="House6" parent="Villages/West" instance=ExtResource("2_qcyry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -3)
+
+[node name="House7" parent="Villages/West" instance=ExtResource("2_qcyry")]
+transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 11, 0, -32)
+
+[node name="North" type="Node3D" parent="Villages"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 0, 0)
+
+[node name="House8" parent="Villages/North" instance=ExtResource("2_qcyry")]
+
+[node name="House9" parent="Villages/North" instance=ExtResource("2_qcyry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 0)
+
+[node name="House10" parent="Villages/North" instance=ExtResource("2_qcyry")]
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, -14, 0, 27)
+
+[node name="House11" parent="Villages/North" instance=ExtResource("2_qcyry")]
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, -14, 0, -18)
 
 [node name="Nature" type="Node3D" parent="."]
 
