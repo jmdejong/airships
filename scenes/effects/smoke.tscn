@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://bobdend287yfk"]
+
+[ext_resource type="Script" uid="uid://bvedtd2m103ym" path="res://code/effects/smoke.gd" id="1_8prmg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rtf2"]
+transparency = 1
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(1, 1, 1, 0.266667)
+
+[sub_resource type="SphereMesh" id="SphereMesh_d28oc"]
+material = SubResource("StandardMaterial3D_7rtf2")
+radius = 0.2
+height = 0.4
+radial_segments = 16
+rings = 8
+
+[sub_resource type="Curve" id="Curve_pnn2d"]
+_data = [Vector2(0, 0.511142), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Smoke" type="CPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
+emitting = false
+amount = 5
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.8
+randomness = 1.0
+lifetime_randomness = 0.34
+mesh = SubResource("SphereMesh_d28oc")
+spread = 180.0
+gravity = Vector3(0, 2, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+damping_min = 2.0
+damping_max = 3.0
+scale_amount_min = 0.5
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_pnn2d")
+script = ExtResource("1_8prmg")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

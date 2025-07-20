@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Atmosphere="*res://code/atmosphere.gd"
 Global="*res://code/global.gd"
 
+[display]
+
+window/size/mode=2
+
 [input]
 
 left={

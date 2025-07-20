@@ -1,28 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdrckp34pfx8q"]
+[gd_scene load_steps=8 format=3 uid="uid://cunwan507e0sg"]
 
-[ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_vcytr"]
-[ext_resource type="Texture2D" uid="uid://bxtghx3wseycs" path="res://textures/envelopes/purple.png" id="2_ivyex"]
-[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_tvt4f"]
+[ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_wjom8"]
+[ext_resource type="Texture2D" uid="uid://bxtghx3wseycs" path="res://textures/envelopes/purple.png" id="2_7uoif"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_lwris"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvt4f"]
-radius = 10.0
-height = 30.0
+radius = 5.0
+height = 10.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tvt4f"]
-radius = 10.0
-height = 30.0
+radius = 5.0
+height = 10.0
 radial_segments = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qy7f"]
-albedo_texture = ExtResource("2_ivyex")
+albedo_texture = ExtResource("2_7uoif")
 uv1_scale = Vector3(2, 2, 2)
 texture_filter = 0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ivyex"]
-radius = 9.5
+radius = 4.8
 
-[node name="Balloon" type="Node3D"]
-script = ExtResource("1_vcytr")
+[node name="Smalloon" type="Node3D"]
+script = ExtResource("1_wjom8")
+radius = 5.0
+length = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -36,7 +38,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
 
 [node name="CenterOfMass" type="Node3D" parent="."]
 
-[node name="Connection" parent="." instance=ExtResource("2_tvt4f")]
+[node name="Connection" parent="." instance=ExtResource("3_lwris")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
 shape = SubResource("SphereShape3D_ivyex")
