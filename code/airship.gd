@@ -16,7 +16,7 @@ func _ready() -> void:
 		if child is Component and child != $Components:
 			child.reparent($Components)
 	$Components.ship = self
-	
+	prints("mv", mass, displaced_volume)
 
 func calculate_components() -> void:
 

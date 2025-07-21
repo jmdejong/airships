@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_lwris"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvt4f"]
-radius = 5.0
-height = 10.0
+radius = 6.0
+height = 15.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tvt4f"]
-radius = 5.0
-height = 10.0
+radius = 6.0
+height = 15.0
 radial_segments = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qy7f"]
@@ -23,8 +23,8 @@ radius = 4.8
 
 [node name="Smalloon" type="Node3D"]
 script = ExtResource("1_wjom8")
-radius = 5.0
-length = 5.0
+radius = 6.0
+length = 15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="7_vq8bv"]
 [ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="8_iel0n"]
 
-[node name="StarterShip" instance=ExtResource("1_rb74k")]
+[node name="GunBoat" instance=ExtResource("1_rb74k")]
 
 [node name="Balloon" parent="Components" index="0" instance=ExtResource("2_iel0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)

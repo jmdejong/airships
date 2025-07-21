@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfu5yqefxgq4y"]
+[gd_scene load_steps=8 format=3 uid="uid://cfu5yqefxgq4y"]
 
 [ext_resource type="PackedScene" uid="uid://dwxvd73ri3t0s" path="res://scenes/land.tscn" id="1_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/ships/starter_ship.tscn" id="2_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/ships/gunboat.tscn" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/scout.tscn" id="4_k0juu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwgxs"]
 
@@ -37,3 +38,6 @@ angular_damp = 5.0
 
 [node name="Player" parent="." instance=ExtResource("2_rwgxs")]
 transform = Transform3D(-5.96046e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046e-08, 0, 27, 0)
+
+[node name="Scout" parent="." instance=ExtResource("4_k0juu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 29, 52)
