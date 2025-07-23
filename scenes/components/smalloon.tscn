@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cunwan507e0sg"]
 
 [ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_wjom8"]
-[ext_resource type="Texture2D" uid="uid://bxtghx3wseycs" path="res://textures/envelopes/purple.png" id="2_7uoif"]
+[ext_resource type="Texture2D" uid="uid://bg6g6ukjsiuh8" path="res://textures/envelopes/blue.png" id="2_wjom8"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_lwris"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvt4f"]
@@ -14,8 +14,8 @@ height = 15.0
 radial_segments = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qy7f"]
-albedo_texture = ExtResource("2_7uoif")
-uv1_scale = Vector3(2, 2, 2)
+albedo_texture = ExtResource("2_wjom8")
+uv1_scale = Vector3(2, 1, 1)
 texture_filter = 0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ivyex"]

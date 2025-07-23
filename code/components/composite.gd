@@ -43,7 +43,6 @@ func _recalculate() -> void:
 	_shapes = []
 	_forces = []
 	if !keep_empty and get_child_count() == 0 and get_parent != null:
-		get_parent().remove_child(self)
 		changed.emit()
 		queue_free()
 	for component in get_children():
