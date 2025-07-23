@@ -5,7 +5,7 @@ var max_filling: float = 1000
 var filling: float :
 	set(value):
 		filling = value
-		$Water.scale.y = filling/max_filling
+		%Water.scale.y = filling/max_filling
 		%StatusPanel.text = "%4.0f kg\n%3d%%" % [filling, int(filling/max_filling * 100)]
 		changed.emit()
 

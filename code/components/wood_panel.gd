@@ -13,7 +13,7 @@ var size_block: Vector3i
 func _update_sizes() -> void:
 		volume = size.x * size.y * size.z
 		mass_ = density * volume
-		var origin: Vector3 = size / 2.0 - Vector3(0.25, 0.25, 0.25)
+		var origin: Vector3 = size / 2.0
 		$CollisionShape3D.shape = _box_shape(size)
 		$CollisionShape3D.position = origin
 		var ms: BoxMesh = $MeshInstance3D.mesh.duplicate()
@@ -21,11 +21,9 @@ func _update_sizes() -> void:
 		$MeshInstance3D.mesh = ms
 		$MeshInstance3D.position = origin
 		$CenterOfMass.position = origin
-		$Connection/CollisionShapeX.position = origin
+		$Connection.position = origin
 		$Connection/CollisionShapeX.shape = _box_shape(size + Vector3(0.1, -0.2, -0.2))
-		$Connection/CollisionShapeY.position = origin
 		$Connection/CollisionShapeY.shape = _box_shape(size + Vector3(-0.2, 0.1, -0.2))
-		$Connection/CollisionShapeZ.position = origin
 		$Connection/CollisionShapeZ.shape = _box_shape(size + Vector3(-0.2, -0.2, 0.1))
 
 func _set_connections() -> void:

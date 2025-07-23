@@ -15,8 +15,10 @@ collision_mask = 67
 script = ExtResource("1_dl7gd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["visual"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
 material_override = ExtResource("2_rkhw5")
 mesh = SubResource("BoxMesh_6v37h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
 shape = SubResource("BoxShape3D_6v37h")

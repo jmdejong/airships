@@ -4,24 +4,24 @@
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_i1s5s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uw4vd"]
-size = Vector3(0.05, 8.6, 0.05)
+size = Vector3(0.05, 8, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw4vd"]
 albedo_color = Color(0.2, 0.2, 0.2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uw4vd"]
 material = SubResource("StandardMaterial3D_uw4vd")
-size = Vector3(0.063, 8.5, 0.063)
+size = Vector3(0.063, 8, 0.063)
 
 [node name="Cable" type="Node3D"]
 script = ExtResource("1_uw4vd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 4, 0.25)
 shape = SubResource("BoxShape3D_uw4vd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 4, 0.25)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_uw4vd")
 
@@ -29,6 +29,7 @@ mesh = SubResource("BoxMesh_uw4vd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="Connection" parent="." instance=ExtResource("2_i1s5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)

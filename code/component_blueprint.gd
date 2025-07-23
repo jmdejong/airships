@@ -18,12 +18,12 @@ enum ComponentType { Woodblock, EngineHor }
 static var WoodBlock: ComponentBlueprint = ComponentBlueprint.new(
 	(func() -> Component: var node: Component = preload("res://scenes/components/wood_panel.tscn").instantiate();node.size = Vector3.ONE * Global.block_size;return node),
 	preload("res://scenes/previews/woodblock.tscn"),
-	AABB(-Vector3.ONE*Global.block_size/2, Vector3.ONE*Global.block_size),
+	AABB(-Global.block_center, Vector3.ONE*Global.block_size),
 )
 static var EngineHor: ComponentBlueprint = ComponentBlueprint.new(
-	func(): return preload("res://scenes/components/engine_hor.tscn").instantiate(),
+	func(): return preload("res://scenes/components/engine.tscn").instantiate(),
 	preload("res://scenes/previews/engine.tscn"),
-	AABB(-Vector3.ONE*Global.block_size/2, Vector3(1.5, 1.0, 1.0))
+	AABB(-Vector3.ONE*Global.block_size, Vector3(1.5, 1.0, 1.0))
 )
 
 static var components: Dictionary[ComponentType, ComponentBlueprint] = {

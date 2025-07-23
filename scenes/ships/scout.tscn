@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_2ad0o"]
 [ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="3_qcob2"]
-[ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine_hor.tscn" id="4_b1l47"]
+[ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine.tscn" id="4_b1l47"]
 [ext_resource type="PackedScene" uid="uid://y3r5symbcup6" path="res://scenes/components/ballast.tscn" id="5_v1y55"]
 [ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="6_o2rwk"]
 [ext_resource type="PackedScene" uid="uid://b5dw13s3ysqsr" path="res://scenes/components/status_panel.tscn" id="6_tw0le"]
@@ -14,52 +14,61 @@
 [node name="Machines" parent="Components" index="0" instance=ExtResource("3_qcob2")]
 
 [node name="EngineHor" parent="Components/Machines" index="0" instance=ExtResource("4_b1l47")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.25, 0.125, -3.25)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, -3)
 
 [node name="EngineHor2" parent="Components/Machines" index="1" instance=ExtResource("4_b1l47")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.25, 0.125, 3.75)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 4)
 
 [node name="StatusPanel" parent="Components/Machines" index="2" instance=ExtResource("6_tw0le")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.875, 0.5, -0.25)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0.5, -0.5)
 
 [node name="Ballast" parent="Components/Machines" index="3" instance=ExtResource("5_v1y55")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0.5, 0.25)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, 0.5)
+initial_filling = 400.0
 
 [node name="Basket" parent="Components" index="1" instance=ExtResource("3_qcob2")]
 
 [node name="BigFloor" parent="Components/Basket" index="0" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -0.75)
-size = Vector3(4, 0.5, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+size = Vector3(3, 0.5, 2)
 
-[node name="WoodPanel" parent="Components/Basket" index="1" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -0.75)
-size = Vector3(4, 0.5, 0.5)
+[node name="WoodPanel5" parent="Components/Basket" index="1" instance=ExtResource("8_pvp6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1)
+size = Vector3(1.5, 0.5, 0.5)
 
-[node name="WoodPanel2" parent="Components/Basket" index="2" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0.75)
-size = Vector3(4, 0.5, 0.5)
+[node name="WoodPanel6" parent="Components/Basket" index="2" instance=ExtResource("8_pvp6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+size = Vector3(1.5, 0.5, 0.5)
 
-[node name="WoodPanel3" parent="Components/Basket" index="3" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0.5, 1.25)
+[node name="WoodPanel" parent="Components/Basket" index="3" instance=ExtResource("8_pvp6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -1)
+size = Vector3(1.5, 0.5, 0.5)
+
+[node name="WoodPanel2" parent="Components/Basket" index="4" instance=ExtResource("8_pvp6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0.5)
+size = Vector3(1.5, 0.5, 0.5)
+
+[node name="RightWing" parent="Components/Basket" index="5" instance=ExtResource("8_pvp6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 1)
 size = Vector3(1, 0.5, 2)
 
-[node name="WoodPanel4" parent="Components/Basket" index="4" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0.5, -2.75)
+[node name="LeftWing" parent="Components/Basket" index="6" instance=ExtResource("8_pvp6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3)
 size = Vector3(1, 0.5, 2)
-
-[node name="Cable" parent="Components/Basket" index="5" instance=ExtResource("6_o2rwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.625, 0.125, -0.75)
-
-[node name="Cable2" parent="Components/Basket" index="6" instance=ExtResource("6_o2rwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.125, -0.75)
-
-[node name="Cable3" parent="Components/Basket" index="7" instance=ExtResource("6_o2rwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.125, 0.75)
-
-[node name="Cable4" parent="Components/Basket" index="8" instance=ExtResource("6_o2rwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.125, 0.75)
 
 [node name="Rigging" parent="Components" index="2" instance=ExtResource("3_qcob2")]
 
+[node name="Cable" parent="Components/Rigging" index="0" instance=ExtResource("6_o2rwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1, -1)
+
+[node name="Cable2" parent="Components/Rigging" index="1" instance=ExtResource("6_o2rwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1, 0.5)
+
+[node name="Cable3" parent="Components/Rigging" index="2" instance=ExtResource("6_o2rwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -1)
+
+[node name="Cable4" parent="Components/Rigging" index="3" instance=ExtResource("6_o2rwk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0.5)
+
 [node name="Smalloon" parent="Components" index="3" instance=ExtResource("6_uud2w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 0)

@@ -18,7 +18,7 @@ func _on_fire_pressed() -> void:
 	ship.add_sibling(projectile)
 	projectile.apply_central_impulse(impulse)
 	#prints("z", ship.to_local($Muzzle.global_position))
-	ship.apply_impulse(-impulse, $Muzzle.global_position - ship.global_position)
+	ship.apply_impulse(-impulse, %Muzzle.global_position - ship.global_position)
 	%Muzzle.add_child(preload("res://scenes/effects/flash.tscn").instantiate())
 	%Muzzle.add_child(preload("res://scenes/effects/smoke.tscn").instantiate())
 	await get_tree().create_timer(0.5).timeout
