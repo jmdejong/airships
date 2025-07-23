@@ -1,15 +1,25 @@
-[gd_scene load_steps=16 format=3 uid="uid://dmsj4uy2vf3wu"]
+[gd_scene load_steps=22 format=3 uid="uid://dmsj4uy2vf3wu"]
 
 [ext_resource type="Script" uid="uid://diu74pxnnmn5c" path="res://code/components/cannon.gd" id="1_rbt30"]
 [ext_resource type="Material" uid="uid://c1xo2fy462mbs" path="res://materials/cannon_barrel.tres" id="2_7rtf2"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_c6g0y"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_7rtf2"]
+[ext_resource type="Texture2D" uid="uid://rsylrmgcr5lb" path="res://textures/more.png" id="4_pnn2d"]
+[ext_resource type="Texture2D" uid="uid://carh7wcvr4a6b" path="res://textures/less.png" id="5_i83lc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rbt30"]
 size = Vector3(0.9, 0.7, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7rtf2"]
 size = Vector3(1.875, 0.4, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yu0wc"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.063
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vo2m1"]
+albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_lrtnh"]
 material = ExtResource("2_7rtf2")
@@ -37,13 +47,27 @@ albedo_color = Color(0.133333, 0.133333, 0.133333, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_d28oc"]
 size = Vector3(0.6, 0.2, 0.9)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_yu0wc"]
-top_radius = 0.1
-bottom_radius = 0.1
-height = 0.063
+[sub_resource type="QuadMesh" id="QuadMesh_yu0wc"]
+size = Vector2(0.25, 0.25)
+center_offset = Vector3(0, 0.01, 0)
+orientation = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vo2m1"]
-albedo_color = Color(1, 0, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nk4pa"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("4_pnn2d")
+
+[sub_resource type="QuadMesh" id="QuadMesh_hh2se"]
+size = Vector2(0.25, 0.25)
+center_offset = Vector3(0, 0.01, 0)
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_13lhc"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("5_i83lc")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d28oc"]
 size = Vector3(0.9, 0.5, 0.9)
@@ -59,48 +83,98 @@ shape = SubResource("BoxShape3D_rbt30")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.938, 0.375, 0.375)
 shape = SubResource("BoxShape3D_7rtf2")
 
-[node name="Chamber" type="Node3D" parent="."]
+[node name="Barrel" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.35, 0.5)
 
-[node name="Barrel" type="MeshInstance3D" parent="Chamber"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
-mesh = SubResource("CylinderMesh_lrtnh")
-skeleton = NodePath("../..")
+[node name="Chamber" type="Node3D" parent="Barrel"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 
-[node name="Barrel2" type="MeshInstance3D" parent="Chamber"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.05, 0, 0)
-mesh = SubResource("CylinderMesh_d28oc")
-skeleton = NodePath("../..")
-
-[node name="Barrel3" type="MeshInstance3D" parent="Chamber"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.1, 0, 0)
-mesh = SubResource("CylinderMesh_7rtf2")
-skeleton = NodePath("../..")
-
-[node name="Mount" type="MeshInstance3D" parent="Chamber"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
-mesh = SubResource("BoxMesh_7rtf2")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_i83lc")
-
-[node name="Mount2" type="MeshInstance3D" parent="Chamber"]
-mesh = SubResource("BoxMesh_d28oc")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_i83lc")
-
-[node name="FireButton" parent="Chamber" instance=ExtResource("2_c6g0y")]
+[node name="FireButton" parent="Barrel/Chamber" instance=ExtResource("2_c6g0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.35, 0)
 description = "Fire"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Chamber/FireButton"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Barrel/Chamber/FireButton"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999999, 0)
 mesh = SubResource("CylinderMesh_yu0wc")
 surface_material_override/0 = SubResource("StandardMaterial3D_vo2m1")
 
-[node name="Muzzle" type="Node3D" parent="Chamber"]
+[node name="Muzzle" type="Node3D" parent="Barrel/Chamber"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+
+[node name="Barrel" type="MeshInstance3D" parent="Barrel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0.15, 0)
+mesh = SubResource("CylinderMesh_lrtnh")
+skeleton = NodePath("../..")
+
+[node name="Barrel2" type="MeshInstance3D" parent="Barrel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.05, 0.15, 0)
+mesh = SubResource("CylinderMesh_d28oc")
+skeleton = NodePath("../..")
+
+[node name="Barrel3" type="MeshInstance3D" parent="Barrel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.1, 0.15, 0)
+mesh = SubResource("CylinderMesh_7rtf2")
+skeleton = NodePath("../..")
+
+[node name="Mount" type="Node3D" parent="."]
+
+[node name="Mount2" type="MeshInstance3D" parent="Mount"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.5)
+mesh = SubResource("BoxMesh_7rtf2")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_i83lc")
+
+[node name="Mount3" type="MeshInstance3D" parent="Mount"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+mesh = SubResource("BoxMesh_d28oc")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_i83lc")
+
+[node name="Up" parent="Mount" instance=ExtResource("2_c6g0y")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.625, 0.44, 0)
+description = "Increase angle"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mount/Up"]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_yu0wc")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_nk4pa")
+
+[node name="Up2" parent="Mount" instance=ExtResource("2_c6g0y")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.625, 0.44, 1)
+description = "Increase angle"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mount/Up2"]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_yu0wc")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_nk4pa")
+
+[node name="Down" parent="Mount" instance=ExtResource("2_c6g0y")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.375, 0.45, 0)
+description = "Decrease angle"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mount/Down"]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_hh2se")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_13lhc")
+
+[node name="Down2" parent="Mount" instance=ExtResource("2_c6g0y")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.375, 0.45, 1)
+description = "Decrease angle"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mount/Down2"]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_hh2se")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_13lhc")
+
+[node name="CenterOfMass" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.5, 0.5)
 
 [node name="Connection" parent="." instance=ExtResource("3_7rtf2")]
 
@@ -108,7 +182,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.5)
 shape = SubResource("BoxShape3D_d28oc")
 
-[node name="CenterOfMass" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.5, 0.5)
-
-[connection signal="pressed" from="Chamber/FireButton" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="Barrel/Chamber/FireButton" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="Mount/Up" to="." method="_on_up_pressed"]
+[connection signal="pressed" from="Mount/Up2" to="." method="_on_up_pressed"]
+[connection signal="pressed" from="Mount/Down" to="." method="_on_down_pressed"]
+[connection signal="pressed" from="Mount/Down2" to="." method="_on_down_pressed"]
