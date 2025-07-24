@@ -4,9 +4,20 @@ var fire_force: float = 3000
 var can_fire := true
 var vert_angle_lo: float = -25
 var vert_angle_hi: float = 35
+
+
 func mass() -> float:
 	return 500
 
+func shapes() -> Array[CollisionShape3D]:
+	var collisionshapes: Array[CollisionShape3D] = []
+	for child: CollisionShape3D in [$Barrel/BarrelShape, $MountShape]:
+		#if child is CollisionShape3D:
+			var c: CollisionShape3D = child.duplicate()
+			c.set_meta("component", self)
+			c.transform = (get_parent().global_transform.inverse() * child.global_transform)
+			collisionshapes.append(c)
+	return collisionshapes
 
 func _on_fire_pressed() -> void:
 	if !can_fire:
@@ -29,6 +40,8 @@ func _on_fire_pressed() -> void:
 
 func _on_up_pressed() -> void:
 	%Barrel.rotation_degrees.z = clamp(%Barrel.rotation_degrees.z + 5, vert_angle_lo, vert_angle_hi)
+	changed.emit()
 
 func _on_down_pressed() -> void:
 	%Barrel.rotation_degrees.z = clamp(%Barrel.rotation_degrees.z - 5, vert_angle_lo, vert_angle_hi)
+	changed.emit()

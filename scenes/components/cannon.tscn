@@ -10,9 +10,6 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_rbt30"]
 size = Vector3(0.9, 0.7, 0.9)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7rtf2"]
-size = Vector3(1.875, 0.4, 0.5)
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_yu0wc"]
 top_radius = 0.1
 bottom_radius = 0.1
@@ -37,6 +34,10 @@ material = ExtResource("2_7rtf2")
 top_radius = 0.3
 bottom_radius = 0.3
 height = 1.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pnn2d"]
+height = 1.95
+radius = 0.3
 
 [sub_resource type="BoxMesh" id="BoxMesh_7rtf2"]
 size = Vector3(0.91, 0.4, 0.9)
@@ -75,21 +76,16 @@ size = Vector3(0.9, 0.5, 0.9)
 [node name="Cannon" type="Node3D"]
 script = ExtResource("1_rbt30")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="MountShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.35, 0.5)
 shape = SubResource("BoxShape3D_rbt30")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.938, 0.375, 0.375)
-shape = SubResource("BoxShape3D_7rtf2")
-
 [node name="Barrel" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.35, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 
 [node name="Chamber" type="Node3D" parent="Barrel"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 
 [node name="FireButton" parent="Barrel/Chamber" instance=ExtResource("2_c6g0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.35, 0)
@@ -105,19 +101,23 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 
 [node name="Barrel" type="MeshInstance3D" parent="Barrel"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0.15, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
 mesh = SubResource("CylinderMesh_lrtnh")
 skeleton = NodePath("../..")
 
 [node name="Barrel2" type="MeshInstance3D" parent="Barrel"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.05, 0.15, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.05, 0, 0)
 mesh = SubResource("CylinderMesh_d28oc")
 skeleton = NodePath("../..")
 
 [node name="Barrel3" type="MeshInstance3D" parent="Barrel"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.1, 0.15, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.1, 0, 0)
 mesh = SubResource("CylinderMesh_7rtf2")
 skeleton = NodePath("../..")
+
+[node name="BarrelShape" type="CollisionShape3D" parent="Barrel"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
+shape = SubResource("CylinderShape3D_pnn2d")
 
 [node name="Mount" type="Node3D" parent="."]
 
