@@ -16,6 +16,12 @@ func mass() -> float:
 func center_of_mass() -> Vector3:
 	return transform * $CenterOfMass.position
 
+func center_of_volume() -> Vector3:
+	return center_of_mass()
+
+func physics_properties() -> PhysicsProperties:
+	return PhysicsProperties.new(mass(), center_of_mass(), displaced_volume(), center_of_volume())
+
 func shapes() -> Array[CollisionShape3D]:
 	var collisionshapes: Array[CollisionShape3D] = []
 	for child: Node in get_children():

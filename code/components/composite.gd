@@ -5,10 +5,7 @@ signal changed
 
 @export var keep_empty: bool
 
-var _mass: float
-var _displaced_volume: float
-var _center_of_mass: Vector3
-var _center_of_volume: Vector3
+var _physics_properties: PhysicsProperties
 var _shapes: Array[CollisionShape3D]
 var _forces: Array[Force]
 var component_cells: Dictionary[Vector2, Node3D]
@@ -25,6 +22,9 @@ func _ready() -> void:
 		child.changed.connect(recalculate)
 	_recalculate()
 
+func physics_properties() -> PhysicsProperties:
+	return _physics_properties
+
 func recalculate() -> void:
 	if get_tree() == null:
 		return
@@ -36,56 +36,23 @@ func recalculate() -> void:
 		#_recalculate()
 
 func _recalculate() -> void:
-	_mass = 0
-	_displaced_volume = 0
-	_center_of_mass = Vector3(0, 0, 0)
-	_center_of_volume = Vector3(0, 0, 0)
+	var all_properties: Array[PhysicsProperties] = []
 	_shapes = []
 	_forces = []
 	if !keep_empty and get_child_count() == 0 and get_parent != null:
 		changed.emit()
 		queue_free()
-	for component in get_children():
-		var m: float = component.mass()
-		var v: float = component.displaced_volume()
-		_mass += m
-		_displaced_volume += v
-		var com: Vector3 = transform * component.center_of_mass()
-		_center_of_mass += com * m
-		var cov: Vector3
-		if component.has_method("center_of_volume"):
-			cov = transform * component.center_of_volume()
-		else:
-			cov = com
-		_center_of_volume += cov * v
-		if component.has_method("forces"):
-			for force: Force in component.forces():
-				_forces.append(force.transformed(transform))
+	for component: Component in get_children():
+		all_properties.append(component.physics_properties())
+		for force: Force in component.forces():
+			_forces.append(force.transformed(transform))
 		for source_shape: CollisionShape3D in component.shapes():
 			var shape = source_shape.duplicate()
 			shape.transform = transform * shape.transform
 			_shapes.append(shape)
-	if (_mass == 0.0):
-		_center_of_mass = Vector3(0, 0, 0)
-	else:
-		_center_of_mass /= _mass
-	if (_displaced_volume == 0.0):
-		_center_of_volume = Vector3(0, 0, 0)
-	else:
-		_center_of_volume /= _displaced_volume
+	_physics_properties = PhysicsProperties.combine(all_properties).transformed(transform)
+	prints(self, _physics_properties.volume, _physics_properties.center_of_volume)
 	changed.emit()
-
-func displaced_volume() -> float:
-	return _displaced_volume
-
-func mass() -> float:
-	return _mass
-
-func center_of_mass() -> Vector3:
-	return _center_of_mass
-
-func center_of_volume() -> Vector3:
-	return _center_of_volume
 
 func shapes() -> Array[CollisionShape3D]:
 	return _shapes

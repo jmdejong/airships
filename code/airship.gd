@@ -20,14 +20,14 @@ func _ready() -> void:
 	prints("mv", mass, displaced_volume)
 
 func calculate_components() -> void:
-
-	self.center_of_volume = $Components.center_of_volume()
-	self.center_of_mass = $Components.center_of_mass()
-	self.mass = max(0.01, $Components.mass())
-	self.displaced_volume = $Components.displaced_volume()
+	var physics_properties: PhysicsProperties = $Components.physics_properties()
+	self.center_of_volume = physics_properties.center_of_volume
+	self.center_of_mass = physics_properties.center_of_mass
+	self.mass = max(0.01, physics_properties.mass)
+	self.displaced_volume = physics_properties.volume
 	self.forces = $Components.forces()
-	self.drag_area_coefficient = pow(self.displaced_volume, 2.0/3.0) * drag_coefficient
-	set_shapes()
+	self.drag_area_coefficient = pow(displaced_volume, 2.0/3.0) * drag_coefficient
+	self.set_shapes()
 	#prints("m:", mass, "v", displaced_volume, "d", self.drag_area_coefficient)
 	$CenterOfMassMarker.position = center_of_mass
 	$CenterOfVolumeMarker.position = center_of_volume
