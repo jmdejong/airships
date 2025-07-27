@@ -53,7 +53,7 @@ rings = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhv66"]
 size = Vector3(0.1, 0.1, 1.1)
 
-[node name="EngineHor" type="Node3D"]
+[node name="Engine" type="Node3D"]
 script = ExtResource("1_rrhl7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
