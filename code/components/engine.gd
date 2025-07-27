@@ -11,7 +11,7 @@ extends BaseComponent
 		changed.emit()
 var step: float = 5000
 var max_power: float = 50000
-var min_power: float = -200000
+var min_power: float = -50000
 
 func _ready() -> void:
 	power = power
@@ -19,7 +19,8 @@ func _ready() -> void:
 	volume = 0.25
 
 func forces() -> Array[Force]:
-	return [Force.new(%Rotor.position, ($CenterOfMass.position-%Rotor.position).normalized(),  power).transformed(transform)]
+	var direction: Vector3 = ($CenterOfMass.position-%Rotor.position).normalized() * sign(power)
+	return [Force.new(%Rotor.position, direction, abs(power)).transformed(transform)]
 
 func _on_less_pressed() -> void:
 	power = max(power - step, min_power)

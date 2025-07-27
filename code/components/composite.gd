@@ -12,14 +12,16 @@ var component_cells: Dictionary[Vector2, Node3D]
 var ship: Airship:
 	set(s):
 		for child in get_children():
-			child.ship = s
+			if child is Component:
+				child.ship = s
 		ship = s
 var should_recalculate := false
 
 func _ready() -> void:
 	for child in get_children():
-		child.ship = ship
-		child.changed.connect(recalculate)
+		if child is Component:
+			child.ship = ship
+			child.changed.connect(recalculate)
 	_recalculate()
 
 func physics_properties() -> PhysicsProperties:
@@ -42,7 +44,10 @@ func _recalculate() -> void:
 	if !keep_empty and get_child_count() == 0 and get_parent != null:
 		changed.emit()
 		queue_free()
-	for component: Component in get_children():
+	for child in get_children():
+		if not (child is Component):
+			continue
+		var component: Component = child
 		all_properties.append(component.physics_properties())
 		for force: Force in component.forces():
 			_forces.append(force.transformed(transform))
@@ -51,7 +56,6 @@ func _recalculate() -> void:
 			shape.transform = transform * shape.transform
 			_shapes.append(shape)
 	_physics_properties = PhysicsProperties.combine(all_properties).transformed(transform)
-	prints(self, _physics_properties.volume, _physics_properties.center_of_volume)
 	changed.emit()
 
 func shapes() -> Array[CollisionShape3D]:
@@ -75,8 +79,9 @@ func add_components(components: Array[Component]) -> void:
 
 func all_components() -> Array[Component]:
 	var ac: Array[Component] = []
-	for c: Component in get_children():
-		ac.append_array(c.all_components())
+	for c in get_children():
+		if c is Component:
+			ac.append_array(c.all_components())
 	return ac
 
 func connected_components() -> Array[Component]:

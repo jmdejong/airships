@@ -75,12 +75,34 @@ mesh = SubResource("QuadMesh_nhv66")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_a57g1")
 
+[node name="Less2" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
+unique_name_in_owner = true
+transform = Transform3D(4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, 0.25, -0.35, 0)
+description = "Decrease power"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Less2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999999, 0)
+mesh = SubResource("QuadMesh_nhv66")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_a57g1")
+
 [node name="More" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.35, 0)
 description = "Increase power"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/More"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("QuadMesh_nhv66")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3fxwf")
+
+[node name="More2" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.25, -0.35, 0)
+description = "Increase power"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/More2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 mesh = SubResource("QuadMesh_nhv66")
 skeleton = NodePath("")
@@ -157,4 +179,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.25)
 shape = SubResource("BoxShape3D_nhv66")
 
 [connection signal="pressed" from="MeshInstance3D/Less" to="." method="_on_less_pressed"]
+[connection signal="pressed" from="MeshInstance3D/Less2" to="." method="_on_less_pressed"]
 [connection signal="pressed" from="MeshInstance3D/More" to="." method="_on_more_pressed"]
+[connection signal="pressed" from="MeshInstance3D/More2" to="." method="_on_more_pressed"]

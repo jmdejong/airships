@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d38pbjc6hq7vv"]
+[gd_scene load_steps=11 format=3 uid="uid://d38pbjc6hq7vv"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_rb74k"]
 [ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="2_iel0n"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dmsj4uy2vf3wu" path="res://scenes/components/cannon.tscn" id="7_3nb3f"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="7_vq8bv"]
 [ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="8_iel0n"]
+[ext_resource type="PackedScene" uid="uid://cckr01vpro7r" path="res://scenes/components/rotary_table.tscn" id="8_qrdk5"]
 
 [node name="GunBoat" instance=ExtResource("1_rb74k")]
 
@@ -45,11 +46,14 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.5, 0
 [node name="Cannon" parent="Components/Machines" index="7" instance=ExtResource("7_3nb3f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -2)
 
-[node name="Cannon3" parent="Components/Machines" index="8" instance=ExtResource("7_3nb3f")]
+[node name="Cannon2" parent="Components/Machines" index="8" instance=ExtResource("7_3nb3f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 1)
+
+[node name="RotaryTable" parent="Components/Machines" index="9" instance=ExtResource("8_qrdk5")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0.5, 0.5)
 
-[node name="Cannon2" parent="Components/Machines" index="9" instance=ExtResource("7_3nb3f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 1)
+[node name="Cannon3" parent="Components/Machines/RotaryTable" index="3" instance=ExtResource("7_3nb3f")]
+transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0.5, 0)
 
 [node name="Basket" parent="Components" index="2" instance=ExtResource("3_3nb3f")]
 

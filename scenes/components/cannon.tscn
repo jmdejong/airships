@@ -35,9 +35,9 @@ top_radius = 0.3
 bottom_radius = 0.3
 height = 1.1
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_pnn2d"]
-height = 1.95
-radius = 0.3
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pnn2d"]
+radius = 0.25
+height = 2.1
 
 [sub_resource type="BoxMesh" id="BoxMesh_7rtf2"]
 size = Vector3(0.91, 0.4, 0.9)
@@ -46,7 +46,7 @@ size = Vector3(0.91, 0.4, 0.9)
 albedo_color = Color(0.133333, 0.133333, 0.133333, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_d28oc"]
-size = Vector3(0.6, 0.2, 0.9)
+size = Vector3(0.62, 0.2, 0.9)
 
 [sub_resource type="QuadMesh" id="QuadMesh_yu0wc"]
 size = Vector2(0.25, 0.25)
@@ -117,7 +117,7 @@ skeleton = NodePath("../..")
 
 [node name="BarrelShape" type="CollisionShape3D" parent="Barrel"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
-shape = SubResource("CylinderShape3D_pnn2d")
+shape = SubResource("CapsuleShape3D_pnn2d")
 
 [node name="Mount" type="Node3D" parent="."]
 

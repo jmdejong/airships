@@ -1,0 +1,125 @@
+[gd_scene load_steps=19 format=3 uid="uid://cckr01vpro7r"]
+
+[ext_resource type="Script" uid="uid://dwfo3sr0wid63" path="res://code/components/rotary_table.gd" id="1_gr85y"]
+[ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="2_xvc1r"]
+[ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="3_xvc1r"]
+[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="4_urgvk"]
+[ext_resource type="Texture2D" uid="uid://rsylrmgcr5lb" path="res://textures/more.png" id="5_l5582"]
+[ext_resource type="Texture2D" uid="uid://carh7wcvr4a6b" path="res://textures/less.png" id="6_l5582"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="7_y4hrx"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_glwy7"]
+height = 0.15
+
+[sub_resource type="BoxMesh" id="BoxMesh_y4hrx"]
+size = Vector3(0.9, 0.08, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4hrx"]
+albedo_color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8spdk"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8spdk"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8spdk"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_y4hrx"]
+size = Vector2(0.25, 0.25)
+center_offset = Vector3(0, 0.01, 0)
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7k6a4"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("5_l5582")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7k6a4"]
+size = Vector2(0.25, 0.25)
+center_offset = Vector3(0, 0.01, 0)
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7u0l6"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("6_l5582")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7k6a4"]
+size = Vector3(1, 0.5, 1)
+
+[node name="RotaryTable" type="Node3D"]
+script = ExtResource("1_gr85y")
+
+[node name="Components" parent="." instance=ExtResource("2_xvc1r")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+keep_empty = true
+
+[node name="Top" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.075, 0)
+mesh = SubResource("CylinderMesh_glwy7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Top/MeshInstance3D"]
+mesh = SubResource("BoxMesh_y4hrx")
+surface_material_override/0 = SubResource("StandardMaterial3D_y4hrx")
+
+[node name="Corner" type="Node3D" parent="Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5)
+
+[node name="Base" type="Node3D" parent="."]
+script = ExtResource("3_xvc1r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.5)
+shape = SubResource("BoxShape3D_8spdk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.125, 0.5)
+mesh = SubResource("BoxMesh_8spdk")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Base/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175, 0)
+mesh = SubResource("CylinderMesh_8spdk")
+
+[node name="Clockwise" parent="Base/MeshInstance3D" instance=ExtResource("4_urgvk")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.5, 0, -0.2)
+description = "Rotate clockwise"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Base/MeshInstance3D/Clockwise"]
+cast_shadow = 0
+mesh = SubResource("QuadMesh_y4hrx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_7k6a4")
+
+[node name="CounterClockwise" parent="Base/MeshInstance3D" instance=ExtResource("4_urgvk")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.5, 0, 0.2)
+description = "Rotate counterclockwise"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Base/MeshInstance3D/CounterClockwise"]
+transform = Transform3D(-4.37114e-08, 4.37114e-08, 1, 4.37114e-08, 1, -4.37114e-08, -1, 4.37114e-08, -4.37114e-08, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_7k6a4")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_7u0l6")
+
+[node name="Connection" parent="Base" instance=ExtResource("7_y4hrx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.5)
+shape = SubResource("BoxShape3D_7k6a4")
+
+[node name="CenterOfMass" type="Node3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.5)
+
+[connection signal="pressed" from="Base/MeshInstance3D/Clockwise" to="." method="rotate_clockwise"]
+[connection signal="pressed" from="Base/MeshInstance3D/CounterClockwise" to="." method="rotate_counterclockwise"]

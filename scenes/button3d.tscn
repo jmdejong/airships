@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cuiyitoas3wtg" path="res://code/button3d.gd" id="1_1l3cu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_173dd"]
-size = Vector3(0.4, 0.2, 0.4)
+size = Vector3(0.25, 0.1, 0.25)
 
 [node name="Button3d" type="Area3D"]
 collision_layer = 128
