@@ -103,13 +103,16 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			was_on_ground = false
 			apply_central_force(deltav * mass * 0.5)
 	
-	%Info.text = "speed: %1.1f m/s\n%1.1f\n%1.1f\n(%3.1f, %3.1f, %3.1f)" % [
+	%Info.text = "speed: %1.1f m/s\n%1.1f\n%1.1f\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3" % [
 		Vector2(linear_velocity.x, linear_velocity.z).length(),
 		Vector2(desired_velocity.x, desired_velocity.z).length(),
 		Vector2(deltav.x, deltav.z).length(),
 		position.x,
 		position.y,
-		position.z
+		position.z,
+		Atmosphere.temperature(position.y),
+		Atmosphere.pressure(position.y) / 1000,
+		Atmosphere.air_density(position.y)
 	]
 	
 	try_interact()

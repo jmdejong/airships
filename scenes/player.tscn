@@ -31,7 +31,6 @@ axis_lock_angular_z = true
 mass = 70.0
 physics_material_override = SubResource("PhysicsMaterial_dqkch")
 can_sleep = false
-contact_monitor = true
 max_contacts_reported = 15
 linear_damp_mode = 1
 script = ExtResource("1_3vyb7")

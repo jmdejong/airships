@@ -8,19 +8,17 @@ const TEMPERATURE_LAPSE_RATE: float = 0.0065
 const IDEAL_GAS_CONSTANT: float = 8.31446
 const AIR_MOLAR_MASS: float = 0.0289652
 const HEIGHT_MULTIPLIER: float = 10
+const TROPOPAUSE_PRESSURE_DROP = 6300
 var tropopause_cutoff: float = 11000 / HEIGHT_MULTIPLIER
+var tropopause_temperature: float = _troposphere_temperature(tropopause_cutoff)
+var tropopause_cutoff_pressure: float = _troposphere_pressure(tropopause_cutoff)
 
 
-#func _reaerints("a"+str(h), Atmosphere.air_density(h), Atmosphere.air_density(h) / Atmosphere.air_density(0), Atmosphere.temperature(h), Atmosphere.pressure(h))
-
-
-func temperature(height: float) -> float:
-	height = min(height, tropopause_cutoff)
+func _troposphere_temperature(height: float) -> float:
 	var h := height * HEIGHT_MULTIPLIER
 	return STANDARD_TEMPERATURE - TEMPERATURE_LAPSE_RATE * h
 
-func pressure(height: float) -> float:
-	# Might need some corrections in the tropopause
+func _troposphere_pressure(height: float) -> float:
 	var h := height * HEIGHT_MULTIPLIER
 	return STANDARD_ATMOSPHERIC_PRESSURE * \
 		pow(
@@ -28,15 +26,27 @@ func pressure(height: float) -> float:
 			gravity() * AIR_MOLAR_MASS / (IDEAL_GAS_CONSTANT * TEMPERATURE_LAPSE_RATE)
 		)
 
+func _tropopause_pressure(height: float) -> float:
+	return tropopause_cutoff_pressure * exp(-(height-tropopause_cutoff) * HEIGHT_MULTIPLIER / TROPOPAUSE_PRESSURE_DROP)
+
+func temperature(height: float) -> float:
+	if height >= tropopause_cutoff:
+		return tropopause_temperature
+	else:
+		return _troposphere_temperature(height)
+
+func pressure(height: float) -> float:
+	if height >= tropopause_cutoff:
+		return _tropopause_pressure(height)
+	else:
+		return _troposphere_pressure(height)
+
 func air_density(height: float) -> float:
 	var density := pressure(height) * AIR_MOLAR_MASS / (IDEAL_GAS_CONSTANT * temperature(height))
 	return density
 
 func gravity_vec() -> Vector3:
-	var space := get_viewport().find_world_3d().space
-	return PhysicsServer3D.area_get_param(space, PhysicsServer3D.AREA_PARAM_GRAVITY) \
-	 * PhysicsServer3D.area_get_param(space, PhysicsServer3D.AREA_PARAM_GRAVITY_VECTOR)
-
+	return gravity() * Vector3.DOWN
+	
 func gravity() -> float:
-	var space := get_viewport().find_world_3d().space
-	return PhysicsServer3D.area_get_param(space, PhysicsServer3D.AREA_PARAM_GRAVITY)
+	return 9.81
