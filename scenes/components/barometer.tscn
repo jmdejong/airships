@@ -1,0 +1,107 @@
+[gd_scene load_steps=13 format=3 uid="uid://kutuwinsanlc"]
+
+[ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_8dutg"]
+[ext_resource type="Texture2D" uid="uid://dpt1n6dqno5b3" path="res://textures/panels/barometer.png" id="3_lej88"]
+[ext_resource type="Script" uid="uid://b5h0whorneh61" path="res://code/components/round_meter_scale.gd" id="4_8dutg"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="4_khmtl"]
+[ext_resource type="Script" uid="uid://b2tsvl4vm6aqm" path="res://code/components/barometer.gd" id="5_3tkq3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_obbup"]
+size = Vector3(0.3, 0.1, 0.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ijxw4"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.2
+radial_segments = 16
+rings = 1
+cap_top = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8dutg"]
+albedo_color = Color(0.49, 0.320215, 0.0049, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ijxw4"]
+size = Vector2(0.4, 0.4)
+orientation = 1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ijxw4"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lej88"]
+resource_local_to_scene = true
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = SubResource("ViewportTexture_ijxw4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_744bp"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Barometer" type="Node3D"]
+script = ExtResource("1_8dutg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+shape = SubResource("BoxShape3D_obbup")
+
+[node name="CenterOfMass" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+
+[node name="Case" type="MeshInstance3D" parent="CenterOfMass"]
+mesh = SubResource("CylinderMesh_ijxw4")
+surface_material_override/0 = SubResource("StandardMaterial3D_8dutg")
+
+[node name="Display" type="MeshInstance3D" parent="CenterOfMass"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("QuadMesh_ijxw4")
+surface_material_override/0 = SubResource("StandardMaterial3D_lej88")
+
+[node name="Connection" parent="." instance=ExtResource("4_khmtl")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
+shape = SubResource("BoxShape3D_744bp")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="Scale" type="TextureRect" parent="SubViewport"]
+unique_name_in_owner = true
+offset_right = 256.0
+offset_bottom = 256.0
+texture = ExtResource("3_lej88")
+script = ExtResource("4_8dutg")
+
+[node name="Label" type="Label" parent="SubViewport/Scale"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 57.0
+offset_top = -162.0
+offset_right = 125.0
+offset_bottom = -113.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 1.5708
+text = "Pressure
+kPa"
+horizontal_alignment = 1
+
+[node name="Hand" type="ColorRect" parent="SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 128.0
+offset_right = 100.0
+offset_bottom = 130.0
+grow_horizontal = 2
+pivot_offset = Vector2(20, 1)
+color = Color(0.533333, 0.4, 0, 1)
+script = ExtResource("5_3tkq3")
