@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b5dw13s3ysqsr" path="res://scenes/components/status_panel.tscn" id="6_0m87h"]
 [ext_resource type="PackedScene" uid="uid://dmsj4uy2vf3wu" path="res://scenes/components/cannon.tscn" id="7_3nb3f"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="7_vq8bv"]
-[ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="8_iel0n"]
+[ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable8m.tscn" id="8_iel0n"]
 [ext_resource type="PackedScene" uid="uid://cckr01vpro7r" path="res://scenes/components/rotary_table.tscn" id="8_qrdk5"]
 
 [node name="GunBoat" instance=ExtResource("1_rb74k")]

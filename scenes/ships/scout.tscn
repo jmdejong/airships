@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine.tscn" id="4_b1l47"]
 [ext_resource type="PackedScene" uid="uid://y3r5symbcup6" path="res://scenes/components/ballast.tscn" id="5_v1y55"]
 [ext_resource type="PackedScene" uid="uid://cckr01vpro7r" path="res://scenes/components/rotary_table.tscn" id="6_2ad0o"]
-[ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable.tscn" id="6_o2rwk"]
 [ext_resource type="PackedScene" uid="uid://b5dw13s3ysqsr" path="res://scenes/components/status_panel.tscn" id="6_tw0le"]
 [ext_resource type="PackedScene" uid="uid://cunwan507e0sg" path="res://scenes/components/smalloon.tscn" id="6_uud2w"]
+[ext_resource type="PackedScene" uid="uid://cr366y43ta7n2" path="res://scenes/components/cable4m.tscn" id="8_2ad0o"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="8_pvp6t"]
 
 [node name="Scout" instance=ExtResource("1_2ad0o")]
@@ -67,17 +67,17 @@ size = Vector3(1, 0.5, 4)
 
 [node name="Rigging" parent="Components" index="2" instance=ExtResource("3_qcob2")]
 
-[node name="Cable" parent="Components/Rigging" index="0" instance=ExtResource("6_o2rwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -1)
-
-[node name="Cable2" parent="Components/Rigging" index="1" instance=ExtResource("6_o2rwk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0.5)
-
-[node name="Cable3" parent="Components/Rigging" index="2" instance=ExtResource("6_o2rwk")]
+[node name="Cable4m" parent="Components/Rigging" index="0" instance=ExtResource("8_2ad0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1)
 
-[node name="Cable4" parent="Components/Rigging" index="3" instance=ExtResource("6_o2rwk")]
+[node name="Cable4m2" parent="Components/Rigging" index="1" instance=ExtResource("8_2ad0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, 0.5)
+
+[node name="Cable4m3" parent="Components/Rigging" index="2" instance=ExtResource("8_2ad0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0.5)
+
+[node name="Cable4m4" parent="Components/Rigging" index="3" instance=ExtResource("8_2ad0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -1)
 
 [node name="Smalloon" parent="Components" index="3" instance=ExtResource("6_uud2w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 0)

@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cr366y43ta7n2"]
+
+[ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_yt8eh"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_u038d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uw4vd"]
+size = Vector3(0.05, 4, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw4vd"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uw4vd"]
+material = SubResource("StandardMaterial3D_uw4vd")
+size = Vector3(0.063, 4, 0.063)
+
+[node name="Cable4m" type="Node3D"]
+script = ExtResource("1_yt8eh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 2, 0.25)
+shape = SubResource("BoxShape3D_uw4vd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 2, 0.25)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_uw4vd")
+
+[node name="CenterOfMass" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Connection" parent="." instance=ExtResource("2_u038d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_uw4vd")
