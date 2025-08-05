@@ -6,7 +6,6 @@ var center_of_volume: Vector3
 var forces: Array[Force]
 const drag_coefficient: float = 0.5
 var drag_area_coefficient: float
-static var CompositeComponent = preload("res://scenes/components/composite.tscn")
 
 func _ready() -> void:
 	$Components.changed.connect(calculate_components)
@@ -17,7 +16,6 @@ func _ready() -> void:
 		if child is Component and child != $Components:
 			child.reparent($Components)
 	$Components.ship = self
-	prints("mv", mass, displaced_volume)
 
 func calculate_components() -> void:
 	var physics_properties: PhysicsProperties = $Components.physics_properties()
@@ -40,10 +38,9 @@ func set_shapes() -> void:
 		var shape = source_shape.duplicate()
 		add_child(shape)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var air_density: float = Atmosphere.air_density(to_global(center_of_volume).y)
 	var displaced_air_mass := displaced_volume * air_density
-	var weight := mass - displaced_air_mass
 	apply_force(-displaced_air_mass * Atmosphere.gravity_vec(), to_global(center_of_volume) - global_position)
 	for local_force: Force in forces:
 		if local_force.power == 0:
@@ -84,10 +81,12 @@ func check_connections() -> void:
 	var unconnected: Array[Component] = []
 	var parents: Dictionary[CompositeComponent, bool]
 	for c: Component in all_components:
-		if !known[c]:
+		if !known[c] and c.is_inside_tree():
 			unconnected.append(c)
 			var parent: CompositeComponent = c.get_parent()
+			var gtf: Transform3D = c.global_transform
 			parent.remove_child(c)
+			c.transform = gtf
 			parents[parent] = true
 	for parent: CompositeComponent in parents.keys():
 		parent.recalculate()
@@ -98,12 +97,14 @@ func check_connections() -> void:
 		new_ship.angular_velocity = angular_velocity
 		var new_components: CompositeComponent = new_ship.get_node("Components")
 		for c in unconnected:
+			c.transform = new_ship.transform.inverse() * c.transform
 			new_components.add_child(c)
 		get_parent().add_child(new_ship)
+		new_components.recalculate()
 
-func build_component(pos: Vector3, component: ComponentBlueprint, transform) -> void:
+func build_component(pos: Vector3, component: ComponentBlueprint, build_transform: Transform3D) -> void:
 	var comp_node: Component = component.create()
-	comp_node.transform = transform
+	comp_node.transform = build_transform
 	comp_node.position += pos
 	$Components/Custom.add_component(comp_node)
 

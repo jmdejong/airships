@@ -1,6 +1,9 @@
 class_name Component
 extends Node3D
 
+@warning_ignore("unused_signal")
+signal changed
+
 func physics_properties() -> PhysicsProperties:
 	assert(false, "Abstract method")
 	return null
@@ -10,3 +13,7 @@ func forces() -> Array[Force]:
 
 func shapes() -> Array[CollisionShape3D]:
 	return []
+
+func all_components() -> Array[Component]:
+	assert(false, "Abstract method")
+	return [self]

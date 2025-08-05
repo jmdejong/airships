@@ -1,7 +1,6 @@
 class_name BaseComponent
 extends Component
 
-signal changed
 
 var mass_: float
 var volume: float

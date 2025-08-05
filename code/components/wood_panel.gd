@@ -26,43 +26,6 @@ func _update_sizes() -> void:
 		$Connection/CollisionShapeY.shape = _box_shape(size + Vector3(-0.2, 0.1, -0.2))
 		$Connection/CollisionShapeZ.shape = _box_shape(size + Vector3(-0.2, -0.2, 0.1))
 
-func _set_connections() -> void:
-	return
-	for c: CollisionShape3D in $Connection.get_children():
-		c.queue_free()
-	var cshape: SphereShape3D = SphereShape3D.new()
-	cshape.radius = 0.1
-	for x: int in size_block.x:
-		for y: int in size_block.y:
-			var c1: CollisionShape3D = CollisionShape3D.new()
-			c1.position = Vector3(x, y, -0.5) * Global.block_size
-			c1.shape = cshape
-			$Connection.add_child(c1)
-			var c2: CollisionShape3D = CollisionShape3D.new()
-			c2.position = Vector3(x, y, size_block.z + 0.5) * Global.block_size
-			c2.shape = cshape
-			$Connection.add_child(c2)
-		for z: int in size_block.z:
-			var c1: CollisionShape3D = CollisionShape3D.new()
-			c1.position = Vector3(x, -0.5, z) * Global.block_size
-			c1.shape = cshape
-			$Connection.add_child(c1)
-			var c2: CollisionShape3D = CollisionShape3D.new()
-			c2.position = Vector3(x, size_block.y + 0.5, z) * Global.block_size
-			c2.shape = cshape
-			$Connection.add_child(c2)
-	for y: int in size_block.y:
-		for z: int in size_block.z:
-			var c1: CollisionShape3D = CollisionShape3D.new()
-			c1.position = Vector3(-0.5, y, z) * Global.block_size
-			c1.shape = cshape
-			$Connection.add_child(c1)
-			var c2: CollisionShape3D = CollisionShape3D.new()
-			c2.position = Vector3(size_block.x + 0.5, y, z) * Global.block_size
-			c2.shape = cshape
-			$Connection.add_child(c2)
-		
-
 func _block_positions() -> Array[Vector3]:
 	var p: Array[Vector3] = []
 	for x: int in size_block.x:

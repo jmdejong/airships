@@ -1,7 +1,6 @@
 extends CanvasLayer
 
 
-signal select_build(component: ComponentBlueprint)
 signal select_remove
 
 

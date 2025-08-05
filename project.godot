@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Atmosphere="*res://code/atmosphere.gd"
 Global="*res://code/global.gd"
 
+[debug]
+
+gdscript/warnings/shadowed_variable=0
+
 [display]
 
 window/size/mode=2

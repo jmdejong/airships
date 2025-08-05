@@ -1,8 +1,6 @@
 class_name CompositeComponent
 extends Component
 
-signal changed
-
 @export var keep_empty: bool
 
 var _physics_properties: PhysicsProperties
@@ -28,7 +26,7 @@ func physics_properties() -> PhysicsProperties:
 	return _physics_properties
 
 func recalculate() -> void:
-	if get_tree() == null:
+	if !is_inside_tree():
 		return
 	_recalculate()
 	#should_recalculate = true
