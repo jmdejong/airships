@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 signal select_remove
+signal select_build(blueprint: ComponentBlueprint)
 
 
 func _on_remove_gui_input(event: InputEvent) -> void:

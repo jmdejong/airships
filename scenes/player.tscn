@@ -127,4 +127,5 @@ shape = SubResource("CylinderShape3D_dqkch")
 target_position = Vector3(0, 0, 0)
 collision_mask = 5
 
+[connection signal="select_build" from="BuildTab" to="." method="_on_build_tab_select_build"]
 [connection signal="select_remove" from="BuildTab" to="." method="_on_build_tab_select_remove"]

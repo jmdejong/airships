@@ -34,8 +34,7 @@ func place_preview() -> void:
 		var center_offset: Vector3 = n * area.size / 2.0
 		# I don't understand why tf the Y axis should have a negative corretion
 		# todo: understand this
-		# todo: use block_size
-		component_position = (p + Vector3(0.25, -0.25, 0.25) + center_offset - area.get_center()).snappedf(Global.block_size)
+		component_position = (p + Vector3(0.5, -0.5, 0.5) * Global.block_size + center_offset - area.get_center()).snappedf(Global.block_size)
 		%BuildPreview.global_position = collider.to_global(component_position)
 		preview.valid = !preview.has_overlapping_bodies()
 	else:

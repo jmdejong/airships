@@ -41,10 +41,11 @@ func destroy(where: Vector3) -> void:
 	var closest: Vector3
 	var closest_score: float = INF
 	if size_block != Vector3i.ONE:
-		for pos in _block_positions():
-			if pos.distance_squared_to(local_where) < closest_score:
+		for pos: Vector3 in _block_positions():
+			var center: Vector3 = pos + Global.block_center
+			if center.distance_squared_to(local_where) < closest_score:
 				closest = pos
-				closest_score = pos.distance_squared_to(local_where)
+				closest_score = center.distance_squared_to(local_where)
 		var new_components: Array[Component] = []
 		for pos in _block_positions():
 			if pos == closest:
