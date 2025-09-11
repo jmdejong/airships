@@ -2,8 +2,8 @@ class_name BaseComponent
 extends Component
 
 
-var mass_: float
-var volume: float
+@export var mass_: float
+@export var volume: float
 var ship: Airship
 
 func displaced_volume() -> float:

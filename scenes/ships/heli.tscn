@@ -29,22 +29,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.5)
 [node name="Floor" parent="Components/Frame" index="0" instance=ExtResource("2_2x7ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
 size = Vector3(3, 0.5, 3)
+mass_ = 450.0
+volume = 4.5
 
 [node name="WoodPanel4" parent="Components/Frame" index="1" instance=ExtResource("2_2x7ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, -1.5)
 size = Vector3(0.5, 0.5, 0.5)
+mass_ = 12.5
+volume = 0.125
 
 [node name="WoodPanel3" parent="Components/Frame" index="2" instance=ExtResource("2_2x7ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.5, -1.5)
 size = Vector3(0.5, 0.5, 0.5)
+mass_ = 12.5
+volume = 0.125
 
 [node name="WoodPanel2" parent="Components/Frame" index="3" instance=ExtResource("2_2x7ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.5, 1)
 size = Vector3(0.5, 0.5, 0.5)
+mass_ = 12.5
+volume = 0.125
 
 [node name="WoodPanel" parent="Components/Frame" index="4" instance=ExtResource("2_2x7ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, 1)
 size = Vector3(0.5, 0.5, 0.5)
+mass_ = 12.5
+volume = 0.125
 
 [node name="Cable4m" parent="Components/Frame" index="5" instance=ExtResource("6_2uvs7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1)

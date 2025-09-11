@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_u038d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uw4vd"]
-size = Vector3(0.05, 4, 0.05)
+size = Vector3(0.05, 4.1, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw4vd"]
 albedo_color = Color(0.2, 0.2, 0.2, 1)

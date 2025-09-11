@@ -1,0 +1,99 @@
+[gd_scene load_steps=14 format=3 uid="uid://b222awqy5q2ev"]
+
+[ext_resource type="Script" uid="uid://cf5dhhdmg7qpc" path="res://code/components/base_component.gd" id="1_pf088"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_eugkd"]
+[ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="3_eugkd"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4dt5m"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.5
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nrt3n"]
+size = Vector3(0.5, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8y4nw"]
+size = Vector3(0.1, 0.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uamj1"]
+size = Vector3(0.1, 0.1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wxgvv"]
+size = Vector3(0.6, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6u11"]
+size = Vector3(0.1, 0.6, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8c4ja"]
+size = Vector3(0.1, 0.1, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4dt5m"]
+size = Vector3(0.6, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ciq2m"]
+size = Vector3(0.1, 0.1, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8c174"]
+size = Vector3(0.1, 0.6, 0.1)
+
+[node name="WireConnect" type="Node3D"]
+script = ExtResource("1_pf088")
+mass_ = 0.1
+volume = 0.01
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+mesh = SubResource("CylinderMesh_4dt5m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+mesh = SubResource("CylinderMesh_4dt5m")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.25, 0.25, 0.25)
+mesh = SubResource("CylinderMesh_4dt5m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_nrt3n")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_8y4nw")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_uamj1")
+
+[node name="CenterOfMass" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+
+[node name="Connection" parent="." instance=ExtResource("2_eugkd")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_wxgvv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_m6u11")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_8c4ja")
+
+[node name="SignalConnection" parent="." instance=ExtResource("3_eugkd")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_4dt5m")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_ciq2m")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_8c174")

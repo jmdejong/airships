@@ -25,6 +25,8 @@ radius = 4.8
 script = ExtResource("1_wjom8")
 radius = 6.0
 length = 15.0
+mass_ = 180.956
+volume = 1244.07
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)

@@ -32,38 +32,56 @@ transform = Transform3D(1, 8.74228e-08, 8.74228e-08, -8.74228e-08, -4.37114e-08,
 [node name="BigFloor" parent="Components/Basket" index="0" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1)
 size = Vector3(1, 0.5, 2)
+mass_ = 100.0
+volume = 1.0
 
 [node name="WoodPanel5" parent="Components/Basket" index="1" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1.5)
 size = Vector3(1, 0.5, 1)
+mass_ = 50.0
+volume = 0.5
 
 [node name="WoodPanel7" parent="Components/Basket" index="2" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
 size = Vector3(0.5, 0.5, 2)
+mass_ = 50.0
+volume = 0.5
 
 [node name="WoodPanel8" parent="Components/Basket" index="3" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -0.5)
 size = Vector3(1.5, 0.5, 1)
+mass_ = 75.0
+volume = 0.75
 
 [node name="WoodPanel6" parent="Components/Basket" index="4" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5)
 size = Vector3(1, 0.5, 1)
+mass_ = 50.0
+volume = 0.5
 
 [node name="WoodPanel" parent="Components/Basket" index="5" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1)
 size = Vector3(1, 0.5, 0.5)
+mass_ = 25.0
+volume = 0.25
 
 [node name="WoodPanel2" parent="Components/Basket" index="6" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0.5)
 size = Vector3(1, 0.5, 0.5)
+mass_ = 25.0
+volume = 0.25
 
 [node name="RightWing" parent="Components/Basket" index="7" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 1)
 size = Vector3(1, 0.5, 4)
+mass_ = 200.0
+volume = 2.0
 
 [node name="LeftWing" parent="Components/Basket" index="8" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -5)
 size = Vector3(1, 0.5, 4)
+mass_ = 200.0
+volume = 2.0
 
 [node name="Rigging" parent="Components" index="2" instance=ExtResource("3_qcob2")]
 

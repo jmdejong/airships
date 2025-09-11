@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://87gm1mtw3812"]
+
+[ext_resource type="Script" uid="uid://b01bx8dovrts3" path="res://code/components/dial.gd" id="1_q80i2"]
+[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_jc46c"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_sgqlt"]
+[ext_resource type="Texture2D" uid="uid://rsylrmgcr5lb" path="res://textures/more.png" id="3_licny"]
+[ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="3_sgqlt"]
+[ext_resource type="Texture2D" uid="uid://carh7wcvr4a6b" path="res://textures/less.png" id="4_licny"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jc46c"]
+size = Vector3(0.3, 0.1, 0.3)
+
+[sub_resource type="QuadMesh" id="QuadMesh_5sv2v"]
+size = Vector2(0.25, 0.25)
+center_offset = Vector3(0, 0.01, 0)
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fopc"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("3_licny")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5sv2v"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("4_licny")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_licny"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.2
+radial_segments = 32
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8dutg"]
+albedo_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5sv2v"]
+size = Vector3(0.02, 0.05, 0.18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qsep"]
+albedo_color = Color(0.666667, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q80i2"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 0.04
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3fopc"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_swh12"]
+radius = 0.1
+
+[node name="Dial" type="Node3D"]
+script = ExtResource("1_q80i2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+shape = SubResource("BoxShape3D_jc46c")
+
+[node name="More" parent="." instance=ExtResource("2_jc46c")]
+unique_name_in_owner = true
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.12, 0.2, 0.25)
+description = "increase"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="More"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("QuadMesh_5sv2v")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_3fopc")
+
+[node name="Less" parent="." instance=ExtResource("2_jc46c")]
+unique_name_in_owner = true
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.38, 0.2, 0.25)
+description = "increase"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Less"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999999, 0)
+mesh = SubResource("QuadMesh_5sv2v")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_5sv2v")
+
+[node name="Case" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
+mesh = SubResource("CylinderMesh_licny")
+skeleton = NodePath("../CenterOfMass")
+surface_material_override/0 = SubResource("StandardMaterial3D_8dutg")
+
+[node name="Screw" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+
+[node name="Hand" type="MeshInstance3D" parent="Screw"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09)
+mesh = SubResource("BoxMesh_5sv2v")
+skeleton = NodePath("../../CenterOfMass")
+surface_material_override/0 = SubResource("StandardMaterial3D_0qsep")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Screw"]
+mesh = SubResource("CylinderMesh_q80i2")
+
+[node name="CenterOfMass" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+
+[node name="Connection" parent="." instance=ExtResource("2_sgqlt")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
+shape = SubResource("BoxShape3D_3fopc")
+
+[node name="SignalConnection" parent="." instance=ExtResource("3_sgqlt")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
+shape = SubResource("SphereShape3D_swh12")
+
+[connection signal="pressed" from="More" to="." method="_on_more_pressed"]
+[connection signal="pressed" from="Less" to="." method="_on_less_pressed"]
+[connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]

@@ -55,7 +55,7 @@ size = Vector3(0.9, 0.6, 0.9)
 [node name="RotaryTable" type="Node3D"]
 script = ExtResource("1_gr85y")
 
-[node name="Components" parent="." instance=ExtResource("2_xvc1r")]
+[node name="RComponents" parent="." instance=ExtResource("2_xvc1r")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 keep_empty = true

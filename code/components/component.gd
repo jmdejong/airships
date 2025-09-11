@@ -17,3 +17,9 @@ func shapes() -> Array[CollisionShape3D]:
 func all_components() -> Array[Component]:
 	assert(false, "Abstract method")
 	return [self]
+
+func conduct_signal() -> bool:
+	return false
+
+func accept_signal() -> bool:
+	return false

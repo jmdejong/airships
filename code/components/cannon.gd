@@ -23,6 +23,7 @@ func _on_fire_pressed() -> void:
 	if !can_fire:
 		return
 	can_fire = false
+	prints("ship", ship)
 	var projectile: RigidBody3D = preload("res://scenes/cannonball.tscn").instantiate()
 	projectile.global_position = %Muzzle.global_position
 	projectile.linear_velocity = ship.linear_velocity
