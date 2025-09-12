@@ -35,6 +35,12 @@ func shapes() -> Array[CollisionShape3D]:
 		collisionshapes.append(inner_shape)
 	return collisionshapes
 
+func forces() -> Array[Force]:
+	var f: Array[Force] = []
+	for force in $RComponents.forces():
+		f.append(force.transformed(transform))
+	return f
+
 func destroy(_where: Vector3) -> void:
 	var parent: CompositeComponent = get_parent()
 	if parent == null:
