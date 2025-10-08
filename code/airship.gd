@@ -6,6 +6,7 @@ var center_of_volume: Vector3
 var forces: Array[Force]
 const drag_coefficient: float = 0.5
 var drag_area_coefficient: float
+var ndetached: int = 0
 
 func _ready() -> void:
 	$Components.changed.connect(calculate_components)
@@ -92,6 +93,8 @@ func check_connections() -> void:
 		parent.recalculate()
 	if !unconnected.is_empty():
 		var new_ship: Airship = preload("res://scenes/airship.tscn").instantiate()
+		ndetached += 1
+		new_ship.name = name + "_D" + str(ndetached)
 		new_ship.transform = transform
 		new_ship.linear_velocity = linear_velocity
 		new_ship.angular_velocity = angular_velocity

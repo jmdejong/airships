@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://37i3vkcqr8ef"]
+[gd_scene load_steps=20 format=3 uid="uid://37i3vkcqr8ef"]
 
 [ext_resource type="Script" uid="uid://e8guogssdweh" path="res://code/components/engine.gd" id="1_rrhl7"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_au7r5"]
@@ -54,6 +54,9 @@ rings = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhv66"]
 size = Vector3(0.1, 0.1, 1.1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_au7r5"]
+size = Vector3(0.1, 0.6, 0.6)
+
 [node name="Engine" type="Node3D"]
 script = ExtResource("1_rrhl7")
 
@@ -76,56 +79,12 @@ mesh = SubResource("QuadMesh_nhv66")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_a57g1")
 
-[node name="Less2" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
-unique_name_in_owner = true
-transform = Transform3D(4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, 0.25, -0.35, 0)
-description = "Decrease power"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Less2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999999, 0)
-mesh = SubResource("QuadMesh_nhv66")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_a57g1")
-
-[node name="Less3" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
-unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -1.1107499e-28, 1, -0.5, -0.2, 0)
-description = "Decrease power"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Less3"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.00999999, 0)
-mesh = SubResource("QuadMesh_nhv66")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_a57g1")
-
 [node name="More" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.35, 0)
 description = "Increase power"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/More"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-mesh = SubResource("QuadMesh_nhv66")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3fxwf")
-
-[node name="More2" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.25, -0.35, 0)
-description = "Increase power"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/More2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-mesh = SubResource("QuadMesh_nhv66")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3fxwf")
-
-[node name="More3" parent="MeshInstance3D" instance=ExtResource("2_au7r5")]
-unique_name_in_owner = true
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.5, 0.2, 0)
-description = "Increase power"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/More3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 mesh = SubResource("QuadMesh_nhv66")
 skeleton = NodePath("")
@@ -201,6 +160,10 @@ shape = SubResource("BoxShape3D_nhv66")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.25)
 shape = SubResource("BoxShape3D_nhv66")
 
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_au7r5")
+
 [node name="SignalConnection" parent="." instance=ExtResource("7_au7r5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
 
@@ -220,10 +183,10 @@ shape = SubResource("BoxShape3D_nhv66")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.25)
 shape = SubResource("BoxShape3D_nhv66")
 
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.25, 0.25)
+shape = SubResource("BoxShape3D_au7r5")
+
 [connection signal="pressed" from="MeshInstance3D/Less" to="." method="_on_less_pressed"]
-[connection signal="pressed" from="MeshInstance3D/Less2" to="." method="_on_less_pressed"]
-[connection signal="pressed" from="MeshInstance3D/Less3" to="." method="_on_less_pressed"]
 [connection signal="pressed" from="MeshInstance3D/More" to="." method="_on_more_pressed"]
-[connection signal="pressed" from="MeshInstance3D/More2" to="." method="_on_more_pressed"]
-[connection signal="pressed" from="MeshInstance3D/More3" to="." method="_on_more_pressed"]
 [connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]

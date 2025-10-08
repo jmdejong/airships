@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7mlj5h04xtu6"]
+[gd_scene load_steps=11 format=3 uid="uid://b7mlj5h04xtu6"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_2ad0o"]
 [ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="3_qcob2"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cckr01vpro7r" path="res://scenes/components/rotary_table.tscn" id="6_2ad0o"]
 [ext_resource type="PackedScene" uid="uid://b5dw13s3ysqsr" path="res://scenes/components/status_panel.tscn" id="6_tw0le"]
 [ext_resource type="PackedScene" uid="uid://cunwan507e0sg" path="res://scenes/components/smalloon.tscn" id="6_uud2w"]
+[ext_resource type="PackedScene" uid="uid://87gm1mtw3812" path="res://scenes/components/dial.tscn" id="7_ium6c"]
 [ext_resource type="PackedScene" uid="uid://cr366y43ta7n2" path="res://scenes/components/cable4m.tscn" id="8_2ad0o"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="8_pvp6t"]
 
@@ -19,13 +20,15 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 0
 
 [node name="Ballast" parent="Components/Machines" index="1" instance=ExtResource("5_v1y55")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.5, -0.5, 0.5)
-initial_filling = 300.0
 
 [node name="RotaryTable" parent="Components/Machines" index="2" instance=ExtResource("6_2ad0o")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 0.5, 0.5)
 
 [node name="Engine" parent="Components/Machines/RotaryTable" index="6" instance=ExtResource("4_b1l47")]
 transform = Transform3D(1, 8.74228e-08, 8.742279e-08, -8.742281e-08, 2.9802322e-08, 1, 8.7422784e-08, -1, 2.980233e-08, 1.1920929e-07, 0.5, 1)
+
+[node name="Dial" parent="Components/Machines/RotaryTable" index="7" instance=ExtResource("7_ium6c")]
+transform = Transform3D(4.3711395e-08, -1, 2.9802326e-08, -8.742281e-08, 2.9802322e-08, 1, -1, -4.371141e-08, -8.74228e-08, 0, 1, 0.5)
 
 [node name="Basket" parent="Components" index="1" instance=ExtResource("3_qcob2")]
 
