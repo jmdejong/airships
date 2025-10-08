@@ -13,11 +13,13 @@ func _init(value: float, unit: String, min_: float, max_: float) -> void:
 	self.min_ = min_
 	self.max_ = max_
 
-static func unlimited(value: float, unit: String):
+static func unlimited(value: float, unit: String) -> SignalValue:
 	return SignalValue.new(value, unit, float("inf"), float("-inf"))
 
-static func empty():
+static func empty() -> SignalValue:
 	return unlimited(0.0, "")
+
+static var EMPTY: SignalValue = SignalValue.empty()
 
 func with_value(val: float):
 	return SignalValue.new(val, unit, min_, max_)

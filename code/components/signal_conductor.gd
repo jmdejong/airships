@@ -1,18 +1,20 @@
 class_name SignalConductor
 extends Area3D
 
-signal changed(value: SignalValue)
-var value: SignalValue = SignalValue.empty():
-	set(v):
-		if v.equals(value):
-			return
-		value = v
-		update()
+enum Channel {RED, GREEN, BLUE, YELLOW}
+signal changed(value: SignalValue, channel: Channel)
+var values: Dictionary[Channel, SignalValue] = {}
 
-func update() -> void:
+func set_value(channel: Channel, v: SignalValue) -> void:
+	if v.equals(value(channel)):
+		return
+	values[channel] = v
 	for c: SignalConductor in connected():
-		c.value = value
-	changed.emit(value)
+		c.set_value(channel, v)
+	changed.emit(v, channel)
+
+func value(channel: Channel) -> SignalValue:
+	return values.get(channel, SignalValue.EMPTY)
 
 func connected() -> Array[SignalConductor]:
 	var others: Dictionary[SignalConductor, bool] = {}
@@ -26,10 +28,7 @@ func connected() -> Array[SignalConductor]:
 	return others.keys()
 
 func _on_area_entered(area: SignalConductor) -> void:
-	if area.value == null:
-		area.value = value
-	elif value == null:
-		value = area.value
-	else:
-		value = value.combine(area.value)
-		area.value = value
+	for channel: Channel in Channel.values():
+		var v: SignalValue = value(channel).combine(area.value(channel))
+		set_value(channel, v)
+		area.set_value(channel, v)
