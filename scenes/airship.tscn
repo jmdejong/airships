@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bacp7ifjnlyi6"]
+[gd_scene load_steps=6 format=3 uid="uid://bacp7ifjnlyi6"]
 
 [ext_resource type="Script" uid="uid://xq10sq0rmxby" path="res://code/airship.gd" id="1_81adk"]
 [ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="9_17pty"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_gy0ok"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6i7b"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 0.53333336)
 
 [sub_resource type="PrismMesh" id="PrismMesh_iu160"]
 
@@ -26,6 +31,7 @@ keep_empty = true
 [node name="CenterOfMassMarker" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("CylinderMesh_gy0ok")
+surface_material_override/0 = SubResource("StandardMaterial3D_g6i7b")
 
 [node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="."]
 visible = false

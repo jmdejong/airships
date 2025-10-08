@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cunwan507e0sg"]
+[gd_scene load_steps=7 format=3 uid="uid://cunwan507e0sg"]
 
 [ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_wjom8"]
 [ext_resource type="Texture2D" uid="uid://bg6g6ukjsiuh8" path="res://textures/envelopes/blue.png" id="2_wjom8"]
@@ -18,15 +18,12 @@ albedo_texture = ExtResource("2_wjom8")
 uv1_scale = Vector3(2, 1, 1)
 texture_filter = 0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ivyex"]
-radius = 4.8
-
 [node name="Smalloon" type="Node3D"]
 script = ExtResource("1_wjom8")
 radius = 6.0
 length = 15.0
-mass_ = 180.956
-volume = 1244.07
+mass_ = 180.95573684677208
+volume = 1244.070690821558
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -43,4 +40,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
 [node name="Connection" parent="." instance=ExtResource("3_lwris")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
-shape = SubResource("SphereShape3D_ivyex")
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_tvt4f")

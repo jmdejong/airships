@@ -23,14 +23,15 @@ func _ready() -> void:
 
 func physics_properties() -> PhysicsProperties:
 	var own: PhysicsProperties = PhysicsProperties.box($CenterOfMass.position, $CollisionShape3D.shape.size, density)
-	return PhysicsProperties.combine([own, $RComponents.physics_properties()])
+	return PhysicsProperties.combine([own, $RComponents.physics_properties()]).transformed(transform)
 
 func shapes() -> Array[CollisionShape3D]:
 	var shape: CollisionShape3D = $CollisionShape3D.duplicate()
 	shape.transform = transform * shape.transform
 	shape.set_meta("component", self)
 	var collisionshapes: Array[CollisionShape3D] = [shape]
-	for inner_shape: CollisionShape3D in $RComponents.shapes():
+	for inner_shape_original: CollisionShape3D in $RComponents.shapes():
+		var inner_shape: CollisionShape3D = inner_shape_original.duplicate()
 		inner_shape.transform = transform * inner_shape.transform
 		collisionshapes.append(inner_shape)
 	return collisionshapes
@@ -69,7 +70,6 @@ func do_rotate(delta: float) -> void:
 	rot = clamp(rot + delta, min_rotation, max_rotation)
 	$Top.rotation_degrees.y = rot
 	$RComponents.transform = $Top.transform * $Top/Corner.transform
-	prints("rotating to", rot)
 	$RComponents.recalculate()
 
 func rotate_clockwise() -> void:
