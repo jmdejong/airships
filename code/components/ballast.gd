@@ -6,6 +6,7 @@ var filling: float :
 	set(value):
 		filling = value
 		%Water.scale.y = filling/max_filling
+		%Water.visible = filling > 0.0
 		%StatusPanel.text = "%4.0f kg\n%3d%%" % [filling, int(filling/max_filling * 100)]
 		changed.emit()
 

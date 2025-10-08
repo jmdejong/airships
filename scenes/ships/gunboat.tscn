@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d38pbjc6hq7vv"]
+[gd_scene load_steps=16 format=3 uid="uid://d38pbjc6hq7vv"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_rb74k"]
 [ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="2_iel0n"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bnh82toixngca" path="res://scenes/components/cable8m.tscn" id="8_iel0n"]
 [ext_resource type="PackedScene" uid="uid://cckr01vpro7r" path="res://scenes/components/rotary_table.tscn" id="8_qrdk5"]
 [ext_resource type="PackedScene" uid="uid://kutuwinsanlc" path="res://scenes/components/barometer.tscn" id="9_oh3md"]
+[ext_resource type="PackedScene" uid="uid://dy7asljtall0c" path="res://scenes/components/slider.tscn" id="10_s4x7a"]
 [ext_resource type="PackedScene" uid="uid://87gm1mtw3812" path="res://scenes/components/dial.tscn" id="11_qjphb"]
 [ext_resource type="PackedScene" uid="uid://dg2lijml07p5x" path="res://scenes/components/wire_straight.tscn" id="12_oisyc"]
 [ext_resource type="PackedScene" uid="uid://b222awqy5q2ev" path="res://scenes/components/wire_connect.tscn" id="12_sq6km"]
@@ -61,6 +62,9 @@ transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0.5, 
 
 [node name="Barometer" parent="Components/Machines" index="10" instance=ExtResource("9_oh3md")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, 0.5)
+
+[node name="Slider" parent="Components/Machines" index="11" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-1, 4.3711385e-08, -4.371139e-08, -4.3711385e-08, 4.3711392e-08, 1, 4.371139e-08, 1, -4.371139e-08, 0, 1, -4.5)
 
 [node name="Wiring" parent="Components" index="2" instance=ExtResource("3_3nb3f")]
 
