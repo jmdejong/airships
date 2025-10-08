@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgiev8up864ym"]
+[gd_scene load_steps=10 format=3 uid="uid://bgiev8up864ym"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_rjgg3"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="2_2x7ye"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="4_2uvs7"]
 [ext_resource type="PackedScene" uid="uid://b5dw13s3ysqsr" path="res://scenes/components/status_panel.tscn" id="5_8vjui"]
 [ext_resource type="PackedScene" uid="uid://cr366y43ta7n2" path="res://scenes/components/cable4m.tscn" id="6_2uvs7"]
+[ext_resource type="PackedScene" uid="uid://b222awqy5q2ev" path="res://scenes/components/wire_connect.tscn" id="7_ryf2q"]
+[ext_resource type="PackedScene" uid="uid://dg2lijml07p5x" path="res://scenes/components/wire_straight.tscn" id="8_gnvd4"]
+[ext_resource type="PackedScene" uid="uid://87gm1mtw3812" path="res://scenes/components/dial.tscn" id="9_gnvd4"]
 
 [node name="Heli" instance=ExtResource("1_rjgg3")]
 
@@ -67,3 +70,63 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -1.5)
 
 [node name="Cable4m4" parent="Components/Frame" index="8" instance=ExtResource("6_2uvs7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1.5)
+
+[node name="Wiring" parent="Components" index="7" instance=ExtResource("4_2uvs7")]
+
+[node name="WireConnect" parent="Components/Wiring" index="0" instance=ExtResource("7_ryf2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, 1)
+
+[node name="WireConnect2" parent="Components/Wiring" index="1" instance=ExtResource("7_ryf2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4.5, 1)
+
+[node name="WireConnect3" parent="Components/Wiring" index="2" instance=ExtResource("7_ryf2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4.5, -1.5)
+
+[node name="WireConnect4" parent="Components/Wiring" index="3" instance=ExtResource("7_ryf2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, -1.5)
+
+[node name="WireConnect5" parent="Components/Wiring" index="4" instance=ExtResource("7_ryf2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, 0)
+
+[node name="WireConnect6" parent="Components/Wiring" index="5" instance=ExtResource("7_ryf2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4.5, 0)
+
+[node name="WireConnect7" parent="Components/Wiring" index="6" instance=ExtResource("7_ryf2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+
+[node name="WireStraight" parent="Components/Wiring" index="7" instance=ExtResource("8_gnvd4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, 0)
+length = 3.0
+mass_ = 4.71238898038469
+volume = 0.02356194490192345
+
+[node name="WireStraight3" parent="Components/Wiring" index="8" instance=ExtResource("8_gnvd4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 4.5, 1)
+mass_ = 0.7853981633974484
+volume = 0.003926990816987242
+
+[node name="WireStraight4" parent="Components/Wiring" index="9" instance=ExtResource("8_gnvd4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.5, 4.5, 1)
+mass_ = 0.7853981633974484
+volume = 0.003926990816987242
+
+[node name="WireStraight5" parent="Components/Wiring" index="10" instance=ExtResource("8_gnvd4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.5, 4.5, 0)
+length = 1.0
+mass_ = 1.5707963267948968
+volume = 0.007853981633974483
+
+[node name="WireStraight6" parent="Components/Wiring" index="11" instance=ExtResource("8_gnvd4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 4.5, 0)
+length = 1.0
+mass_ = 1.5707963267948968
+volume = 0.007853981633974483
+
+[node name="WireStraight2" parent="Components/Wiring" index="12" instance=ExtResource("8_gnvd4")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -2, 4.5, 0)
+length = 3.0
+mass_ = 4.71238898038469
+volume = 0.02356194490192345
+
+[node name="Dial" parent="Components/Wiring" index="13" instance=ExtResource("9_gnvd4")]
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, -1.5, 1, 0)
