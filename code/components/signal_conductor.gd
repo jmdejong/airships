@@ -1,28 +1,18 @@
 class_name SignalConductor
 extends Area3D
 
-signal changed(value: float, type: SignalType)
-var has_changed = false
-var value: float = 0.0:
+signal changed(value: SignalValue)
+var value: SignalValue = SignalValue.empty():
 	set(v):
-		if value == v:
+		if v.equals(value):
 			return
-		has_changed = true
 		value = v
-		update()
-var signal_type: SignalType = null:
-	set(t):
-		if signal_type == t:
-			return
-		has_changed = true
-		signal_type = t
 		update()
 
 func update() -> void:
 	for c: SignalConductor in connected():
 		c.value = value
-		c.signal_type = signal_type
-	changed.emit(value, signal_type)
+	changed.emit(value)
 
 func connected() -> Array[SignalConductor]:
 	var others: Dictionary[SignalConductor, bool] = {}
@@ -35,11 +25,11 @@ func connected() -> Array[SignalConductor]:
 				fringe.append(neighbour)
 	return others.keys()
 
-
 func _on_area_entered(area: SignalConductor) -> void:
-	if area.has_changed:
-		value = area.value
-		signal_type = area.signal_type
-	else:
+	if area.value == null:
 		area.value = value
-		area.signal_type = signal_type
+	elif value == null:
+		value = area.value
+	else:
+		value = value.combine(area.value)
+		area.value = value

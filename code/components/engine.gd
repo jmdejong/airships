@@ -10,12 +10,12 @@ var step: float = 5000
 var max_power: float = 50000
 var min_power: float = -50000
 var signal_scale = 1000
-var signal_type = SignalType.new("kW", min_power / signal_scale, max_power / signal_scale)
+#var signal_value = SignalValue.new(power / signal_scale, "kW", min_power / signal_scale, max_power / signal_scale)
 
 func _ready() -> void:
-	update_power()
 	mass_ = 100.0
 	volume = 0.25
+	update_power()
 
 func update_power() -> void:
 		%StatusPanel.text = "%2.2f kW" % (power / 1000.0)
@@ -23,8 +23,7 @@ func update_power() -> void:
 			%Rotor.rps = sign(%Rotor.rps) * 0.02
 		else:
 			%Rotor.rps = power / 500
-		$SignalConnection.value = power / signal_scale
-		$SignalConnection.signal_type = signal_type
+		$SignalConnection.value = SignalValue.new(power / signal_scale, "kW", min_power / signal_scale, max_power / signal_scale)
 		changed.emit()
 
 func forces() -> Array[Force]:
@@ -37,5 +36,5 @@ func _on_less_pressed() -> void:
 func _on_more_pressed() -> void:
 	power = power + step
 
-func _on_signal_connection_changed(value: float, _type: SignalType) -> void:
-	power = value * signal_scale
+func _on_signal_connection_changed(value: SignalValue) -> void:
+	power = value.value * signal_scale
