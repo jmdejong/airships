@@ -1,6 +1,6 @@
 extends BoxComponent
 
-@export var scale_degree: float = 3
+@export var scale_degree: float = 2
 @export var step_size: float = 5
 
 var value: SignalValue = SignalValue.empty():
@@ -15,6 +15,8 @@ func _ready() -> void:
 	update()
 
 func update() -> void:
+	if !is_inside_tree():
+		return
 	$SignalConnection.value = value
 	$Screw.rotation_degrees.y = -value.value * scale_degree
 	%StatusText.text = "%3.2f %s" % [value.value, value.unit]
