@@ -23,3 +23,9 @@ func conduct_signal() -> bool:
 
 func accept_signal() -> bool:
 	return false
+
+func get_ship() -> Airship:
+	var parent: Node = get_parent()
+	while parent != null and not parent is Airship:
+		parent = parent.get_parent()
+	return parent

@@ -4,7 +4,6 @@ extends Component
 
 @export var mass_: float
 @export var volume: float
-var ship: Airship
 
 func displaced_volume() -> float:
 	return volume

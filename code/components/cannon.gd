@@ -26,6 +26,7 @@ func _on_fire_pressed() -> void:
 	#prints("ship", ship)
 	var projectile: RigidBody3D = preload("res://scenes/cannonball.tscn").instantiate()
 	projectile.global_position = %Muzzle.global_position
+	var ship: Airship = get_ship()
 	projectile.linear_velocity = ship.linear_velocity
 	var direction: Vector3 = (%Muzzle.global_position - %Chamber.global_position).normalized()
 	var impulse: Vector3 = direction * fire_force

@@ -16,7 +16,6 @@ func _ready() -> void:
 	for child in get_children():
 		if child is Component and child != $Components:
 			child.reparent($Components)
-	$Components.ship = self
 
 func calculate_components() -> void:
 	var physics_properties: PhysicsProperties = $Components.physics_properties()

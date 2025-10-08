@@ -6,10 +6,6 @@ extends Component
 @export var step: float = 5
 var density: float = 200
 var rot: float = 0
-var ship: Airship:
-	set(s):
-		$RComponents.ship = s
-		ship = s
 
 func _ready() -> void:
 	for child in get_children():
@@ -17,7 +13,6 @@ func _ready() -> void:
 			remove_child(child)
 			child.transform = $RComponents.transform.inverse() * child.transform
 			$RComponents.add_component(child)
-	$RComponents.ship = ship
 	$RComponents.changed.connect(func(): changed.emit())
 
 

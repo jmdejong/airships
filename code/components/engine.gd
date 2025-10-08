@@ -9,7 +9,8 @@ extends BaseComponent
 var step: float = 5000
 var max_power: float = 50000
 var min_power: float = -50000
-var signal_scale = 10000
+var signal_scale = 1000
+var signal_type = SignalType.new("kW", min_power / signal_scale, max_power / signal_scale)
 
 func _ready() -> void:
 	update_power()
@@ -23,6 +24,7 @@ func update_power() -> void:
 		else:
 			%Rotor.rps = power / 500
 		$SignalConnection.value = power / signal_scale
+		$SignalConnection.signal_type = signal_type
 		changed.emit()
 
 func forces() -> Array[Force]:
@@ -35,5 +37,5 @@ func _on_less_pressed() -> void:
 func _on_more_pressed() -> void:
 	power = power + step
 
-func _on_signal_connection_changed(value: float) -> void:
+func _on_signal_connection_changed(value: float, _type: SignalType) -> void:
 	power = value * signal_scale

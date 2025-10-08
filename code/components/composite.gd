@@ -7,18 +7,11 @@ var _physics_properties: PhysicsProperties
 var _shapes: Array[CollisionShape3D]
 var _forces: Array[Force]
 var component_cells: Dictionary[Vector2, Node3D]
-var ship: Airship:
-	set(s):
-		for child in get_children():
-			if child is Component:
-				child.ship = s
-		ship = s
 var should_recalculate := false
 
 func _ready() -> void:
 	for child in get_children():
 		if child is Component:
-			child.ship = ship
 			child.changed.connect(recalculate)
 	_recalculate()
 
@@ -64,14 +57,12 @@ func forces() -> Array[Force]:
 
 func add_component(component: Component) -> void:
 	add_child(component)
-	component.ship = ship
 	component.changed.connect(recalculate)
 	recalculate()
 
 func add_components(components: Array[Component]) -> void:
 	for component: Component in components:
 		add_child(component)
-		component.ship = ship
 		component.changed.connect(recalculate)
 	recalculate()
 
