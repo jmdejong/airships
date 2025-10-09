@@ -1,5 +1,5 @@
 class_name Force
-extends Object
+extends RefCounted
 
 var pos: Vector3
 var direction: Vector3

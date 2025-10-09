@@ -1,5 +1,5 @@
 class_name SignalValue
-extends Object
+extends RefCounted
 
 
 var value: float

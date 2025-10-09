@@ -1,5 +1,5 @@
 class_name ComponentBlueprint
-extends Object
+extends RefCounted
 
 var factory: Callable
 var preview: PackedScene

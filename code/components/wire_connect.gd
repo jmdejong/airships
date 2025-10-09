@@ -5,11 +5,16 @@ extends BaseComponent
 var connected_shapes: Array[SignalShapeConnection] = []
 var connected_directions: Array[String] = []
 var connected_direction_map: Dictionary[String, bool] = {}
+var _v: int = 0
+var _v_last: int = -1
 
 func _ready() -> void:
 	update_connected_directions()
 
 func update_connected_directions() -> void:
+	if _v == _v_last:
+		return
+	_v_last = _v
 	connected_direction_map = {}
 	for ssc: SignalShapeConnection in connected_shapes:
 		var shape: CollisionShape3D = ssc.local_shape
@@ -57,31 +62,37 @@ class SignalShapeConnection:
 
 func _on_signal_connection_area_shape_entered(area_rid: RID, _area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
 	connected_shapes.append(SignalShapeConnection.new(area_rid, area_shape_index, $SignalConnection, local_shape_index))
-	update_connected_directions()
+	_v += 1
+	update_connected_directions.call_deferred()
 
 func _on_signal_connection_area_shape_exited(area_rid: RID, _area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
 	var s: SignalShapeConnection = SignalShapeConnection.new(area_rid, area_shape_index, $SignalConnection, local_shape_index)
 	var index: int = connected_shapes.find_custom(func(ssc: SignalShapeConnection) -> bool: return s.equals(ssc))
 	if index >= 0:
 		connected_shapes.remove_at(index)
-	update_connected_directions()
+		_v += 1
+		update_connected_directions.call_deferred()
 
 func _on_connection_body_shape_entered(body_rid: RID, _body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	var s: SignalShapeConnection = SignalShapeConnection.new(body_rid, body_shape_index, $Connection, local_shape_index)
 	connected_shapes.append(s)
-	update_connected_directions()
+	update_connected_directions.call_deferred()
+	
 
 func _on_connection_body_shape_exited(body_rid: RID, _body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	var s: SignalShapeConnection = SignalShapeConnection.new(body_rid, body_shape_index, $Connection, local_shape_index)
 	var index: int = connected_shapes.find_custom(func(ssc: SignalShapeConnection) -> bool: return s.equals(ssc))
 	if index >= 0:
 		connected_shapes.remove_at(index)
-	update_connected_directions()
+		_v += 1
+		update_connected_directions.call_deferred()
+
 
 
 func _on_connection_area_shape_entered(area_rid: RID, _area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
 	connected_shapes.append(SignalShapeConnection.new(area_rid, area_shape_index, $SignalConnection, local_shape_index))
-	update_connected_directions()
+	_v += 1
+	update_connected_directions.call_deferred()
 
 
 func _on_connection_area_shape_exited(area_rid: RID, _area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
@@ -89,4 +100,5 @@ func _on_connection_area_shape_exited(area_rid: RID, _area: Area3D, area_shape_i
 	var index: int = connected_shapes.find_custom(func(ssc: SignalShapeConnection) -> bool: return s.equals(ssc))
 	if index >= 0:
 		connected_shapes.remove_at(index)
-	update_connected_directions()
+		_v += 1
+		update_connected_directions.call_deferred()

@@ -1,5 +1,5 @@
 class_name PhysicsProperties
-extends Object
+extends RefCounted
 
 var mass: float
 var center_of_mass: Vector3
