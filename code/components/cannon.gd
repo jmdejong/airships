@@ -4,7 +4,15 @@ var fire_force: float = 3000
 var can_fire := true
 var vert_angle_lo: float = -25
 var vert_angle_hi: float = 35
+@export var angle_channel = SignalConnection.Channel.RED
+var angle: float = 0
 
+func _ready() -> void:
+	var typ: Dictionary[SignalConnection.Channel, SignalType] = {
+		angle_channel: SignalType.new("deg", vert_angle_lo, vert_angle_hi, 5)
+	}
+	$SignalConnection.own_type = typ
+	set_angle(angle)
 
 func mass() -> float:
 	return 500
@@ -39,11 +47,17 @@ func _on_fire_pressed() -> void:
 	await get_tree().create_timer(0.5).timeout
 	can_fire = true
 
+func set_angle(a: float) -> void:
+	angle = clamp(a, vert_angle_lo, vert_angle_hi)
+	%Barrel.rotation_degrees.z = angle
+	changed.emit()
 
 func _on_up_pressed() -> void:
-	%Barrel.rotation_degrees.z = clamp(%Barrel.rotation_degrees.z + 5, vert_angle_lo, vert_angle_hi)
-	changed.emit()
+	set_angle(angle + 5)
 
 func _on_down_pressed() -> void:
-	%Barrel.rotation_degrees.z = clamp(%Barrel.rotation_degrees.z - 5, vert_angle_lo, vert_angle_hi)
-	changed.emit()
+	set_angle(angle - 5)
+
+func _on_signal_connection_changed(channel: SignalConnection.Channel, value: float) -> void:
+	if channel == angle_channel:
+		set_angle(value)

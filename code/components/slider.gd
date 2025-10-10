@@ -1,32 +1,25 @@
 extends BoxComponent
 
 @export var step_size: float = 5
-@export var signal_channel: SignalConductor.Channel = SignalConductor.Channel.RED
-
-var value: SignalValue = SignalValue.empty():
-	set(val):
-		if value.equals(val):
-			return
-		value = val
-		update()
+@export var signal_channel: SignalConnection.Channel = SignalConnection.Channel.RED
 
 func _ready() -> void:
-	value = $SignalConnection.value(signal_channel)
 	update()
 
 func update() -> void:
-	if !is_inside_tree():
+	if !is_node_ready():
 		return
-	$SignalConnection.set_value(signal_channel, value)
-	%ColorRect.set_(value.value, max(value.min_allowed(), -1000), min(value.max_allowed(), 1000))
-	%StatusText.text = "%3.2f %s" % [value.value, value.unit]
+	var value: float = $SignalConnection.value(signal_channel)
+	var signal_type: SignalType = $SignalConnection.signal_type(signal_channel)
+	%ColorRect.set_(value, max(signal_type.min_allowed(), -1000), min(signal_type.max_allowed(), 1000))
+	%StatusText.text = "%3.2f %s" % [value, signal_type.unit]
 
-func _on_signal_connection_changed(value: SignalValue, channel: SignalConductor.Channel) -> void:
-	if channel == signal_channel:
-		self.value = value
+
+func _on_signal_connection_changed(_channel: SignalConnection.Channel, _value: float) -> void:
+	update()
 
 func _on_less_pressed() -> void:
-	value = value.changed_by(-step_size)
+	$SignalConnection.change_value(signal_channel, -step_size)
 
 func _on_more_pressed() -> void:
-	value = value.changed_by(step_size)
+	$SignalConnection.change_value(signal_channel, step_size)

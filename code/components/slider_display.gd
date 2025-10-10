@@ -19,7 +19,6 @@ func _draw() -> void:
 	var zero: float = -lo * s
 	var vy: float = (val - lo) * s
 	if val > 0:
-		prints(vy, zero, zero - vy)
 		draw_rect(Rect2(0, zero, area.size.x, vy - zero), Color.RED)
 	else:
 		draw_rect(Rect2(0, vy, area.size.x, zero - vy), Color.RED)

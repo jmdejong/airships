@@ -60,7 +60,9 @@ class SignalShapeConnection:
 	func equals(other: SignalShapeConnection) -> bool:
 		return rid == other.rid && area_shape_index == other.area_shape_index && local_area == other.local_area && local_shape == other.local_shape
 
-func _on_signal_connection_area_shape_entered(area_rid: RID, _area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+func _on_signal_connection_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+	if area.get_parent().get_ship() != get_ship():
+		return
 	connected_shapes.append(SignalShapeConnection.new(area_rid, area_shape_index, $SignalConnection, local_shape_index))
 	_v += 1
 	update_connected_directions.call_deferred()
@@ -73,23 +75,10 @@ func _on_signal_connection_area_shape_exited(area_rid: RID, _area: Area3D, area_
 		_v += 1
 		update_connected_directions.call_deferred()
 
-func _on_connection_body_shape_entered(body_rid: RID, _body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	var s: SignalShapeConnection = SignalShapeConnection.new(body_rid, body_shape_index, $Connection, local_shape_index)
-	connected_shapes.append(s)
-	update_connected_directions.call_deferred()
-	
 
-func _on_connection_body_shape_exited(body_rid: RID, _body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	var s: SignalShapeConnection = SignalShapeConnection.new(body_rid, body_shape_index, $Connection, local_shape_index)
-	var index: int = connected_shapes.find_custom(func(ssc: SignalShapeConnection) -> bool: return s.equals(ssc))
-	if index >= 0:
-		connected_shapes.remove_at(index)
-		_v += 1
-		update_connected_directions.call_deferred()
-
-
-
-func _on_connection_area_shape_entered(area_rid: RID, _area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+func _on_connection_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
+	if area.get_parent().get_ship() != get_ship():
+		return
 	connected_shapes.append(SignalShapeConnection.new(area_rid, area_shape_index, $SignalConnection, local_shape_index))
 	_v += 1
 	update_connected_directions.call_deferred()

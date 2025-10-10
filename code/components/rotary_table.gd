@@ -3,7 +3,8 @@ extends Component
 
 @export var max_rotation: float = 45
 @export var min_rotation: float = -45
-@export var step: float = 5
+@export var step: float = 1
+@export var rotation_channel: SignalConnection.Channel = SignalConnection.Channel.GREEN
 var density: float = 200
 var rot: float = 0
 
@@ -14,6 +15,11 @@ func _ready() -> void:
 			child.transform = $RComponents.transform.inverse() * child.transform
 			$RComponents.add_component(child)
 	$RComponents.changed.connect(func(): changed.emit())
+	var typ: Dictionary[SignalConnection.Channel, SignalType] = {
+		rotation_channel: SignalType.new("deg", min_rotation, max_rotation, 5)
+	}
+	$SignalConnection.own_type = typ
+	rotate_to(rot)
 
 
 func physics_properties() -> PhysicsProperties:
@@ -61,17 +67,21 @@ func connected_components() -> Array[Component]:
 	connected.assign($Connection.get_overlapping_areas().map(func(area): return area.get_parent()))
 	return connected
 
-func do_rotate(delta: float) -> void:
-	rot = clamp(rot + delta, min_rotation, max_rotation)
-	$Top.rotation_degrees.y = rot
+func rotate_to(r: float) -> void:
+	r = clamp(r, min_rotation, max_rotation)
+	#if rot == r:
+		#return
+	rot = r
+	$Top.rotation_degrees.y = -rot
 	$RComponents.transform = $Top.transform * $Top/Corner.transform
 	$RComponents.recalculate()
 
 func rotate_clockwise() -> void:
-	do_rotate(-5)
+	rotate_to(rot-5)
 
 func rotate_counterclockwise() -> void:
-	do_rotate(5)
+	rotate_to(rot+5)
 
-func accept_signal() -> bool:
-	return true
+func _on_signal_connection_changed(channel: SignalConnection.Channel, value: float) -> void:
+	if channel == rotation_channel:
+		rotate_to(value)

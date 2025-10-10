@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dmsj4uy2vf3wu"]
+[gd_scene load_steps=26 format=3 uid="uid://dmsj4uy2vf3wu"]
 
 [ext_resource type="Script" uid="uid://diu74pxnnmn5c" path="res://code/components/cannon.gd" id="1_rbt30"]
 [ext_resource type="Material" uid="uid://c1xo2fy462mbs" path="res://materials/cannon_barrel.tres" id="2_7rtf2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_7rtf2"]
 [ext_resource type="Texture2D" uid="uid://rsylrmgcr5lb" path="res://textures/more.png" id="4_pnn2d"]
 [ext_resource type="Texture2D" uid="uid://carh7wcvr4a6b" path="res://textures/less.png" id="5_i83lc"]
+[ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="7_i83lc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rbt30"]
 size = Vector3(0.9, 0.7, 0.9)
@@ -72,6 +73,15 @@ albedo_texture = ExtResource("5_i83lc")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d28oc"]
 size = Vector3(0.9, 0.5, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i83lc"]
+size = Vector3(0.8, 0.4, 1.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yu0wc"]
+size = Vector3(0.1, 0.4, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vo2m1"]
+size = Vector3(0.8, 0.1, 0.8)
 
 [node name="Cannon" type="Node3D"]
 script = ExtResource("1_rbt30")
@@ -182,8 +192,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.5, 0.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.5)
 shape = SubResource("BoxShape3D_d28oc")
 
+[node name="SignalConnection" parent="." instance=ExtResource("7_i83lc")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.5)
+shape = SubResource("BoxShape3D_i83lc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5)
+shape = SubResource("BoxShape3D_yu0wc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
+shape = SubResource("BoxShape3D_vo2m1")
+
 [connection signal="pressed" from="Barrel/Chamber/FireButton" to="." method="_on_fire_pressed"]
 [connection signal="pressed" from="Mount/Up" to="." method="_on_up_pressed"]
 [connection signal="pressed" from="Mount/Up2" to="." method="_on_up_pressed"]
 [connection signal="pressed" from="Mount/Down" to="." method="_on_down_pressed"]
 [connection signal="pressed" from="Mount/Down2" to="." method="_on_down_pressed"]
+[connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]

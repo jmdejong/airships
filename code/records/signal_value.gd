@@ -1,11 +1,11 @@
 class_name SignalValue
-extends RefCounted
+extends Resource
 
 
-var value: float
-var unit: String
-var min_: float
-var max_: float
+@export var value: float
+@export var unit: String
+@export var min_: float
+@export var max_: float
 
 func _init(value: float, unit: String, min_: float, max_: float) -> void:
 	self.value = clamp(value, min_, max_)
