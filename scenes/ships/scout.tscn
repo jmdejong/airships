@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7mlj5h04xtu6"]
+[gd_scene load_steps=19 format=3 uid="uid://b7mlj5h04xtu6"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_2ad0o"]
 [ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="3_qcob2"]
@@ -10,6 +10,38 @@
 [ext_resource type="PackedScene" uid="uid://dy7asljtall0c" path="res://scenes/components/slider.tscn" id="7_ium6c"]
 [ext_resource type="PackedScene" uid="uid://cr366y43ta7n2" path="res://scenes/components/cable4m.tscn" id="8_2ad0o"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="8_pvp6t"]
+[ext_resource type="PackedScene" uid="uid://4ejh32drlk0w" path="res://scenes/components/chair.tscn" id="9_qcob2"]
+[ext_resource type="PackedScene" uid="uid://b222awqy5q2ev" path="res://scenes/components/wire_connect.tscn" id="12_b1l47"]
+[ext_resource type="PackedScene" uid="uid://87gm1mtw3812" path="res://scenes/components/dial.tscn" id="13_5538s"]
+[ext_resource type="Script" uid="uid://bdyy87xh6bshr" path="res://code/records/binding.gd" id="14_tw0le"]
+
+[sub_resource type="Resource" id="Resource_p56v3"]
+script = ExtResource("14_tw0le")
+key = 87
+control = "../../SliderEng/SignalConnection/SignalControl"
+change = 3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_pvp6t"]
+script = ExtResource("14_tw0le")
+key = 83
+control = "../../SliderEng/SignalConnection/SignalControl"
+change = -3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_tw0le"]
+script = ExtResource("14_tw0le")
+key = 65
+control = "../../DialRot/SignalConnection/SignalControl"
+change = 3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_dvls8"]
+script = ExtResource("14_tw0le")
+key = 68
+control = "../../DialRot/SignalConnection/SignalControl"
+change = -3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
 [node name="Scout" instance=ExtResource("1_2ad0o")]
 
@@ -23,9 +55,11 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.5, 
 
 [node name="RotaryTable" parent="Components/Machines" index="2" instance=ExtResource("6_2ad0o")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 0.5, 0.5)
+rotation_channel = 1
 
 [node name="Engine" parent="Components/Machines/RotaryTable" index="6" instance=ExtResource("4_b1l47")]
 transform = Transform3D(1, 8.74228e-08, 8.742279e-08, -8.742281e-08, 2.9802322e-08, 1, 8.7422784e-08, -1, 2.980233e-08, 1.1920929e-07, 0.5, 1)
+power_channel = 2
 
 [node name="Slider" parent="Components/Machines/RotaryTable" index="7" instance=ExtResource("7_ium6c")]
 transform = Transform3D(4.371141e-08, -1, -4.3711385e-08, -8.74228e-08, -4.371139e-08, 1, -1, -4.371141e-08, -8.74228e-08, 0, 1, 0.5)
@@ -102,3 +136,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -1)
 
 [node name="Smalloon" parent="Components" index="3" instance=ExtResource("6_uud2w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 0)
+
+[node name="Wiring" parent="Components" index="4" instance=ExtResource("3_qcob2")]
+
+[node name="WireConnect" parent="Components/Wiring" index="0" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0)
+
+[node name="WireConnect2" parent="Components/Wiring" index="1" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 0)
+
+[node name="WireConnect3" parent="Components/Wiring" index="2" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -0.5)
+
+[node name="WireConnect4" parent="Components/Wiring" index="3" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -0.5)
+
+[node name="DialRot" parent="Components/Wiring" index="4" instance=ExtResource("13_5538s")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 1, 0.5)
+scale_degree = -1.0
+signal_channel = 1
+
+[node name="SliderEng" parent="Components/Wiring" index="5" instance=ExtResource("7_ium6c")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 1, 0)
+signal_channel = 2
+
+[node name="Chair" parent="Components/Wiring" index="6" instance=ExtResource("9_qcob2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1, 0.5, -0.5)
+bindings = Array[ExtResource("14_tw0le")]([SubResource("Resource_p56v3"), SubResource("Resource_pvp6t"), SubResource("Resource_tw0le"), SubResource("Resource_dvls8")])

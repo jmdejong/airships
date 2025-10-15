@@ -86,6 +86,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		move_around(state, movement)
 	elif posture == Posture.Sitting:
 		global_position = seat.seat_position()
+		linear_velocity = seat.get_component().get_ship().linear_velocity
 	
 	%Info.text = "speed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3" % [
 		Vector2(linear_velocity.x, linear_velocity.z).length(),

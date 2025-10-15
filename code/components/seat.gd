@@ -15,3 +15,6 @@ func handle_player_input(delta: float) -> void:
 		if Input.is_key_pressed(binding.key):
 			var control: SignalControl = get_node(binding.control)
 			control.change_raw_value(delta * binding.change)
+
+func get_component() -> Component:
+	return get_parent()
