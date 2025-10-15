@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://y3r5symbcup6"]
+[gd_scene load_steps=13 format=3 uid="uid://y3r5symbcup6"]
 
 [ext_resource type="Script" uid="uid://twbm7s4dogih" path="res://code/components/ballast.gd" id="1_ega2e"]
-[ext_resource type="Texture2D" uid="uid://carh7wcvr4a6b" path="res://textures/less.png" id="2_ugx7q"]
-[ext_resource type="Texture2D" uid="uid://rsylrmgcr5lb" path="res://textures/more.png" id="3_2skdb"]
+[ext_resource type="Material" uid="uid://ygt2tr4mwdlq" path="res://materials/button/less.tres" id="3_dbjq7"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="3_rkelu"]
+[ext_resource type="Material" uid="uid://cq0u3gxxgm3m4" path="res://materials/button/more.tres" id="4_7p7wn"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="5_rkelu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xlykn"]
@@ -18,18 +18,6 @@ albedo_color = Color(0.266667, 0.266667, 0.266667, 0.8)
 size = Vector2(0.25, 0.25)
 center_offset = Vector3(0, 0.01, 0)
 orientation = 1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ugx7q"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_texture = ExtResource("2_ugx7q")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8sc4"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_texture = ExtResource("3_2skdb")
 
 [sub_resource type="BoxMesh" id="BoxMesh_ugx7q"]
 size = Vector3(0.9, 0.9, 0.9)
@@ -60,8 +48,7 @@ description = "Decrease ballast"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_ugx7q")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_ugx7q")
+surface_material_override/0 = ExtResource("3_dbjq7")
 
 [node name="More" parent="Tank" instance=ExtResource("3_rkelu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0.125)
@@ -71,8 +58,7 @@ description = "Increase ballast"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_ugx7q")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_k8sc4")
+surface_material_override/0 = ExtResource("4_7p7wn")
 
 [node name="StatusPanel" type="Label3D" parent="Tank"]
 unique_name_in_owner = true

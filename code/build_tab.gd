@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 signal select_remove
+@warning_ignore("unused_signal")
 signal select_build(blueprint: ComponentBlueprint)
 
 

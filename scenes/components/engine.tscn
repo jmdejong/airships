@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://37i3vkcqr8ef"]
+[gd_scene load_steps=13 format=3 uid="uid://37i3vkcqr8ef"]
 
 [ext_resource type="Script" uid="uid://e8guogssdweh" path="res://code/components/engine.gd" id="1_rrhl7"]
+[ext_resource type="Material" uid="uid://itbsqlrcr84h" path="res://materials/metal_light.tres" id="2_e4l0a"]
 [ext_resource type="Script" uid="uid://w74q5f1ednux" path="res://code/anim/rotor.gd" id="5_r7ssg"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="6_8634w"]
 [ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="7_au7r5"]
@@ -8,15 +9,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_dv5nn"]
 size = Vector3(1, 0.7, 0.7)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ouc1"]
-albedo_color = Color(0.26, 0.26, 0.26, 1)
-
 [sub_resource type="BoxMesh" id="BoxMesh_dn7b6"]
-material = SubResource("StandardMaterial3D_3ouc1")
+material = ExtResource("2_e4l0a")
 size = Vector3(1, 0.7, 0.7)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lieb6"]
-albedo_color = Color(0.258824, 0.258824, 0.258824, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_nhv66"]
 size = Vector3(0.1, 0.1, 1)
@@ -50,27 +45,23 @@ mesh = SubResource("BoxMesh_dn7b6")
 
 [node name="Beam" type="MeshInstance3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, 0)
-material_override = SubResource("StandardMaterial3D_lieb6")
 mesh = SubResource("BoxMesh_nhv66")
-skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_e4l0a")
 
 [node name="Beam2" type="MeshInstance3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.25, 0)
-material_override = SubResource("StandardMaterial3D_lieb6")
 mesh = SubResource("BoxMesh_nhv66")
-skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_e4l0a")
 
 [node name="Beam3" type="MeshInstance3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.25, 0)
-material_override = SubResource("StandardMaterial3D_lieb6")
 mesh = SubResource("BoxMesh_nhv66")
-skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_e4l0a")
 
 [node name="Beam4" type="MeshInstance3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
-material_override = SubResource("StandardMaterial3D_lieb6")
 mesh = SubResource("BoxMesh_nhv66")
-skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_e4l0a")
 
 [node name="Rotor" type="Node3D" parent="."]
 unique_name_in_owner = true

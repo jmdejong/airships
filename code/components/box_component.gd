@@ -5,7 +5,7 @@ extends BaseComponent
 
 func physics_properties() -> PhysicsProperties:
 	return PhysicsProperties.box(
-		$CollisionShape3D.position,
+		transform * $CollisionShape3D.position,
 		$CollisionShape3D.shape.size,
 		density
 	)

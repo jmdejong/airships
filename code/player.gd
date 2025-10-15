@@ -1,3 +1,4 @@
+class_name Player
 extends RigidBody3D
 
 const MOUSE_SENSITIVITY: float = 0.003
@@ -7,7 +8,6 @@ const ultra_sprint_multiplier: float = 100
 const jump_speed: float = 4
 const walk_force: float = 1000
 
-var move_fly: bool = false
 var mouse_motion: Vector2 = Vector2.ZERO
 var used_platform: RigidBody3D = null
 var platform_movement: Vector3 = Vector3.ZERO
@@ -16,7 +16,6 @@ var was_on_ground := false
 const last_since_floor_max: float = 5
 
 enum MouseMode {Unfocused, Play, Select, Build, Remove}
-
 
 var mouse_mode: MouseMode = MouseMode.Unfocused:
 	set(value):
@@ -36,7 +35,20 @@ var build_mode: bool = false:
 	set(value):
 		build_mode = value
 		$BuildTab.visible = build_mode
-		
+
+enum Posture {Standing, Sitting, FlyDebug}
+var posture: Posture = Posture.Standing:
+	set(v):
+		if posture == v:
+			return
+		posture = v
+		if posture == Posture.Standing:
+			gravity_scale = 1
+			was_on_ground = false
+		if posture == Posture.FlyDebug:
+			gravity_scale = 0
+var seat: Seat = null
+
 
 signal viewpoint_changed(pos: Vector3)
 
@@ -50,12 +62,46 @@ func _physics_process(delta: float) -> void:
 	last_since_floor += delta
 	if last_since_floor >= last_since_floor_max:
 		used_platform = null
+
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if mouse_motion != Vector2.ZERO:
 		$Head.rotation.x = clamp($Head.rotation.x - mouse_motion.y * MOUSE_SENSITIVITY, -PI/2, PI/2)
 		rotate_y(-mouse_motion.x * MOUSE_SENSITIVITY)
 		mouse_motion = Vector2.ZERO
 	
+	var input_movement: Vector2 = Input.get_vector("left", "right", "forwards", "backwards")
+	var movement: Vector3 = (Vector3(input_movement.x, 0, input_movement.y) * speed) \
+		.rotated(Vector3(0, 1, 0), rotation.y)
+	
+	if posture == Posture.FlyDebug:
+		movement.y = Input.get_axis("down", "up") * speed
+		if Input.is_action_pressed("sprint"):
+			movement *= sprint_multiplier
+		if Input.is_action_pressed("ultrasprint"):
+			movement *= ultra_sprint_multiplier
+		linear_velocity = movement
+	elif posture == Posture.Standing:
+		move_around(state, movement)
+	elif posture == Posture.Sitting:
+		global_position = seat.seat_position()
+	
+	%Info.text = "speed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3" % [
+		Vector2(linear_velocity.x, linear_velocity.z).length(),
+		position.x,
+		position.y,
+		position.z,
+		Atmosphere.temperature(position.y),
+		Atmosphere.pressure(position.y) / 1000,
+		Atmosphere.air_density(position.y)
+	]
+	
+	try_interact()
+	if mouse_mode == MouseMode.Build:
+		%BuildCast.place_preview()
+	
+	viewpoint_changed.emit(position)
+
+func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 	var is_on_ground: bool = false#%GroundCheck.get_collision_count() > 0
 	var contact_point = null
 	for i in state.get_contact_count():
@@ -73,62 +119,37 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var floor_movement: Vector3 = Vector3.ZERO
 	if used_platform != null:
 		floor_movement = platform_movement * (last_since_floor_max - last_since_floor) / last_since_floor_max
-	var input_movement: Vector2 = Input.get_vector("left", "right", "forwards", "backwards")
-	var movement: Vector3 = (Vector3(input_movement.x, 0, input_movement.y) * speed) \
-		.rotated(Vector3(0, 1, 0), rotation.y)
 		
 	var desired_velocity: Vector3 = floor_movement + movement
 	var deltav: Vector3 = desired_velocity - linear_velocity
-	if move_fly:
-		desired_velocity.y = Input.get_axis("down", "up") * speed
-		if Input.is_action_pressed("sprint"):
-			desired_velocity *= sprint_multiplier
-		if Input.is_action_pressed("ultrasprint"):
-			desired_velocity *= ultra_sprint_multiplier
-		linear_velocity = desired_velocity
-	else:
-		deltav.y = 0
-		if is_on_ground:
-			var force: Vector3 = deltav * mass * 10
-			apply_force(force, contact_point - global_position)
+	deltav.y = 0
+	if is_on_ground:
+		var force: Vector3 = deltav * mass * 10
+		apply_force(force, contact_point - global_position)
+		if used_platform != null:
+			used_platform.apply_force(-force, contact_point - used_platform.global_position)
+		if Input.is_action_pressed("up") and was_on_ground:
+			var jump_strength: Vector3 = Vector3(0, 200, 0)
+			apply_impulse(jump_strength, contact_point - global_position)
 			if used_platform != null:
-				used_platform.apply_force(-force, contact_point - used_platform.global_position)
-			if Input.is_action_pressed("up") and was_on_ground:
-				var jump_strength: Vector3 = Vector3(0, 200, 0)
-				apply_impulse(jump_strength, contact_point - global_position)
-				if used_platform != null:
-					used_platform.apply_impulse(-jump_strength, contact_point - used_platform.global_position)
-			was_on_ground = true
-		else:
-			was_on_ground = false
-			apply_central_force(deltav * mass * 0.5)
-	
-	%Info.text = "speed: %1.1f m/s\n%1.1f\n%1.1f\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3" % [
-		Vector2(linear_velocity.x, linear_velocity.z).length(),
-		Vector2(desired_velocity.x, desired_velocity.z).length(),
-		Vector2(deltav.x, deltav.z).length(),
-		position.x,
-		position.y,
-		position.z,
-		Atmosphere.temperature(position.y),
-		Atmosphere.pressure(position.y) / 1000,
-		Atmosphere.air_density(position.y)
-	]
-	
-	try_interact()
-	if mouse_mode == MouseMode.Build:
-		%BuildCast.place_preview()
-	
-	viewpoint_changed.emit(position)
+				used_platform.apply_impulse(-jump_strength, contact_point - used_platform.global_position)
+		was_on_ground = true
+	else:
+		was_on_ground = false
+		apply_central_force(deltav * mass * 0.5)
 
 func _unhandled_input(event: InputEvent):
 	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_motion += event.relative
 	
+	if posture == Posture.Sitting && Input.is_action_just_pressed("up"):
+			stand_up.call_deferred()
 	if Input.is_action_just_pressed("toggle_gravity"):
-		move_fly = !move_fly
-		gravity_scale = float(!move_fly)
+		if posture == Posture.Standing:
+			posture = Posture.FlyDebug
+		elif posture == Posture.FlyDebug:
+			posture = Posture.Standing
 	
 	if Input.is_action_just_pressed("toggle_build"):
 		if mouse_mode == MouseMode.Select:
@@ -172,12 +193,27 @@ func try_interact() -> void:
 func try_press() -> void:
 	var collider = %EyeCast.get_collider()
 	if collider != null and collider.has_method("press"):
-		collider.press()
+		collider.press(self)
 
 func _on_build_tab_select_build(component: ComponentBlueprint) -> void:
 	mouse_mode = MouseMode.Build
 	%BuildCast.select_build(component)
 
-
 func _on_build_tab_select_remove() -> void:
 	mouse_mode = MouseMode.Remove
+
+func sit(seat: Seat) -> void:
+	posture = Posture.Sitting
+	self.seat = seat
+	global_position = seat.seat_position()
+	$StandShape.disabled = true
+	$SitShape.disabled = false
+	$Head.position.y = 0.7
+
+func stand_up() -> void:
+	posture = Posture.Standing
+	seat = null
+	$StandShape.disabled = false
+	$SitShape.disabled = true
+	$Head.position.y = 1.5
+	was_on_ground = false

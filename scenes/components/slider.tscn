@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dy7asljtall0c"]
+[gd_scene load_steps=17 format=3 uid="uid://dy7asljtall0c"]
 
 [ext_resource type="Script" uid="uid://mmuh8ykq3kp2" path="res://code/components/slider.gd" id="1_0kyjx"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_h2hu0"]
-[ext_resource type="Texture2D" uid="uid://rsylrmgcr5lb" path="res://textures/more.png" id="3_5h15h"]
-[ext_resource type="Texture2D" uid="uid://carh7wcvr4a6b" path="res://textures/less.png" id="4_ulco8"]
+[ext_resource type="Material" uid="uid://cq0u3gxxgm3m4" path="res://materials/button/more.tres" id="3_h2hu0"]
+[ext_resource type="Material" uid="uid://ygt2tr4mwdlq" path="res://materials/button/less.tres" id="4_5h15h"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="5_awiax"]
 [ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="6_n3ijd"]
 [ext_resource type="Script" uid="uid://cne7gq7x08cg7" path="res://code/components/slider_display.gd" id="7_h2hu0"]
@@ -15,18 +15,6 @@ size = Vector3(0.3, 0.1, 0.3)
 size = Vector2(0.25, 0.25)
 center_offset = Vector3(0, 0.01, 0)
 orientation = 1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fopc"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_texture = ExtResource("3_5h15h")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5sv2v"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_texture = ExtResource("4_ulco8")
 
 [sub_resource type="QuadMesh" id="QuadMesh_0kyjx"]
 size = Vector2(0.104, 0.28)
@@ -75,7 +63,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_5sv2v")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_3fopc")
+surface_material_override/0 = ExtResource("3_h2hu0")
 
 [node name="Less" parent="." instance=ExtResource("2_h2hu0")]
 unique_name_in_owner = true
@@ -87,7 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999999, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_5sv2v")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_5sv2v")
+surface_material_override/0 = ExtResource("4_5h15h")
 
 [node name="Display" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.325, 0.105, 0.25)
