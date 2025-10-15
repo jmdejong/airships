@@ -33,12 +33,12 @@ func _on_fire_pressed() -> void:
 	can_fire = false
 	#prints("ship", ship)
 	var projectile: RigidBody3D = preload("res://scenes/cannonball.tscn").instantiate()
-	projectile.global_position = %Muzzle.global_position
 	var ship: Airship = get_ship()
 	projectile.linear_velocity = ship.linear_velocity
 	var direction: Vector3 = (%Muzzle.global_position - %Chamber.global_position).normalized()
 	var impulse: Vector3 = direction * fire_force
 	ship.add_sibling(projectile)
+	projectile.global_position = %Muzzle.global_position
 	projectile.apply_central_impulse(impulse)
 	#prints("z", ship.to_local($Muzzle.global_position))
 	ship.apply_impulse(-impulse, %Muzzle.global_position - ship.global_position)
@@ -58,6 +58,6 @@ func _on_up_pressed() -> void:
 func _on_down_pressed() -> void:
 	set_angle(angle - 5)
 
-func _on_signal_connection_changed(channel: SignalConnection.Channel, value: float) -> void:
+func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, value: float) -> void:
 	if channel == angle_channel:
 		set_angle(value)

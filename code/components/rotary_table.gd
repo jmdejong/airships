@@ -82,6 +82,6 @@ func rotate_clockwise() -> void:
 func rotate_counterclockwise() -> void:
 	rotate_to(rot+5)
 
-func _on_signal_connection_changed(channel: SignalConnection.Channel, value: float) -> void:
+func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, value: float) -> void:
 	if channel == rotation_channel:
 		rotate_to(value)

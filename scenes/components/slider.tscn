@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dy7asljtall0c"]
+[gd_scene load_steps=18 format=3 uid="uid://dy7asljtall0c"]
 
 [ext_resource type="Script" uid="uid://mmuh8ykq3kp2" path="res://code/components/slider.gd" id="1_0kyjx"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_h2hu0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://ygt2tr4mwdlq" path="res://materials/button/less.tres" id="4_5h15h"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="5_awiax"]
 [ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="6_n3ijd"]
+[ext_resource type="PackedScene" uid="uid://cho6nbfhnljf4" path="res://scenes/components/signal_control.tscn" id="7_5h15h"]
 [ext_resource type="Script" uid="uid://cne7gq7x08cg7" path="res://code/components/slider_display.gd" id="7_h2hu0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jc46c"]
@@ -104,6 +105,9 @@ shape = SubResource("BoxShape3D_3fopc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
 shape = SubResource("SphereShape3D_swh12")
 
+[node name="SignalControl" parent="SignalConnection" instance=ExtResource("7_5h15h")]
+unique_name_in_owner = true
+
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(48, 128)
 
@@ -113,6 +117,6 @@ offset_right = 48.0
 offset_bottom = 128.0
 script = ExtResource("7_h2hu0")
 
-[connection signal="pressed" from="More" to="." method="_on_more_pressed"]
-[connection signal="pressed" from="Less" to="." method="_on_less_pressed"]
-[connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]
+[connection signal="pressed" from="More" to="SignalConnection/SignalControl" method="incr_step"]
+[connection signal="pressed" from="Less" to="SignalConnection/SignalControl" method="decr_step"]
+[connection signal="changed" from="SignalConnection/SignalControl" to="." method="_on_signal_control_changed"]

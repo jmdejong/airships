@@ -130,4 +130,4 @@ shape = SubResource("BoxShape3D_y4hrx")
 
 [connection signal="pressed" from="MeshInstance3D/Clockwise" to="." method="rotate_clockwise"]
 [connection signal="pressed" from="MeshInstance3D/CounterClockwise" to="." method="rotate_counterclockwise"]
-[connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]
+[connection signal="typed_changed" from="SignalConnection" to="." method="_on_signal_connection_typed_changed"]

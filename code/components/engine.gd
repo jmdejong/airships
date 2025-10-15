@@ -36,6 +36,6 @@ func forces() -> Array[Force]:
 	var direction: Vector3 = ($CenterOfMass.position-%Rotor.position).normalized() * sign(power)
 	return [Force.new(%Rotor.position, direction, abs(power)).transformed(transform)]
 
-func _on_signal_connection_changed(channel: SignalConnection.Channel, value: float) -> void:
+func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, value: float) -> void:
 	if channel == power_channel:
 		power = value * signal_scale

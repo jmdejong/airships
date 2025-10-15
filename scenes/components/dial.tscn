@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://87gm1mtw3812"]
+[gd_scene load_steps=17 format=3 uid="uid://87gm1mtw3812"]
 
 [ext_resource type="Script" uid="uid://b01bx8dovrts3" path="res://code/components/dial.gd" id="1_q80i2"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_jc46c"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://cq0u3gxxgm3m4" path="res://materials/button/more.tres" id="3_licny"]
 [ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="3_sgqlt"]
 [ext_resource type="Material" uid="uid://ygt2tr4mwdlq" path="res://materials/button/less.tres" id="4_5sv2v"]
+[ext_resource type="PackedScene" uid="uid://cho6nbfhnljf4" path="res://scenes/components/signal_control.tscn" id="7_5sv2v"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jc46c"]
 size = Vector3(0.3, 0.1, 0.3)
@@ -115,6 +116,9 @@ shape = SubResource("SphereShape3D_swh12")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
 shape = SubResource("SphereShape3D_swh12")
 
+[node name="SignalControl" parent="SignalConnection" instance=ExtResource("7_5sv2v")]
+unique_name_in_owner = true
+
 [node name="StatusText" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-0.5, -4.371139e-08, -1.9106855e-15, 0, -2.1855694e-08, 0.5, -4.371139e-08, 0.5, 2.1855694e-08, 0.25, 0.305, 0.125)
@@ -122,6 +126,6 @@ text = "0000.00 Uni"
 font_size = 24
 outline_size = 7
 
-[connection signal="pressed" from="More" to="." method="_on_more_pressed"]
-[connection signal="pressed" from="Less" to="." method="_on_less_pressed"]
-[connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]
+[connection signal="pressed" from="More" to="SignalConnection/SignalControl" method="incr_step"]
+[connection signal="pressed" from="Less" to="SignalConnection/SignalControl" method="decr_step"]
+[connection signal="changed" from="SignalConnection/SignalControl" to="." method="_on_signal_control_changed"]

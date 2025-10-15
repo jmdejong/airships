@@ -13,6 +13,8 @@ func _init(unit: String, min_: float, max_: float, scale: float) -> void:
 	self.max_ = max_
 	self.scale = scale
 
+static var VOLT = SignalType.new("V", -10, 10, 1)
+
 func equals(other: SignalType) -> bool:
 	if other == null:
 		return false

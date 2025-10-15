@@ -197,4 +197,4 @@ shape = SubResource("BoxShape3D_vo2m1")
 [connection signal="pressed" from="Mount/Up2" to="." method="_on_up_pressed"]
 [connection signal="pressed" from="Mount/Down" to="." method="_on_down_pressed"]
 [connection signal="pressed" from="Mount/Down2" to="." method="_on_down_pressed"]
-[connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]
+[connection signal="typed_changed" from="SignalConnection" to="." method="_on_signal_connection_typed_changed"]

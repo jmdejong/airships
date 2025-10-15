@@ -129,4 +129,4 @@ shape = SubResource("BoxShape3D_nhv66")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.25, 0.25)
 shape = SubResource("BoxShape3D_au7r5")
 
-[connection signal="changed" from="SignalConnection" to="." method="_on_signal_connection_changed"]
+[connection signal="typed_changed" from="SignalConnection" to="." method="_on_signal_connection_typed_changed"]

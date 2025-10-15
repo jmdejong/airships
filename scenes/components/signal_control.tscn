@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cho6nbfhnljf4"]
+
+[ext_resource type="Script" uid="uid://cik7yq0mjriif" path="res://code/components/signal_control.gd" id="1_blm8k"]
+
+[node name="SignalControl" type="Node"]
+script = ExtResource("1_blm8k")
