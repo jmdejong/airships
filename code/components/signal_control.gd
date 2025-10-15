@@ -1,3 +1,4 @@
+class_name SignalControl
 extends Node
 
 @export var default_step: float = 1

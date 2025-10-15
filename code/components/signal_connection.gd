@@ -1,7 +1,7 @@
 class_name SignalConnection
 extends Area3D
 
-enum Channel {RED, GREEN, BLUE, YELLOW, None}
+enum Channel {None, Red, Green, Blue, Yellow, Magenta, Cyan}
 signal changed(channel: Channel, value: float)
 signal typed_changed(channel: Channel, value: float)
 signal network_changed
@@ -25,9 +25,13 @@ func set_raw_value(channel: Channel, v: float) -> void:
 	if channel == Channel.None or v == raw_value(channel):
 		return
 	values[channel] = v
-	for c: SignalConnection in get_overlapping_areas():
-		c.set_raw_value(channel, v)
-	changed.emit(channel, raw_value(channel))
+	for c: SignalConnection in all_connected():
+		c.values[channel] = v
+		c.emit_change(channel)
+
+func emit_change(channel: Channel) -> void:
+	var v: float = raw_value(channel)
+	changed.emit(channel, v)
 	if own_type.has(channel):
 		typed_changed.emit(channel, own_type[channel].base_to_unit(v))
 

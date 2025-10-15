@@ -34,7 +34,9 @@ func destroy(_where: Vector3) -> void:
 	if get_parent() == null:
 		return
 	get_parent().remove_child(self)
-	changed.emit()
+	changed_physics.emit()
+	changed_forces.emit()
+	changed_shapes.emit()
 	queue_free()
 
 func all_components() -> Array[Component]:

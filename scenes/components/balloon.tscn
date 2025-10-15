@@ -23,8 +23,8 @@ radius = 9.5
 
 [node name="Balloon" type="Node3D"]
 script = ExtResource("1_vcytr")
-mass_ = 921.534
-volume = 7330.38
+mass_ = 921.5338450530061
+volume = 7330.382858376184
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)

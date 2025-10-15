@@ -57,7 +57,8 @@ func destroy(where: Vector3) -> void:
 			new_components.append(clone)
 		get_parent().add_components(new_components)
 	get_parent().remove_child(self)
-	changed.emit()
+	changed_physics.emit()
+	changed_shapes.emit()
 	queue_free()
 
 func _box_shape(size: Vector3) -> BoxShape3D:

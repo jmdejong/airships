@@ -4,7 +4,7 @@ var fire_force: float = 3000
 var can_fire := true
 var vert_angle_lo: float = -25
 var vert_angle_hi: float = 35
-@export var angle_channel = SignalConnection.Channel.RED
+@export var angle_channel = SignalConnection.Channel.None
 var angle: float = 0
 
 func _ready() -> void:
@@ -50,7 +50,6 @@ func _on_fire_pressed() -> void:
 func set_angle(a: float) -> void:
 	angle = clamp(a, vert_angle_lo, vert_angle_hi)
 	%Barrel.rotation_degrees.z = angle
-	changed.emit()
 
 func _on_up_pressed() -> void:
 	set_angle(angle + 5)

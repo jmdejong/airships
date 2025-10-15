@@ -28,7 +28,7 @@ func update_connected_directions() -> void:
 			var dir = child.name.trim_prefix("Collision_")
 			assert(dir.length() == 2)
 			child.visible = connected_direction_map.get(dir, false)
-	changed.emit()
+	changed_shapes.emit()
 
 func shapes() -> Array[CollisionShape3D]:
 	var collisionshapes: Array[CollisionShape3D] = []

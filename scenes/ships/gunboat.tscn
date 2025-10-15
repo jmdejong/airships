@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d38pbjc6hq7vv"]
+[gd_scene load_steps=22 format=3 uid="uid://d38pbjc6hq7vv"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_rb74k"]
 [ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="2_iel0n"]
@@ -16,6 +16,35 @@
 [ext_resource type="PackedScene" uid="uid://dg2lijml07p5x" path="res://scenes/components/wire_straight.tscn" id="12_oisyc"]
 [ext_resource type="PackedScene" uid="uid://b222awqy5q2ev" path="res://scenes/components/wire_connect.tscn" id="12_sq6km"]
 [ext_resource type="PackedScene" uid="uid://4ejh32drlk0w" path="res://scenes/components/chair.tscn" id="16_wjquc"]
+[ext_resource type="Script" uid="uid://bdyy87xh6bshr" path="res://code/records/binding.gd" id="17_plvvq"]
+
+[sub_resource type="Resource" id="Resource_okq7b"]
+script = ExtResource("17_plvvq")
+key = 81
+control = "../../Wiring/DialEngLeft/SignalConnection/SignalControl"
+change = 3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_plvvq"]
+script = ExtResource("17_plvvq")
+key = 65
+control = "../../Wiring/DialEngLeft/SignalConnection/SignalControl"
+change = -3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_028c7"]
+script = ExtResource("17_plvvq")
+key = 69
+control = "../../Wiring/DialEngRight/SignalConnection/SignalControl"
+change = 3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_swjpl"]
+script = ExtResource("17_plvvq")
+key = 68
+control = "../../Wiring/DialEngRight/SignalConnection/SignalControl"
+change = -3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
 [node name="GunBoat" instance=ExtResource("1_rb74k")]
 
@@ -26,10 +55,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
 
 [node name="EngineHor" parent="Components/Machines" index="0" instance=ExtResource("4_qxl6t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0.5, -4.5)
+power_channel = 1
 
 [node name="EngineHor2" parent="Components/Machines" index="1" instance=ExtResource("4_qxl6t")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0.5, 5.5)
-power_channel = 1
+power_channel = 2
 
 [node name="Ballast" parent="Components/Machines" index="2" instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0.5, 3)
@@ -52,12 +82,15 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.5, 0
 
 [node name="Cannon" parent="Components/Machines" index="7" instance=ExtResource("7_3nb3f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -2)
+angle_channel = 3
 
 [node name="Cannon2" parent="Components/Machines" index="8" instance=ExtResource("7_3nb3f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 1)
+angle_channel = 3
 
 [node name="RotaryTable" parent="Components/Machines" index="9" instance=ExtResource("8_qrdk5")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0.5, 0.5)
+rotation_channel = 1
 
 [node name="Cannon3" parent="Components/Machines/RotaryTable" index="3" instance=ExtResource("7_3nb3f")]
 transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0.5, 0)
@@ -66,8 +99,12 @@ angle_channel = 3
 [node name="Barometer" parent="Components/Machines" index="10" instance=ExtResource("9_oh3md")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, 0.5)
 
-[node name="Slider" parent="Components/Machines" index="11" instance=ExtResource("10_s4x7a")]
+[node name="SliderEngLeft" parent="Components/Machines" index="11" instance=ExtResource("10_s4x7a")]
 transform = Transform3D(-1, 4.3711385e-08, -4.371139e-08, -4.3711385e-08, 4.3711392e-08, 1, 4.371139e-08, 1, -4.371139e-08, 0, 1, -4.5)
+
+[node name="SliderEngRight" parent="Components/Machines" index="12" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.5, 1, 4.5)
+signal_channel = 1
 
 [node name="Wiring" parent="Components" index="2" instance=ExtResource("3_3nb3f")]
 
@@ -97,9 +134,8 @@ volume = 0.01178097245096172
 
 [node name="WireStraight13" parent="Components/Wiring" index="4" instance=ExtResource("12_oisyc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 0.5, -0.5)
-length = 1.0
-mass_ = 1.5707963267948968
-volume = 0.00785398163397448
+mass_ = 0.7853981633974484
+volume = 0.003926990816987242
 
 [node name="WireStraight11" parent="Components/Wiring" index="5" instance=ExtResource("12_oisyc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 0.5, -2.5)
@@ -131,14 +167,15 @@ length = 1.0
 mass_ = 1.5707963267948968
 volume = 0.00785398163397448
 
-[node name="Dial" parent="Components/Wiring" index="10" instance=ExtResource("11_qjphb")]
+[node name="DialEngRight" parent="Components/Wiring" index="10" instance=ExtResource("11_qjphb")]
 transform = Transform3D(-4.371139e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.371139e-08, 1.9106859e-15, 4, 1, 1)
+signal_channel = 2
+
+[node name="DialEngLeft" parent="Components/Wiring" index="11" instance=ExtResource("11_qjphb")]
+transform = Transform3D(-4.371139e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.371139e-08, 1.9106859e-15, 4, 1, -0.5)
 signal_channel = 1
 
-[node name="Dial2" parent="Components/Wiring" index="11" instance=ExtResource("11_qjphb")]
-transform = Transform3D(-4.371139e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.371139e-08, 1.9106859e-15, 4, 1, -0.5)
-
-[node name="Dial3" parent="Components/Wiring" index="12" instance=ExtResource("11_qjphb")]
+[node name="DialRotBack" parent="Components/Wiring" index="12" instance=ExtResource("11_qjphb")]
 transform = Transform3D(-4.371139e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.371139e-08, 1.9106859e-15, -2.5, 1, -1.5)
 signal_channel = 1
 
@@ -169,27 +206,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -1)
 [node name="WireConnect5" parent="Components/Wiring" index="21" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 0.5)
 
-[node name="WireConnect6" parent="Components/Wiring" index="22" instance=ExtResource("12_sq6km")]
+[node name="WireConnect15" parent="Components/Wiring" index="22" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 0)
+
+[node name="WireConnect6" parent="Components/Wiring" index="23" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, -1)
 
-[node name="WireConnect11" parent="Components/Wiring" index="23" instance=ExtResource("12_sq6km")]
+[node name="WireConnect11" parent="Components/Wiring" index="24" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -1)
 
-[node name="WireConnect12" parent="Components/Wiring" index="24" instance=ExtResource("12_sq6km")]
+[node name="WireConnect12" parent="Components/Wiring" index="25" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -1.5)
 
-[node name="WireConnect13" parent="Components/Wiring" index="25" instance=ExtResource("12_sq6km")]
+[node name="WireConnect13" parent="Components/Wiring" index="26" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -2)
 
-[node name="WireConnect14" parent="Components/Wiring" index="26" instance=ExtResource("12_sq6km")]
+[node name="WireConnect14" parent="Components/Wiring" index="27" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -2)
 
-[node name="Slider" parent="Components/Wiring" index="27" instance=ExtResource("10_s4x7a")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.5, 1, 4.5)
-signal_channel = 1
-
-[node name="Slider2" parent="Components/Wiring" index="28" instance=ExtResource("10_s4x7a")]
+[node name="SliderGunBack" parent="Components/Wiring" index="28" instance=ExtResource("10_s4x7a")]
 transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, -2, 1, -2)
+signal_channel = 3
+
+[node name="SliderGunsFront" parent="Components/Wiring" index="29" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(0, -1, 4.3711392e-08, -4.3711385e-08, 4.3711392e-08, 1, -1, -3.5527137e-15, -4.3711385e-08, 3.5, 0.5, 0.5)
 signal_channel = 3
 
 [node name="Basket" parent="Components" index="3" instance=ExtResource("3_3nb3f")]
@@ -276,3 +316,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -3)
 
 [node name="Chair" parent="Components" index="6" instance=ExtResource("16_wjquc")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.5, 0.5, -0.5)
+bindings = Array[ExtResource("17_plvvq")]([SubResource("Resource_okq7b"), SubResource("Resource_plvvq"), SubResource("Resource_028c7"), SubResource("Resource_swjpl")])

@@ -1,6 +1,6 @@
 extends BaseComponent
 
-@export var power_channel: SignalConnection.Channel = SignalConnection.Channel.RED
+@export var power_channel: SignalConnection.Channel = SignalConnection.Channel.None
 @export var power: float = 0.0:
 	set(value):
 		value = clamp(value, min_power, max_power)
@@ -30,7 +30,7 @@ func update_power() -> void:
 			#power_channel, 
 			#power / signal_scale
 		#)
-		changed.emit()
+		changed_forces.emit()
 
 func forces() -> Array[Force]:
 	var direction: Vector3 = ($CenterOfMass.position-%Rotor.position).normalized() * sign(power)

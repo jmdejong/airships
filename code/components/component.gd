@@ -2,7 +2,11 @@ class_name Component
 extends Node3D
 
 @warning_ignore("unused_signal")
-signal changed
+signal changed_physics
+@warning_ignore("unused_signal")
+signal changed_forces
+@warning_ignore("unused_signal")
+signal changed_shapes
 
 func physics_properties() -> PhysicsProperties:
 	assert(false, "Abstract method")
@@ -17,9 +21,6 @@ func shapes() -> Array[CollisionShape3D]:
 func all_components() -> Array[Component]:
 	assert(false, "Abstract method")
 	return [self]
-
-func conduct_signal() -> bool:
-	return false
 
 func get_ship() -> Airship:
 	var parent: Node = get_parent()

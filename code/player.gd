@@ -62,6 +62,8 @@ func _physics_process(delta: float) -> void:
 	last_since_floor += delta
 	if last_since_floor >= last_since_floor_max:
 		used_platform = null
+	if posture == Posture.Sitting:
+		seat.handle_player_input(delta)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if mouse_motion != Vector2.ZERO:
@@ -143,7 +145,7 @@ func _unhandled_input(event: InputEvent):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_motion += event.relative
 	
-	if posture == Posture.Sitting && Input.is_action_just_pressed("up"):
+	if posture == Posture.Sitting && Input.is_action_just_pressed("stand_up"):
 			stand_up.call_deferred()
 	if Input.is_action_just_pressed("toggle_gravity"):
 		if posture == Posture.Standing:

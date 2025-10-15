@@ -1,7 +1,7 @@
 extends BoxComponent
 
 @export var scale_degree: float = 2
-@export var signal_channel: SignalConnection.Channel = SignalConnection.Channel.RED
+@export var signal_channel: SignalConnection.Channel = SignalConnection.Channel.None
 
 func _ready() -> void:
 	%SignalControl.channel = signal_channel

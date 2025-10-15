@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://4ejh32drlk0w"]
 
-[ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_drkv2"]
+[ext_resource type="Script" uid="uid://d1p3l21yllvm" path="res://code/components/chair.gd" id="1_f307t"]
 [ext_resource type="Material" uid="uid://itbsqlrcr84h" path="res://materials/metal_light.tres" id="2_hcjnm"]
 [ext_resource type="Script" uid="uid://cuiyitoas3wtg" path="res://code/button3d.gd" id="3_f307t"]
 [ext_resource type="Script" uid="uid://d1qa37bxjg04f" path="res://code/components/seat.gd" id="4_hcjnm"]
@@ -25,7 +25,7 @@ size = Vector3(0.45, 0.125, 0.45)
 size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Chair" type="Node3D"]
-script = ExtResource("1_drkv2")
+script = ExtResource("1_f307t")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.25)

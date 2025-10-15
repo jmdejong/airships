@@ -4,7 +4,7 @@ extends Component
 @export var max_rotation: float = 45
 @export var min_rotation: float = -45
 @export var step: float = 1
-@export var rotation_channel: SignalConnection.Channel = SignalConnection.Channel.GREEN
+@export var rotation_channel: SignalConnection.Channel = SignalConnection.Channel.None
 var density: float = 200
 var rot: float = 0
 
@@ -14,7 +14,9 @@ func _ready() -> void:
 			remove_child(child)
 			child.transform = $RComponents.transform.inverse() * child.transform
 			$RComponents.add_component(child)
-	$RComponents.changed.connect(func(): changed.emit())
+	$RComponents.changed_physics.connect(func(): changed_physics.emit())
+	$RComponents.changed_forces.connect(func(): changed_forces.emit())
+	$RComponents.changed_shapes.connect(func(): changed_shapes.emit())
 	var typ: Dictionary[SignalConnection.Channel, SignalType] = {
 		rotation_channel: SignalType.new("deg", min_rotation, max_rotation, 5)
 	}
@@ -48,7 +50,9 @@ func destroy(_where: Vector3) -> void:
 	if parent == null:
 		return
 	parent.remove_child(self)
-	changed.emit()
+	changed_physics.emit()
+	changed_forces.emit()
+	changed_shapes.emit()
 	var components: CompositeComponent = $RComponents
 	remove_child(components)
 	components.owner = null
@@ -74,7 +78,7 @@ func rotate_to(r: float) -> void:
 	rot = r
 	$Top.rotation_degrees.y = -rot
 	$RComponents.transform = $Top.transform * $Top/Corner.transform
-	$RComponents.recalculate()
+	$RComponents.recalculate_all()
 
 func rotate_clockwise() -> void:
 	rotate_to(rot-5)

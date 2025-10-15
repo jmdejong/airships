@@ -9,26 +9,33 @@ var drag_area_coefficient: float
 var ndetached: int = 0
 
 func _ready() -> void:
-	$Components.changed.connect(calculate_components)
-	calculate_components()
+	$Components.changed_physics.connect(calculate_components_physics)
+	$Components.changed_forces.connect(calculate_components_forces)
+	$Components.changed_shapes.connect(calculate_components_shapes)
+	calculate_components_physics()
+	calculate_components_forces()
+	calculate_components_shapes()
 	await get_tree().create_timer(0.05).timeout
 	check_connections()
 	for child in get_children():
 		if child is Component and child != $Components:
 			child.reparent($Components)
 
-func calculate_components() -> void:
+func calculate_components_physics() -> void:
 	var physics_properties: PhysicsProperties = $Components.physics_properties()
 	self.center_of_volume = physics_properties.center_of_volume
 	self.center_of_mass = physics_properties.center_of_mass
 	self.mass = max(0.01, physics_properties.mass)
 	self.displaced_volume = physics_properties.volume
-	self.forces = $Components.forces()
 	self.drag_area_coefficient = pow(displaced_volume, 2.0/3.0) * drag_coefficient
-	self.set_shapes()
-	#prints("m:", mass, "v", displaced_volume, "d", self.drag_area_coefficient)
 	$CenterOfMassMarker.position = center_of_mass
 	$CenterOfVolumeMarker.position = center_of_volume
+
+func calculate_components_forces() -> void:
+	self.forces = $Components.forces()
+
+func calculate_components_shapes() -> void:
+	self.set_shapes()
 
 func set_shapes() -> void:
 	for child in get_children():
