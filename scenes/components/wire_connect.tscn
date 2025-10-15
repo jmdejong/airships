@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://b222awqy5q2ev"]
+[gd_scene load_steps=14 format=3 uid="uid://b222awqy5q2ev"]
 
-[ext_resource type="Script" uid="uid://xay1xv8v4q01" path="res://code/components/wire_connect.gd" id="1_eugkd"]
+[ext_resource type="Script" uid="uid://cf5dhhdmg7qpc" path="res://code/components/base_component.gd" id="1_3hq4m"]
+[ext_resource type="PackedScene" uid="uid://kff3405m2dnp" path="res://scenes/connected_checker.tscn" id="2_3hq4m"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_eugkd"]
 [ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="3_eugkd"]
 
@@ -37,7 +38,8 @@ radius = 0.07
 height = 0.14
 
 [node name="WireConnect" type="Node3D"]
-script = ExtResource("1_eugkd")
+script = ExtResource("1_3hq4m")
+mass_ = 1.0
 
 [node name="Collision_X+" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.25, 0.25)
@@ -48,6 +50,9 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.0250
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
+[node name="ConnectedChecker" parent="Collision_X+" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0, 0)
+
 [node name="Collision_X-" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.25, 0.25)
 shape = SubResource("BoxShape3D_3hq4m")
@@ -56,6 +61,9 @@ shape = SubResource("BoxShape3D_3hq4m")
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.025000006, 0, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
+
+[node name="ConnectedChecker" parent="Collision_X-" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 0)
 
 [node name="Collision_Y+" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.35, 0.25)
@@ -66,6 +74,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025000006, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
+[node name="ConnectedChecker" parent="Collision_Y+" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+
 [node name="Collision_Y-" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.15, 0.25)
 shape = SubResource("BoxShape3D_1aa6m")
@@ -74,6 +85,9 @@ shape = SubResource("BoxShape3D_1aa6m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025000006, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
+
+[node name="ConnectedChecker" parent="Collision_Y-" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 
 [node name="Collision_Z+" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.35)
@@ -84,6 +98,9 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
+[node name="ConnectedChecker" parent="Collision_Z+" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+
 [node name="Collision_Z-" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.15)
 shape = SubResource("BoxShape3D_wtfld")
@@ -92,6 +109,9 @@ shape = SubResource("BoxShape3D_wtfld")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.025000006)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
+
+[node name="ConnectedChecker" parent="Collision_Z-" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15)
 
 [node name="CenterOfMass" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
@@ -153,10 +173,3 @@ shape = SubResource("BoxShape3D_4dt5m")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
 mesh = SubResource("SphereMesh_eugkd")
-
-[connection signal="area_shape_entered" from="Connection" to="." method="_on_connection_area_shape_entered"]
-[connection signal="area_shape_exited" from="Connection" to="." method="_on_connection_area_shape_exited"]
-[connection signal="body_shape_entered" from="Connection" to="." method="_on_connection_body_shape_entered"]
-[connection signal="body_shape_exited" from="Connection" to="." method="_on_connection_body_shape_exited"]
-[connection signal="area_shape_entered" from="SignalConnection" to="." method="_on_signal_connection_area_shape_entered"]
-[connection signal="area_shape_exited" from="SignalConnection" to="." method="_on_signal_connection_area_shape_exited"]

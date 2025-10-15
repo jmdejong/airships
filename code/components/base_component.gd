@@ -23,8 +23,10 @@ func physics_properties() -> PhysicsProperties:
 func shapes() -> Array[CollisionShape3D]:
 	var collisionshapes: Array[CollisionShape3D] = []
 	for child: Node in get_children():
-		if child is CollisionShape3D:
+		if child is CollisionShape3D && !child.disabled:
 			var c: CollisionShape3D = child.duplicate()
+			for inner_child: Node in c.get_children():
+				c.remove_child(inner_child)
 			c.set_meta("component", self)
 			c.transform = transform * c.transform
 			collisionshapes.append(c)
