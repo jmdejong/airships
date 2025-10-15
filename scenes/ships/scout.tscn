@@ -79,16 +79,16 @@ mass_ = 50.0
 volume = 0.5
 
 [node name="WoodPanel7" parent="Components/Basket" index="2" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
-size = Vector3(0.5, 0.5, 2)
-mass_ = 50.0
-volume = 0.5
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1)
+size = Vector3(1, 0.5, 2)
+mass_ = 100.0
+volume = 1.0
 
 [node name="WoodPanel8" parent="Components/Basket" index="3" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -0.5)
-size = Vector3(1.5, 0.5, 1)
-mass_ = 75.0
-volume = 0.75
+size = Vector3(1, 0.5, 1)
+mass_ = 50.0
+volume = 0.5
 
 [node name="WoodPanel6" parent="Components/Basket" index="4" instance=ExtResource("8_pvp6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5)
@@ -97,13 +97,13 @@ mass_ = 50.0
 volume = 0.5
 
 [node name="WoodPanel" parent="Components/Basket" index="5" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1.5)
 size = Vector3(1, 0.5, 0.5)
 mass_ = 25.0
 volume = 0.25
 
 [node name="WoodPanel2" parent="Components/Basket" index="6" instance=ExtResource("8_pvp6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1)
 size = Vector3(1, 0.5, 0.5)
 mass_ = 25.0
 volume = 0.25
@@ -123,10 +123,10 @@ volume = 2.0
 [node name="Rigging" parent="Components" index="2" instance=ExtResource("3_qcob2")]
 
 [node name="Cable4m" parent="Components/Rigging" index="0" instance=ExtResource("8_2ad0o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1.5)
 
 [node name="Cable4m2" parent="Components/Rigging" index="1" instance=ExtResource("8_2ad0o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, 1)
 
 [node name="Cable4m3" parent="Components/Rigging" index="2" instance=ExtResource("8_2ad0o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0.5)
@@ -142,24 +142,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 0)
 [node name="WireConnect" parent="Components/Wiring" index="0" instance=ExtResource("12_b1l47")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0)
 
-[node name="WireConnect2" parent="Components/Wiring" index="1" instance=ExtResource("12_b1l47")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 0)
+[node name="WireConnect6" parent="Components/Wiring" index="1" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 0.5)
 
-[node name="WireConnect3" parent="Components/Wiring" index="2" instance=ExtResource("12_b1l47")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -0.5)
+[node name="WireConnect2" parent="Components/Wiring" index="2" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 0.5)
 
-[node name="WireConnect4" parent="Components/Wiring" index="3" instance=ExtResource("12_b1l47")]
+[node name="WireConnect3" parent="Components/Wiring" index="3" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -1)
+
+[node name="WireConnect4" parent="Components/Wiring" index="4" instance=ExtResource("12_b1l47")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -0.5)
 
-[node name="DialRot" parent="Components/Wiring" index="4" instance=ExtResource("13_5538s")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 1, 0.5)
+[node name="WireConnect5" parent="Components/Wiring" index="5" instance=ExtResource("12_b1l47")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1)
+
+[node name="DialRot" parent="Components/Wiring" index="6" instance=ExtResource("13_5538s")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 1, 1)
 scale_degree = -1.0
 signal_channel = 1
 
-[node name="SliderEng" parent="Components/Wiring" index="5" instance=ExtResource("7_ium6c")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 1, 0)
+[node name="SliderEng" parent="Components/Wiring" index="7" instance=ExtResource("7_ium6c")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 1, -0.5)
 signal_channel = 2
 
-[node name="Chair" parent="Components/Wiring" index="6" instance=ExtResource("9_qcob2")]
+[node name="Chair" parent="Components/Wiring" index="8" instance=ExtResource("9_qcob2")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1, 0.5, -0.5)
 bindings = Array[ExtResource("14_tw0le")]([SubResource("Resource_p56v3"), SubResource("Resource_pvp6t"), SubResource("Resource_tw0le"), SubResource("Resource_dvls8")])

@@ -96,7 +96,7 @@ func check_connections() -> void:
 			c.transform = gtf
 			parents[parent] = true
 	for parent: CompositeComponent in parents.keys():
-		parent.recalculate()
+		parent.recalculate_all()
 	if !unconnected.is_empty():
 		var new_ship: Airship = preload("res://scenes/airship.tscn").instantiate()
 		ndetached += 1
@@ -109,7 +109,7 @@ func check_connections() -> void:
 			c.transform = new_ship.transform.inverse() * c.transform
 			new_components.add_child(c)
 		get_parent().add_child(new_ship)
-		new_components.recalculate()
+		new_components.recalculate_all()
 
 func build_component(pos: Vector3, component: ComponentBlueprint, build_transform: Transform3D) -> void:
 	var comp_node: Component = component.create()
