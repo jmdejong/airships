@@ -41,3 +41,6 @@ func incr_step() -> void:
 	change_raw_value(default_step)
 func decr_step() -> void:
 	change_raw_value(-default_step)
+
+func reset_value() -> void:
+	_conn().set_value(channel, 0)

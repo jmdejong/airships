@@ -5,7 +5,7 @@ extends BaseComponent
 var density = 200
 var radius = 0.05
 
-@export var length: float = 0.5:
+@export var length: float = 0.25:
 	set(value):
 		length = snappedf(value, Global.block_size)
 		volume = PI * radius * radius * length
@@ -23,6 +23,6 @@ var radius = 0.05
 		var connect_shape := BoxShape3D.new()
 		connect_shape.size = Vector3(length + 0.1, 0.1, 0.1)
 		$SignalConnection.position = center
-		$SignalConnection/CollisionShape3D2.shape = connect_shape.duplicate_deep()
+		$SignalConnection/CollisionShape3D.shape = connect_shape.duplicate_deep()
 		$Connection.position = center
 		$Connection/CollisionShape3D.shape = connect_shape.duplicate_deep()

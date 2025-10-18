@@ -6,8 +6,10 @@ func _ready() -> void:
 func update(left: Component):
 	var is_conn: bool = false
 	var component: Component = get_parent().get_parent()
+	var ship: Airship = component.get_ship()
 	for other: Area3D in get_overlapping_areas():
-		if other.get_parent() != component && other.get_parent() != left:
+		var other_comp: Component = other.get_parent()
+		if other_comp != component && other_comp != left && other_comp.get_ship() == ship:
 			is_conn = true
 			break
 	get_parent().visible = is_conn

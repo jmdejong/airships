@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d38pbjc6hq7vv"]
+[gd_scene load_steps=26 format=3 uid="uid://d38pbjc6hq7vv"]
 
 [ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_rb74k"]
 [ext_resource type="PackedScene" uid="uid://cdrckp34pfx8q" path="res://scenes/components/balloon.tscn" id="2_iel0n"]
@@ -20,29 +20,57 @@
 
 [sub_resource type="Resource" id="Resource_okq7b"]
 script = ExtResource("17_plvvq")
-key = 81
-control = "../../Wiring/DialEngLeft/SignalConnection/SignalControl"
+key = 87
+control = "../../Wiring/SliderEngLeft/SignalConnection/SignalControl"
 change = 3.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
 [sub_resource type="Resource" id="Resource_plvvq"]
 script = ExtResource("17_plvvq")
-key = 65
-control = "../../Wiring/DialEngLeft/SignalConnection/SignalControl"
+key = 83
+control = "../../Wiring/SliderEngLeft/SignalConnection/SignalControl"
 change = -3.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
 [sub_resource type="Resource" id="Resource_028c7"]
 script = ExtResource("17_plvvq")
-key = 69
-control = "../../Wiring/DialEngRight/SignalConnection/SignalControl"
+key = 87
+control = "../../Wiring/SliderEngRight/SignalConnection/SignalControl"
 change = 3.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
 [sub_resource type="Resource" id="Resource_swjpl"]
 script = ExtResource("17_plvvq")
+key = 83
+control = "../../Wiring/SliderEngRight/SignalConnection/SignalControl"
+change = -3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_mrsml"]
+script = ExtResource("17_plvvq")
 key = 68
-control = "../../Wiring/DialEngRight/SignalConnection/SignalControl"
+control = "../../Wiring/SliderEngLeft/SignalConnection/SignalControl"
+change = 3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_ibp7l"]
+script = ExtResource("17_plvvq")
+key = 65
+control = "../../Wiring/SliderEngLeft/SignalConnection/SignalControl"
+change = -3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_cl6mw"]
+script = ExtResource("17_plvvq")
+key = 65
+control = "../../Wiring/SliderEngRight/SignalConnection/SignalControl"
+change = 3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_odg74"]
+script = ExtResource("17_plvvq")
+key = 68
+control = "../../Wiring/SliderEngRight/SignalConnection/SignalControl"
 change = -3.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
@@ -53,42 +81,50 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
 
 [node name="Machines" parent="Components" index="1" instance=ExtResource("3_3nb3f")]
 
-[node name="EngineHor" parent="Components/Machines" index="0" instance=ExtResource("4_qxl6t")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0.5, -4.5)
+[node name="EngineLeft" parent="Components/Machines" index="0" instance=ExtResource("4_qxl6t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 8.74228e-08, -4.371139e-08, -1, -3.8213718e-15, -1, 4.371139e-08, 0.5, 0.75, -4)
 power_channel = 1
 
-[node name="EngineHor2" parent="Components/Machines" index="1" instance=ExtResource("4_qxl6t")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0.5, 5.5)
+[node name="EngineLeftOut" parent="Components/Machines" index="1" instance=ExtResource("4_qxl6t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 8.74228e-08, -4.371139e-08, -1, -3.8213718e-15, -1, 4.371139e-08, 0.5, 0.75, -6)
+power_channel = 1
+
+[node name="EngineRight" parent="Components/Machines" index="2" instance=ExtResource("4_qxl6t")]
+transform = Transform3D(-1, 0, -8.74228e-08, -8.74228e-08, -4.371139e-08, 1, -3.8213718e-15, 1, 4.371139e-08, 0.5, -0.25, 4)
 power_channel = 2
 
-[node name="Ballast" parent="Components/Machines" index="2" instance=ExtResource("5_7pqw8")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0.5, 3)
+[node name="EngineRightOut" parent="Components/Machines" index="3" instance=ExtResource("4_qxl6t")]
+transform = Transform3D(-1, 0, -8.74228e-08, -8.74228e-08, -4.371139e-08, 1, -3.8213718e-15, 1, 4.371139e-08, 0.5, -0.25, 6)
+power_channel = 2
+
+[node name="Ballast" parent="Components/Machines" index="4" instance=ExtResource("5_7pqw8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.75, 0.5, 3)
 initial_filling = 1000.0
 
-[node name="Ballast2" parent="Components/Machines" index="3" instance=ExtResource("5_7pqw8")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0.5, -2)
+[node name="Ballast2" parent="Components/Machines" index="5" instance=ExtResource("5_7pqw8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.75, 0.5, -2)
 initial_filling = 1000.0
 
-[node name="Ballast3" parent="Components/Machines" index="4" instance=ExtResource("5_7pqw8")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0.5, -2)
-initial_filling = 300.0
+[node name="Ballast3" parent="Components/Machines" index="6" instance=ExtResource("5_7pqw8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.75, 0.5, -2)
+initial_filling = 99.999999999998
 
-[node name="Ballast4" parent="Components/Machines" index="5" instance=ExtResource("5_7pqw8")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0.5, 3)
-initial_filling = 300.0
+[node name="Ballast4" parent="Components/Machines" index="7" instance=ExtResource("5_7pqw8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.75, 0.5, 3)
+initial_filling = 99.999999999998
 
-[node name="StatusPanel" parent="Components/Machines" index="6" instance=ExtResource("6_0m87h")]
+[node name="StatusPanel" parent="Components/Machines" index="8" instance=ExtResource("6_0m87h")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.5, 0.5, -0.5)
 
-[node name="Cannon" parent="Components/Machines" index="7" instance=ExtResource("7_3nb3f")]
+[node name="Cannon" parent="Components/Machines" index="9" instance=ExtResource("7_3nb3f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -2)
 angle_channel = 3
 
-[node name="Cannon2" parent="Components/Machines" index="8" instance=ExtResource("7_3nb3f")]
+[node name="Cannon2" parent="Components/Machines" index="10" instance=ExtResource("7_3nb3f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 1)
 angle_channel = 3
 
-[node name="RotaryTable" parent="Components/Machines" index="9" instance=ExtResource("8_qrdk5")]
+[node name="RotaryTable" parent="Components/Machines" index="11" instance=ExtResource("8_qrdk5")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0.5, 0.5)
 rotation_channel = 1
 
@@ -96,149 +132,199 @@ rotation_channel = 1
 transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0.5, 0)
 angle_channel = 3
 
-[node name="Barometer" parent="Components/Machines" index="10" instance=ExtResource("9_oh3md")]
+[node name="Barometer" parent="Components/Machines" index="12" instance=ExtResource("9_oh3md")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.5, 0.5)
 
-[node name="SliderEngLeft" parent="Components/Machines" index="11" instance=ExtResource("10_s4x7a")]
-transform = Transform3D(-1, 4.3711385e-08, -4.371139e-08, -4.3711385e-08, 4.3711392e-08, 1, 4.371139e-08, 1, -4.371139e-08, 0, 1, -4.5)
-
-[node name="SliderEngRight" parent="Components/Machines" index="12" instance=ExtResource("10_s4x7a")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.5, 1, 4.5)
+[node name="SliderEngLeft" parent="Components/Machines" index="13" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.75, -4.5)
 signal_channel = 1
+
+[node name="SliderEngLeftOut" parent="Components/Machines" index="14" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.75, -6.5)
+signal_channel = 1
+
+[node name="SliderEngRight" parent="Components/Machines" index="15" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.75, 5)
+signal_channel = 2
+
+[node name="SliderEngRight2" parent="Components/Machines" index="16" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.75, 6.75)
+signal_channel = 2
 
 [node name="Wiring" parent="Components" index="2" instance=ExtResource("3_3nb3f")]
 
 [node name="WireStraight" parent="Components/Wiring" index="0" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 1, 3)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.25, 1, 3)
 length = 1.5
 mass_ = 2.356194490192345
 volume = 0.01178097245096172
 
-[node name="WireStraight2" parent="Components/Wiring" index="1" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 1, 3)
+[node name="WireStraight8" parent="Components/Wiring" index="1" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.25, 1, 4.75)
 length = 1.5
 mass_ = 2.356194490192345
-volume = 0.01178097245096172
+volume = 0.011780972450961725
 
-[node name="WireStraight3" parent="Components/Wiring" index="2" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 1, -4.5)
-length = 1.5
-mass_ = 2.356194490192345
-volume = 0.01178097245096172
+[node name="WireStraight2" parent="Components/Wiring" index="2" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.371139e-08, -4.37114e-08, -4.371139e-08, -1, 1.9106859e-15, 0.25, 0.75, 3)
 
-[node name="WireStraight9" parent="Components/Wiring" index="3" instance=ExtResource("12_oisyc")]
+[node name="WireStraight3" parent="Components/Wiring" index="3" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.25, 1, -4.25)
+length = 1.25
+mass_ = 1.9634954084936207
+volume = 0.009817477042468103
+
+[node name="WireStraight5" parent="Components/Wiring" index="4" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.25, 1, -6.25)
+length = 1.75
+mass_ = 2.7488935718910694
+volume = 0.013744467859455347
+
+[node name="WireStraight4" parent="Components/Wiring" index="5" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.371139e-08, -4.37114e-08, -4.371139e-08, -1, 1.9106859e-15, 0.25, 0.75, -2.75)
+
+[node name="WireStraight9" parent="Components/Wiring" index="6" instance=ExtResource("12_oisyc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 0.5, 1)
-length = 1.5
-mass_ = 2.356194490192345
-volume = 0.01178097245096172
+length = 1.75
+mass_ = 2.7488935718910694
+volume = 0.01374446785945534
 
-[node name="WireStraight13" parent="Components/Wiring" index="4" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4, 0.5, -0.5)
+[node name="WireStraight14" parent="Components/Wiring" index="7" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.75, 0.5, 0)
+length = 0.75
+mass_ = 1.1780972450961724
+volume = 0.00589048622548086
+
+[node name="WireStraight15" parent="Components/Wiring" index="8" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.75, 0.5, -0.75)
+length = 0.5
 mass_ = 0.7853981633974484
-volume = 0.003926990816987242
+volume = 0.00392699081698724
 
-[node name="WireStraight11" parent="Components/Wiring" index="5" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 0.5, -2.5)
-length = 1.5
-mass_ = 2.356194490192345
-volume = 0.01178097245096172
+[node name="WireStraight11" parent="Components/Wiring" index="9" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 0.5, -2.75)
+length = 1.75
+mass_ = 2.7488935718910694
+volume = 0.01374446785945534
 
-[node name="WireStraight6" parent="Components/Wiring" index="6" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 2, 0.5, 3)
-length = 1.5
-mass_ = 2.356194490192345
-volume = 0.01178097245096172
+[node name="WireStraight6" parent="Components/Wiring" index="10" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 2.25, 0.5, 3)
+length = 2.0
+mass_ = 3.1415926535897936
+volume = 0.01570796326794896
 
-[node name="WireStraight7" parent="Components/Wiring" index="7" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 2, 0.5, -2.5)
-length = 1.5
-mass_ = 2.356194490192345
-volume = 0.01178097245096172
+[node name="WireStraight7" parent="Components/Wiring" index="11" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 2.25, 0.5, -2.75)
+length = 2.0
+mass_ = 3.1415926535897936
+volume = 0.01570796326794896
 
-[node name="WireStraight10" parent="Components/Wiring" index="8" instance=ExtResource("12_oisyc")]
+[node name="WireStraight10" parent="Components/Wiring" index="12" instance=ExtResource("12_oisyc")]
 transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 3.5, 0.5, 1)
 length = 1.0
 mass_ = 1.5707963267948968
 volume = 0.00785398163397448
 
-[node name="WireStraight12" parent="Components/Wiring" index="9" instance=ExtResource("12_oisyc")]
-transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 3.5, 0.5, -0.5)
+[node name="WireStraight12" parent="Components/Wiring" index="13" instance=ExtResource("12_oisyc")]
+transform = Transform3D(-1, 0, 8.742279e-08, 0, 1, 0, -8.742279e-08, 0, -1, 3.5, 0.5, -0.75)
 length = 1.0
 mass_ = 1.5707963267948968
 volume = 0.00785398163397448
 
-[node name="DialEngRight" parent="Components/Wiring" index="10" instance=ExtResource("11_qjphb")]
-transform = Transform3D(-4.371139e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.371139e-08, 1.9106859e-15, 4, 1, 1)
+[node name="SliderEngRight" parent="Components/Wiring" index="14" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-4.371139e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.371139e-08, 1.9106859e-15, 3.75, 0.75, 1)
 signal_channel = 2
 
-[node name="DialEngLeft" parent="Components/Wiring" index="11" instance=ExtResource("11_qjphb")]
-transform = Transform3D(-4.371139e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.371139e-08, 1.9106859e-15, 4, 1, -0.5)
+[node name="SliderEngLeft" parent="Components/Wiring" index="15" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-4.371139e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.371139e-08, 1.9106859e-15, 3.75, 0.75, -0.75)
 signal_channel = 1
 
-[node name="DialRotBack" parent="Components/Wiring" index="12" instance=ExtResource("11_qjphb")]
-transform = Transform3D(-4.371139e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.371139e-08, 1.9106859e-15, -2.5, 1, -1.5)
+[node name="DialRotBack" parent="Components/Wiring" index="16" instance=ExtResource("11_qjphb")]
+transform = Transform3D(-4.371139e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.371139e-08, 1.9106859e-15, -2.5, 0.75, -1.25)
 signal_channel = 1
 
-[node name="WireConnect" parent="Components/Wiring" index="13" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.5)
+[node name="WireConnect" parent="Components/Wiring" index="17" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.75)
 
-[node name="WireConnect10" parent="Components/Wiring" index="14" instance=ExtResource("12_sq6km")]
+[node name="WireConnect19" parent="Components/Wiring" index="18" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4.5)
+
+[node name="WireConnect22" parent="Components/Wiring" index="19" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 4.5)
+
+[node name="WireConnect20" parent="Components/Wiring" index="20" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6.25)
+
+[node name="WireConnect21" parent="Components/Wiring" index="21" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 6.25)
+
+[node name="WireConnect10" parent="Components/Wiring" index="22" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3)
 
-[node name="WireConnect2" parent="Components/Wiring" index="15" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.5)
+[node name="WireConnect14" parent="Components/Wiring" index="23" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4.5)
 
-[node name="WireConnect9" parent="Components/Wiring" index="16" instance=ExtResource("12_sq6km")]
+[node name="WireConnect17" parent="Components/Wiring" index="24" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6.5)
+
+[node name="WireConnect18" parent="Components/Wiring" index="25" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -6.5)
+
+[node name="WireConnect16" parent="Components/Wiring" index="26" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -4.5)
+
+[node name="WireConnect2" parent="Components/Wiring" index="27" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.75)
+
+[node name="WireConnect9" parent="Components/Wiring" index="28" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3)
 
-[node name="WireConnect3" parent="Components/Wiring" index="17" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 2.5)
+[node name="WireConnect3" parent="Components/Wiring" index="29" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 0.5, 2.75)
 
-[node name="WireConnect8" parent="Components/Wiring" index="18" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -3)
+[node name="WireConnect8" parent="Components/Wiring" index="30" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 0.5, -3)
 
-[node name="WireConnect4" parent="Components/Wiring" index="19" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 0.5)
+[node name="WireConnect4" parent="Components/Wiring" index="31" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 0.5, 0.75)
 
-[node name="WireConnect7" parent="Components/Wiring" index="20" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -1)
+[node name="WireConnect7" parent="Components/Wiring" index="32" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 0.5, -1)
 
-[node name="WireConnect5" parent="Components/Wiring" index="21" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 0.5)
+[node name="WireConnect5" parent="Components/Wiring" index="33" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 0.75)
 
-[node name="WireConnect15" parent="Components/Wiring" index="22" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 0)
+[node name="WireConnect15" parent="Components/Wiring" index="34" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, -0.25)
 
-[node name="WireConnect6" parent="Components/Wiring" index="23" instance=ExtResource("12_sq6km")]
+[node name="WireConnect6" parent="Components/Wiring" index="35" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, -1)
 
-[node name="WireConnect11" parent="Components/Wiring" index="24" instance=ExtResource("12_sq6km")]
+[node name="WireConnect11" parent="Components/Wiring" index="36" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -0.75)
+
+[node name="WireConnect12" parent="Components/Wiring" index="37" instance=ExtResource("12_sq6km")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -1)
 
-[node name="WireConnect12" parent="Components/Wiring" index="25" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -1.5)
+[node name="WireConnect13" parent="Components/Wiring" index="38" instance=ExtResource("12_sq6km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -1.25)
 
-[node name="WireConnect13" parent="Components/Wiring" index="26" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -2)
-
-[node name="WireConnect14" parent="Components/Wiring" index="27" instance=ExtResource("12_sq6km")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -2)
-
-[node name="SliderGunBack" parent="Components/Wiring" index="28" instance=ExtResource("10_s4x7a")]
-transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, -2, 1, -2)
+[node name="SliderGunBack" parent="Components/Wiring" index="39" instance=ExtResource("10_s4x7a")]
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, -2.25, 0.5, -1.25)
 signal_channel = 3
 
-[node name="SliderGunsFront" parent="Components/Wiring" index="29" instance=ExtResource("10_s4x7a")]
-transform = Transform3D(0, -1, 4.3711392e-08, -4.3711385e-08, 4.3711392e-08, 1, -1, -3.5527137e-15, -4.3711385e-08, 3.5, 0.5, 0.5)
+[node name="DialGunsFront" parent="Components/Wiring" index="40" instance=ExtResource("11_qjphb")]
+transform = Transform3D(-4.3711385e-08, 8.742278e-08, 1, 1.9106853e-15, 1, -8.742278e-08, -1, -3.5527137e-15, -4.3711385e-08, 3.25, 0.75, 0)
+scale_degree = 0.99999999999998
 signal_channel = 3
 
 [node name="Basket" parent="Components" index="3" instance=ExtResource("3_3nb3f")]
 
 [node name="BigFloor" parent="Components/Basket" index="0" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
-size = Vector3(7, 0.5, 6)
-mass_ = 2100.0
-volume = 21.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.25, -3)
+size = Vector3(7, 0.25, 6)
+mass_ = 1050.0
+volume = 10.5
 
 [node name="FrontFloor" parent="Components/Basket" index="1" instance=ExtResource("7_vq8bv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -1)
@@ -247,52 +333,52 @@ mass_ = 150.0
 volume = 1.5
 
 [node name="LeftWall" parent="Components/Basket" index="2" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -3.5)
-size = Vector3(6, 1, 0.5)
-mass_ = 300.0
-volume = 3.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 0, -3.25)
+size = Vector3(6.5, 1, 0.25)
+mass_ = 162.5
+volume = 1.625
 
 [node name="RightWall" parent="Components/Basket" index="3" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 3)
-size = Vector3(6, 1, 0.5)
-mass_ = 300.0
-volume = 3.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 0.25, 3)
+size = Vector3(6.5, 0.75, 0.25)
+mass_ = 121.875
+volume = 1.21875
 
 [node name="LeftWing" parent="Components/Basket" index="4" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -4.5)
-size = Vector3(1, 0.5, 1)
-mass_ = 50.0
-volume = 0.5
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.75, -6.75)
+size = Vector3(0.5, 0.25, 3.5)
+mass_ = 31.25
+volume = 0.3125
 
 [node name="RightWing" parent="Components/Basket" index="5" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 3.5)
-size = Vector3(1, 0.5, 1)
-mass_ = 50.0
-volume = 0.5
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.75, 3.25)
+size = Vector3(0.5, 0.25, 3.5)
+mass_ = 31.25
+volume = 0.3125
 
 [node name="BackWall" parent="Components/Basket" index="6" instance=ExtResource("7_vq8bv")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0.5, -0.5)
-size = Vector3(2.5, 0.5, 0.5)
-mass_ = 62.5
-volume = 0.625
+size = Vector3(2.5, 0.5, 0.25)
+mass_ = 31.25
+volume = 0.3125
 
 [node name="BackWall2" parent="Components/Basket" index="7" instance=ExtResource("7_vq8bv")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0.5, 3)
-size = Vector3(2.5, 0.5, 0.5)
-mass_ = 62.5
-volume = 0.625
+size = Vector3(2.5, 0.5, 0.25)
+mass_ = 31.25
+volume = 0.3125
 
 [node name="Frontwall1" parent="Components/Basket" index="8" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, -3)
-size = Vector3(0.5, 0.5, 1)
-mass_ = 25.0
-volume = 0.25
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0.5, -3)
+size = Vector3(0.25, 0.5, 1)
+mass_ = 12.5
+volume = 0.125
 
 [node name="Frontwall2" parent="Components/Basket" index="9" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0.5, 2)
-size = Vector3(0.5, 0.5, 1)
-mass_ = 25.0
-volume = 0.25
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 0.5, 2)
+size = Vector3(0.25, 0.5, 1)
+mass_ = 12.5
+volume = 0.125
 
 [node name="Rigging" parent="Components" index="4" instance=ExtResource("3_3nb3f")]
 
@@ -303,17 +389,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 0.5)
 
 [node name="Cable3" parent="Components/Rigging" index="2" instance=ExtResource("8_iel0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1, 2.75)
 
 [node name="Cable4" parent="Components/Rigging" index="3" instance=ExtResource("8_iel0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 2.75)
 
 [node name="Cable5" parent="Components/Rigging" index="4" instance=ExtResource("8_iel0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75, 1, -3)
 
 [node name="Cable6" parent="Components/Rigging" index="5" instance=ExtResource("8_iel0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -3)
 
 [node name="Chair" parent="Components" index="6" instance=ExtResource("16_wjquc")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.5, 0.5, -0.5)
-bindings = Array[ExtResource("17_plvvq")]([SubResource("Resource_okq7b"), SubResource("Resource_plvvq"), SubResource("Resource_028c7"), SubResource("Resource_swjpl")])
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.5, 0.5, -0.25)
+bindings = Array[ExtResource("17_plvvq")]([SubResource("Resource_okq7b"), SubResource("Resource_plvvq"), SubResource("Resource_028c7"), SubResource("Resource_swjpl"), SubResource("Resource_mrsml"), SubResource("Resource_ibp7l"), SubResource("Resource_cl6mw"), SubResource("Resource_odg74")])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://87gm1mtw3812"]
+[gd_scene load_steps=18 format=3 uid="uid://87gm1mtw3812"]
 
 [ext_resource type="Script" uid="uid://b01bx8dovrts3" path="res://code/components/dial.gd" id="1_q80i2"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_jc46c"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cho6nbfhnljf4" path="res://scenes/components/signal_control.tscn" id="7_5sv2v"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jc46c"]
-size = Vector3(0.3, 0.1, 0.3)
+size = Vector3(0.4, 0.2, 0.4)
 
 [sub_resource type="QuadMesh" id="QuadMesh_5sv2v"]
 size = Vector2(0.25, 0.25)
@@ -37,22 +37,25 @@ top_radius = 0.08
 bottom_radius = 0.08
 height = 0.04
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3fopc"]
-size = Vector3(0.1, 0.1, 0.1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_5sv2v"]
+size = Vector3(0.3, 0.1, 0.3)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_swh12"]
-radius = 0.1
+[sub_resource type="BoxShape3D" id="BoxShape3D_3fopc"]
+size = Vector3(0.6, 0.1, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0qsep"]
+size = Vector3(0.3, 0.1, 0.6)
 
 [node name="Dial" type="Node3D"]
 script = ExtResource("1_q80i2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
 shape = SubResource("BoxShape3D_jc46c")
 
 [node name="More" parent="." instance=ExtResource("2_jc46c")]
 unique_name_in_owner = true
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.1, 0.3, 0.25)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.1, 0.2, 0.25)
 description = "increase"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="More"]
@@ -64,7 +67,7 @@ surface_material_override/0 = ExtResource("3_licny")
 
 [node name="Less" parent="." instance=ExtResource("2_jc46c")]
 unique_name_in_owner = true
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4, 0.3, 0.25)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4, 0.2, 0.25)
 description = "decrease"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Less"]
@@ -75,13 +78,13 @@ skeleton = NodePath("")
 surface_material_override/0 = ExtResource("4_5sv2v")
 
 [node name="Case" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
 mesh = SubResource("CylinderMesh_licny")
 skeleton = NodePath("../CenterOfMass")
 surface_material_override/0 = SubResource("StandardMaterial3D_8dutg")
 
 [node name="Screw" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.3, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
 
 [node name="Hand" type="MeshInstance3D" parent="Screw"]
 unique_name_in_owner = true
@@ -94,34 +97,42 @@ surface_material_override/0 = SubResource("StandardMaterial3D_0qsep")
 mesh = SubResource("CylinderMesh_q80i2")
 
 [node name="CenterOfMass" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.22, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
 
 [node name="Connection" parent="." instance=ExtResource("2_sgqlt")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
-shape = SubResource("BoxShape3D_3fopc")
+shape = SubResource("BoxShape3D_5sv2v")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
 shape = SubResource("BoxShape3D_3fopc")
 
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
+shape = SubResource("BoxShape3D_0qsep")
+
 [node name="SignalConnection" parent="." instance=ExtResource("3_sgqlt")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
-shape = SubResource("SphereShape3D_swh12")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
-shape = SubResource("SphereShape3D_swh12")
 
 [node name="SignalControl" parent="SignalConnection" instance=ExtResource("7_5sv2v")]
 unique_name_in_owner = true
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
+shape = SubResource("BoxShape3D_5sv2v")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
+shape = SubResource("BoxShape3D_3fopc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
+shape = SubResource("BoxShape3D_0qsep")
+
 [node name="StatusText" type="Label3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-0.5, -4.371139e-08, -1.9106855e-15, 0, -2.1855694e-08, 0.5, -4.371139e-08, 0.5, 2.1855694e-08, 0.25, 0.305, 0.125)
+transform = Transform3D(-0.5, -4.371139e-08, -1.9106855e-15, 0, -2.1855694e-08, 0.5, -4.371139e-08, 0.5, 2.1855694e-08, 0.25, 0.205, 0.125)
 text = "0000.00 Uni"
 font_size = 24
 outline_size = 7

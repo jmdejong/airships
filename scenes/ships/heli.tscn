@@ -13,19 +13,19 @@
 [node name="Heli" instance=ExtResource("1_rjgg3")]
 
 [node name="EngineHor" parent="Components" index="1" instance=ExtResource("3_8vjui")]
-transform = Transform3D(1.3113417e-07, -1, 0, 1, 1.3113417e-07, 0, 0, 0, 1, -1, 4.5, 1.5)
+transform = Transform3D(1.3113417e-07, -1, 0, 1, 1.3113417e-07, 0, 0, 0, 1, -1, 4.25, 1.5)
 power_channel = 1
 
 [node name="EngineHor2" parent="Components" index="2" instance=ExtResource("3_8vjui")]
-transform = Transform3D(1.3113417e-07, -1, 0, 1, 1.3113417e-07, 0, 0, 0, 1, -1, 4.5, -2.5)
+transform = Transform3D(1.3113417e-07, -1, 0, 1, 1.3113417e-07, 0, 0, 0, 1, -1, 4.25, -2.5)
 power_channel = 1
 
 [node name="EngineHor3" parent="Components" index="3" instance=ExtResource("3_8vjui")]
-transform = Transform3D(4.3711378e-08, 1, -8.74228e-08, 1, -4.3711378e-08, 7.6427436e-15, 3.82137e-15, -8.74228e-08, -1, 1, 4.5, -1.5)
+transform = Transform3D(4.3711378e-08, 1, -8.74228e-08, 1, -4.3711378e-08, 7.6427436e-15, 3.82137e-15, -8.74228e-08, -1, 1, 4.25, -1.5)
 power_channel = 1
 
 [node name="EngineHor4" parent="Components" index="4" instance=ExtResource("3_8vjui")]
-transform = Transform3D(4.3711378e-08, 1, -8.74228e-08, 1, -4.3711378e-08, 7.6427436e-15, 3.82137e-15, -8.74228e-08, -1, 1, 4.5, 2.5)
+transform = Transform3D(4.3711378e-08, 1, -8.74228e-08, 1, -4.3711378e-08, 7.6427436e-15, 3.82137e-15, -8.74228e-08, -1, 1, 4.25, 2.5)
 power_channel = 1
 
 [node name="StatusPanel" parent="Components" index="5" instance=ExtResource("5_8vjui")]
@@ -34,43 +34,48 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.5)
 [node name="Frame" parent="Components" index="6" instance=ExtResource("4_2uvs7")]
 
 [node name="Floor" parent="Components/Frame" index="0" instance=ExtResource("2_2x7ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
-size = Vector3(3, 0.5, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1.5)
+density = 100.0
+size = Vector3(3, 0.25, 3)
 mass_ = 450.0
 volume = 4.5
 
 [node name="WoodPanel4" parent="Components/Frame" index="1" instance=ExtResource("2_2x7ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, -1.5)
-size = Vector3(0.5, 0.5, 0.5)
+density = 100.0
+size = Vector3(0.25, 0.25, 0.25)
 mass_ = 12.5
 volume = 0.125
 
 [node name="WoodPanel3" parent="Components/Frame" index="2" instance=ExtResource("2_2x7ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.5, -1.5)
-size = Vector3(0.5, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 4.5, -1.5)
+density = 100.0
+size = Vector3(0.25, 0.25, 0.25)
 mass_ = 12.5
 volume = 0.125
 
 [node name="WoodPanel2" parent="Components/Frame" index="3" instance=ExtResource("2_2x7ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.5, 1)
-size = Vector3(0.5, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 4.5, 1.25)
+density = 100.0
+size = Vector3(0.25, 0.25, 0.25)
 mass_ = 12.5
 volume = 0.125
 
 [node name="WoodPanel" parent="Components/Frame" index="4" instance=ExtResource("2_2x7ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, 1)
-size = Vector3(0.5, 0.5, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, 1.25)
+density = 100.0
+size = Vector3(0.25, 0.25, 0.25)
 mass_ = 12.5
 volume = 0.125
 
 [node name="Cable4m" parent="Components/Frame" index="5" instance=ExtResource("6_2uvs7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1.25)
 
 [node name="Cable4m2" parent="Components/Frame" index="6" instance=ExtResource("6_2uvs7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.5, 1.25)
 
 [node name="Cable4m3" parent="Components/Frame" index="7" instance=ExtResource("6_2uvs7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.5, -1.5)
 
 [node name="Cable4m4" parent="Components/Frame" index="8" instance=ExtResource("6_2uvs7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1.5)
@@ -78,13 +83,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, -1.5)
 [node name="Wiring" parent="Components" index="7" instance=ExtResource("4_2uvs7")]
 
 [node name="WireConnect" parent="Components/Wiring" index="0" instance=ExtResource("7_ryf2q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, 1.25)
 
 [node name="WireConnect2" parent="Components/Wiring" index="1" instance=ExtResource("7_ryf2q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 4.5, 1.25)
 
 [node name="WireConnect3" parent="Components/Wiring" index="2" instance=ExtResource("7_ryf2q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4.5, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 4.5, -1.5)
 
 [node name="WireConnect4" parent="Components/Wiring" index="3" instance=ExtResource("7_ryf2q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, -1.5)
@@ -93,10 +98,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, -1.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 4.5, 0)
 
 [node name="WireConnect6" parent="Components/Wiring" index="5" instance=ExtResource("7_ryf2q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 4.5, 0)
 
 [node name="WireConnect7" parent="Components/Wiring" index="6" instance=ExtResource("7_ryf2q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 1.25, 0)
 
 [node name="WireStraight" parent="Components/Wiring" index="7" instance=ExtResource("8_gnvd4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4.5, 0)
@@ -105,29 +110,31 @@ mass_ = 4.71238898038469
 volume = 0.02356194490192345
 
 [node name="WireStraight3" parent="Components/Wiring" index="8" instance=ExtResource("8_gnvd4")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 4.5, 1)
-mass_ = 0.7853981633974484
-volume = 0.00392699081698724
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.75, 4.5, 1.25)
+length = 1.0
+mass_ = 1.5707963267948968
+volume = 0.007853981633974483
 
 [node name="WireStraight4" parent="Components/Wiring" index="9" instance=ExtResource("8_gnvd4")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.5, 4.5, 1)
-mass_ = 0.7853981633974484
-volume = 0.00392699081698724
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.5, 4.5, 1.25)
+length = 1.0
+mass_ = 1.5707963267948968
+volume = 0.007853981633974483
 
 [node name="WireStraight5" parent="Components/Wiring" index="10" instance=ExtResource("8_gnvd4")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.5, 4.5, 0)
-length = 1.0
-mass_ = 1.5707963267948968
-volume = 0.00785398163397448
+length = 1.25
+mass_ = 1.9634954084936207
+volume = 0.009817477042468103
 
 [node name="WireStraight6" parent="Components/Wiring" index="11" instance=ExtResource("8_gnvd4")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 4.5, 0)
-length = 1.0
-mass_ = 1.5707963267948968
-volume = 0.00785398163397448
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.75, 4.5, 0)
+length = 1.25
+mass_ = 1.9634954084936207
+volume = 0.009817477042468103
 
 [node name="WireStraight2" parent="Components/Wiring" index="12" instance=ExtResource("8_gnvd4")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -2, 4.5, 0)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -1.75, 4.5, 0)
 length = 3.0
 mass_ = 4.71238898038469
 volume = 0.02356194490192345

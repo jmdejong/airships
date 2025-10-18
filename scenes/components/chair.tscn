@@ -28,18 +28,18 @@ size = Vector3(0.1, 0.1, 0.1)
 script = ExtResource("1_f307t")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
 mesh = SubResource("BoxMesh_5t4bf")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_hcjnm")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.45, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.45, 0.25)
 mesh = SubResource("BoxMesh_7ba4c")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.7, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.7, 0.5)
 mesh = SubResource("BoxMesh_v3byo")
 skeleton = NodePath("../..")
 
@@ -50,22 +50,22 @@ script = ExtResource("3_f307t")
 description = "Sit"
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Sitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.563, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.563, 0.25)
 shape = SubResource("BoxShape3D_a5k4w")
 
 [node name="Seat" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0.25)
 script = ExtResource("4_hcjnm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.4375, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.4375, 0.25)
 shape = SubResource("BoxShape3D_5t4bf")
 
 [node name="Connection" parent="." instance=ExtResource("5_f307t")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1.9936124e-09, 0.25)
 shape = SubResource("BoxShape3D_5b6ql")
 
 [connection signal="pressed_by" from="Sitbox" to="Seat" method="_on_sitbox_pressed_by"]

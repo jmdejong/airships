@@ -2,7 +2,7 @@
 class_name WoodPanel
 extends BaseComponent
 
-@export var density: float = 100
+@export var density: float = 400
 var size_block: Vector3i
 @export var size: Vector3 = Vector3.ONE:
 	set(val):
@@ -10,9 +10,11 @@ var size_block: Vector3i
 		size = size_block * Global.block_size
 		_update_sizes()
 
+
+func physics_properties() -> PhysicsProperties:
+	return PhysicsProperties.box(transform * (size / 2), size, density)
+
 func _update_sizes() -> void:
-		volume = size.x * size.y * size.z
-		mass_ = density * volume
 		var origin: Vector3 = size / 2.0
 		$CollisionShape3D.shape = _box_shape(size)
 		$CollisionShape3D.position = origin

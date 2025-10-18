@@ -117,11 +117,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, 0.5)
 [node name="SignalConnection" parent="." instance=ExtResource("7_7k6a4")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.125, 0.5)
 shape = SubResource("BoxShape3D_7u0l6")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.125, 0.5)
 shape = SubResource("BoxShape3D_6kb0e")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="SignalConnection"]

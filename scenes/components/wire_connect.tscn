@@ -1,37 +1,28 @@
-[gd_scene load_steps=14 format=3 uid="uid://b222awqy5q2ev"]
+[gd_scene load_steps=11 format=3 uid="uid://b222awqy5q2ev"]
 
 [ext_resource type="Script" uid="uid://cf5dhhdmg7qpc" path="res://code/components/base_component.gd" id="1_3hq4m"]
 [ext_resource type="PackedScene" uid="uid://kff3405m2dnp" path="res://scenes/connected_checker.tscn" id="2_3hq4m"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_eugkd"]
 [ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="3_eugkd"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_eugkd"]
-size = Vector3(0.3, 0.1, 0.1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_3hq4m"]
+size = Vector3(0.125, 0.1, 0.1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_4dt5m"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 0.25
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.125
 radial_segments = 8
 rings = 1
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3hq4m"]
-size = Vector3(0.3, 0.1, 0.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_31mo3"]
-size = Vector3(0.1, 0.3, 0.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_1aa6m"]
-size = Vector3(0.1, 0.3, 0.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_nrt3n"]
-size = Vector3(0.1, 0.1, 0.3)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wtfld"]
-size = Vector3(0.1, 0.1, 0.3)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_4dt5m"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.3, 0.05, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2sg1l"]
+size = Vector3(0.05, 0.3, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kslpi"]
+size = Vector3(0.05, 0.05, 0.3)
 
 [sub_resource type="SphereMesh" id="SphereMesh_eugkd"]
 radius = 0.07
@@ -41,135 +32,110 @@ height = 0.14
 script = ExtResource("1_3hq4m")
 mass_ = 1.0
 
-[node name="Collision_X+" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.25, 0.25)
-shape = SubResource("BoxShape3D_eugkd")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Collision_X+"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.025000006, 0, 0)
-mesh = SubResource("CylinderMesh_4dt5m")
-skeleton = NodePath("../..")
-
-[node name="ConnectedChecker" parent="Collision_X+" instance=ExtResource("2_3hq4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0, 0)
-
 [node name="Collision_X-" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.25, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.062499996, 0.125, 0.125)
 shape = SubResource("BoxShape3D_3hq4m")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Collision_X-"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.025000006, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
 [node name="ConnectedChecker" parent="Collision_X-" instance=ExtResource("2_3hq4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -1.9936124e-09, -1.9936124e-09)
 
-[node name="Collision_Y+" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.35, 0.25)
-shape = SubResource("BoxShape3D_31mo3")
+[node name="Collision_X+" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.1875, 0.125, 0.125)
+shape = SubResource("BoxShape3D_3hq4m")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Collision_Y+"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025000006, 0)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Collision_X+"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
-[node name="ConnectedChecker" parent="Collision_Y+" instance=ExtResource("2_3hq4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+[node name="ConnectedChecker" parent="Collision_X+" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -1.9936124e-09, -1.9936124e-09)
 
 [node name="Collision_Y-" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.15, 0.25)
-shape = SubResource("BoxShape3D_1aa6m")
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.125, 0.0625, 0.125)
+shape = SubResource("BoxShape3D_3hq4m")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Collision_Y-"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025000006, 0)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Collision_Y-"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
 [node name="ConnectedChecker" parent="Collision_Y-" instance=ExtResource("2_3hq4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -1.9936124e-09, -1.9936124e-09)
 
-[node name="Collision_Z+" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.35)
-shape = SubResource("BoxShape3D_nrt3n")
+[node name="Collision_Y+" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.125, 0.1875, 0.125)
+shape = SubResource("BoxShape3D_3hq4m")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Collision_Z+"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.025000006)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Collision_Y+"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
-[node name="ConnectedChecker" parent="Collision_Z+" instance=ExtResource("2_3hq4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+[node name="ConnectedChecker" parent="Collision_Y+" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -1.9936124e-09, -1.9936124e-09)
 
 [node name="Collision_Z-" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.15)
-shape = SubResource("BoxShape3D_wtfld")
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.125, 0.125, 0.0625)
+shape = SubResource("BoxShape3D_3hq4m")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Collision_Z-"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.025000006)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Collision_Z-"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_4dt5m")
 skeleton = NodePath("../..")
 
 [node name="ConnectedChecker" parent="Collision_Z-" instance=ExtResource("2_3hq4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -1.9936124e-09, -1.9936124e-09)
+
+[node name="Collision_Z+" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.125, 0.125, 0.1875)
+shape = SubResource("BoxShape3D_3hq4m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Collision_Z+"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_4dt5m")
+skeleton = NodePath("../..")
+
+[node name="ConnectedChecker" parent="Collision_Z+" instance=ExtResource("2_3hq4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, -1.9936124e-09, -1.9936124e-09)
 
 [node name="CenterOfMass" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
 
 [node name="Connection" parent="." instance=ExtResource("2_eugkd")]
 
-[node name="Connectiony_X+" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.25)
+[node name="Connection_X" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
 shape = SubResource("BoxShape3D_4dt5m")
 
-[node name="Connectiony_X-" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.25)
-shape = SubResource("BoxShape3D_4dt5m")
+[node name="Connection_Y" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+shape = SubResource("BoxShape3D_2sg1l")
 
-[node name="Connectiony_Y+" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0.25)
-shape = SubResource("BoxShape3D_4dt5m")
-
-[node name="Connectiony_Y-" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
-shape = SubResource("BoxShape3D_4dt5m")
-
-[node name="Connectiony_Z+" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.5)
-shape = SubResource("BoxShape3D_4dt5m")
-
-[node name="Connectiony_Z-" type="CollisionShape3D" parent="Connection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
-shape = SubResource("BoxShape3D_4dt5m")
+[node name="Connection_Z" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+shape = SubResource("BoxShape3D_kslpi")
 
 [node name="SignalConnection" parent="." instance=ExtResource("3_eugkd")]
 
-[node name="Connection_X+" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0.25)
+[node name="Connection_X" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
 shape = SubResource("BoxShape3D_4dt5m")
 metadata/direction = "X+"
 
-[node name="Connection_X-" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.25)
-shape = SubResource("BoxShape3D_4dt5m")
-metadata/direction = ""
+[node name="Connection_Y" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+shape = SubResource("BoxShape3D_2sg1l")
 
-[node name="Connection_Y+" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0.25)
-shape = SubResource("BoxShape3D_4dt5m")
-
-[node name="Connection_Y-" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
-shape = SubResource("BoxShape3D_4dt5m")
-
-[node name="Connection_Z+" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.5)
-shape = SubResource("BoxShape3D_4dt5m")
-
-[node name="Connection_Z-" type="CollisionShape3D" parent="SignalConnection"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
-shape = SubResource("BoxShape3D_4dt5m")
+[node name="Connection_Z" type="CollisionShape3D" parent="SignalConnection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+shape = SubResource("BoxShape3D_kslpi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
 mesh = SubResource("SphereMesh_eugkd")
