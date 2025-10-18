@@ -8,19 +8,20 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dqkch"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
-radius = 0.2
+radius = 0.27
 height = 1.6
 
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_dqkch"]
+length = 0.6
+slide_on_slope = true
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlg0r"]
-radius = 0.2
+radius = 0.27
 height = 0.8
 
 [sub_resource type="LabelSettings" id="LabelSettings_g2els"]
 font_color = Color(1, 1, 1, 0.666667)
 outline_color = Color(0, 0, 0, 0.8)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
-radius = 0.25
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_dqkch"]
 height = 0.1
@@ -48,6 +49,38 @@ text = "speed"
 [node name="StandShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_dqkch")
+
+[node name="Separotor" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.9936124e-09, 0.6, -0.3)
+shape = SubResource("SeparationRayShape3D_dqkch")
+
+[node name="Separotor2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.9936124e-09, 0.6, 0.3)
+shape = SubResource("SeparationRayShape3D_dqkch")
+
+[node name="Separotor3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.3, 0.6, 0)
+shape = SubResource("SeparationRayShape3D_dqkch")
+
+[node name="Separotor4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.3, 0.6, 0)
+shape = SubResource("SeparationRayShape3D_dqkch")
+
+[node name="Separotor5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.212, 0.6, 0.212)
+shape = SubResource("SeparationRayShape3D_dqkch")
+
+[node name="Separotor6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.212, 0.6, 0.212)
+shape = SubResource("SeparationRayShape3D_dqkch")
+
+[node name="Separotor7" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.212, 0.6, -0.212)
+shape = SubResource("SeparationRayShape3D_dqkch")
+
+[node name="Separotor8" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.212, 0.6, -0.212)
+shape = SubResource("SeparationRayShape3D_dqkch")
 
 [node name="SitShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
@@ -129,13 +162,6 @@ horizontal_alignment = 1
 
 [node name="BuildTab" parent="." instance=ExtResource("3_dqkch")]
 visible = false
-
-[node name="ZoneFinder" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ZoneFinder"]
-shape = SubResource("SphereShape3D_qhqgy")
 
 [node name="GroundCheck" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true

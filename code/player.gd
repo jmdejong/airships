@@ -14,6 +14,7 @@ var platform_movement: Vector3 = Vector3.ZERO
 var last_since_floor: float = 0
 var was_on_ground := false
 const last_since_floor_max: float = 5
+var specific_info: String = ""
 
 enum MouseMode {Unfocused, Play, Select, Build, Remove}
 
@@ -82,20 +83,24 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		if Input.is_action_pressed("ultrasprint"):
 			movement *= ultra_sprint_multiplier
 		linear_velocity = movement
+		specific_info = ""
 	elif posture == Posture.Standing:
 		move_around(state, movement)
 	elif posture == Posture.Sitting:
 		global_position = seat.seat_position()
 		linear_velocity = seat.get_component().get_ship().linear_velocity
+		specific_info = ""
 	
-	%Info.text = "speed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3" % [
+	%Info.text = "speed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\n%s" % [
 		Vector2(linear_velocity.x, linear_velocity.z).length(),
 		position.x,
 		position.y,
 		position.z,
 		Atmosphere.temperature(position.y),
 		Atmosphere.pressure(position.y) / 1000,
-		Atmosphere.air_density(position.y)
+		Atmosphere.air_density(position.y),
+		was_on_ground,
+		specific_info
 	]
 	
 	try_interact()
@@ -108,7 +113,8 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 	var is_on_ground: bool = false#%GroundCheck.get_collision_count() > 0
 	var contact_point = null
 	for i in state.get_contact_count():
-		if state.get_contact_local_normal(i).y > 0.7:# and state.get_contact_local_position(i).y < 0.2:
+		var ground_angle: float = state.get_contact_local_normal(i).normalized().angle_to(Vector3.UP) / PI * 180.0
+		if ground_angle < 45:
 			is_on_ground = true
 			var o: Node3D = state.get_contact_collider_object(i)
 			contact_point = state.get_contact_collider_position(i)
@@ -127,19 +133,25 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 	var deltav: Vector3 = desired_velocity - linear_velocity
 	deltav.y = 0
 	if is_on_ground:
+		physics_material_override.friction = 1.0
 		var force: Vector3 = deltav * mass * 10
 		apply_force(force, contact_point - global_position)
 		if used_platform != null:
 			used_platform.apply_force(-force, contact_point - used_platform.global_position)
-		if Input.is_action_pressed("up") and was_on_ground:
-			var jump_strength: Vector3 = Vector3(0, 200, 0)
+		var platform_velocity = Vector3.ZERO
+		if used_platform != null:
+			platform_velocity = used_platform.linear_velocity
+		if Input.is_action_pressed("up") and was_on_ground and linear_velocity.y - platform_velocity.y < 1.0:
+			var jump_strength: Vector3 = Vector3(0, 350, 0)
 			apply_impulse(jump_strength, contact_point - global_position)
 			if used_platform != null:
 				used_platform.apply_impulse(-jump_strength, contact_point - used_platform.global_position)
 		was_on_ground = true
 	else:
+		physics_material_override.friction = 0.0
 		was_on_ground = false
 		apply_central_force(deltav * mass * 0.5)
+	specific_info = "%3.2f" % [deltav.length()]
 
 func _unhandled_input(event: InputEvent):
 	
@@ -211,6 +223,9 @@ func sit(seat: Seat) -> void:
 	global_position = seat.seat_position()
 	$StandShape.disabled = true
 	$SitShape.disabled = false
+	for child: CollisionShape3D in get_children().filter(func(c: Node): return c is CollisionShape3D):
+		if child.shape is SeparationRayShape3D:
+			child.disabled = true
 	$Head.position.y = 0.7
 
 func stand_up() -> void:
@@ -218,5 +233,8 @@ func stand_up() -> void:
 	seat = null
 	$StandShape.disabled = false
 	$SitShape.disabled = true
+	for child: CollisionShape3D in get_children().filter(func(c: Node): return c is CollisionShape3D):
+		if child.shape is SeparationRayShape3D:
+			child.disabled = false
 	$Head.position.y = 1.5
 	was_on_ground = false
