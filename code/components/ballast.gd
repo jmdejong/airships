@@ -7,7 +7,7 @@ var filling: float :
 		filling = value
 		%Water.scale.y = filling/max_filling
 		%Water.visible = filling > 0.0
-		%StatusPanel.text = "%4.0f kg\n%3d%%" % [filling, int(filling/max_filling * 100)]
+		%StatusPanel.text = "%4.0f kg\n%3.0f%%" % [filling, filling/max_filling * 100]
 		changed_physics.emit()
 
 var step: float = 100
@@ -16,7 +16,7 @@ func _ready() -> void:
 	filling = initial_filling
 
 func mass() -> float:
-	return filling + 1
+	return filling + 5
 
 func displaced_volume() -> float:
 	return filling / max_filling * 0.9 + 0.1

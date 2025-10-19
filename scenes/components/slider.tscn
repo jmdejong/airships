@@ -88,6 +88,11 @@ mesh = SubResource("QuadMesh_5sv2v")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_h2hu0")
 
+[node name="Reset" parent="Case" instance=ExtResource("2_h2hu0")]
+unique_name_in_owner = true
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.055000003, 0.049999997, -1.9936124e-09)
+description = "Reset"
+
 [node name="StatusText" type="Label3D" parent="Case"]
 unique_name_in_owner = true
 transform = Transform3D(-0.25, -3.774895e-08, -1.650059e-15, 0, -1.0927847e-08, 0.25, -3.774895e-08, 0.25, 1.0927847e-08, -0.055, 0.054999996, 0)
@@ -147,4 +152,5 @@ script = ExtResource("7_h2hu0")
 
 [connection signal="pressed" from="Case/Less" to="SignalConnection/SignalControl" method="decr_step"]
 [connection signal="pressed" from="Case/More" to="SignalConnection/SignalControl" method="incr_step"]
+[connection signal="pressed" from="Case/Reset" to="SignalConnection/SignalControl" method="reset_value"]
 [connection signal="changed" from="SignalConnection/SignalControl" to="." method="_on_signal_control_changed"]

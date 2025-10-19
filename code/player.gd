@@ -91,7 +91,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		linear_velocity = seat.get_component().get_ship().linear_velocity
 		specific_info = ""
 	
-	%Info.text = "speed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\n%s" % [
+	%Info.text = "fps: %3.1f\nspeed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\n%s" % [
+		Engine.get_frames_per_second(),
 		Vector2(linear_velocity.x, linear_velocity.z).length(),
 		position.x,
 		position.y,
