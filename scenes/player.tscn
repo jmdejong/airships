@@ -9,7 +9,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
 radius = 0.27
-height = 1.6
+height = 1.61
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_dqkch"]
 length = 0.6
@@ -36,6 +36,7 @@ axis_lock_angular_z = true
 mass = 70.0
 physics_material_override = SubResource("PhysicsMaterial_dqkch")
 can_sleep = false
+continuous_cd = true
 max_contacts_reported = 15
 linear_damp_mode = 1
 script = ExtResource("1_3vyb7")
@@ -92,6 +93,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
+near = 0.1
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D"]
 light_energy = 0.7

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b43yor0ajl1xi"]
+
+[ext_resource type="Material" uid="uid://itbsqlrcr84h" path="res://materials/metal_light.tres" id="1_mrbfh"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1j08j"]
+top_radius = 2.0
+bottom_radius = 5.0
+height = 30.0
+radial_segments = 16
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_waf4d"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yx3e4"]
+top_radius = 2.5
+bottom_radius = 2.5
+height = 4.0
+radial_segments = 16
+rings = 1
+
+[node name="LightHouse" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 15, -1.9936124e-09)
+mesh = SubResource("CylinderMesh_1j08j")
+surface_material_override/0 = SubResource("StandardMaterial3D_waf4d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0)
+mesh = SubResource("CylinderMesh_yx3e4")
+surface_material_override/0 = ExtResource("1_mrbfh")

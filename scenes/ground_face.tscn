@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://jrfnxqprnjc0"]
+
+[ext_resource type="Script" uid="uid://b5dbxrrjfbrbc" path="res://code/ground_face.gd" id="1_0m74d"]
+[ext_resource type="Material" uid="uid://ct1m6sqfollpm" path="res://materials/ground.tres" id="2_8c2qx"]
+[ext_resource type="Material" uid="uid://bx6whd5thqdwx" path="res://materials/sea.tres" id="3_65bja"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jg3am"]
+size = Vector2(1, 1)
+
+[node name="GroundFace" type="Node3D"]
+script = ExtResource("1_0m74d")
+
+[node name="Subfaces" type="Node3D" parent="."]
+
+[node name="Structures" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Self" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Self"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Self/StaticBody3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1.9936124e-09, -8)
+
+[node name="Water" type="MeshInstance3D" parent="Self"]
+unique_name_in_owner = true
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_jg3am")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_65bja")
+
+[node name="Mesh" type="MeshInstance3D" parent="Self"]
+unique_name_in_owner = true
+material_override = ExtResource("2_8c2qx")
+skeleton = NodePath("../..")
+
+[node name="Border_X+" type="MeshInstance3D" parent="Self"]
+material_override = ExtResource("2_8c2qx")
+skeleton = NodePath("../Mesh")
+
+[node name="Border_X-" type="MeshInstance3D" parent="Self"]
+material_override = ExtResource("2_8c2qx")
+skeleton = NodePath("../Mesh")
+
+[node name="Border_Y+" type="MeshInstance3D" parent="Self"]
+material_override = ExtResource("2_8c2qx")
+skeleton = NodePath("../Mesh")
+
+[node name="Border_Y-" type="MeshInstance3D" parent="Self"]
+material_override = ExtResource("2_8c2qx")
+skeleton = NodePath("../Mesh")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7d18yub2hl4u"]
+
+[ext_resource type="Script" uid="uid://ck7s6v0cebklv" path="res://code/ground.gd" id="1_pybca"]
+[ext_resource type="Material" uid="uid://ct1m6sqfollpm" path="res://materials/ground.tres" id="2_mi8v4"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mi8v4"]
+top_radius = 75.0
+bottom_radius = 75.0
+height = 20.0
+cap_bottom = false
+
+[node name="Ground" type="Node3D"]
+script = ExtResource("1_pybca")
+
+[node name="StartPreview" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -1.9936124e-09, -1.9936124e-09)
+mesh = SubResource("CylinderMesh_mi8v4")
+surface_material_override/0 = ExtResource("2_mi8v4")

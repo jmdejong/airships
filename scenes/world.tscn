@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfu5yqefxgq4y"]
+[gd_scene load_steps=14 format=3 uid="uid://cfu5yqefxgq4y"]
 
-[ext_resource type="PackedScene" uid="uid://dwxvd73ri3t0s" path="res://scenes/land.tscn" id="1_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/ships/gunboat.tscn" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/scout.tscn" id="4_k0juu"]
+[ext_resource type="Material" uid="uid://bx6whd5thqdwx" path="res://materials/sea.tres" id="5_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://bgiev8up864ym" path="res://scenes/ships/heli.tscn" id="5_71j4m"]
+[ext_resource type="PackedScene" uid="uid://ckvhddih8pih4" path="res://scenes/structures/house.tscn" id="6_i7141"]
+[ext_resource type="PackedScene" uid="uid://b7d18yub2hl4u" path="res://scenes/ground.tscn" id="6_qfnet"]
+[ext_resource type="PackedScene" uid="uid://bxgiwy7folhqu" path="res://scenes/structures/tree.tscn" id="7_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://7aus8kw62omx" path="res://scenes/structures/small_tree.tscn" id="8_7r4gi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwgxs"]
 
@@ -18,9 +22,12 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
 
-[node name="World" type="Node3D"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_qfnet"]
+size = Vector2(8192, 8192)
+subdivide_width = 63
+subdivide_depth = 63
 
-[node name="Land" parent="." instance=ExtResource("1_4wyf3")]
+[node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k0juu")
@@ -44,4 +51,46 @@ angular_damp = 5.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 29, 52)
 
 [node name="Heli" parent="." instance=ExtResource("5_71j4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, 16)
+
+[node name="Sea" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.35, -1.9936124e-09)
+visible = false
+mesh = SubResource("PlaneMesh_qfnet")
+skeleton = NodePath("../Ground")
+surface_material_override/0 = ExtResource("5_7r4gi")
+
+[node name="Ground" parent="." instance=ExtResource("6_qfnet")]
+
+[node name="CentralVillage" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 10, -1.9936124e-09)
+
+[node name="House" parent="CentralVillage" instance=ExtResource("6_i7141")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
+
+[node name="House2" parent="CentralVillage" instance=ExtResource("6_i7141")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -12, 0, -26)
+
+[node name="House4" parent="CentralVillage" instance=ExtResource("6_i7141")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+
+[node name="House15" parent="CentralVillage" instance=ExtResource("6_i7141")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -25)
+
+[node name="House14" parent="CentralVillage" instance=ExtResource("6_i7141")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 17)
+
+[node name="House16" parent="CentralVillage" instance=ExtResource("6_i7141")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -12, 0, 29)
+
+[node name="House17" parent="CentralVillage" instance=ExtResource("6_i7141")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, 31)
+
+[node name="Tree3" parent="CentralVillage" instance=ExtResource("7_4mrxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, -2)
+
+[node name="SmallTree2" parent="CentralVillage" instance=ExtResource("8_7r4gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 9)
+
+[node name="Tree2" parent="CentralVillage" instance=ExtResource("7_4mrxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, -16)

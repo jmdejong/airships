@@ -195,6 +195,10 @@ func _unhandled_input(event: InputEvent):
 			mouse_mode = MouseMode.Play
 	if Input.is_action_just_pressed("cancel_click"):
 		mouse_mode = MouseMode.Play
+	
+	if Input.is_action_just_pressed("switch_render"):
+		var vp := get_viewport()
+		vp.debug_draw = (vp.debug_draw + 1) % 6 as Viewport.DebugDraw
 
 
 func try_interact() -> void:
