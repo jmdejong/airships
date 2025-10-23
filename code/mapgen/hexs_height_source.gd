@@ -68,29 +68,21 @@ func height_at(pos: Vector2) -> float:
 		w.y = 1-vfrac.x
 		vc = Vector2i(int(vfloor.x)+1, int(vfloor.y))
 		w.z = 1-vfrac.y
-	#w = (w - Vector3.ONE * 0.3).maxf(0)
-	#if w.x > w.y and w.x > w.z:
-		#w.x = 1-w.y-w.z
-	#elif w.y > w.z:
-		#w.y = 1-w.x-w.z
-	#else:
-		#w.z = 1-w.x-w.y
-	#w = (Vector3(1-vf.distance_to(va), 1-vf.distance_to(vb), 1-vf.distance_to(vc)) - Vector3.ONE * 0.3).maxf(0)
-	#w = (Vector3(vf.distance_to(va), vf.distance_to(vb), vf.distance_to(vc)) - Vector3.ONE * 0.3).clampf(0, 1)
-	w = w * w
-	var ow: Vector3 = w
-	w = w / (w.x + w.y + w.z)
-	var m: float = w[w.max_axis_index()]
-	var n: float = clamp((0.8-m) * 20.0, 0.0, 1.0)
-	w = (Vector3.ONE * 0.75 - w).clampf(0, 1)
-	w = Vector3(w.y * w.z * ow.x, w.x * w.z * ow.y, w.x * w.y * ow.z)
-	#w = w * w
-	#w = (w * 2 - Vector3.ONE/2).clampf(0, 1)
+	var area_a: Area = get_area(va)
+	var area_b: Area = get_area(vb)
+	var area_c: Area = get_area(vc)
+	var center_influences: Vector3 = influences(w, 0.8)
+	w = influences(w, center_influences.x * area_a.center_size() + center_influences.y * area_b.center_size() + center_influences.z * area_c.center_size())
+	var n: float = clamp((1-max(w.x, w.y, w.z))*5, 0, 1)
+	return snappedf(float(area_a.height) * w.x + float(area_b.height) * w.y + float(area_c.height) * w.z + noise.get_noise_2d(pos.x, pos.y) * n * 5.0, 0.5)
 
-	var wsum: float = w.x + w.y + w.z
-	w = w / wsum
-	#w -= Vector3.ONE * ((wsum-1.0)/3.0)
-	return snappedf(get_area(va).height * w.x + get_area(vb).height * w.y + get_area(vc).height * w.z + noise.get_noise_2d(pos.x, pos.y) * n * 3.0, 0.5)
+func influences(w: Vector3, center_size: float) -> Vector3:
+	w -= Vector3.ONE*center_size/3
+	w += Vector3.ONE*min(w.x, w.y, w.z, 0) / 2
+	w = w.clampf(0, 1)
+	w = w*w
+	w /= w.x + w.y + w.z
+	return w
 
 func extremes(_region: Rect2) -> Vector2:
 	return Vector2(-125, 100)
@@ -171,57 +163,62 @@ class Area:
 		origin = Vector3(global_pos.x, height, global_pos.y)
 		structures = fill()
 	@abstract
-	func calc_height()
+	func calc_height() -> float
 	func fill() -> Array[Node3D]:
 		return []
+	func center_size() -> float:
+		return 0
 
 class StartArea extends Area:
-	func calc_height():
+	func calc_height() -> float:
 		return 10
+	func center_size() -> float:
+		return 0.7
 
 class Sea extends Area:
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(-30, -10)
 
 class ShallowSea extends Area:
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(-8, -4)
 
 class DeepSea extends Area:
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(-120, -80)
 
 class Coast extends Area:
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(2, 6)
 
 class Field extends Area:
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(4, 12) + int(rid.randf() * rid.randf() * 20)
 
 class Forest extends Area:
 	var tree_scene: PackedScene = preload("res://scenes/structures/tree.tscn")
 	var small_tree_scene: PackedScene = preload("res://scenes/structures/small_tree.tscn")
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(6, 12)
 	func fill() -> Array[Node3D]:
 		var root: Node3D = Node3D.new()
 		root.position = origin
 		@warning_ignore("narrowing_conversion")
-		var m: int = area_radius*0.66
-		for i in range(20):
-			var tree: Node3D = tree_scene.instantiate()
-			tree.position = Vector3(rid.with(910).with(i).randi_range(-m, m), 0, rid.with(911).with(i).randi_range(-m, m))
-			root.add_child(tree)
-		for i in range(20):
-			var tree: Node3D = small_tree_scene.instantiate()
-			tree.position = Vector3(rid.with(821).with(i).randi_range(-m, m), 0, rid.with(911).with(i).randi_range(-m, m))
+		var m: int = area_radius*center_size()
+		for i in range(50):
+			var r: Hasher = rid.with(i)
+			var tree: Node3D = tree_scene.instantiate() if r.with(-83).randf() < 0.5 else small_tree_scene.instantiate()
+			tree.position = Vector3(r.with(910).randi_range(-m, m), 0, r.with(915).randi_range(-m, m))
+			if tree.position.length() > m:
+				continue
 			root.add_child(tree)
 		return [root]
+	func center_size() -> float:
+		return 0.7
 
 class Hill extends Area:
 	var rock_scene: PackedScene = preload("res://scenes/structures/rock.tscn")
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(20, 50)
 	func fill() -> Array[Node3D]:
 		var root: Node3D = Node3D.new()
@@ -238,7 +235,7 @@ class Hill extends Area:
 
 class Village extends Area:
 	var house_scene: PackedScene = preload("res://scenes/structures/house.tscn")
-	func calc_height():
+	func calc_height() -> float:
 		return rid.randi_range(6, 12)
 	func fill() -> Array[Node3D]:
 		var root: Node3D = Node3D.new()
@@ -252,3 +249,5 @@ class Village extends Area:
 			house.rotate_y(PI / 4 * r.with(13).randi_range(0, 7))
 			root.add_child(house)
 		return [root]
+	func center_size() -> float:
+		return 0.5
