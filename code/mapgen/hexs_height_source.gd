@@ -92,8 +92,11 @@ func structures(region: Rect2) -> Array[Node3D]:
 	for hex: Vector2i in hexes_in(region):
 		var area: Area = get_area(hex)
 		for structure: Node3D in area.structures:
-			if region.has_point(Vector2(structure.position.x, structure.position.z)):
-				strucs.append(structure.duplicate())
+			var pos: Vector2 = Vector2(structure.position.x, structure.position.z)
+			#if region.has_point(pos):
+			var s: Node3D = structure.duplicate()
+			s.position.y += height_at(pos)
+			strucs.append(s)
 	return strucs
 
 func hexes_in(region: Rect2) -> Array[Vector2i]:
@@ -153,7 +156,7 @@ class Area:
 	var global_pos: Vector2
 	var area_radius: float
 	var origin: Vector3
-	var structures: Array[Node3D]
+	var structures: Array[Node3D] = []
 	func setup(hasher: Hasher, apos: Vector2i, global_pos: Vector2, radius: float) -> void:
 		rid = hasher.with(5321).with_vec2(apos)
 		self.apos = apos
@@ -161,11 +164,11 @@ class Area:
 		self.area_radius = radius
 		height = calc_height()
 		origin = Vector3(global_pos.x, height, global_pos.y)
-		structures = fill()
+		fill()
 	@abstract
 	func calc_height() -> float
-	func fill() -> Array[Node3D]:
-		return []
+	func fill() -> void:
+		return
 	func center_size() -> float:
 		return 0
 
@@ -196,58 +199,47 @@ class Field extends Area:
 		return rid.randi_range(4, 12) + int(rid.randf() * rid.randf() * 20)
 
 class Forest extends Area:
-	var tree_scene: PackedScene = preload("res://scenes/structures/tree.tscn")
-	var small_tree_scene: PackedScene = preload("res://scenes/structures/small_tree.tscn")
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
-	func fill() -> Array[Node3D]:
-		var root: Node3D = Node3D.new()
-		root.position = origin
+	func fill() -> void:
 		@warning_ignore("narrowing_conversion")
-		var m: int = area_radius*center_size()
-		for i in range(50):
+		var m: int = area_radius * 0.9
+		for i in range(80):
 			var r: Hasher = rid.with(i)
-			var tree: Node3D = tree_scene.instantiate() if r.with(-83).randf() < 0.5 else small_tree_scene.instantiate()
-			tree.position = Vector3(r.with(910).randi_range(-m, m), 0, r.with(915).randi_range(-m, m))
-			if tree.position.length() > m:
+			var tree: Node3D = Structure.tree.scene.instantiate() if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
+			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
+			if pos.distance_to(global_pos) > m:
 				continue
-			root.add_child(tree)
-		return [root]
+			tree.position = Vector3(pos.x, 0, pos.y)
+			structures.append(tree)
 	func center_size() -> float:
-		return 0.7
+		return 0.3
 
 class Hill extends Area:
-	var rock_scene: PackedScene = preload("res://scenes/structures/rock.tscn")
 	func calc_height() -> float:
-		return rid.randi_range(20, 50)
-	func fill() -> Array[Node3D]:
-		var root: Node3D = Node3D.new()
-		root.position = origin
+		return rid.randi_range(20, 80)
+	func fill() -> void:
 		@warning_ignore("narrowing_conversion")
 		var m: int = area_radius*0.66
 		for i in rid.with(-3).randi_range(0, 5):
 			var r: Hasher = rid.with(i)
-			var rock: Node3D = rock_scene.instantiate()
-			rock.position = Vector3(r.with(910).randi_range(-m, m), 0, r.with(911).randi_range(-m, m))
+			var rock: Node3D = Structure.rock.scene.instantiate()
+			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
+			rock.position = Vector3(pos.x, 0, pos.y)
 			rock.rotate_y(PI/2 * r.with(5).randi_range(0, 3))
-			root.add_child(rock)
-		return [root]
+			structures.append(rock)
 
 class Village extends Area:
-	var house_scene: PackedScene = preload("res://scenes/structures/house.tscn")
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
-	func fill() -> Array[Node3D]:
-		var root: Node3D = Node3D.new()
-		root.position = origin
+	func fill() -> void:
 		var available_positions: Array[Vector2] = [Vector2(0, 0), Vector2(-20, -20), Vector2(20, -20), Vector2(-20, 20), Vector2(20, 20), Vector2(25, 0), Vector2(0, 25), Vector2(-25, 0), Vector2(0, -25)]
 		for i: int in rid.with(4).randi_range(2, 6):
-			var pos: Vector2 = available_positions.pop_at(rid.with(3).with(i).randi() % available_positions.size())
-			var r = rid.with_vec2(pos)
-			var house: Node3D = house_scene.instantiate()
+			var pos: Vector2 = global_pos + available_positions.pop_at(rid.with(3).with(i).randi() % available_positions.size())
+			var r: Hasher = rid.with_vec2(pos)
+			var house: Node3D = Structure.house.scene.instantiate()
 			house.position = Vector3(pos.x + r.with(9).randi_range(-3, 3), 0, pos.y + r.with(5).randi_range(-3, 3))
 			house.rotate_y(PI / 4 * r.with(13).randi_range(0, 7))
-			root.add_child(house)
-		return [root]
+			structures.append(house)
 	func center_size() -> float:
 		return 0.5

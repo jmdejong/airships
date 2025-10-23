@@ -163,7 +163,7 @@ volume = 0.01178097245096172
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.25, 1, 4.75)
 length = 1.5
 mass_ = 2.356194490192345
-volume = 0.011780972450961725
+volume = 0.01178097245096172
 
 [node name="WireStraight2" parent="Components/Wiring" index="2" instance=ExtResource("12_oisyc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.371139e-08, -4.37114e-08, -4.371139e-08, -1, 1.9106859e-15, 0.25, 0.75, 3)
@@ -172,13 +172,13 @@ transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.371139e-08, -4.37114e-08, -4.
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.25, 1, -4.25)
 length = 1.25
 mass_ = 1.9634954084936207
-volume = 0.009817477042468103
+volume = 0.0098174770424681
 
 [node name="WireStraight5" parent="Components/Wiring" index="4" instance=ExtResource("12_oisyc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.25, 1, -6.25)
 length = 1.75
 mass_ = 2.7488935718910694
-volume = 0.013744467859455347
+volume = 0.01374446785945534
 
 [node name="WireStraight4" parent="Components/Wiring" index="5" instance=ExtResource("12_oisyc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 1, -4.371139e-08, -4.37114e-08, -4.371139e-08, -1, 1.9106859e-15, 0.25, 0.75, -2.75)
@@ -327,14 +327,14 @@ mass_ = 1050.0
 volume = 10.5
 
 [node name="FrontFloor" parent="Components/Basket" index="1" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -1)
-size = Vector3(1.5, 0.5, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.25, -1)
+size = Vector3(1.5, 0.25, 2)
 mass_ = 150.0
 volume = 1.5
 
 [node name="LeftWall" parent="Components/Basket" index="2" instance=ExtResource("7_vq8bv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 0, -3.25)
-size = Vector3(6.5, 1, 0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 0.25, -3.25)
+size = Vector3(6.5, 0.75, 0.25)
 mass_ = 162.5
 volume = 1.625
 

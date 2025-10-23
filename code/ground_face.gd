@@ -103,7 +103,6 @@ func initialize_structures() -> void:
 		for structure: Node3D in height_source.structures(area):
 			%Structures.add_child(structure)
 
-
 func _exit_tree() -> void:
 	_active = false
 	for direction in borders.keys():
@@ -120,8 +119,6 @@ func active_subfaces() -> Array[GroundFace]:
 func neighbour_in(direction: Vector2i) -> GroundFace:
 	var other_id: Vector3i = Vector3i(face_id.x + direction.x, face_id.y + direction.y, face_id.z)
 	return all_positions.get(other_id)
-
-
 
 func update_all_borders() -> void:
 	for direction: Vector2i in borders.keys():
@@ -283,10 +280,12 @@ class TileBuffers extends RefCounted:
 	var segments: int
 	var size: Vector2i
 	var tile_to_pos: Transform2D
+	var pos_to_tile: Transform2D
 	func _init(area: Rect2, segments: int, height_source: HeightSource, config: Config) -> void:
 		self.area = area
 		self.segments = segments
 		tile_to_pos = Transform2D(0, area.size/segments, 0, area.position)
+		pos_to_tile = tile_to_pos.affine_inverse()
 		size = Vector2i(segments + 1, segments + 1)
 		var buffer_size: int = size.x * size.y
 		heights.resize(buffer_size)
@@ -296,7 +295,8 @@ class TileBuffers extends RefCounted:
 		for y in size.y:
 			for x in size.x:
 				var ind: int = x + y*size.x
-				var pos: Vector2 = tile_to_pos * Vector2(x, y)
+				var tile: Vector2 = Vector2(x, y)
+				var pos: Vector2 = tile_to_pos * tile
 				var height: float = height_source.height_at(pos)
 				heights[ind] = height
 				positions[ind] = Vector3(pos.x, height, pos.y)
