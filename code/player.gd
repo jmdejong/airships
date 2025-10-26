@@ -53,6 +53,23 @@ var seat: Seat = null
 
 signal viewpoint_changed(pos: Vector3)
 
+
+func _ready() -> void:
+	build_separation_rays()
+
+func build_separation_rays() -> void:
+	var shape: SeparationRayShape3D = SeparationRayShape3D.new()
+	shape.slide_on_slope = true
+	shape.length = 0.55
+	var offset: Vector3 = Vector3(0.3, 0.55, 0)
+	for i in 24:
+		var col: CollisionShape3D = CollisionShape3D.new()
+		col.shape = shape
+		col.position = offset.rotated(Vector3.UP, 2 * PI * float(i) / 12.0)
+		col.rotate_x(PI/2.0)
+		add_child(col)
+
+
 func adjust_direction() -> void:
 	var down = get_gravity()
 	if down.length_squared() == 0:
@@ -185,6 +202,7 @@ func _unhandled_input(event: InputEvent):
 	if Input.is_action_just_pressed("escape"):
 		mouse_mode = MouseMode.Unfocused
 	if Input.is_action_just_pressed("click"):
+		mouse_mode = mouse_mode
 		if mouse_mode == MouseMode.Play:
 			try_press()
 		elif mouse_mode == MouseMode.Build:
