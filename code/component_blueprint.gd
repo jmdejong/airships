@@ -2,12 +2,10 @@ class_name ComponentBlueprint
 extends RefCounted
 
 var factory: Callable
-var preview: PackedScene
 var area: AABB
 
-func _init(factory: Callable, preview: PackedScene, area: AABB):
+func _init(factory: Callable, area: AABB):
 	self.factory = factory
-	self.preview = preview
 	self.area = area
 
 func create() -> Component:
@@ -17,13 +15,11 @@ enum ComponentType { Woodblock, EngineHor }
 
 static var WoodBlock: ComponentBlueprint = ComponentBlueprint.new(
 	(func() -> Component: var node: Component = preload("res://scenes/components/wood_panel.tscn").instantiate();node.size = Vector3.ONE * Global.block_size;return node),
-	preload("res://scenes/previews/woodblock.tscn"),
-	AABB(-Global.block_center, Vector3.ONE*Global.block_size),
+	AABB(Vector3.ZERO, Vector3.ONE*Global.block_size),
 )
 static var EngineHor: ComponentBlueprint = ComponentBlueprint.new(
 	func(): return preload("res://scenes/components/engine.tscn").instantiate(),
-	preload("res://scenes/previews/engine.tscn"),
-	AABB(-Vector3.ONE*Global.block_size, Vector3(1.5, 1.0, 1.0))
+	AABB(Vector3.ZERO, Vector3(1.5, 1.0, 1.0))
 )
 
 static var components: Dictionary[ComponentType, ComponentBlueprint] = {

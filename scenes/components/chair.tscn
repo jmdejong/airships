@@ -22,7 +22,7 @@ size = Vector3(0.5, 0.625, 0.5)
 size = Vector3(0.45, 0.125, 0.45)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5b6ql"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.3, 0.1, 0.3)
 
 [node name="Chair" type="Node3D"]
 script = ExtResource("1_f307t")

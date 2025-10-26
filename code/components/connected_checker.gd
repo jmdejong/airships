@@ -1,5 +1,6 @@
 extends Area3D
 
+var old_is_conn: bool
 func _ready() -> void:
 	update(null)
 
@@ -14,7 +15,9 @@ func update(left: Component):
 			break
 	get_parent().visible = is_conn
 	get_parent().disabled = !is_conn
-	component.changed_shapes.emit()
+	if is_conn != old_is_conn:
+		component.changed_shapes.emit()
+	old_is_conn = is_conn
 
 func _on_area_entered(_area: Area3D) -> void:
 	update(null)

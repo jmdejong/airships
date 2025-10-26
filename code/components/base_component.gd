@@ -48,3 +48,33 @@ func connected_components() -> Array[Component]:
 	var connected: Array[Component] = []
 	connected.assign($Connection.get_overlapping_areas().map(func(area): return area.get_parent()))
 	return connected
+
+func preview() -> Preview:
+	var node: Preview = preload("res://scenes/preview.tscn").instantiate()
+	var meshes: Array[MeshInstance3D] = []
+	var collisions: Array[CollisionShape3D] = []
+	calculate_child_shapes(self, Transform3D.IDENTITY, meshes, collisions)
+	for mesh: MeshInstance3D in meshes:
+		mesh.add_to_group("visual")
+		node.add_child(mesh)
+	for shape: CollisionShape3D in collisions:
+		node.add_child(shape)
+	return node
+
+func calculate_child_shapes(node: Node3D, tf: Transform3D, meshes: Array[MeshInstance3D], collisions: Array[CollisionShape3D]):
+	if !node.visible or node is CollisionObject3D and node != self:
+		return
+	if node is MeshInstance3D:
+		var mesh: MeshInstance3D = MeshInstance3D.new()
+		mesh.transform = tf
+		mesh.mesh = node.mesh.duplicate()
+		meshes.append(mesh)
+	if node is CollisionShape3D:
+		var shape: CollisionShape3D = CollisionShape3D.new()
+		shape.transform = tf
+		shape.scale *= 0.99
+		shape.shape = node.shape.duplicate()
+		collisions.append(shape)
+	for child in node.get_children():
+		if child is Node3D:
+			calculate_child_shapes(child, tf * child.transform, meshes, collisions)

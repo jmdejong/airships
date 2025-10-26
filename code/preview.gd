@@ -1,3 +1,4 @@
+class_name Preview
 extends Area3D
 
 var valid_overlay: Material = preload("res://materials/build/valid_preview.tres")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://s7qd843d1ay0"]
+
+[ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_ld1wd"]
+[ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="2_lu00m"]
+
+[node name="Platform" instance=ExtResource("1_ld1wd")]
+
+[node name="WoodPanel" parent="Components" index="1" instance=ExtResource("2_lu00m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1.9936124e-09, -10)
+size = Vector3(20, 1, 20)
+
+[node name="WoodPanel2" parent="Components" index="2" instance=ExtResource("2_lu00m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 10, -10)
+size = Vector3(10, 1, 20)
+
+[node name="WoodPanel3" parent="Components" index="3" instance=ExtResource("2_lu00m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -10)
+size = Vector3(0.25, 10, 20)
+
+[node name="WoodPanel4" parent="Components" index="4" instance=ExtResource("2_lu00m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 1, -0.25)
+size = Vector3(10, 15, 0.25)
