@@ -87,16 +87,17 @@ func influences(w: Vector3, center_size: float) -> Vector3:
 func extremes(_region: Rect2) -> Vector2:
 	return Vector2(-125, 100)
 
-func structures(region: Rect2) -> Array[Node3D]:
-	var strucs: Array[Node3D] = []
+func structures(region: Rect2) -> Structure.Buffer:
+	var strucs: Structure.Buffer = Structure.Buffer.new()
 	for hex: Vector2i in hexes_in(region):
 		var area: Area = get_area(hex)
-		for structure: Node3D in area.structures:
-			var pos: Vector2 = Vector2(structure.position.x, structure.position.z)
-			#if region.has_point(pos):
-			var s: Node3D = structure.duplicate()
-			s.position.y += height_at(pos)
-			strucs.append(s)
+		strucs.add_buffer(area.structures(self))
+		#for structure: Node3D in area.structures():
+			#var pos: Vector2 = Vector2(structure.position.x, structure.position.z)
+			##if region.has_point(pos):
+			#var s: Node3D = structure.duplicate()
+			#s.position.y += height_at(pos)
+			#strucs.append(s)
 	return strucs
 
 func hexes_in(region: Rect2) -> Array[Vector2i]:
@@ -104,7 +105,9 @@ func hexes_in(region: Rect2) -> Array[Vector2i]:
 	for hex_z: int in range(floor(pix_to_hex_z(region.position.y)), ceil(pix_to_hex_z(region.end.y))):
 		var pix_z: float = hex_to_pix_z(hex_z)
 		for hex_x : int in range(floor(pix_to_hex_x(Vector2(region.position.x, pix_z))), ceil(pix_to_hex_x(Vector2(region.end.x, pix_z)))):
-			hexes.append(Vector2i(hex_x, hex_z))
+			var hex: Vector2i = Vector2i(hex_x, hex_z)
+			if region.has_point(hex_to_pix(hex)):
+				hexes.append(hex)
 	return hexes
 
 func get_area(vid: Vector2i) -> Area:
@@ -156,7 +159,7 @@ class Area:
 	var global_pos: Vector2
 	var area_radius: float
 	var origin: Vector3
-	var structures: Array[Node3D] = []
+	var _structures: Structure.Buffer = null
 	func setup(hasher: Hasher, apos: Vector2i, global_pos: Vector2, radius: float) -> void:
 		rid = hasher.with(5321).with_vec2(apos)
 		self.apos = apos
@@ -164,10 +167,14 @@ class Area:
 		self.area_radius = radius
 		height = calc_height()
 		origin = Vector3(global_pos.x, height, global_pos.y)
-		fill()
+	func structures(height_source: HeightSource) -> Structure.Buffer:
+		if _structures == null:
+			_structures = Structure.Buffer.new()
+			fill(height_source)
+		return _structures
 	@abstract
 	func calc_height() -> float
-	func fill() -> void:
+	func fill(_height_source: HeightSource) -> void:
 		return
 	func center_size() -> float:
 		return 0
@@ -201,45 +208,42 @@ class Field extends Area:
 class Forest extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
-	func fill() -> void:
+	func fill(height_source: HeightSource) -> void:
 		@warning_ignore("narrowing_conversion")
 		var m: int = area_radius * 0.9
 		for i in range(80):
 			var r: Hasher = rid.with(i)
-			var tree: Node3D = Structure.tree.scene.instantiate() if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
+			#var tree: Node3D = Structure.tree.scene.instantiate()# if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
 			if pos.distance_to(global_pos) > m:
 				continue
-			tree.position = Vector3(pos.x, 0, pos.y)
-			structures.append(tree)
+			#tree.position = Vector3(pos.x, 0, pos.y)
+			_structures.add(Structure.tree, height_source.pos_at(pos), 0)
 	func center_size() -> float:
 		return 0.3
 
 class Hill extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(20, 80)
-	func fill() -> void:
+	func fill(height_source: HeightSource) -> void:
 		@warning_ignore("narrowing_conversion")
 		var m: int = area_radius*0.66
 		for i in rid.with(-3).randi_range(0, 5):
 			var r: Hasher = rid.with(i)
-			var rock: Node3D = Structure.rock.scene.instantiate()
+			#var rock: Node3D = Structure.rock.scene.instantiate()
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
-			rock.position = Vector3(pos.x, 0, pos.y)
-			rock.rotate_y(PI/2 * r.with(5).randi_range(0, 3))
-			structures.append(rock)
+			#rock.position = Vector3(pos.x, 0, pos.y)
+			#rock.rotate_y(PI/2 * r.with(5).randi_range(0, 3))
+			_structures.add(Structure.rock, height_source.pos_at(pos), PI/2 * r.with(5).randi_range(0, 3))
 
 class Village extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
-	func fill() -> void:
+	func fill(height_source: HeightSource) -> void:
 		var available_positions: Array[Vector2] = [Vector2(0, 0), Vector2(-20, -20), Vector2(20, -20), Vector2(-20, 20), Vector2(20, 20), Vector2(25, 0), Vector2(0, 25), Vector2(-25, 0), Vector2(0, -25)]
-		for i: int in rid.with(4).randi_range(2, 6):
-			var pos: Vector2 = global_pos + available_positions.pop_at(rid.with(3).with(i).randi() % available_positions.size())
-			var r: Hasher = rid.with_vec2(pos)
-			var house: Node3D = Structure.house.scene.instantiate()
-			house.position = Vector3(pos.x + r.with(9).randi_range(-3, 3), 0, pos.y + r.with(5).randi_range(-3, 3))
-			house.rotate_y(PI / 4 * r.with(13).randi_range(0, 7))
-			structures.append(house)
+		for i: int in rid.with(-4).randi_range(2, 6):
+			var r: Hasher = rid.with(i)
+			var pos: Vector2 = global_pos + available_positions.pop_at(r.with(3).randi() % available_positions.size()) + Vector2(r.with(9).randi_range(-3, 3) , r.with(5).randi_range(-3, 3))
+			_structures.add(Structure.house, height_source.pos_at(pos), PI / 4 * r.with(13).randi_range(0, 7))
 	func center_size() -> float:
 		return 0.5

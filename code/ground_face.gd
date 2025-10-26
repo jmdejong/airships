@@ -99,8 +99,15 @@ func initialize_collisions() -> void:
 	%CollisionShape3D.shape = shape
 
 func initialize_structures() -> void:
-	if level == config.structure_level:
-		for structure: Node3D in height_source.structures(area):
+	#if level == config.structure_mesh_level:
+		#prints("assigneing multimeshes")
+		#for multimesh: MultiMesh in height_source.structures(area).multimeshes():
+			#prints("multimesh", multimesh)
+			#var m: MultiMeshInstance3D = MultiMeshInstance3D.new()
+			#m.multimesh = multimesh
+			#%Structures.add_child(m)
+	if level == config.structure_node_level:
+		for structure: Node3D in height_source.structures(area).nodes():
 			%Structures.add_child(structure)
 
 func _exit_tree() -> void:
@@ -267,7 +274,8 @@ class MeshBuilder:
 class Config extends RefCounted:
 	var segments: int
 	var texture_size: float = 8
-	var structure_level: int = 4
+	var structure_node_level: int = 4
+	var structure_mesh_level: int = 5
 	func _init(segments: int) -> void:
 		self.segments = segments
 

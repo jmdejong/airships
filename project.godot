@@ -28,6 +28,10 @@ gdscript/warnings/shadowed_variable=0
 
 window/size/mode=2
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 left={

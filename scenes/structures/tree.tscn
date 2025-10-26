@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxgiwy7folhqu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
-height = 18.0
+height = 10.5
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_4wyf3"]
 height = 10.0
@@ -23,6 +23,7 @@ albedo_color = Color(0, 0.533333, 0, 1)
 [node name="Tree" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
 shape = SubResource("CapsuleShape3D_4wyf3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
