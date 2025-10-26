@@ -20,5 +20,5 @@ func color_modifier3(pos: Vector3) -> Color:
 @abstract
 func extremes(area: Rect2) -> Vector2
 
-func structures(_area: Rect2) -> Array[Node3D]:
-	return []
+@abstract
+func structures(area: Rect2) -> Structure.Buffer

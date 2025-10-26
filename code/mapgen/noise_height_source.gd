@@ -13,3 +13,6 @@ func height_at(pos: Vector2) -> float:
 
 func extremes(_area: Rect2) -> Vector2:
 	return Vector2(-h, h)
+
+func structures(area: Rect2) -> Structure.Buffer:
+	return Structure.Buffer.new()
