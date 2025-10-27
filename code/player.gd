@@ -61,11 +61,12 @@ func build_separation_rays() -> void:
 	var shape: SeparationRayShape3D = SeparationRayShape3D.new()
 	shape.slide_on_slope = true
 	shape.length = 0.55
-	var offset: Vector3 = Vector3(0.3, 0.55, 0)
-	for i in 24:
+	var offset: Vector3 = Vector3(0.29, 0.55, 0)
+	var nrays: int = 48
+	for i in nrays:
 		var col: CollisionShape3D = CollisionShape3D.new()
 		col.shape = shape
-		col.position = offset.rotated(Vector3.UP, 2 * PI * float(i) / 12.0)
+		col.position = offset.rotated(Vector3.UP, 2 * PI * float(i) / float(nrays))
 		col.rotate_x(PI/2.0)
 		add_child(col)
 
