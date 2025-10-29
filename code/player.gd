@@ -51,9 +51,6 @@ var posture: Posture = Posture.Standing:
 var seat: Seat = null
 
 
-signal viewpoint_changed(pos: Vector3)
-
-
 func _ready() -> void:
 	build_separation_rays()
 
@@ -61,7 +58,7 @@ func build_separation_rays() -> void:
 	var shape: SeparationRayShape3D = SeparationRayShape3D.new()
 	shape.slide_on_slope = true
 	shape.length = 0.55
-	var offset: Vector3 = Vector3(0.29, 0.55, 0)
+	var offset: Vector3 = Vector3($StandShape.shape.radius + 0.1, 0.55, 0)
 	var nrays: int = 48
 	for i in nrays:
 		var col: CollisionShape3D = CollisionShape3D.new()
@@ -121,12 +118,11 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		was_on_ground,
 		specific_info
 	]
-	
+
+func _process(_delta: float) -> void:
 	try_interact()
 	if mouse_mode == MouseMode.Build:
 		%BuildCast.place_preview()
-	
-	viewpoint_changed.emit(position)
 
 func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 	var is_on_ground: bool = false#%GroundCheck.get_collision_count() > 0

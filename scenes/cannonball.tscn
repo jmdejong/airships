@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dv20ntr61oneb"]
+[gd_scene load_steps=5 format=3 uid="uid://dv20ntr61oneb"]
+
+[ext_resource type="Script" uid="uid://162ma0njlfxm" path="res://code/projectile.gd" id="1_77qtm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_srq8n"]
 radius = 0.23
@@ -15,7 +17,10 @@ metallic_specular = 1.0
 [node name="CannonBall" type="RigidBody3D"]
 mass = 15.0
 continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 3
 linear_damp_mode = 1
+script = ExtResource("1_77qtm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_srq8n")
@@ -23,3 +28,5 @@ shape = SubResource("SphereShape3D_srq8n")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_srq8n")
 surface_material_override/0 = SubResource("StandardMaterial3D_dvaps")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

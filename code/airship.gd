@@ -121,3 +121,9 @@ func destroy_component(component: Component, pos: Vector3):
 	component.destroy(pos)
 	await get_tree().create_timer(0.05).timeout
 	check_connections()
+
+func impact(shape: CollisionShape3D, impactor: RigidBody3D) -> void:
+	if !is_instance_valid(shape) || !is_instance_valid(shape.get_meta("component")):
+		return
+	var component: Component = shape.get_meta("component")
+	destroy_component(component, impactor.global_position)
