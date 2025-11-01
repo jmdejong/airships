@@ -79,15 +79,18 @@ func _physics_process(delta: float) -> void:
 	if last_since_floor >= last_since_floor_max:
 		used_platform = null
 	if posture == Posture.Sitting:
+		global_position = seat.seat_position()
+		linear_velocity = seat.get_component().get_ship().linear_velocity
 		seat.handle_player_input(delta)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	specific_info = ""
 	if mouse_motion != Vector2.ZERO:
-		$Head.rotation.x = clamp($Head.rotation.x - mouse_motion.y * MOUSE_SENSITIVITY, -PI/2, PI/2)
-		rotate_y(-mouse_motion.x * MOUSE_SENSITIVITY)
+		$Head.rotation.x = clamp($Head.rotation.x - mouse_motion.y, -PI/2, PI/2)
+		rotate_y(-mouse_motion.x)
 		mouse_motion = Vector2.ZERO
 	
-	var input_movement: Vector2 = Input.get_vector("left", "right", "forwards", "backwards")
+	var input_movement: Vector2 = (Input.get_vector("left", "right", "forwards", "backwards") + %MoveJoystick.touch_value()).limit_length()
 	var movement: Vector3 = (Vector3(input_movement.x, 0, input_movement.y) * speed) \
 		.rotated(Vector3(0, 1, 0), rotation.y)
 	
@@ -98,13 +101,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		if Input.is_action_pressed("ultrasprint"):
 			movement *= ultra_sprint_multiplier
 		linear_velocity = movement
-		specific_info = ""
 	elif posture == Posture.Standing:
 		move_around(state, movement)
 	elif posture == Posture.Sitting:
-		global_position = seat.seat_position()
-		linear_velocity = seat.get_component().get_ship().linear_velocity
-		specific_info = ""
+		pass
 	
 	%Info.text = "fps: %3.1f\nspeed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\n%s" % [
 		Engine.get_frames_per_second(),
@@ -168,10 +168,14 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 		apply_central_force(deltav * mass * 0.5)
 	specific_info = "%3.2f" % [deltav.length()]
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventScreenDrag and event.index != %MoveJoystick.touch_index:
+		mouse_motion -= event.relative / get_window().size.y
+
 func _unhandled_input(event: InputEvent):
 	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		mouse_motion += event.relative
+		mouse_motion += event.relative * MOUSE_SENSITIVITY
 	
 	if posture == Posture.Sitting && Input.is_action_just_pressed("stand_up"):
 			stand_up.call_deferred()

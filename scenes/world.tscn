@@ -46,7 +46,7 @@ angular_damp_mode = 0
 angular_damp = 5.0
 
 [node name="Scout" parent="." instance=ExtResource("4_k0juu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 29, 52)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 70, 52)
 
 [node name="Heli" parent="." instance=ExtResource("5_71j4m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, 16)
