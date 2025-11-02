@@ -10,6 +10,8 @@ var all_positions: Dictionary[Vector3i, GroundFace]
 var face_id: Vector3i = Vector3i(0, 0, 0)
 var detail_border: Dictionary[Vector2i, bool] = {}
 var borders: Dictionary[Vector2i, MeshInstance3D] = {}
+var detail_border_meshes: Dictionary[Vector2i, Mesh] = {}
+var no_detail_border_meshes: Dictionary[Vector2i, Mesh] = {}
 var _active = true
 var step_size: float
 var tile_buffers: TileBuffers
@@ -69,7 +71,7 @@ func _ready() -> void:
 
 func initialize_nodes() -> void:
 	#remove_child(subfaces)
-	initialize_buffers()
+	tile_buffers = height_source.buffers_at(area, config.segments)
 	%Mesh.mesh = build_mesh()
 	borders = {
 		Vector2i(1, 0): $"Self/Border_X+",
@@ -77,13 +79,13 @@ func initialize_nodes() -> void:
 		Vector2i(-1, 0): $"Self/Border_X-",
 		Vector2i(0, -1): $"Self/Border_Y-"
 	}
+	for border: Vector2i in borders:
+		detail_border_meshes[border] = build_border(border, true)
+		no_detail_border_meshes[border] = build_border(border, false)
 	%Water.position = Vector3(area.get_center().x, -0.35, area.get_center().y)
 	%Water.scale = Vector3(area.size.x, 1, area.size.y)
 	initialize_collisions()
 	initialize_structures()
-
-func initialize_buffers() -> void:
-	tile_buffers = TileBuffers.new(area, config.segments, height_source, config)
 
 func initialize_collisions() -> void:
 	%CollisionShape3D.position = Vector3(area.get_center().x, 0, area.get_center().y)
@@ -139,14 +141,17 @@ func update_border(direction: Vector2i):
 	var neighbour_detailed: bool = neighbour != null and neighbour.is_active()
 	var self_detailed: bool = detail_border.get(direction, false)
 	if neighbour_detailed != self_detailed or borders[direction].mesh == null:
-		borders[direction].mesh = build_border(direction, neighbour_detailed)
+		if neighbour_detailed:
+			borders[direction].mesh = detail_border_meshes[direction]
+		else:
+			borders[direction].mesh = no_detail_border_meshes[direction]
 		detail_border[direction] = neighbour_detailed
 
 func update_camera(pos: Vector3, tasks_per_tick: Counter) -> void:
 	var nearest_to_cam: Vector3 = pos.clamp(aabb.position, aabb.end)
 	var distance: float = pos.distance_to(nearest_to_cam)
 	var my_size: float = area.size.length()
-	if self_active and distance < my_size and level > 0 and tasks_per_tick.value > 0:
+	if self_active and distance < my_size and level > 0 and tasks_per_tick.value > 0 and height_source.prepare_area(area, config.segments * 2):
 		tasks_per_tick.value -= 1
 		self_active = false
 		subfaces_active = true
@@ -252,7 +257,7 @@ class MeshBuilder:
 		vertices.append_array([c0, c1, c2])
 		normals.append_array([n0, n0, n0])
 		colors.append_array([tile_buffers.color_modifier_at(t0), tile_buffers.color_modifier_at(t1), tile_buffers.color_modifier_at(t2)])
-		tex_uvs.append_array([Vector2(c0.x, c0.z) / config.texture_size, Vector2(c1.x, c1.z) / config.texture_size, Vector2(c2.x, c2.z) / config.texture_size])
+		tex_uvs.append_array([tile_buffers.uv_at(t0), tile_buffers.uv_at(t1), tile_buffers.uv_at(t2)])#Vector2(c0.x, c0.z) / config.texture_size, Vector2(c1.x, c1.z) / config.texture_size, Vector2(c2.x, c2.z) / config.texture_size])
 		#tex_uvs.append_array([tile_buffers.uv_at(t0), tile_buffers.uv_at(t1), tile_buffers.uv_at(t2)])
 		indices.append_array(PackedInt32Array([ind+0, ind+1, ind+2]))
 	
@@ -273,52 +278,7 @@ class MeshBuilder:
 
 class Config extends RefCounted:
 	var segments: int
-	var texture_size: float = 8
 	var structure_node_level: int = 4
 	var structure_mesh_level: int = 5
 	func _init(segments: int) -> void:
 		self.segments = segments
-
-class TileBuffers extends RefCounted:
-	var area: Rect2
-	var heights := PackedFloat32Array()
-	var positions := PackedVector3Array()
-	var colors := PackedColorArray()
-	var tex_uvs := PackedVector2Array()
-	var segments: int
-	var size: Vector2i
-	var tile_to_pos: Transform2D
-	var pos_to_tile: Transform2D
-	func _init(area: Rect2, segments: int, height_source: HeightSource, config: Config) -> void:
-		self.area = area
-		self.segments = segments
-		tile_to_pos = Transform2D(0, area.size/segments, 0, area.position)
-		pos_to_tile = tile_to_pos.affine_inverse()
-		size = Vector2i(segments + 1, segments + 1)
-		var buffer_size: int = size.x * size.y
-		heights.resize(buffer_size)
-		positions.resize(buffer_size)
-		colors.resize(buffer_size)
-		tex_uvs.resize(buffer_size)
-		for y in size.y:
-			for x in size.x:
-				var ind: int = x + y*size.x
-				var tile: Vector2 = Vector2(x, y)
-				var pos: Vector2 = tile_to_pos * tile
-				var height: float = height_source.height_at(pos)
-				heights[ind] = height
-				positions[ind] = Vector3(pos.x, height, pos.y)
-				colors[ind] = height_source.color_modifier(pos)
-				tex_uvs[ind] = pos / config.texture_size
-	
-	func height_at(pos: Vector2i) -> float:
-		return heights[pos.x + pos.y * size.x]
-	
-	func pos_at(tile_pos: Vector2i) -> Vector3:
-		return positions[tile_pos.x + tile_pos.y * size.x]
-	
-	func color_modifier_at(pos: Vector2i) -> Color:
-		return colors[pos.x + pos.y * size.x]
-	
-	func uv_at(pos: Vector2i) -> Vector2:
-		return tex_uvs[pos.x + pos.y * size.x]

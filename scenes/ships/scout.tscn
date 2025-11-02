@@ -194,10 +194,10 @@ bindings = Array[ExtResource("14_tw0le")]([SubResource("Resource_p56v3"), SubRes
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0.5, 0.25)
 length = 0.5
 mass_ = 0.7853981633974484
-volume = 0.003926990816987242
+volume = 0.00392699081698724
 
 [node name="WireStraight2" parent="Components/Wiring" index="8" instance=ExtResource("15_p56v3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0.5, -0.5)
 length = 0.5
 mass_ = 0.7853981633974484
-volume = 0.003926990816987242
+volume = 0.00392699081698724

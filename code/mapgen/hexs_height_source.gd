@@ -43,6 +43,9 @@ func _init() -> void:
 	color_noise.seed = hasher.with(44).randi()
 	color_noise.frequency = 0.05
 
+func buffers_at(area: Rect2, segments: int) -> TileBuffers:
+	return TileBuffers.from_height_source(area, segments, self, 8)
+
 func color_modifier(pos: Vector2) -> Color:
 	return (color_noise.get_noise_2dv(pos)+9)/10 * Color.WHITE
 
@@ -51,30 +54,29 @@ func height_at(pos: Vector2) -> float:
 	var vfloor := vf.floor()
 	var vfrac: Vector2 = vf - vfloor
 	var w: Vector3 = Vector3(0, 0, 0)
-	var va: Vector2i
-	var vb: Vector2i
-	var vc: Vector2i
+	var va: Vector2i = Vector2i(int(vfloor.x), int(vfloor.y))
+	var vb: Vector2i = Vector2i(int(vfloor.x), int(vfloor.y)+1)
+	var vc: Vector2i = Vector2i(int(vfloor.x)+1, int(vfloor.y))
 	if vfrac.x + vfrac.y <= 1.0:
-		va = Vector2i(int(vfloor.x), int(vfloor.y))
 		w.x = 1-vfrac.x-vfrac.y
-		vb = Vector2i(int(vfloor.x), int(vfloor.y)+1)
 		w.y = vfrac.y
-		vc = Vector2i(int(vfloor.x)+1, int(vfloor.y))
 		w.z = vfrac.x
 	else:
-		va = Vector2i(int(vfloor.x)+1, int(vfloor.y)+1)
+		va += Vector2i.ONE
 		w.x = vfrac.x + vfrac.y - 1
-		vb = Vector2i(int(vfloor.x), int(vfloor.y)+1)
 		w.y = 1-vfrac.x
-		vc = Vector2i(int(vfloor.x)+1, int(vfloor.y))
 		w.z = 1-vfrac.y
 	var area_a: Area = get_area(va)
 	var area_b: Area = get_area(vb)
 	var area_c: Area = get_area(vc)
+	return snappedf(_combine_areas(area_a, area_b, area_c, w, pos), 0.25)
+
+func _combine_areas(area_a: Area, area_b: Area, area_c: Area, w: Vector3, pos: Vector2) -> float:
 	var center_influences: Vector3 = influences(w, 0.8)
 	w = influences(w, center_influences.x * area_a.center_size() + center_influences.y * area_b.center_size() + center_influences.z * area_c.center_size())
 	var n: float = clamp((1-max(w.x, w.y, w.z))*5, 0, 1)
-	return snappedf(float(area_a.height) * w.x + float(area_b.height) * w.y + float(area_c.height) * w.z + noise.get_noise_2d(pos.x, pos.y) * n * 5.0, 0.5)
+	return float(area_a.height) * w.x + float(area_b.height) * w.y + float(area_c.height) * w.z  + noise.get_noise_2d(pos.x, pos.y) * n * 5.0
+
 
 func influences(w: Vector3, center_size: float) -> Vector3:
 	w -= Vector3.ONE*center_size/3

@@ -14,5 +14,8 @@ func height_at(pos: Vector2) -> float:
 func extremes(_area: Rect2) -> Vector2:
 	return Vector2(-h, h)
 
-func structures(area: Rect2) -> Structure.Buffer:
+func structures(_area: Rect2) -> Structure.Buffer:
 	return Structure.Buffer.new()
+
+func buffers_at(area: Rect2, segments: int) -> TileBuffers:
+	return TileBuffers.from_height_source(area, segments, self, 8)

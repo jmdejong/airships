@@ -5,6 +5,12 @@ extends Resource
 @abstract
 func height_at(pos: Vector2) -> float
 
+@abstract
+func buffers_at(area: Rect2, segments: int) -> TileBuffers
+
+func prepare_area(area: Rect2, segments: int) -> bool:
+	return true
+
 func pos_at(pos: Vector2) -> Vector3:
 	return Vector3(pos.x, height_at(pos), pos.y)
 
