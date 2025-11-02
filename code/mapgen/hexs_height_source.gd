@@ -1,3 +1,4 @@
+@tool
 class_name HexsHeightSource
 extends HeightSource
 var noise: FastNoiseLite = FastNoiseLite.new()

@@ -1,3 +1,4 @@
+@tool
 class_name GroundFace
 extends Node3D
 
@@ -121,7 +122,7 @@ func _exit_tree() -> void:
 
 func active_subfaces() -> Array[GroundFace]:
 	var faces: Array[GroundFace] = []
-	if is_active() and not self_active:
+	if not self_active:
 		faces.assign($Subfaces.get_children())
 	return faces
 
