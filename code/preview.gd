@@ -14,3 +14,6 @@ var valid: bool = true:
 
 func _ready() -> void:
 	get_tree().set_group("visual", "transparency", 0.5)
+
+func ship_connected() -> bool:
+	return $Connection.has_overlapping_areas()

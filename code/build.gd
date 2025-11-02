@@ -46,7 +46,7 @@ func place_preview() -> void:
 		var center_offset: Vector3 = n * area.size / 2.0
 		component_position = (p + center_offset - area.get_center()).snappedf(Global.block_size)
 		%BuildPreview.global_position = collider.to_global(component_position)
-		preview.valid = !preview.has_overlapping_bodies()
+		preview.valid = !preview.has_overlapping_bodies() and preview.ship_connected()
 	else:
 		%BuildPreview.rotation = Vector3.ZERO
 		%BuildPreview.position = Vector3.ZERO

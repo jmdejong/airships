@@ -59,6 +59,11 @@ func preview() -> Preview:
 		node.add_child(mesh)
 	for shape: CollisionShape3D in collisions:
 		node.add_child(shape)
+	if has_node("Connection"):
+		for connection_shape: CollisionShape3D in $Connection.get_children():
+			var shape: CollisionShape3D = connection_shape.duplicate()
+			shape.transform = $Connection.transform * shape.transform
+			node.get_node("Connection").add_child(shape)
 	return node
 
 func calculate_child_shapes(node: Node3D, tf: Transform3D, meshes: Array[MeshInstance3D], collisions: Array[CollisionShape3D]):
