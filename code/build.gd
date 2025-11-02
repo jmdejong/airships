@@ -3,11 +3,23 @@ extends RayCast3D
 var preview: Area3D = null
 var build_component: ComponentBlueprint = null
 var component_position: Vector3
-var rotation_mode: int = 2:
+var yaw_rotation_mode: int = 0:
 	set(value):
-		rotation_mode = posmod(value, 4)
-		rotation_transform = Transform3D(Basis(Vector3.UP, rotation_mode * PI / 2), Vector3.ZERO)
-var rotation_transform: Transform3D = Transform3D(Basis(Vector3.UP, rotation_mode * PI / 2), Vector3.ZERO)
+		yaw_rotation_mode = posmod(value, 4)
+		_update_rotation()
+var pitch_rotation_mode: int = 0:
+	set(value):
+		pitch_rotation_mode = posmod(value, 4)
+		_update_rotation()
+var roll_rotation_mode: int = 0:
+	set(value):
+		roll_rotation_mode = posmod(value, 4)
+		_update_rotation()
+var rotation_transform: Transform3D = Transform3D.IDENTITY
+
+
+func _update_rotation() -> void:
+	rotation_transform = Transform3D.IDENTITY.rotated(Vector3.FORWARD, roll_rotation_mode * PI / 2).rotated(Vector3.LEFT, pitch_rotation_mode * PI / 2).rotated(Vector3.UP, yaw_rotation_mode * PI / 2)
 
 func select_build(component: ComponentBlueprint) -> void:
 	for child in %BuildPreview.get_children():

@@ -60,11 +60,11 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.5, 
 rotation_channel = 1
 
 [node name="Engine" parent="Components/Machines/RotaryTable" index="6" instance=ExtResource("4_b1l47")]
-transform = Transform3D(1, 8.74228e-08, 8.742279e-08, -8.742281e-08, 2.9802322e-08, 1, 8.7422784e-08, -1, 2.980233e-08, 1.1920929e-07, 0.5, 1)
+transform = Transform3D(-1.3113419e-07, -8.74228e-08, 1, 1, -4.371139e-08, 1.3113419e-07, 4.3711378e-08, 1, 8.74228e-08, 4.7683716e-07, 0.5, 0)
 power_channel = 2
 
 [node name="Slider" parent="Components/Machines/RotaryTable" index="7" instance=ExtResource("7_ium6c")]
-transform = Transform3D(4.371141e-08, -1, -4.3711385e-08, -8.74228e-08, -4.371139e-08, 1, -1, -4.371141e-08, -8.74228e-08, 0.5, 1.5, 0.50000006)
+transform = Transform3D(4.371141e-08, -1, -4.3711385e-08, -8.74228e-08, -4.371139e-08, 1, -1, -4.371141e-08, -8.74228e-08, 0.25, 1.5, 0.50000006)
 signal_channel = 2
 
 [node name="Basket" parent="Components" index="1" instance=ExtResource("3_qcob2")]

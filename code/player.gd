@@ -191,13 +191,14 @@ func _unhandled_input(event: InputEvent):
 		else:
 			mouse_mode = MouseMode.Select
 	
-	if mouse_mode == MouseMode.Build:
-		if Input.is_action_just_released("rotate_left"):
-			%BuildCast.rotation_mode += 1
-			prints("rotate left", %BuildCast.rotation_mode)
-		if Input.is_action_just_released("rotate_right"):
-			%BuildCast.rotation_mode -= 1
-			prints("rotate_right", %BuildCast.rotation_mode)
+	if mouse_mode == MouseMode.Build and Input.is_action_just_released("rotate_left") or Input.is_action_just_released("rotate_right"):
+		var d: int = int(Input.is_action_just_released("rotate_left")) - int(Input.is_action_just_released("rotate_right"))
+		if Input.is_action_pressed("rotate_roll"):
+			%BuildCast.roll_rotation_mode += d
+		elif Input.is_action_pressed("rotate_pitch"):
+			%BuildCast.pitch_rotation_mode += d
+		else:
+			%BuildCast.yaw_rotation_mode += d
 	
 	# Capturing/Freeing the cursor
 	if Input.is_action_just_pressed("escape"):
