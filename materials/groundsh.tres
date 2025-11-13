@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://q4n5nwvhivs4"]
+
+[ext_resource type="Shader" uid="uid://hnlpndiqirbv" path="res://code/shaders/ground.gdshader" id="1_7bn2y"]
+[ext_resource type="Texture2D" uid="uid://bikqbruwxbbax" path="res://textures/Ground.png" id="2_2xd3b"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7bn2y")
+shader_parameter/ground_texture = ExtResource("2_2xd3b")
+shader_parameter/texture_size = 1.99999999999996

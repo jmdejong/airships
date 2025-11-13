@@ -57,8 +57,8 @@ func _ready() -> void:
 func build_separation_rays() -> void:
 	var shape: SeparationRayShape3D = SeparationRayShape3D.new()
 	shape.slide_on_slope = true
-	shape.length = 0.55
-	var offset: Vector3 = Vector3($StandShape.shape.radius + 0.1, 0.55, 0)
+	shape.length = 0.45
+	var offset: Vector3 = Vector3($StandShape.shape.radius + 0.1, shape.length, 0)
 	var nrays: int = 48
 	for i in nrays:
 		var col: CollisionShape3D = CollisionShape3D.new()

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://jrfnxqprnjc0"]
 
 [ext_resource type="Script" uid="uid://b5dbxrrjfbrbc" path="res://code/ground_face.gd" id="1_0m74d"]
-[ext_resource type="Material" uid="uid://ct1m6sqfollpm" path="res://materials/ground.tres" id="2_8c2qx"]
 [ext_resource type="Material" uid="uid://bx6whd5thqdwx" path="res://materials/sea.tres" id="3_65bja"]
+[ext_resource type="Material" uid="uid://q4n5nwvhivs4" path="res://materials/groundsh.tres" id="3_jg3am"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jg3am"]
 size = Vector2(1, 1)
@@ -32,21 +32,21 @@ surface_material_override/0 = ExtResource("3_65bja")
 
 [node name="Mesh" type="MeshInstance3D" parent="Self"]
 unique_name_in_owner = true
-material_override = ExtResource("2_8c2qx")
+material_override = ExtResource("3_jg3am")
 skeleton = NodePath("../..")
 
 [node name="Border_X+" type="MeshInstance3D" parent="Self"]
-material_override = ExtResource("2_8c2qx")
+material_override = ExtResource("3_jg3am")
 skeleton = NodePath("../Mesh")
 
 [node name="Border_X-" type="MeshInstance3D" parent="Self"]
-material_override = ExtResource("2_8c2qx")
+material_override = ExtResource("3_jg3am")
 skeleton = NodePath("../Mesh")
 
 [node name="Border_Y+" type="MeshInstance3D" parent="Self"]
-material_override = ExtResource("2_8c2qx")
+material_override = ExtResource("3_jg3am")
 skeleton = NodePath("../Mesh")
 
 [node name="Border_Y-" type="MeshInstance3D" parent="Self"]
-material_override = ExtResource("2_8c2qx")
+material_override = ExtResource("3_jg3am")
 skeleton = NodePath("../Mesh")

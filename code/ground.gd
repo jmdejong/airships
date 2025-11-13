@@ -20,7 +20,8 @@ func _ready() -> void:
 	root_face.activate()
 
 func _enter_tree() -> void:
-	root_face.activate()
+	if root_face != null:
+		root_face.activate()
 
 func _process(_delta: float) -> void:
 	update_loaded_areas()
