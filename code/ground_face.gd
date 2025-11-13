@@ -194,15 +194,37 @@ func is_active() -> bool:
 
 func build_mesh() -> Mesh:
 	var builder = MeshBuilder.new(tile_buffers, config)
+	builder.vertices = tile_buffers.positions
+	builder.colors = tile_buffers.colors
+	var w: int = config.segments + 1
 	for x: int in range(1, config.segments-1):
 		for y: int in range(1, config.segments-1):
-			var corners: PackedVector2Array = [Vector2(x, y), Vector2(x, y+1), Vector2(x+1, y), Vector2(x+1, y+1)]
+			var i: int = x+y*w
 			if (x + y) % 2 == 1:
-				builder.add_tri(corners[0], corners[2], corners[1])
-				builder.add_tri(corners[1], corners[2], corners[3])
+				builder.indices.append_array([i, i+1, i+w, i+w, i+1, i+w+1])
 			else:
-				builder.add_tri(corners[0], corners[2], corners[3])
-				builder.add_tri(corners[1], corners[0], corners[3])
+				builder.indices.append_array([i, i+1, i+w+1, i+w, i, i+w+1])
+			#var corners: PackedVector2Array = [Vector2(x, y), Vector2(x, y+1), Vector2(x+1, y), Vector2(x+1, y+1)]
+			#if (x + y) % 2 == 1:
+				#builder.add_tri(corners[0], corners[2], corners[1])
+				#builder.add_tri(corners[1], corners[2], corners[3])
+			#else:
+				#builder.add_tri(corners[0], corners[2], corners[3])
+				#builder.add_tri(corners[1], corners[0], corners[3])
+	var b: int = w*(w-2)
+	for i: int in range(2, config.segments, 2):
+		var x: int = i
+		var y: int = i*w
+		builder.indices.append_array([
+			x+w-1, x, x+w,
+			x, x+w+1, x+w,
+			x+b-1, x+b, x+b+w,
+			x+b+w, x+b, x+b+1,
+			y-w+1, y+1, y,
+			y, y+1, y+w+1,
+			y-2, y+w-1, y+w-2,
+			y+w-2, y+w-1, y+2*w-2 
+		])
 	var mesh := ArrayMesh.new()
 	builder.apply(mesh)
 	return mesh
@@ -220,17 +242,13 @@ func build_border(direction: Vector2i, detailed: bool) -> Mesh:
 	var from: Vector2i = dir_to_from[direction] * config.segments
 	var step: Vector2i = Vector2i(-direction.y, direction.x)
 	var inner: Vector2i = -direction
-	for i: int in range(1,config.segments):
+	for i: int in range(1,config.segments, 2):
 		var base: Vector2i = from + i * step
-		if i % 2 == 1:
-			if not detailed:
-				builder.add_tri(base + inner, base - step, base + step)
-			else:
-				builder.add_tri(base, base + step, base + inner)
-				builder.add_tri(base - step, base, base + inner)
+		if not detailed:
+			builder.add_tri(base + inner, base - step, base + step)
 		else:
-			builder.add_tri(base, base + step + inner, base + inner)
-			builder.add_tri(base - step + inner, base, base + inner)
+			builder.add_tri(base, base + step, base + inner)
+			builder.add_tri(base - step, base, base + inner)
 	var mesh := ArrayMesh.new()
 	builder.apply(mesh)
 	return mesh
@@ -253,21 +271,16 @@ class MeshBuilder:
 		var c0: Vector3 = tile_buffers.pos_at(t0)
 		var c1: Vector3 = tile_buffers.pos_at(t1)
 		var c2: Vector3 = tile_buffers.pos_at(t2)
-		var n0: Vector3 = -(c1 - c0).cross(c2 - c0).normalized()
 		var ind: int = vertices.size()
 		vertices.append_array([c0, c1, c2])
-		normals.append_array([n0, n0, n0])
 		colors.append_array([tile_buffers.color_modifier_at(t0), tile_buffers.color_modifier_at(t1), tile_buffers.color_modifier_at(t2)])
-		tex_uvs.append_array([tile_buffers.uv_at(t0), tile_buffers.uv_at(t1), tile_buffers.uv_at(t2)])#Vector2(c0.x, c0.z) / config.texture_size, Vector2(c1.x, c1.z) / config.texture_size, Vector2(c2.x, c2.z) / config.texture_size])
-		#tex_uvs.append_array([tile_buffers.uv_at(t0), tile_buffers.uv_at(t1), tile_buffers.uv_at(t2)])
 		indices.append_array(PackedInt32Array([ind+0, ind+1, ind+2]))
+	
 	
 	func apply(mesh: ArrayMesh) -> void:
 		var surface = []
 		surface.resize(Mesh.ARRAY_MAX)
 		surface[Mesh.ARRAY_VERTEX] = vertices
-		surface[Mesh.ARRAY_NORMAL] = normals
-		surface[Mesh.ARRAY_TEX_UV] = tex_uvs
 		surface[Mesh.ARRAY_COLOR] = colors
 		surface[Mesh.ARRAY_INDEX] = indices
 		mesh.add_surface_from_arrays(
