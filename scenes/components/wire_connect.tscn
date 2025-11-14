@@ -27,6 +27,8 @@ size = Vector3(0.05, 0.05, 0.3)
 [sub_resource type="SphereMesh" id="SphereMesh_eugkd"]
 radius = 0.07
 height = 0.14
+radial_segments = 16
+rings = 8
 
 [node name="WireConnect" type="Node3D"]
 script = ExtResource("1_3hq4m")

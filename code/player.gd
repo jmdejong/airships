@@ -49,7 +49,7 @@ var posture: Posture = Posture.Standing:
 		if posture == Posture.FlyDebug:
 			gravity_scale = 0
 var seat: Seat = null
-
+var separation_rays: Array[CollisionShape3D] = []
 
 func _ready() -> void:
 	build_separation_rays()
@@ -57,11 +57,12 @@ func _ready() -> void:
 func build_separation_rays() -> void:
 	var shape: SeparationRayShape3D = SeparationRayShape3D.new()
 	shape.slide_on_slope = true
-	shape.length = 0.45
-	var offset: Vector3 = Vector3($StandShape.shape.radius + 0.1, shape.length, 0)
+	shape.length = 0.55
+	var offset: Vector3 = Vector3($StandShape.shape.radius + 0.03, shape.length, 0)
 	var nrays: int = 48
 	for i in nrays:
 		var col: CollisionShape3D = CollisionShape3D.new()
+		separation_rays.append(col)
 		col.shape = shape
 		col.position = offset.rotated(Vector3.UP, 2 * PI * float(i) / float(nrays))
 		col.rotate_x(PI/2.0)
@@ -166,6 +167,9 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 		physics_material_override.friction = 0.0
 		was_on_ground = false
 		apply_central_force(deltav * mass * 0.5)
+	
+	for ray in separation_rays:
+		ray.disabled = !(is_on_ground || was_on_ground)
 	specific_info = "%3.2f" % [deltav.length()]
 
 func _input(event: InputEvent) -> void:
