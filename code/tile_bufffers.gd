@@ -23,21 +23,6 @@ func _init(area: Rect2, segments: int) -> void:
 	colors.resize(buffer_size)
 	tex_uvs.resize(buffer_size)
 
-static func from_height_source(area: Rect2, segments: int, height_source: HeightSource, texture_size: float) -> TileBuffers:
-	var buf: TileBuffers = TileBuffers.new(area, segments)
-	var size: Vector2i = buf.size
-	for y in size.y:
-		for x in size.x:
-			var ind: int = x + y*size.x
-			var tile: Vector2 = Vector2(x, y)
-			var pos: Vector2 = buf.tile_to_pos * tile
-			var height: float = height_source.height_at(pos)
-			buf.heights[ind] = height
-			buf.positions[ind] = Vector3(pos.x, height, pos.y)
-			buf.colors[ind] = height_source.color_modifier(pos)
-			buf.tex_uvs[ind] = pos / texture_size
-	return buf
-
 func height_at(pos: Vector2i) -> float:
 	return heights[pos.x + pos.y * size.x]
 
