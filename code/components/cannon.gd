@@ -39,6 +39,8 @@ func _on_fire_pressed() -> void:
 	var impulse: Vector3 = direction * fire_force
 	ship.add_sibling(projectile)
 	projectile.global_position = %Muzzle.global_position
+	if direction.dot(ship.linear_velocity) > 0:
+		projectile.global_position += direction * ship.linear_velocity.length()
 	projectile.apply_central_impulse(impulse)
 	#prints("z", ship.to_local($Muzzle.global_position))
 	ship.apply_impulse(-impulse, %Muzzle.global_position - ship.global_position)
