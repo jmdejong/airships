@@ -3,6 +3,7 @@ extends RefCounted
 var area: Rect2
 var heights := PackedFloat32Array()
 var positions := PackedVector3Array()
+var normals := PackedVector3Array()
 var colors := PackedColorArray()
 var tex_uvs := PackedVector2Array()
 var segments: int
@@ -18,6 +19,7 @@ func _init(area: Rect2, segments: int) -> void:
 	var buffer_size: int = size.x * size.y
 	heights.resize(buffer_size)
 	positions.resize(buffer_size)
+	normals.resize(buffer_size)
 	colors.resize(buffer_size)
 	tex_uvs.resize(buffer_size)
 
@@ -44,6 +46,9 @@ func pos_at(tile_pos: Vector2i) -> Vector3:
 
 func color_modifier_at(pos: Vector2i) -> Color:
 	return colors[pos.x + pos.y * size.x]
+
+func normal_at(pos: Vector2i) -> Vector3:
+	return normals[pos.x + pos.y * size.x]
 
 func uv_at(pos: Vector2i) -> Vector2:
 	return tex_uvs[pos.x + pos.y * size.x]

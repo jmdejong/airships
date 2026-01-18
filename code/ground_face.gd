@@ -196,6 +196,7 @@ func build_mesh() -> Mesh:
 	var builder = MeshBuilder.new(tile_buffers, config)
 	builder.vertices = tile_buffers.positions
 	builder.colors = tile_buffers.colors
+	builder.normals = tile_buffers.normals
 	var w: int = config.segments + 1
 	for x: int in range(1, config.segments-1):
 		for y: int in range(1, config.segments-1):
@@ -268,19 +269,22 @@ class MeshBuilder:
 		self.config = config
 		
 	func add_tri(t0: Vector2i, t1: Vector2i, t2: Vector2i) -> void:
-		var c0: Vector3 = tile_buffers.pos_at(t0)
-		var c1: Vector3 = tile_buffers.pos_at(t1)
-		var c2: Vector3 = tile_buffers.pos_at(t2)
 		var ind: int = vertices.size()
-		vertices.append_array([c0, c1, c2])
-		colors.append_array([tile_buffers.color_modifier_at(t0), tile_buffers.color_modifier_at(t1), tile_buffers.color_modifier_at(t2)])
+		add_vert(t0)
+		add_vert(t1)
+		add_vert(t2)
 		indices.append_array(PackedInt32Array([ind+0, ind+1, ind+2]))
 	
+	func add_vert(t: Vector2i) -> void:
+		vertices.append(tile_buffers.pos_at(t))
+		colors.append(tile_buffers.color_modifier_at(t))
+		normals.append(tile_buffers.normal_at(t))
 	
 	func apply(mesh: ArrayMesh) -> void:
 		var surface = []
 		surface.resize(Mesh.ARRAY_MAX)
 		surface[Mesh.ARRAY_VERTEX] = vertices
+		surface[Mesh.ARRAY_NORMAL] = normals
 		surface[Mesh.ARRAY_COLOR] = colors
 		surface[Mesh.ARRAY_INDEX] = indices
 		mesh.add_surface_from_arrays(

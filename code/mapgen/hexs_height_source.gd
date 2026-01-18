@@ -45,7 +45,24 @@ func _init() -> void:
 	color_noise.frequency = 0.05
 
 func buffers_at(area: Rect2, segments: int) -> TileBuffers:
-	return TileBuffers.from_height_source(area, segments, self, 8)
+	const texture_size: float = 8
+	var buf: TileBuffers = TileBuffers.new(area, segments)
+	var size: Vector2i = buf.size
+	for y in size.y:
+		for x in size.x:
+			var ind: int = x + y*size.x
+			var tile: Vector2 = Vector2(x, y)
+			var pos: Vector2 = buf.tile_to_pos * tile
+			var position: Vector3 = pos_at(pos)
+			var n1: Vector3 = pos_at(Vector2(pos.x + 0.1, pos.y))
+			var n2: Vector3 = pos_at(Vector2(pos.x, pos.y + 0.1))
+			var normal: Vector3 = -(n1 - position).cross(n2 - position).normalized()
+			buf.heights[ind] = position.y
+			buf.positions[ind] = position
+			buf.normals[ind] = normal
+			buf.colors[ind] = color_modifier(pos)
+			buf.tex_uvs[ind] = pos / texture_size
+	return buf
 
 func color_modifier(pos: Vector2) -> Color:
 	return (color_noise.get_noise_2dv(pos)+9)/10 * Color.WHITE
@@ -70,7 +87,7 @@ func height_at(pos: Vector2) -> float:
 	var area_a: Area = get_area(va)
 	var area_b: Area = get_area(vb)
 	var area_c: Area = get_area(vc)
-	return snappedf(_combine_areas(area_a, area_b, area_c, w, pos), 0.25)
+	return _combine_areas(area_a, area_b, area_c, w, pos)
 
 func _combine_areas(area_a: Area, area_b: Area, area_c: Area, w: Vector3, pos: Vector2) -> float:
 	var center_influences: Vector3 = influences(w, 0.8)

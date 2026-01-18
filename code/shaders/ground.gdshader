@@ -13,5 +13,5 @@ void vertex() {
 void fragment() {
 	vec2 uv = fract(vert.xz / texture_size);
 	ALBEDO = texture(ground_texture, uv).xyz * COLOR.xyz;
-	NORMAL = normalize(cross(dFdy(VERTEX), dFdx(VERTEX)));
+	//NORMAL = normalize(cross(dFdy(VERTEX), dFdx(VERTEX)));
 }
