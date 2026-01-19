@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://cjh526yhamjfg"]
+
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="1_flx6q"]
+[ext_resource type="Script" uid="uid://loirsxif23wh" path="res://code/components/life_anchor.gd" id="1_ug0vp"]
+[ext_resource type="Material" uid="uid://bi5p87x5rqiw6" path="res://materials/metal_dark.tres" id="2_ug0vp"]
+[ext_resource type="Script" uid="uid://cuiyitoas3wtg" path="res://code/button3d.gd" id="3_d3p8t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d3p8t"]
+size = Vector3(0.4, 0.1, 0.4)
+
+[sub_resource type="TorusMesh" id="TorusMesh_pdsw7"]
+material = ExtResource("2_ug0vp")
+inner_radius = 0.1
+outer_radius = 0.17
+
+[sub_resource type="BoxMesh" id="BoxMesh_flx6q"]
+material = ExtResource("2_ug0vp")
+size = Vector3(0.4, 0.1, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bqt75"]
+size = Vector3(0.4, 0.1, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ug0vp"]
+size = Vector3(0.35, 0.3, 0.35)
+
+[node name="LifeAnchor" type="Node3D"]
+script = ExtResource("1_ug0vp")
+
+[node name="AnchorPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.3, 0.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.049999997, 0.25)
+shape = SubResource("BoxShape3D_d3p8t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.25, 0.17999999, 0.25)
+mesh = SubResource("TorusMesh_pdsw7")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.049999997, 0.25)
+mesh = SubResource("BoxMesh_flx6q")
+
+[node name="Connection" parent="." instance=ExtResource("1_flx6q")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1.9936124e-09, 0.25)
+shape = SubResource("BoxShape3D_bqt75")
+
+[node name="AttachBox" type="Area3D" parent="."]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("3_d3p8t")
+description = "Attach lifeline"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttachBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+shape = SubResource("BoxShape3D_ug0vp")
+
+[connection signal="pressed_by" from="AttachBox" to="." method="_on_attach_box_pressed_by"]

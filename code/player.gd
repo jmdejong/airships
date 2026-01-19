@@ -15,6 +15,7 @@ var last_since_floor: float = 0
 var was_on_ground := false
 const last_since_floor_max: float = 5
 var specific_info: String = ""
+@onready var lifeline: Lifeline = $Lifeline
 
 enum MouseMode {Unfocused, Play, Select, Build, Remove}
 
@@ -58,7 +59,7 @@ func build_separation_rays() -> void:
 	var shape: SeparationRayShape3D = SeparationRayShape3D.new()
 	shape.slide_on_slope = true
 	shape.length = 0.55
-	var offset: Vector3 = Vector3($StandShape.shape.radius + 0.03, shape.length-0.01, 0)
+	var offset: Vector3 = Vector3($StandShape.shape.radius + 0.03, shape.length-0.03, 0)
 	var nrays: int = 48
 	for i in nrays:
 		var col: CollisionShape3D = CollisionShape3D.new()
@@ -167,10 +168,10 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 		physics_material_override.friction = 0.0
 		was_on_ground = false
 		apply_central_force(deltav * mass * 0.5)
+	lifeline.apply_force(self)
 	
 	for ray in separation_rays:
 		ray.disabled = !(is_on_ground || was_on_ground)
-	specific_info = "%3.2f" % [deltav.length()]
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag and event.index != %MoveJoystick.touch_index:
@@ -223,7 +224,11 @@ func _unhandled_input(event: InputEvent):
 	if Input.is_action_just_pressed("switch_render"):
 		var vp := get_viewport()
 		vp.debug_draw = (vp.debug_draw + 1) % 6 as Viewport.DebugDraw
-
+	if posture == Posture.Standing:
+		if Input.is_action_just_pressed("detach"):
+			lifeline.detach()
+		if Input.is_action_just_pressed("reel_in"):
+			lifeline.reel_in(self)
 
 func try_interact() -> void:
 	var collider = %EyeCast.get_collider()
@@ -267,3 +272,6 @@ func stand_up() -> void:
 			child.disabled = false
 	$Head.position.y = 1.5
 	was_on_ground = false
+
+func attach_lifeline(anchor: LifeAnchor) -> void:
+	lifeline.attach(anchor)
