@@ -1,16 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://bnh82toixngca"]
 
 [ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_yroly"]
+[ext_resource type="Material" uid="uid://bi5p87x5rqiw6" path="res://materials/metal_dark.tres" id="2_bwuwa"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_p2b17"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uw4vd"]
 size = Vector3(0.05, 8.1, 0.05)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uw4vd"]
-albedo_color = Color(0.2, 0.2, 0.2, 1)
-
 [sub_resource type="BoxMesh" id="BoxMesh_uw4vd"]
-material = SubResource("StandardMaterial3D_uw4vd")
+material = ExtResource("2_bwuwa")
 size = Vector3(0.063, 8, 0.063)
 
 [node name="Cable8m" type="Node3D"]

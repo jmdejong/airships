@@ -49,6 +49,23 @@ var posture: Posture = Posture.Standing:
 			was_on_ground = false
 		if posture == Posture.FlyDebug:
 			gravity_scale = 0
+		if posture == Posture.Sitting:
+			$StandShape.disabled = true
+			$SitShape.disabled = false
+			for child: CollisionShape3D in get_children().filter(func(c: Node): return c is CollisionShape3D):
+				if child.shape is SeparationRayShape3D:
+					child.disabled = true
+			$Head.position.y = 0.7
+			$Lifeline.position.y = 0.1
+		else:
+			$StandShape.disabled = false
+			$SitShape.disabled = true
+			for child: CollisionShape3D in get_children().filter(func(c: Node): return c is CollisionShape3D):
+				if child.shape is SeparationRayShape3D:
+					child.disabled = false
+			$Head.position.y = 1.5
+			$Lifeline.position.y = 0.8
+
 var seat: Seat = null
 var separation_rays: Array[CollisionShape3D] = []
 
@@ -255,23 +272,10 @@ func sit(seat: Seat) -> void:
 	posture = Posture.Sitting
 	self.seat = seat
 	global_position = seat.seat_position()
-	$StandShape.disabled = true
-	$SitShape.disabled = false
-	for child: CollisionShape3D in get_children().filter(func(c: Node): return c is CollisionShape3D):
-		if child.shape is SeparationRayShape3D:
-			child.disabled = true
-	$Head.position.y = 0.7
 
 func stand_up() -> void:
 	posture = Posture.Standing
 	seat = null
-	$StandShape.disabled = false
-	$SitShape.disabled = true
-	for child: CollisionShape3D in get_children().filter(func(c: Node): return c is CollisionShape3D):
-		if child.shape is SeparationRayShape3D:
-			child.disabled = false
-	$Head.position.y = 1.5
-	was_on_ground = false
 
 func attach_lifeline(anchor: LifeAnchor) -> void:
 	lifeline.attach(anchor)
