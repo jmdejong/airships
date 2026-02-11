@@ -26,7 +26,7 @@ var mouse_mode: MouseMode = MouseMode.Unfocused:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		$BuildTab.visible = mouse_mode == MouseMode.SelectBuild
+		%BuildTab.visible = mouse_mode == MouseMode.SelectBuild
 		%BuildPreview.visible = mouse_mode == MouseMode.Build
 		if value == MouseMode.Remove:
 			%CrosshairTexture.texture = preload("res://textures/ui/break.png")
@@ -191,12 +191,6 @@ func _input(event: InputEvent) -> void:
 
 func _unhandled_input(event: InputEvent):
 	
-	#if Input.is_action_just_pressed("reel_in"):
-		#prints("press r")
-		#lifeline.reel_in(self)
-	#if Input.is_action_just_released("reel_in"):
-		#prints("release r")
-		#lifeline.reel_in(self)
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_motion += event.relative * MOUSE_SENSITIVITY
 	
@@ -227,7 +221,14 @@ func _unhandled_input(event: InputEvent):
 	if Input.is_action_just_pressed("escape"):
 		mouse_mode = MouseMode.Unfocused
 	if Input.is_action_just_pressed("click"):
-		mouse_mode = mouse_mode
+		click()
+	if Input.is_action_just_pressed("cancel_click"):
+		mouse_mode = MouseMode.Play
+	if Input.is_action_just_pressed("switch_render"):
+		var vp := get_viewport()
+		vp.debug_draw = (vp.debug_draw + 1) % 6 as Viewport.DebugDraw
+
+func click() -> void:
 		if mouse_mode == MouseMode.Play:
 			try_press()
 		elif mouse_mode == MouseMode.Build:
@@ -236,18 +237,6 @@ func _unhandled_input(event: InputEvent):
 			%BuildCast.try_remove()
 		else:
 			mouse_mode = MouseMode.Play
-	if Input.is_action_just_pressed("cancel_click"):
-		mouse_mode = MouseMode.Play
-	
-	if Input.is_action_just_pressed("switch_render"):
-		var vp := get_viewport()
-		vp.debug_draw = (vp.debug_draw + 1) % 6 as Viewport.DebugDraw
-	#if posture == Posture.Standing:
-		#if Input.is_action_just_pressed("detach"):
-			#lifeline.detach()
-		#if Input.is_action_just_pressed("reel_in"):
-			#lifeline.reel_in(self)
-
 func try_interact() -> void:
 	var collider = %EyeCast.get_collider()
 	if collider != null and collider.has_method("mouseover_description") and mouse_mode == MouseMode.Play:
@@ -280,3 +269,6 @@ func stand_up() -> void:
 
 func attach_lifeline(anchor: LifeAnchor) -> void:
 	lifeline.attach(anchor)
+
+func enable_touch() -> void:
+	mouse_mode = MouseMode.Play

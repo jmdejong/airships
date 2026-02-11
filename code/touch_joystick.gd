@@ -21,10 +21,12 @@ func _input(event: InputEvent) -> void:
 		if tp.length() <= limit:
 			touch_index = event.index
 			touch_position = tp
+			get_viewport().set_input_as_handled()
 	elif event is InputEventScreenDrag:
 		var tp: Vector2 = event.position - global_position
 		if event.index == touch_index:
 			touch_position = tp
+			get_viewport().set_input_as_handled()
 	if last_touch_position != touch_position:
 		queue_redraw()
 
