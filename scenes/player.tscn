@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://xt6mcv6w5ri5"]
+[gd_scene format=3 uid="uid://xt6mcv6w5ri5"]
 
 [ext_resource type="Script" uid="uid://pwyriqsixxyi" path="res://code/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bnmp0q34upwxe" path="res://code/build.gd" id="2_dqkch"]
@@ -34,7 +34,7 @@ height = 1.0
 radial_segments = 7
 rings = 1
 
-[node name="Player" type="RigidBody3D"]
+[node name="Player" type="RigidBody3D" unique_id=903246191]
 collision_layer = 3
 collision_mask = 7
 axis_lock_angular_x = true
@@ -48,56 +48,56 @@ max_contacts_reported = 15
 linear_damp_mode = 1
 script = ExtResource("1_3vyb7")
 
-[node name="Info" type="Label" parent="."]
+[node name="Info" type="Label" parent="." unique_id=379005115]
 unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0
 text = "speed"
 
-[node name="StandShape" type="CollisionShape3D" parent="."]
+[node name="StandShape" type="CollisionShape3D" parent="." unique_id=323494538]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_dqkch")
 
-[node name="SitShape" type="CollisionShape3D" parent="."]
+[node name="SitShape" type="CollisionShape3D" parent="." unique_id=1756425264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 shape = SubResource("CapsuleShape3D_qlg0r")
 disabled = true
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1892066975]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1420705398]
 current = true
 near = 0.1
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D" unique_id=1897041223]
 light_energy = 0.7
 light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 distance_fade_enabled = true
 omni_range = 10.0
 
-[node name="EyeCast" type="RayCast3D" parent="Head"]
+[node name="EyeCast" type="RayCast3D" parent="Head" unique_id=206039924]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -4)
 collision_mask = 128
 collide_with_areas = true
 
-[node name="BuildCast" type="RayCast3D" parent="Head"]
+[node name="BuildCast" type="RayCast3D" parent="Head" unique_id=604154611]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -4)
 collision_mask = 64
 collide_with_areas = true
 script = ExtResource("2_dqkch")
 
-[node name="Node3D" type="Node3D" parent="Head/BuildCast"]
+[node name="Node3D" type="Node3D" parent="Head/BuildCast" unique_id=1351557128]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="BuildPreview" type="Node3D" parent="Head/BuildCast/Node3D"]
+[node name="BuildPreview" type="Node3D" parent="Head/BuildCast/Node3D" unique_id=290138417]
 unique_name_in_owner = true
 visible = false
 
-[node name="Crosshair" type="CenterContainer" parent="."]
+[node name="Crosshair" type="CenterContainer" parent="." unique_id=1085118352]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -110,20 +110,20 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CrosshairTexture" type="TextureRect" parent="Crosshair"]
+[node name="CrosshairTexture" type="TextureRect" parent="Crosshair" unique_id=362682783]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("3_qhqgy")
 
-[node name="Control" type="Control" parent="Crosshair"]
+[node name="Control" type="Control" parent="Crosshair" unique_id=329407777]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Crosshair/Control"]
+[node name="Control" type="Control" parent="Crosshair/Control" unique_id=1238337693]
 anchors_preset = 0
 offset_top = 50.0
 offset_bottom = 50.0
 
-[node name="Tooltip" type="Label" parent="Crosshair/Control/Control"]
+[node name="Tooltip" type="Label" parent="Crosshair/Control/Control" unique_id=1045817178]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -137,16 +137,16 @@ text = "Tooltip"
 label_settings = SubResource("LabelSettings_g2els")
 horizontal_alignment = 1
 
-[node name="BuildTab" parent="." instance=ExtResource("3_dqkch")]
+[node name="BuildTab" parent="." unique_id=2040459377 instance=ExtResource("3_dqkch")]
 visible = false
 
-[node name="GroundCheck" type="ShapeCast3D" parent="."]
+[node name="GroundCheck" type="ShapeCast3D" parent="." unique_id=347577437]
 unique_name_in_owner = true
 shape = SubResource("CylinderShape3D_dqkch")
 target_position = Vector3(0, 0, 0)
 collision_mask = 5
 
-[node name="TouchUi" type="Control" parent="."]
+[node name="TouchUi" type="Control" parent="." unique_id=2102917923]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -156,7 +156,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_tuyoq")
 
-[node name="CenterContainer" type="CenterContainer" parent="TouchUi"]
+[node name="CenterContainer" type="CenterContainer" parent="TouchUi" unique_id=2009181711]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -167,18 +167,18 @@ offset_right = 259.0
 offset_bottom = -2.0
 grow_vertical = 0
 
-[node name="MoveJoystick" type="Control" parent="TouchUi/CenterContainer"]
+[node name="MoveJoystick" type="Control" parent="TouchUi/CenterContainer" unique_id=1948467811]
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("5_qlg0r")
 
-[node name="Lifeline" type="Node3D" parent="."]
+[node name="Lifeline" type="Node3D" parent="." unique_id=1891359591]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 script = ExtResource("7_fjrip")
 
-[node name="Rope" type="Node3D" parent="Lifeline"]
+[node name="Rope" type="Node3D" parent="Lifeline" unique_id=1873643579]
 
-[node name="RopeMesh" type="MeshInstance3D" parent="Lifeline/Rope"]
+[node name="RopeMesh" type="MeshInstance3D" parent="Lifeline/Rope" unique_id=34163504]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_fjrip")

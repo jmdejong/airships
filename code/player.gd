@@ -17,26 +17,21 @@ const last_since_floor_max: float = 5
 var specific_info: String = ""
 @onready var lifeline: Lifeline = $Lifeline
 
-enum MouseMode {Unfocused, Play, Select, Build, Remove}
+enum MouseMode {Unfocused, Play, SelectBuild, Build, Remove}
 
 var mouse_mode: MouseMode = MouseMode.Unfocused:
 	set(value):
 		mouse_mode = value
-		if value == MouseMode.Unfocused or value == MouseMode.Select:
+		if value == MouseMode.Unfocused or value == MouseMode.SelectBuild:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		$BuildTab.visible = mouse_mode == MouseMode.Select
+		$BuildTab.visible = mouse_mode == MouseMode.SelectBuild
 		%BuildPreview.visible = mouse_mode == MouseMode.Build
 		if value == MouseMode.Remove:
 			%CrosshairTexture.texture = preload("res://textures/ui/break.png")
 		else:
 			%CrosshairTexture.texture = preload("res://textures/ui/crosshair.png")
-
-var build_mode: bool = false:
-	set(value):
-		build_mode = value
-		$BuildTab.visible = build_mode
 
 enum Posture {Standing, Sitting, FlyDebug}
 var posture: Posture = Posture.Standing:
@@ -185,7 +180,7 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 		physics_material_override.friction = 0.0
 		was_on_ground = false
 		apply_central_force(deltav * mass * 0.5)
-	lifeline.apply_force(self)
+	lifeline.apply(self)
 	
 	for ray in separation_rays:
 		ray.disabled = !(is_on_ground || was_on_ground)
@@ -196,6 +191,12 @@ func _input(event: InputEvent) -> void:
 
 func _unhandled_input(event: InputEvent):
 	
+	#if Input.is_action_just_pressed("reel_in"):
+		#prints("press r")
+		#lifeline.reel_in(self)
+	#if Input.is_action_just_released("reel_in"):
+		#prints("release r")
+		#lifeline.reel_in(self)
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_motion += event.relative * MOUSE_SENSITIVITY
 	
@@ -208,10 +209,10 @@ func _unhandled_input(event: InputEvent):
 			posture = Posture.Standing
 	
 	if Input.is_action_just_pressed("toggle_build"):
-		if mouse_mode == MouseMode.Select:
+		if mouse_mode == MouseMode.SelectBuild:
 			mouse_mode = MouseMode.Play
 		else:
-			mouse_mode = MouseMode.Select
+			mouse_mode = MouseMode.SelectBuild
 	
 	if mouse_mode == MouseMode.Build and Input.is_action_just_released("rotate_left") or Input.is_action_just_released("rotate_right"):
 		var d: int = int(Input.is_action_just_released("rotate_left")) - int(Input.is_action_just_released("rotate_right"))
@@ -241,11 +242,11 @@ func _unhandled_input(event: InputEvent):
 	if Input.is_action_just_pressed("switch_render"):
 		var vp := get_viewport()
 		vp.debug_draw = (vp.debug_draw + 1) % 6 as Viewport.DebugDraw
-	if posture == Posture.Standing:
-		if Input.is_action_just_pressed("detach"):
-			lifeline.detach()
-		if Input.is_action_just_pressed("reel_in"):
-			lifeline.reel_in(self)
+	#if posture == Posture.Standing:
+		#if Input.is_action_just_pressed("detach"):
+			#lifeline.detach()
+		#if Input.is_action_just_pressed("reel_in"):
+			#lifeline.reel_in(self)
 
 func try_interact() -> void:
 	var collider = %EyeCast.get_collider()

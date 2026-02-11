@@ -8,6 +8,14 @@ var previous_stretch: float = 0
 func attach(anchor: LifeAnchor) -> void:
 	self.anchor = anchor
 
+func apply(player: Player) -> void:
+	if Input.is_action_just_pressed("reel_in"):
+		reel_in(player)
+	elif Input.is_action_just_pressed("detach"):
+		detach()
+	else:
+		apply_force(player)
+
 func detach() -> void:
 	self.anchor = null
 
@@ -15,7 +23,8 @@ func reel_in(player: Player) -> void:
 	if anchor == null:
 		return
 	player.position = anchor.anchor_point()
-
+	player.linear_velocity = anchor.get_ship().linear_velocity + Vector3(0, -1, 0)
+	
 func apply_force(player: Player) -> void:
 	if anchor == null:
 		previous_stretch = 0
