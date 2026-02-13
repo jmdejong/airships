@@ -1,12 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://yrqwva1k2mo1"]
+[gd_scene format=3 uid="uid://yrqwva1k2mo1"]
 
 [ext_resource type="Script" uid="uid://cfsxknagvrr2v" path="res://code/build_tab.gd" id="1_h025f"]
 [ext_resource type="Script" uid="uid://bwgdnm1xngtk0" path="res://code/select_build.gd" id="3_0pqg7"]
 
-[node name="BuildTab" type="CanvasLayer"]
-script = ExtResource("1_h025f")
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="BuildTab" type="PanelContainer" unique_id=835920371]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -14,37 +11,38 @@ anchor_bottom = 1.0
 offset_left = -91.0
 grow_horizontal = 0
 grow_vertical = 2
+script = ExtResource("1_h025f")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1195636697]
 layout_mode = 2
 
-[node name="Remove" type="Container" parent="PanelContainer/VBoxContainer"]
+[node name="Remove" type="Control" parent="VBoxContainer" unique_id=103327791]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Remove"]
-layout_mode = 2
+[node name="Label" type="Label" parent="VBoxContainer/Remove" unique_id=1660846049]
+layout_mode = 0
 text = "Remove"
 
-[node name="Woodblock" type="Container" parent="PanelContainer/VBoxContainer"]
+[node name="Woodblock" type="Control" parent="VBoxContainer" unique_id=472145183]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 script = ExtResource("3_0pqg7")
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Woodblock"]
-layout_mode = 2
+[node name="Label" type="Label" parent="VBoxContainer/Woodblock" unique_id=1956969519]
+layout_mode = 0
 text = "Wood block"
 
-[node name="EngineHor" type="Container" parent="PanelContainer/VBoxContainer"]
+[node name="EngineHor" type="Control" parent="VBoxContainer" unique_id=515407698]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 script = ExtResource("3_0pqg7")
 component = 1
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/EngineHor"]
-layout_mode = 2
+[node name="Label" type="Label" parent="VBoxContainer/EngineHor" unique_id=731311228]
+layout_mode = 0
 text = "Engine"
 
-[connection signal="gui_input" from="PanelContainer/VBoxContainer/Remove" to="." method="_on_remove_gui_input"]
-[connection signal="gui_input" from="PanelContainer/VBoxContainer/Woodblock" to="PanelContainer/VBoxContainer/Woodblock" method="_on_gui_input"]
-[connection signal="gui_input" from="PanelContainer/VBoxContainer/EngineHor" to="PanelContainer/VBoxContainer/EngineHor" method="_on_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/Remove" to="." method="_on_remove_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/Woodblock" to="VBoxContainer/Woodblock" method="_on_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/EngineHor" to="VBoxContainer/EngineHor" method="_on_gui_input"]
