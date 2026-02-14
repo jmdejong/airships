@@ -1,4 +1,5 @@
 @tool
+class_name TouchJoystick
 extends Control
 
 @export var draw_radius: float = 100

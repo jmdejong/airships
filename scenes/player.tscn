@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://pwyriqsixxyi" path="res://code/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bnmp0q34upwxe" path="res://code/build.gd" id="2_dqkch"]
-[ext_resource type="PackedScene" uid="uid://yrqwva1k2mo1" path="res://scenes/build_tab.tscn" id="3_dqkch"]
-[ext_resource type="Texture2D" uid="uid://dtiu5fu6b3v3b" path="res://textures/ui/crosshair.png" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://behx1e4glx3yw" path="res://code/touch_joystick.gd" id="5_qlg0r"]
-[ext_resource type="Script" uid="uid://mqsfgpsghetb" path="res://code/touch_ui.gd" id="5_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://bk820enlqiw65" path="res://scenes/ui.tscn" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://btnqbksq62264" path="res://code/lifeline.gd" id="7_fjrip"]
 [ext_resource type="Material" uid="uid://dy4fdlkfsarko" path="res://materials/life_rope.tres" id="8_smehm"]
 
@@ -29,10 +26,6 @@ rings = 1
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_dqkch"]
 height = 0.1
 radius = 0.2
-
-[sub_resource type="LabelSettings" id="LabelSettings_g2els"]
-font_color = Color(1, 1, 1, 0.666667)
-outline_color = Color(0, 0, 0, 0.8)
 
 [node name="Player" type="RigidBody3D" unique_id=903246191]
 collision_layer = 3
@@ -77,17 +70,17 @@ target_position = Vector3(0, 0, -4)
 collision_mask = 128
 collide_with_areas = true
 
-[node name="BuildCast" type="RayCast3D" parent="Head" unique_id=604154611]
+[node name="Build" type="RayCast3D" parent="Head" unique_id=604154611]
 unique_name_in_owner = true
 target_position = Vector3(0, 0, -4)
 collision_mask = 64
 collide_with_areas = true
 script = ExtResource("2_dqkch")
 
-[node name="Node3D" type="Node3D" parent="Head/BuildCast" unique_id=1351557128]
+[node name="Node3D" type="Node3D" parent="Head/Build" unique_id=1351557128]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="BuildPreview" type="Node3D" parent="Head/BuildCast/Node3D" unique_id=290138417]
+[node name="BuildPreview" type="Node3D" parent="Head/Build/Node3D" unique_id=290138417]
 unique_name_in_owner = true
 visible = false
 
@@ -110,112 +103,9 @@ shape = SubResource("CylinderShape3D_dqkch")
 target_position = Vector3(0, 0, 0)
 collision_mask = 5
 
-[node name="UI" type="Control" parent="." unique_id=826359525]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Info" type="Label" parent="UI" unique_id=379005115]
+[node name="UI" parent="." unique_id=481028253 node_paths=PackedStringArray("build") instance=ExtResource("5_qlg0r")]
 unique_name_in_owner = true
-layout_mode = 0
-offset_right = 47.0
-offset_bottom = 23.0
-text = "General debug information
-location
-speed
-etc."
+build = NodePath("../Head/Build")
 
-[node name="CrosshairTexture" type="TextureRect" parent="UI" unique_id=362682783]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_qhqgy")
-
-[node name="Tooltip" type="Label" parent="UI" unique_id=1045817178]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = 20.0
-offset_right = 100.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Tooltip"
-label_settings = SubResource("LabelSettings_g2els")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TouchClick" type="ColorRect" parent="UI/Tooltip" unique_id=2116367922]
-unique_name_in_owner = true
-visible = false
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4, 0.4, 0.4, 0.53333336)
-
-[node name="BuildTab" parent="UI" unique_id=2040459377 instance=ExtResource("3_dqkch")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 0
-anchors_preset = 0
-
-[node name="TouchUi" type="Control" parent="UI" unique_id=2102917923]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("5_tuyoq")
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/TouchUi" unique_id=2009181711]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -242.0
-offset_right = 259.0
-offset_bottom = -2.0
-grow_vertical = 0
-
-[node name="MoveJoystick" type="Control" parent="UI/TouchUi/CenterContainer" unique_id=1948467811]
-unique_name_in_owner = true
-layout_mode = 2
-script = ExtResource("5_qlg0r")
-
-[node name="BottomBar" type="Control" parent="UI" unique_id=599374926]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[connection signal="gui_input" from="UI/Tooltip/TouchClick" to="UI/TouchUi" method="_on_touch_click_gui_input"]
-[connection signal="select_build" from="UI/BuildTab" to="." method="_on_build_tab_select_build"]
-[connection signal="select_remove" from="UI/BuildTab" to="." method="_on_build_tab_select_remove"]
-[connection signal="enable_touch" from="UI/TouchUi" to="." method="enable_touch"]
-[connection signal="touch_click" from="UI/TouchUi" to="." method="click"]
+[connection signal="move_view" from="UI" to="." method="_on_ui_move_view"]
+[connection signal="press" from="UI" to="." method="try_press"]

@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://bk820enlqiw65"]
+
+[ext_resource type="Script" uid="uid://d28tl4bbnrkqy" path="res://code/ui.gd" id="1_wm3ai"]
+[ext_resource type="Texture2D" uid="uid://dtiu5fu6b3v3b" path="res://textures/ui/crosshair.png" id="2_8dubc"]
+[ext_resource type="PackedScene" uid="uid://yrqwva1k2mo1" path="res://scenes/build_tab.tscn" id="3_p7vwb"]
+[ext_resource type="Script" uid="uid://mqsfgpsghetb" path="res://code/touch_ui.gd" id="4_ktti3"]
+[ext_resource type="Script" uid="uid://behx1e4glx3yw" path="res://code/touch_joystick.gd" id="5_cgfq5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g2els"]
+font_color = Color(1, 1, 1, 0.666667)
+outline_color = Color(0, 0, 0, 0.8)
+
+[node name="UI" type="Control" unique_id=481028253]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_wm3ai")
+
+[node name="Info" type="Label" parent="." unique_id=549627947]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 47.0
+offset_bottom = 23.0
+text = "General debug information
+location
+speed
+etc."
+
+[node name="CrosshairTexture" type="TextureRect" parent="." unique_id=1629055471]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8dubc")
+
+[node name="Tooltip" type="Label" parent="." unique_id=2030391619]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tooltip"
+label_settings = SubResource("LabelSettings_g2els")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TouchClick" type="ColorRect" parent="Tooltip" unique_id=325616684]
+unique_name_in_owner = true
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4, 0.4, 0.4, 0.53333336)
+
+[node name="BuildTab" parent="." unique_id=835920371 instance=ExtResource("3_p7vwb")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_left = -100.0
+
+[node name="TouchUi" type="Control" parent="." unique_id=1736756333]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_ktti3")
+
+[node name="CenterContainer" type="CenterContainer" parent="TouchUi" unique_id=1378444291]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -242.0
+offset_right = 259.0
+offset_bottom = -2.0
+grow_vertical = 0
+
+[node name="MoveJoystick" type="Control" parent="TouchUi/CenterContainer" unique_id=195016737]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("5_cgfq5")
+
+[node name="BottomBar" type="Control" parent="." unique_id=238537840]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HelpMenu" type="TabContainer" parent="." unique_id=1281420601]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+offset_left = -4.0
+offset_top = -20.0
+offset_right = 4.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Basic movement" type="RichTextLabel" parent="HelpMenu" unique_id=696537852]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Welcome to Yet-To-Be-Named-Airship-Experiment[/b]
+
+Move around using WASD or arrow keys. Look around with the mouse.
+Jump with space.
+
+Many items in the ship are interactable. When looking at them they will show a tooltip. Click to activate.
+
+When a ship has a lifeline anchor it is strongly recommended to attach your lifeline to it. Click it to attach your lifeline. When fallen off the ship, press R to reel in the lifeline and get back to the anchor, or press X to detach.
+"
+metadata/_tab_index = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HelpMenu" unique_id=801008091]
+visible = false
+layout_mode = 2
+text = "Once upon a time, there was an Airhip
+It was flyring through the air."
+metadata/_tab_index = 1
+
+[connection signal="gui_input" from="Tooltip/TouchClick" to="TouchUi" method="_on_touch_click_gui_input"]
+[connection signal="select_build" from="BuildTab" to="." method="_on_build_tab_select_build"]
+[connection signal="select_remove" from="BuildTab" to="." method="_on_build_tab_select_remove"]
+[connection signal="enable_touch" from="TouchUi" to="." method="enable_touch"]
+[connection signal="touch_click" from="TouchUi" to="." method="click"]

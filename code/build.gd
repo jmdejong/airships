@@ -1,3 +1,4 @@
+class_name Build
 extends RayCast3D
 
 var preview: Area3D = null
@@ -18,6 +19,9 @@ var roll_rotation_mode: int = 0:
 var rotation_transform: Transform3D = Transform3D.IDENTITY
 
 
+func _ready() -> void:
+	set_process(false)
+
 func _update_rotation() -> void:
 	rotation_transform = Transform3D.IDENTITY.rotated(Vector3.FORWARD, roll_rotation_mode * PI / 2).rotated(Vector3.LEFT, pitch_rotation_mode * PI / 2).rotated(Vector3.UP, yaw_rotation_mode * PI / 2)
 
@@ -32,12 +36,12 @@ func select_build(component: ComponentBlueprint) -> void:
 		%BuildPreview.add_child(preview)
 
 func place_preview() -> void:
-	var collider = %BuildCast.get_collider()
+	var collider = get_collider()
 	if collider != null and collider.has_method("is_build_target"):
 		%BuildPreview.global_rotation = collider.global_rotation
 		preview.transform = rotation_transform
-		var p: Vector3 = %BuildCast.get_collision_point() * collider.transform
-		var n: Vector3 = (%BuildCast.get_collision_normal() * collider.quaternion).round()
+		var p: Vector3 = get_collision_point() * collider.transform
+		var n: Vector3 = (get_collision_normal() * collider.quaternion).round()
 		if n.length_squared() != 1:
 			%BuildPreview.global_position = collider.to_global(p)
 			preview.valid = false
@@ -54,18 +58,25 @@ func place_preview() -> void:
 			preview.valid = false
 
 func try_build() -> void:
-	var collider: CollisionObject3D = %BuildCast.get_collider()
+	var collider: CollisionObject3D = get_collider()
 	place_preview()
 	if preview.valid:
 		collider.build_component(component_position, build_component, rotation_transform)
 
 func try_remove() -> void:
-	var collider: CollisionObject3D = %BuildCast.get_collider()
+	var collider: CollisionObject3D = get_collider()
 	if collider == null or not collider is Airship:
 		return
-	var shape: CollisionShape3D = collider.shape_owner_get_owner(collider.shape_find_owner(%BuildCast.get_collider_shape()))
+	var shape: CollisionShape3D = collider.shape_owner_get_owner(collider.shape_find_owner(get_collider_shape()))
 	if !is_instance_valid(shape) || !is_instance_valid(shape.get_meta("component")):
 		return
 	var component: Node3D = shape.get_meta("component")
 	var ship: Airship = collider
-	ship.destroy_component(component, %BuildCast.get_collision_point() * collider.transform)
+	ship.destroy_component(component, get_collision_point() * collider.transform)
+
+func show_preview(vis: bool) -> void:
+	set_process(vis)
+	%BuildPreview.visible = vis
+	
+func _process(_delta: float) -> void:
+	place_preview()
