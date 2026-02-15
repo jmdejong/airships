@@ -7,16 +7,17 @@ const MOUSE_SENSITIVITY: float = 0.003
 signal press
 signal move_view(delta: Vector2)
 
-enum MouseMode {Unfocused, Play, SelectBuild, Build, Remove}
+enum MouseMode {Unfocused, Play, SelectBuild, Build, Remove, Help}
 
 var mouse_mode: MouseMode = MouseMode.Unfocused:
 	set(value):
 		mouse_mode = value
-		if value == MouseMode.Unfocused or value == MouseMode.SelectBuild:
+		if value == MouseMode.Unfocused or value == MouseMode.SelectBuild or value == MouseMode.Help:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		%BuildTab.visible = mouse_mode == MouseMode.SelectBuild
+		%HelpMenu.visible = mouse_mode == MouseMode.Help
 		build.show_preview(mouse_mode == MouseMode.Build)
 		if value == MouseMode.Remove:
 			%CrosshairTexture.texture = preload("res://textures/ui/break.png")
@@ -67,7 +68,15 @@ func _unhandled_input(_event: InputEvent):
 	if Input.is_action_just_pressed("switch_render"):
 		var vp := get_viewport()
 		vp.debug_draw = (vp.debug_draw + 1) % 6 as Viewport.DebugDraw
+	if Input.is_action_just_pressed("toggle_help"):
+		toggle_help()
 
+
+func toggle_help() -> void:
+	if mouse_mode == MouseMode.Help:
+		mouse_mode = MouseMode.Play
+	else:
+		mouse_mode = MouseMode.Help
 
 func click() -> void:
 	if mouse_mode == MouseMode.Play:

@@ -117,6 +117,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="HelpMenu" type="TabContainer" parent="." unique_id=1281420601]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -137,20 +138,34 @@ layout_mode = 2
 bbcode_enabled = true
 text = "[b]Welcome to Yet-To-Be-Named-Airship-Experiment[/b]
 
-Move around using WASD or arrow keys. Look around with the mouse.
+Move around using WASD or arrow keys.
+Look around with the mouse.
 Jump with space.
 
-Many items in the ship are interactable. When looking at them they will show a tooltip. Click to activate.
+Press ? or / to open/close this help menu.
 
-When a ship has a lifeline anchor it is strongly recommended to attach your lifeline to it. Click it to attach your lifeline. When fallen off the ship, press R to reel in the lifeline and get back to the anchor, or press X to detach.
-"
+The build menu can be opened with Tab
+
+Currently there is a debug flying mode. Press G to toggle it. When flying, press Space to go up and C to go down. Holding down Shift will move faster. Holding Ctrl will move even faster. In the browser version, be careful to avoid the Ctrl+W shortcut.
+
+There is some basic (but not full) touchscreen support. Any touch event will draw a joystick on the screen that can be used to move around. Dragging the screen will look around."
 metadata/_tab_index = 0
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="HelpMenu" unique_id=801008091]
+[node name="Ship controls" type="RichTextLabel" parent="HelpMenu" unique_id=801008091]
 visible = false
 layout_mode = 2
-text = "Once upon a time, there was an Airhip
-It was flyring through the air."
+text = "Many items in the ship are interactable.
+When looking at them they will show a tooltip.
+Click to interact.
+On a touchscreen, click the tooltip text to perform the interaction.
+
+When a ship has a lifeline anchor it is strongly recommended to attach your lifeline to it.
+Click it to attach your lifeline.
+When fallen off the ship with an attached lifeline, press R to reel in the lifeline and get back to the anchor, or press X to detach.
+
+Sitting in a chair will change your control keys so that they send signals on the wires which can for example control the engines of the airship.
+The precise controls are different for each airship and each chair (will be customizable).
+Press Shift or Space to leave the chair"
 metadata/_tab_index = 1
 
 [connection signal="gui_input" from="Tooltip/TouchClick" to="TouchUi" method="_on_touch_click_gui_input"]
