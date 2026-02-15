@@ -4,9 +4,11 @@ extends Node3D
 @export var length: float = 10
 var anchor: LifeAnchor = null
 var previous_stretch: float = 0
+signal attach_changed(attached: bool)
 
 func attach(anchor: LifeAnchor) -> void:
 	self.anchor = anchor
+	attach_changed.emit(true)
 
 func apply(player: Player) -> void:
 	if Input.is_action_just_pressed("reel_in"):
@@ -18,6 +20,7 @@ func apply(player: Player) -> void:
 
 func detach() -> void:
 	self.anchor = null
+	attach_changed.emit(false)
 
 func reel_in(player: Player) -> void:
 	if anchor == null:

@@ -101,3 +101,9 @@ func _on_build_tab_select_remove() -> void:
 
 func should_jump() -> bool:
 	return %JumpButton.is_pressed()
+
+func set_lifeline_attached(attached: bool) -> void:
+	if attached:
+		%LifelineStatus.texture = preload("res://art/ui/hook_attached.svg")
+	else:
+		%LifelineStatus.texture = preload("res://art/ui/hook_detached.svg")

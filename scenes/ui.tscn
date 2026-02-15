@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://behx1e4glx3yw" path="res://code/touch_joystick.gd" id="5_cgfq5"]
 [ext_resource type="Texture2D" uid="uid://ciuwsphxgyqak" path="res://art/ui/help.svg" id="6_8dubc"]
 [ext_resource type="Texture2D" uid="uid://cg3xkxn6etddn" path="res://art/ui/jump.svg" id="6_p7vwb"]
+[ext_resource type="Texture2D" uid="uid://cphq3r0xbqx0t" path="res://art/ui/hook_detached.svg" id="8_ktti3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g2els"]
 font_color = Color(1, 1, 1, 0.666667)
@@ -82,6 +83,7 @@ color = Color(0.4, 0.4, 0.4, 0.53333336)
 [node name="BuildTab" parent="." unique_id=835920371 instance=ExtResource("3_p7vwb")]
 unique_name_in_owner = true
 layout_mode = 1
+anchors_preset = 11
 offset_bottom = -80.0
 
 [node name="TouchUi" type="Control" parent="." unique_id=1736756333]
@@ -125,29 +127,42 @@ unique_name_in_owner = true
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("6_p7vwb")
 
-[node name="BottomBar" type="HBoxContainer" parent="." unique_id=1382868409]
+[node name="HelpButton" type="Button" parent="." unique_id=1834785924]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -500.0
+offset_left = -60.0
 offset_top = -60.0
 offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
-alignment = 2
-
-[node name="HelpButton" type="Button" parent="BottomBar" unique_id=1834785924]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
 tooltip_text = "Open help menu"
 button_mask = 7
 icon = ExtResource("6_8dubc")
 flat = true
 expand_icon = true
+
+[node name="LifelineStatus" type="TextureRect" parent="." unique_id=986627085]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -60.0
+offset_right = -70.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("8_ktti3")
+expand_mode = 2
 
 [node name="HelpMenu" type="TabContainer" parent="." unique_id=1281420601]
 unique_name_in_owner = true
@@ -206,4 +221,4 @@ metadata/_tab_index = 1
 [connection signal="select_remove" from="BuildTab" to="." method="_on_build_tab_select_remove"]
 [connection signal="enable_touch" from="TouchUi" to="." method="enable_touch"]
 [connection signal="touch_click" from="TouchUi" to="." method="click"]
-[connection signal="pressed" from="BottomBar/HelpButton" to="." method="toggle_help"]
+[connection signal="pressed" from="HelpButton" to="." method="toggle_help"]

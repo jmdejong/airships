@@ -107,5 +107,6 @@ collision_mask = 5
 unique_name_in_owner = true
 build = NodePath("../Head/Build")
 
+[connection signal="attach_changed" from="Lifeline" to="UI" method="set_lifeline_attached"]
 [connection signal="move_view" from="UI" to="." method="_on_ui_move_view"]
 [connection signal="press" from="UI" to="." method="try_press"]
