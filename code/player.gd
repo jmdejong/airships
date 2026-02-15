@@ -149,7 +149,7 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 		var platform_velocity = Vector3.ZERO
 		if used_platform != null:
 			platform_velocity = used_platform.linear_velocity
-		if Input.is_action_pressed("up") and was_on_ground and linear_velocity.y - platform_velocity.y < 1.0:
+		if (Input.is_action_pressed("up") or %UI.should_jump()) and was_on_ground and linear_velocity.y - platform_velocity.y < 1.0:
 			var jump_strength: Vector3 = Vector3(0, 350, 0)
 			apply_impulse(jump_strength, contact_point - global_position)
 			if used_platform != null:

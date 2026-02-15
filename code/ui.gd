@@ -14,7 +14,7 @@ var mouse_mode: MouseMode = MouseMode.Unfocused:
 		mouse_mode = value
 		if value == MouseMode.Unfocused or value == MouseMode.SelectBuild or value == MouseMode.Help:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
+		elif not $TouchUi.visible:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		%BuildTab.visible = mouse_mode == MouseMode.SelectBuild
 		%HelpMenu.visible = mouse_mode == MouseMode.Help
@@ -23,6 +23,8 @@ var mouse_mode: MouseMode = MouseMode.Unfocused:
 			%CrosshairTexture.texture = preload("res://textures/ui/break.png")
 		else:
 			%CrosshairTexture.texture = preload("res://textures/ui/crosshair.png")
+		if mouse_mode != MouseMode.Help:
+			get_viewport().gui_release_focus()
 
 func set_info_text(text: String) -> void:
 	%Info.text = text
@@ -40,14 +42,13 @@ func _input(event: InputEvent) -> void:
 		move_view.emit(-event.relative / get_window().size.y)
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		move_view.emit(event.relative * MOUSE_SENSITIVITY)
-
-func _unhandled_input(_event: InputEvent):
-	
 	if Input.is_action_just_pressed("toggle_build"):
 		if mouse_mode == MouseMode.SelectBuild:
 			mouse_mode = MouseMode.Play
 		else:
 			mouse_mode = MouseMode.SelectBuild
+
+func _unhandled_input(_event: InputEvent):
 	
 	if mouse_mode == MouseMode.Build and Input.is_action_just_released("rotate_left") or Input.is_action_just_released("rotate_right"):
 		var d: int = int(Input.is_action_just_released("rotate_left")) - int(Input.is_action_just_released("rotate_right"))
@@ -97,3 +98,6 @@ func _on_build_tab_select_build(component: ComponentBlueprint) -> void:
 
 func _on_build_tab_select_remove() -> void:
 	mouse_mode = MouseMode.Remove
+
+func should_jump() -> bool:
+	return %JumpButton.is_pressed()

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000">
+	<circle
+		fill="none"
+		stroke="white"
+		stroke-width="50"
+		id="outer"
+		cx="500"
+		cy="500"
+		r="475"
+	/>
+
+	<path
+		fill="none"
+		stroke="white"
+		stroke-width="70"
+		d="M 500,700
+	L 500,600
+	Q 500,550 620,450
+	A 180,180 0,1,0 300,350
+	"
+	/>
+	<circle
+		fill="white"
+		cx="500"
+		cy="820"
+		r="60"
+	/>
+	<!--<text
+		font-size="950px"
+		font-family="sans-serif"
+		fill="white"
+		x="300"
+		y="850"
+	>?
+	</text>-->
+</svg>

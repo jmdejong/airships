@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://yrqwva1k2mo1" path="res://scenes/build_tab.tscn" id="3_p7vwb"]
 [ext_resource type="Script" uid="uid://mqsfgpsghetb" path="res://code/touch_ui.gd" id="4_ktti3"]
 [ext_resource type="Script" uid="uid://behx1e4glx3yw" path="res://code/touch_joystick.gd" id="5_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://ciuwsphxgyqak" path="res://art/ui/help.svg" id="6_8dubc"]
+[ext_resource type="Texture2D" uid="uid://cg3xkxn6etddn" path="res://art/ui/jump.svg" id="6_p7vwb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g2els"]
 font_color = Color(1, 1, 1, 0.666667)
@@ -79,10 +81,8 @@ color = Color(0.4, 0.4, 0.4, 0.53333336)
 
 [node name="BuildTab" parent="." unique_id=835920371 instance=ExtResource("3_p7vwb")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
-anchors_preset = -1
-offset_left = -100.0
+offset_bottom = -80.0
 
 [node name="TouchUi" type="Control" parent="." unique_id=1736756333]
 visible = false
@@ -95,26 +95,59 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_ktti3")
 
-[node name="CenterContainer" type="CenterContainer" parent="TouchUi" unique_id=1378444291]
+[node name="MoveJoystick" type="Control" parent="TouchUi" unique_id=195016737]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -242.0
-offset_right = 259.0
-offset_bottom = -2.0
+offset_left = 130.0
+offset_bottom = -130.0
 grow_vertical = 0
-
-[node name="MoveJoystick" type="Control" parent="TouchUi/CenterContainer" unique_id=195016737]
-unique_name_in_owner = true
-layout_mode = 2
 script = ExtResource("5_cgfq5")
 
-[node name="BottomBar" type="Control" parent="." unique_id=238537840]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Control" type="Control" parent="TouchUi" unique_id=1534356107]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -110.0
+offset_right = 50.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="JumpButton" type="TouchScreenButton" parent="TouchUi/Control" unique_id=2051938210]
+unique_name_in_owner = true
+scale = Vector2(0.1, 0.1)
+texture_normal = ExtResource("6_p7vwb")
+
+[node name="BottomBar" type="HBoxContainer" parent="." unique_id=1382868409]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -60.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="HelpButton" type="Button" parent="BottomBar" unique_id=1834785924]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+tooltip_text = "Open help menu"
+button_mask = 7
+icon = ExtResource("6_8dubc")
+flat = true
+expand_icon = true
 
 [node name="HelpMenu" type="TabContainer" parent="." unique_id=1281420601]
 unique_name_in_owner = true
@@ -173,3 +206,4 @@ metadata/_tab_index = 1
 [connection signal="select_remove" from="BuildTab" to="." method="_on_build_tab_select_remove"]
 [connection signal="enable_touch" from="TouchUi" to="." method="enable_touch"]
 [connection signal="touch_click" from="TouchUi" to="." method="click"]
+[connection signal="pressed" from="BottomBar/HelpButton" to="." method="toggle_help"]

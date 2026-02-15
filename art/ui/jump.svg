@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000">
+	<circle
+		fill="none"
+		stroke="white"
+		stroke-width="50"
+		id="outer"
+		cx="500"
+		cy="500"
+		r="475"
+	/>
+	<line
+	fill="none"
+	stroke="white"
+	stroke-width="300"
+	x1="500"
+	y1="900"
+	x2="500"
+	y2="800"
+	/>
+	<line
+	fill="none"
+	stroke="white"
+	stroke-width="300"
+	x1="500"
+	y1="750"
+	x2="500"
+	y2="400"
+	/>
+	<path
+	fill="white"
+	d="
+	M 500,200
+	L 850,450
+	L 150,450
+	Z"
+	/>
+
+</svg>
