@@ -48,7 +48,7 @@ shadow_blur = 3.0
 directional_shadow_mode = 1
 
 [node name="GunBoat" parent="." unique_id=798839507 instance=ExtResource("2_4wyf3")]
-transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, 0, 24, 0)
+transform = Transform3D(-2.682209e-07, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -2.682209e-07, 0, 23, 0)
 
 [node name="Scout" parent="." unique_id=795017595 instance=ExtResource("4_k0juu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 70, 52)
@@ -57,7 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 70, 52)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, 16)
 
 [node name="Player" parent="." unique_id=1917587260 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 0, 25, 0)
+transform = Transform3D(-0.96592593, 0, 0.25881907, 0, 1, 0, -0.25881907, 0, -0.96592593, 1, 24, -1)
 
 [node name="Sea" type="MeshInstance3D" parent="." unique_id=1649858968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.35, -1.9936124e-09)
@@ -91,7 +91,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 17)
 transform = Transform3D(0.7071064, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.7071064, -49, 0, 23)
 
 [node name="House17" parent="CentralVillage" unique_id=1346505868 instance=ExtResource("6_i7141")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10, 0, 31)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, 0, 31)
 
 [node name="Tree3" parent="CentralVillage" unique_id=1526344482 instance=ExtResource("7_4mrxx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, -2)
