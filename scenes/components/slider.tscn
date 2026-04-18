@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dy7asljtall0c"]
 
 [ext_resource type="Script" uid="uid://mmuh8ykq3kp2" path="res://code/components/slider.gd" id="1_0kyjx"]
-[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_h2hu0"]
+[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/util/button3d.tscn" id="2_h2hu0"]
 [ext_resource type="Material" uid="uid://dkgtgd6mg470c" path="res://materials/metal_case.tres" id="2_ulco8"]
 [ext_resource type="Material" uid="uid://cq0u3gxxgm3m4" path="res://materials/button/more.tres" id="3_h2hu0"]
 [ext_resource type="Material" uid="uid://ygt2tr4mwdlq" path="res://materials/button/less.tres" id="4_5h15h"]
@@ -45,7 +45,7 @@ size = Vector3(0.1, 0.1, 0.3)
 
 [node name="Slider" type="Node3D" unique_id=1852808318]
 script = ExtResource("1_0kyjx")
-typ = "Slider"
+ctyp = "Slider"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1364307165]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)

@@ -26,3 +26,10 @@ var radius = 0.05
 		$SignalConnection/CollisionShape3D.shape = connect_shape.duplicate_deep()
 		$Connection.position = center
 		$Connection/CollisionShape3D.shape = connect_shape.duplicate_deep()
+
+
+func to_own_json() -> Dictionary[String, Variant]:
+	return {"length": length}
+
+func initialize_from_json(json: Dictionary) -> void:
+	length = json.length

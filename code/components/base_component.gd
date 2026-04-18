@@ -87,5 +87,5 @@ func calculate_child_shapes(node: Node3D, tf: Transform3D, meshes: Array[MeshIns
 func to_own_json() -> Dictionary[String, Variant]:
 	return {}
 
-func initialize_from_json(json: Dictionary[String, Variant]) -> void:
+func initialize_from_json(_json: Dictionary) -> void:
 	pass

@@ -6,11 +6,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvt4f"]
 radius = 6.0
-height = 15.0
+height = 18.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tvt4f"]
 radius = 6.0
-height = 15.0
+height = 18.0
 radial_segments = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qy7f"]
@@ -20,11 +20,9 @@ texture_filter = 0
 
 [node name="Smalloon" type="Node3D" unique_id=668164737]
 script = ExtResource("1_wjom8")
-radius = 6.0
-length = 15.0
-mass_ = 407.1504079052372
-volume = 1244.070690821558
-typ = "Smalloon"
+radius = 5.99999999999988
+length = 17.99999999999964
+ctyp = "Smalloon"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=264109327]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)

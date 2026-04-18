@@ -9,7 +9,7 @@ signal changed_forces
 @warning_ignore("unused_signal")
 signal changed_shapes
 
-@export var typ: String
+@export var ctyp: String
 
 var mooring_point: Node3D = null
 
@@ -35,11 +35,11 @@ func preview() -> Node3D:
 	return 
 
 func to_json() -> Dictionary[String, Variant]:
-	if typ == null || typ == "":
+	if ctyp == null || ctyp == "":
 		push_error("Failed to serialize component " + name + ": no type known")
 		return {}
 	var json: Dictionary[String, Variant] = {
-		"_ct": typ,
+		"_ct": ctyp,
 		"_n" : name,
 		"_p": [position.x, position.y, position.z],
 		"_r": [rotation.x, rotation.y, rotation.z]
@@ -51,4 +51,4 @@ func to_json() -> Dictionary[String, Variant]:
 func to_own_json() -> Dictionary[String, Variant]
 
 @abstract
-func initialize_from_json(json: Dictionary[String, Variant]) -> void
+func initialize_from_json(json: Dictionary) -> void

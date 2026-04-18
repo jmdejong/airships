@@ -10,3 +10,9 @@ func _on_signal_control_changed(value: float, signal_type: SignalType) -> void:
 		return
 	%ColorRect.set_(value, max(signal_type.min_allowed(), -1000), min(signal_type.max_allowed(), 1000))
 	%StatusText.text = "%3.2f %s" % [value, signal_type.unit]
+
+func to_own_json() -> Dictionary[String, Variant]:
+	return {"sig_chan": signal_channel}
+
+func initialize_from_json(json: Dictionary) -> void:
+	signal_channel = json.sig_chan

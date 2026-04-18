@@ -15,7 +15,7 @@ size = Vector3(0.063, 4, 0.063)
 
 [node name="Cable4m" type="Node3D" unique_id=719893920]
 script = ExtResource("1_yt8eh")
-typ = "Cable4m"
+ctyp = "Cable4m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1496919829]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 2, 0.125)

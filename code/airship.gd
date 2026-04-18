@@ -169,3 +169,9 @@ func to_json() -> Dictionary[String, Variant]:
 		"pos": [position.x, position.y, position.z],
 		"r": [rotation.x, rotation.y, rotation.z]
 	}
+
+static func from_json(json: Dictionary) -> Airship:
+	var ship: Airship = preload("res://scenes/airship.tscn").instantiate()
+	ship.name = json.name
+	ship.get_node("Components").initialize_from_json(json.components)
+	return ship

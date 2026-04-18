@@ -91,8 +91,9 @@ func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, valu
 		rotate_to(value)
 
 func to_own_json() -> Dictionary[String, Variant]:
-	return {"child": $RComponents.to_json(), "rot": rot}
+	return {"child": $RComponents.to_json(), "rot": rot, "rot_chan": rotation_channel}
 
-func initialize_from_json(json: Dictionary[String, Variant]) -> void:
+func initialize_from_json(json: Dictionary) -> void:
 	rot = json.rot
+	rotation_channel = json.rot_chan
 	$RComponents.initialize_from_json(json.child)

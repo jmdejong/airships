@@ -86,30 +86,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.5, 0)
 [node name="EngineLeft" parent="Components/Machines" index="0" unique_id=1889742839 instance=ExtResource("4_qxl6t")]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.5, 0.75, -5)
 power_channel = 1
-power = 0.0
-mass_ = 0.0
-volume = 0.0
 
 [node name="EngineLeftOut" parent="Components/Machines" index="1" unique_id=1949605177 instance=ExtResource("4_qxl6t")]
 transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 0.5, 0.75, -7)
 power_channel = 1
-power = 0.0
-mass_ = 0.0
-volume = 0.0
 
 [node name="EngineRight" parent="Components/Machines" index="2" unique_id=690393864 instance=ExtResource("4_qxl6t")]
 transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0.5, -0.25, 5.25)
 power_channel = 2
-power = 0.0
-mass_ = 0.0
-volume = 0.0
 
 [node name="EngineRightOut" parent="Components/Machines" index="3" unique_id=449479973 instance=ExtResource("4_qxl6t")]
 transform = Transform3D(-4.371139e-08, 0, -1, 1, -4.371139e-08, -4.371139e-08, -4.371139e-08, -1, 1.9106855e-15, 0.5, -0.25, 7)
 power_channel = 2
-power = 0.0
-mass_ = 0.0
-volume = 0.0
 
 [node name="Ballast" parent="Components/Machines" index="4" unique_id=142350728 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.75, 0.5, 3)
@@ -420,6 +408,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0.5, 1)
 [node name="Cable4m6" parent="Components/Rigging" index="5" unique_id=218569277 instance=ExtResource("16_okq7b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0.5, -1.25)
 
-[node name="Chair" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="6" unique_id=2013074350 instance=ExtResource("16_wjquc")]
+[node name="Chair" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="5" unique_id=2013074350 instance=ExtResource("16_wjquc")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.5, 0.5, -0.25)
 bindings = Array[ExtResource("17_plvvq")]([SubResource("Resource_okq7b"), SubResource("Resource_plvvq"), SubResource("Resource_028c7"), SubResource("Resource_swjpl"), SubResource("Resource_mrsml"), SubResource("Resource_ibp7l"), SubResource("Resource_cl6mw"), SubResource("Resource_odg74")])

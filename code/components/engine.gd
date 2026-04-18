@@ -39,3 +39,9 @@ func forces() -> Array[Force]:
 func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, value: float) -> void:
 	if channel == power_channel:
 		power = value * signal_scale
+
+func to_own_json() -> Dictionary[String, Variant]:
+	return {"power_chan": power_channel}
+
+func initialize_from_json(json: Dictionary) -> void:
+	power_channel = json.power_chan

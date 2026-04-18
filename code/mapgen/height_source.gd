@@ -37,7 +37,7 @@ func buffers_at(area: Rect2, segments: int) -> TileBuffers:
 	buf.normals[indbr] = normalbr
 	return buf
 
-func prepare_area(area: Rect2, segments: int) -> bool:
+func prepare_area(_area: Rect2, _segments: int) -> bool:
 	return true
 
 func pos_at(pos: Vector2) -> Vector3:

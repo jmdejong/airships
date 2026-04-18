@@ -68,5 +68,5 @@ func _box_shape(size: Vector3) -> BoxShape3D:
 func to_own_json() -> Dictionary[String, Variant]:
 	return {"size": [size.x, size.y, size.z]}
 
-func initialize_from_json(json: Dictionary[String, Variant]) -> void:
-	size = json["size"]
+func initialize_from_json(json: Dictionary) -> void:
+	size = Components.parse_vector3(json["size"])

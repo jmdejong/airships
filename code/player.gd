@@ -187,6 +187,14 @@ func _unhandled_input(_event: InputEvent):
 			print(JSON.stringify(used_platform.to_json()))
 		else:
 			print("no ship")
+	if Input.is_action_just_pressed("duplicate_ship"):
+		if used_platform != null:
+			var json: String = JSON.stringify(used_platform.to_json())
+			var new_ship: Airship = Airship.from_json(JSON.parse_string(json))
+			new_ship.position = global_position + Vector3(50, 10, 50)
+			used_platform.add_sibling(new_ship)
+		else:
+			print("no ship")
 
 
 func _process(_delta: float) -> void:

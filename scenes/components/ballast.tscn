@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://twbm7s4dogih" path="res://code/components/ballast.gd" id="1_ega2e"]
 [ext_resource type="Material" uid="uid://ygt2tr4mwdlq" path="res://materials/button/less.tres" id="3_dbjq7"]
-[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="3_rkelu"]
+[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/util/button3d.tscn" id="3_rkelu"]
 [ext_resource type="Material" uid="uid://cq0u3gxxgm3m4" path="res://materials/button/more.tres" id="4_7p7wn"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="5_rkelu"]
 
@@ -30,7 +30,7 @@ radius = 0.6
 
 [node name="Ballast" type="Node3D" unique_id=2024310234]
 script = ExtResource("1_ega2e")
-typ = "Ballast"
+ctyp = "Ballast"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1185069904]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)

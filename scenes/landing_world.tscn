@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dssa2xcd1sym8"]
 
 [ext_resource type="Material" uid="uid://q4n5nwvhivs4" path="res://materials/groundsh.tres" id="1_v3hcm"]
-[ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/ships/gunboat.tscn" id="2_bp4bo"]
 [ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="3_3wqs7"]
+[ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/scout.tscn" id="4_bp4bo"]
 [ext_resource type="PackedScene" uid="uid://dj7s3br8gri5r" path="res://scenes/structures/mooring_mast.tscn" id="4_c4qrx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bgi73"]
@@ -52,8 +52,8 @@ surface_material_override/0 = ExtResource("1_v3hcm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -5, -1.9936124e-09)
 shape = SubResource("BoxShape3D_3wqs7")
 
-[node name="GunBoat" parent="." unique_id=1842036152 instance=ExtResource("2_bp4bo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 21.5, -1.9936124e-09)
-
 [node name="MooringMast" parent="." unique_id=1423220962 instance=ExtResource("4_c4qrx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
+
+[node name="Scout" parent="." unique_id=1710930685 instance=ExtResource("4_bp4bo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22, 0)

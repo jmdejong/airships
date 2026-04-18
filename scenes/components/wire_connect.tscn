@@ -33,7 +33,7 @@ rings = 8
 [node name="WireConnect" type="Node3D" unique_id=978015016]
 script = ExtResource("1_3hq4m")
 mass_ = 1.0
-typ = "WireConnect"
+ctyp = "WireConnect"
 
 [node name="Collision_X-" type="CollisionShape3D" parent="." unique_id=1026382541]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.062499996, 0.125, 0.125)

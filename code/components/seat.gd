@@ -2,7 +2,7 @@ class_name Seat
 extends Node3D
 
 
-@export var bindings: Array[Binding] = []
+var bindings: Array[Binding] = []
 
 func _on_sitbox_pressed_by(player: Player) -> void:
 	player.sit(self)

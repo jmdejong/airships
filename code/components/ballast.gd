@@ -26,3 +26,9 @@ func _on_less_pressed() -> void:
 
 func _on_more_pressed() -> void:
 	filling = min(filling + step, max_filling)
+
+func to_own_json() -> Dictionary[String, Variant]:
+	return {"filling": initial_filling}
+
+func initialize_from_json(json: Dictionary) -> void:
+	initial_filling = json.filling

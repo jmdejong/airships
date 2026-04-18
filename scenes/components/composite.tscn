@@ -4,4 +4,4 @@
 
 [node name="Composite" type="Node3D" unique_id=2042909610]
 script = ExtResource("1_cjyd5")
-typ = "Composite"
+ctyp = "Composite"

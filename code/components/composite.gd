@@ -122,23 +122,29 @@ func connected_components() -> Array[Component]:
 	return []
 
 func _connect_child_signals(component: Component) -> void:
-	component.changed_physics.connect(recalculate_physics)
-	component.changed_forces.connect(recalculate_forces)
-	component.changed_shapes.connect(recalculate_shapes)
+	if not component.changed_physics.is_connected(recalculate_physics):
+		component.changed_physics.connect(recalculate_physics)
+	if not component.changed_forces.is_connected(recalculate_forces):
+		component.changed_forces.connect(recalculate_forces)
+	if not component.changed_shapes.is_connected(recalculate_shapes):
+		component.changed_shapes.connect(recalculate_shapes)
 
 func to_own_json() -> Dictionary[String, Variant]:
 	var children_json: Array[Dictionary] = []
 	for child in get_children():
 		if not (child is Component):
 			continue
-		var component: Component = child
 		children_json.append(child.to_json())
 	return {"children": children_json}
 
-func initialize_from_json(json: Dictionary[String, Variant]) -> void:
-	var children: Array[Dictionary] = json.get("children")
+func initialize_from_json(json: Dictionary) -> void:
+	var children: Array = json.get("children")
 	if children == null:
 		push_error("composite component json does not have children")
 		return
-	for child: Dictionary[String, Variant] in children:
-		add_component(Components.from_json(child))
+	for child: Dictionary in children:
+		var component: Component = Components.from_json(child)
+		if component == null:
+			push_error("child failed deserialize")
+		else:
+			add_component(component)

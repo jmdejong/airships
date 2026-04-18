@@ -63,3 +63,9 @@ func _on_down_pressed() -> void:
 func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, value: float) -> void:
 	if channel == angle_channel:
 		set_angle(value)
+
+func to_own_json() -> Dictionary[String, Variant]:
+	return {"angle_chan": angle_channel}
+
+func initialize_from_json(json: Dictionary) -> void:
+	angle_channel = json.angle_chan

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://diu74pxnnmn5c" path="res://code/components/cannon.gd" id="1_rbt30"]
 [ext_resource type="Material" uid="uid://c1xo2fy462mbs" path="res://materials/metal_barrel.tres" id="2_7rtf2"]
-[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_c6g0y"]
+[ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/util/button3d.tscn" id="2_c6g0y"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_7rtf2"]
 [ext_resource type="Material" uid="uid://cq0u3gxxgm3m4" path="res://materials/button/more.tres" id="4_i83lc"]
 [ext_resource type="Material" uid="uid://bi5p87x5rqiw6" path="res://materials/metal_dark.tres" id="4_yu0wc"]
@@ -82,7 +82,7 @@ size = Vector3(0.8, 0.1, 0.8)
 
 [node name="Cannon" type="Node3D" unique_id=1893835219]
 script = ExtResource("1_rbt30")
-typ = "Cannon"
+ctyp = "Cannon"
 
 [node name="MountShape" type="CollisionShape3D" parent="." unique_id=1895004280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.35, 0.5)

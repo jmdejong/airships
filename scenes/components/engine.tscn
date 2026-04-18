@@ -42,7 +42,7 @@ size = Vector3(2, 2, 0.5)
 
 [node name="Engine" type="Node3D" unique_id=1467381391]
 script = ExtResource("1_rrhl7")
-typ = "Engine"
+ctyp = "Engine"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=634997888]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)

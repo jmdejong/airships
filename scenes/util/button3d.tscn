@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://4ev7n8xin8g8"]
+
+[ext_resource type="Script" uid="uid://cuiyitoas3wtg" path="res://code/button3d.gd" id="1_njgwd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_173dd"]
+size = Vector3(0.25, 0.1, 0.25)
+
+[node name="Button3d" type="Area3D" unique_id=982767464]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_njgwd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=78309489]
+shape = SubResource("BoxShape3D_173dd")
