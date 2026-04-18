@@ -47,3 +47,6 @@ func pick_weighted(options: Array[Array]):
 		if r < 0:
 			return option[0]
 	assert(false)
+
+func pick(options: Array):
+	return options[self.randi_range(0, options.size()-1)]

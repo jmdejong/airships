@@ -29,9 +29,12 @@ height = 0.25
 radial_segments = 16
 rings = 8
 
-[node name="Balloon" type="Node3D" unique_id=2084783816]
+[node name="Balloon" type="Node3D" unique_id=2084783816 node_paths=PackedStringArray("mooring_connect_point")]
 script = ExtResource("1_vcytr")
 structure_mass = 99.999999999998
+mooring_connect_point = NodePath("MooringPoint")
+mass_ = 1675.5160819145563
+volume = 7330.382858376184
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=956216547]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -185,3 +188,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.25, -1.993
 operation = 2
 size = Vector3(2, 0.25, 1)
 material = ExtResource("4_j78af")
+
+[node name="MooringPoint" type="Node3D" parent="." unique_id=340311161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)

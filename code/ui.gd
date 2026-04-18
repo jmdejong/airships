@@ -29,10 +29,10 @@ var mouse_mode: MouseMode = MouseMode.Unfocused:
 func set_info_text(text: String) -> void:
 	%Info.text = text
 
-func show_tooltip(target: Node) -> void:
-	if target != null and target.has_method("mouseover_description") and mouse_mode == MouseMode.Play:
-		%Tooltip.text = target.mouseover_description()
-		%Tooltip.visible = true
+func show_tooltip(target: Node, player: Player) -> void:
+	if mouse_mode == MouseMode.Play and target != null and target.has_method("mouseover_description"):
+		%Tooltip.text = target.mouseover_description(player)
+		%Tooltip.visible = %Tooltip.text != ""
 	else:
 		%Tooltip.visible = false
 

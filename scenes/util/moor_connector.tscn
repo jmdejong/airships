@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://vr0hkccbr0xh"]
+
+[ext_resource type="Script" uid="uid://dpasftkqwu1um" path="res://code/structures/moor_connector.gd" id="1_3h65j"]
+
+[node name="MoorConnector" type="Area3D" unique_id=646617562]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_3h65j")

@@ -9,6 +9,8 @@ signal changed_forces
 @warning_ignore("unused_signal")
 signal changed_shapes
 
+var mooring_point: Node3D = null
+
 @abstract
 func physics_properties() -> PhysicsProperties
 

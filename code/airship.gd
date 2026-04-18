@@ -1,12 +1,20 @@
 class_name Airship
 extends RigidBody3D
 
+signal teleport(from: Vector3, to: Vector3)
+
 var displaced_volume: float
 var center_of_volume: Vector3
 var forces: Array[Force]
 const drag_coefficient: float = 0.5
 var drag_area_coefficient: float
 var ndetached: int = 0
+var mooring_joint: Joint3D = null
+var moored_to: MoorConnector = null:
+	set(val):
+		if mooring_joint != null:
+			mooring_joint.queue_free()
+		moored_to = val
 
 func _ready() -> void:
 	$Components.changed_physics.connect(calculate_components_physics)
@@ -46,6 +54,8 @@ func set_shapes() -> void:
 		add_child(shape)
 
 func _physics_process(_delta: float) -> void:
+	if moored_to != null and mooring_joint == null:
+		move_moor()
 	var air_density: float = Atmosphere.air_density(to_global(center_of_volume).y)
 	var displaced_air_mass := displaced_volume * air_density
 	apply_force(-displaced_air_mass * Atmosphere.gravity_vec(), to_global(center_of_volume) - global_position)
@@ -127,3 +137,21 @@ func impact(shape: CollisionShape3D, impactor: RigidBody3D) -> void:
 		return
 	var component: Component = shape.get_meta("component")
 	destroy_component(component, impactor.global_position)
+
+func moor_to(connector: MoorConnector) -> void:
+	if $Components.mooring_point == null:
+		return
+	else:
+		moored_to = connector
+
+func move_moor():
+	var new_position: Vector3 = moored_to.global_position - ($Components.mooring_point.global_position - global_position)
+	teleport.emit(global_position, new_position)
+	global_position = new_position
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
+	mooring_joint = PinJoint3D.new()
+	mooring_joint.position = moored_to.global_position
+	mooring_joint.node_a = get_path()
+	mooring_joint.node_b = moored_to.body.get_path()
+	add_sibling(mooring_joint)

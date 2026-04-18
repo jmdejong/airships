@@ -8,7 +8,16 @@ const jump_speed: float = 4
 const walk_force: float = 1000
 
 var view_movement: Vector2 = Vector2.ZERO
-var used_platform: RigidBody3D = null
+var used_platform: Airship = null:
+	set(val):
+		if val == used_platform:
+			return
+		if used_platform != null:
+			used_platform.teleport.disconnect(on_platform_teleport)
+		if val != null:
+			val.teleport.connect(on_platform_teleport)
+		used_platform = val
+			
 var platform_movement: Vector3 = Vector3.ZERO
 var last_since_floor: float = 0
 var was_on_ground := false
@@ -126,7 +135,7 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 			is_on_ground = true
 			var o: Node3D = state.get_contact_collider_object(i)
 			contact_point = state.get_contact_collider_position(i)
-			if o is RigidBody3D:
+			if o is Airship:
 				used_platform = o
 				platform_movement = o.linear_velocity
 				last_since_floor = 0
@@ -177,7 +186,7 @@ func _unhandled_input(_event: InputEvent):
 
 func _process(_delta: float) -> void:
 	var collider = %EyeCast.get_collider()
-	%UI.show_tooltip(collider)
+	%UI.show_tooltip(collider, self)
 
 func try_press() -> void:
 	var collider = %EyeCast.get_collider()
@@ -198,3 +207,7 @@ func attach_lifeline(anchor: LifeAnchor) -> void:
 
 func _on_ui_move_view(delta: Vector2) -> void:
 	view_movement += delta
+
+func on_platform_teleport(from: Vector3, to: Vector3):
+	prints("platform teleport", to - from)
+	global_position += to - from

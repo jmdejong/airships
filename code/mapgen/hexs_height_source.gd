@@ -26,6 +26,8 @@ func _init() -> void:
 			var area: Area = Sea.new()
 			if v == Vector2i.ZERO:
 				area = StartArea.new()
+			elif v == Vector2i(1, -1):
+				area = Hangar.new()
 			elif center_distance < hexes_to_shore:
 				area = rh.pick_weighted([
 					[Field.new(), 0.4],
@@ -245,5 +247,14 @@ class Village extends Area:
 			var r: Hasher = rid.with(i)
 			var pos: Vector2 = global_pos + available_positions.pop_at(r.with(3).randi() % available_positions.size()) + Vector2(r.with(9).randi_range(-3, 3) , r.with(5).randi_range(-3, 3))
 			_structures.add(Structure.house, height_source.pos_at(pos), PI / 4 * r.with(13).randi_range(0, 7))
+	func center_size() -> float:
+		return 0.5
+
+class Hangar extends Area:
+	func calc_height() -> float:
+		return rid.randi_range(6, 12)
+	func fill(height_source: HeightSource) -> void:
+		_structures.add(Structure.hangar, height_source.pos_at(global_pos + Vector2(0, -20)), 0)
+		_structures.add(Structure.mooring_mast, height_source.pos_at(global_pos + Vector2(rid.pick([30, -30]), 20)), 0)
 	func center_size() -> float:
 		return 0.5

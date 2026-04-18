@@ -10,7 +10,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
 radius = 0.27
-height = 1.61
+height = 1.8
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlg0r"]
 radius = 0.3
@@ -42,7 +42,7 @@ linear_damp_mode = 1
 script = ExtResource("1_3vyb7")
 
 [node name="StandShape" type="CollisionShape3D" parent="." unique_id=323494538]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.9, -1.9936124e-09)
 shape = SubResource("CapsuleShape3D_dqkch")
 
 [node name="SitShape" type="CollisionShape3D" parent="." unique_id=1756425264]

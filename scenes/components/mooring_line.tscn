@@ -1,0 +1,161 @@
+[gd_scene format=4 uid="uid://bkb1n67c8myy4"]
+
+[ext_resource type="Material" uid="uid://dkgtgd6mg470c" path="res://materials/metal_case.tres" id="1_e1lgf"]
+[ext_resource type="Script" uid="uid://clma2sfx6qxox" path="res://code/components/mooring_line.gd" id="1_e2bgc"]
+[ext_resource type="Material" uid="uid://c07teckqarfl7" path="res://materials/rope.tres" id="2_h37vv"]
+[ext_resource type="Material" uid="uid://bi5p87x5rqiw6" path="res://materials/metal_dark.tres" id="3_5low5"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="5_3lot5"]
+[ext_resource type="Script" uid="uid://c5pfk2ujx34wu" path="res://code/delegating_button.gd" id="6_oxj7w"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h37vv"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.44
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5low5"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.05
+radial_segments = 24
+rings = 1
+
+[sub_resource type="TorusMesh" id="TorusMesh_5low5"]
+inner_radius = 0.12
+outer_radius = 0.15
+rings = 15
+ring_segments = 4
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_h37vv"]
+_surfaces = [{
+"aabb": AABB(0.025, 0, -0.45, 0.45, 0.32500002, 0.45),
+"attribute_data": PackedByteArray("AACAPwAAAAA6jmM/24kdPD2O4z3biR08AACAPwAAAAA6jmM/AAAAPjqOYz/biR08AACAPwAAAAA9juM924kdPAAAAAAAAAAAAAAAAAAAAAA9juM924kdPAAAAAAAAAA+AACAPwAAAD8AAAAAAAAAPwAAAAAAAMA+AACAPwAAAAAAAIA/AAAAPjqOYz8AAAA+AACAPwAAgD8cxzE/AAAAP+Q4Tj8AAAA/AACAPwAAAD46jmM/AACAPjqOYz8AAAA+AAAAAAAAAD49juM924kdPD2O4z0AAAA+AAAAAAAAgD9yHEc+AAAAP8hxnD4AAAA/AAAAAAAAAD49juM9AAAAPgAAAAAAAIA+AACAPwAAAD8AAAAAAADAPgAAgD8AAMA+AACAPwAAgD8AAAA/AACAPxzHMT8AAAA/AACAPwAAwD4AAAAAAADAPjqOYz+xE7s+AACAPwAAwD46jmM/sRO7PgAAgD8AAIA+AAAAAAAAgD/IcZw+AAAAPwAAAD8AAIA/AAAAAAAAwD49juM9sRO7PjqOYz+xE7s+AAAAAAAAwD49juM9AACAPj2O4z2xE7s+AACAPwAAgD46jmM/sRO7PjqOYz8AAIA+AACAPwAAAD4AAIA/AACAPjqOYz8AAIA+AAAAAAAAwD4AAAAAAACAPj2O4z0AAIA+AAAAAAAAgD49juM9AAAAPj2O4z0AAIA+GqRBPwAAAADhgw8/q6oqP5lveT4AAAAAAACAP5ZveT4AAAAAGqRBPwAAAACWb3k+4YMPP6mqqj4apEE/AACAPz744D6pqqo+AACAP5ZveT4AAIA/GqRBPwAAAAAapEE/GqRBPwAAgD+Zb3k+AACAPz744D6pqqo+4YMPP6uqKj8++OA+q6oqP5lveT4AAAAA"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 84,
+"vertex_data": PackedByteArray("zczMPAAAAABmZua+2YkdPdDMzDzNzMy+2YkdPdDMzDzQzEy9zczMPAAAAABmZua+zcxMPmdmpj7NzMy+2YkdPdDMzDzNzMy+zczMPAAAAABmZua+2YkdPdDMzDzQzEy9zczMPAAAAAAAAAAAzczMPAAAAAAAAAAA2YkdPdDMzDzQzEy9zcxMPmdmpj4AAAAAzczMPAAAAABmZua+zczMPAAAAAAAAAAAMzPzPgAAAAAAAAAAzczMPAAAAABmZua+zcxMPmdmpj5mZua+zcxMPmdmpj7NzMy+zczMPAAAAABmZua+mpmZPmdmpj5mZua+zcxMPmdmpj5mZua+zcxMPmdmpj5mZua+mpmZPmdmpj7NzMy+zcxMPmdmpj7NzMy+zcxMPmdmpj4AAAAA2YkdPdDMzDzQzEy9zcxMPmdmpj7QzEy9zczMPAAAAAAAAAAAzcxMPmdmpj4AAAAAmpmZPmdmpj4AAAAAzcxMPmdmpj4AAAAAzcxMPmdmpj7QzEy9mpmZPmdmpj4AAAAAzczMPAAAAABmZua+MzPzPgAAAAAAAAAAMzPzPgAAAABmZua+zczMPAAAAABmZua+MzPzPgAAAABmZua+mpmZPmdmpj5mZua+MzPzPgAAAABmZua+MzPzPgAAAAAAAAAAxU7sPtDMzDzNzMy+MzPzPgAAAABmZua+xU7sPtDMzDzNzMy+mpmZPmdmpj5mZua+zczMPAAAAAAAAAAAmpmZPmdmpj4AAAAAMzPzPgAAAAAAAAAAMzPzPgAAAAAAAAAAxU7sPtDMzDzQzEy9xU7sPtDMzDzNzMy+MzPzPgAAAAAAAAAAmpmZPmdmpj7QzEy9xU7sPtDMzDzQzEy9mpmZPmdmpj5mZua+xU7sPtDMzDzNzMy+mpmZPmdmpj7NzMy+zcxMPmdmpj5mZua+mpmZPmdmpj5mZua+mpmZPmdmpj7NzMy+MzPzPgAAAAAAAAAAmpmZPmdmpj4AAAAAmpmZPmdmpj7QzEy9mpmZPmdmpj4AAAAAzcxMPmdmpj7QzEy9mpmZPmdmpj7QzEy92YkdPdDMzDzNzMy+zcxMPmdmpj7NzMy+xU7sPtDMzDzNzMy+2YkdPdDMzDzNzMy+xU7sPtDMzDzQzEy92YkdPdDMzDzQzEy9zcxMPmdmpj7QzEy92YkdPdDMzDzQzEy9mpmZPmdmpj7QzEy92YkdPdDMzDzNzMy+xU7sPtDMzDzNzMy+xU7sPtDMzDzQzEy92YkdPdDMzDzQzEy9xU7sPtDMzDzQzEy9mpmZPmdmpj7QzEy9zcxMPmdmpj7NzMy+mpmZPmdmpj7NzMy+xU7sPtDMzDzNzMy+zCzMrP/////MLMys/////8wszKz/////zCzMrP/////MLMys/////8wszKz/////zCzMrP/////MLMys/////8wszKz/////zCzMrAAAAIDMLMysAAAAgMwszKwAAACA/38AAP//////fwAA//////9/AAD/////zCzMrP/////MLMys/////8wszKz//////////wAA/7//////AAD/v/////8AAP+//3//////////f/////////9/////////zCzMrP/////MLMys/////8wszKz//////3//f////7//f/9/////v/9//3////+//3//////////f/////////9//////////38AAP//////fwAA//////9/AAD//////////wAA/7//////AAD/v/////8AAP+/MtPMrP////8y08ys/////zLTzKz/////MtPMrAAA/v8y08ysAAD+/zLTzKwAAP7//3//f////7//f/9/////v/9//3////+/MtPMrP////8y08ys/////zLTzKz/////MtPMrP7/AIAy08ys/v8AgDLTzKz+/wCAMtPMrP////8y08ys/////zLTzKz//////3//////////f/////////9/////////MtPMrP////8y08ys/////zLTzKz//////3//////////f/////////9//////////3//fwAA/7//f/9/AAD/v/9//38AAP+//3//////////f/////////9//////////////wAA/7//////AAD/v/////8AAP+//3//////////f/////////9//////////////wAA/7//////AAD/v/////8AAP+//3//fwAA/7//f/9/AAD/v/9//38AAP+/")
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e2bgc"]
+size = Vector3(0.4, 0.4, 0.36)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oxj7w"]
+size = Vector3(0.4, 0.1, 0.4)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3lot5"]
+radius = 15.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oxj7w"]
+radius = 0.3
+
+[node name="MooringLine" type="Node3D" unique_id=1215390951]
+script = ExtResource("1_e2bgc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=235778295]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+mesh = SubResource("CylinderMesh_h37vv")
+surface_material_override/0 = ExtResource("1_e1lgf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D" unique_id=2108747436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.13, -1.9936124e-09)
+mesh = SubResource("CylinderMesh_5low5")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_e1lgf")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1521805866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.13, -1.9936124e-09)
+mesh = SubResource("CylinderMesh_5low5")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_e1lgf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=636732789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.049999997, -1.9936124e-09)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="MeshInstance3D" unique_id=959050547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.024999999, -1.9936124e-09)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1170169176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.074999996, -1.9936124e-09)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="MeshInstance3D" unique_id=2040684279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.1, -1.9936124e-09)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="MeshInstance3D" unique_id=345720061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.457535e-09, -0.07499999, 0)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="MeshInstance3D" unique_id=922251730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.457536e-09, -0.099999994, 0)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="MeshInstance3D" unique_id=611715176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.457536e-09, -0.050000012, 0)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1535002297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.457537e-09, -0.025000006, 0)
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1600023960]
+mesh = SubResource("TorusMesh_5low5")
+surface_material_override/0 = ExtResource("2_h37vv")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="." unique_id=992072404]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.024999999, -1.9936124e-09, -1.9936124e-09)
+visible = false
+polygon = PackedVector2Array(0.025, 0, 0.2, 0.32500002, 0.3, 0.32500002, 0.475, 0)
+depth = 0.45
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGPolygon3D" unique_id=1773986336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, -0.22500001)
+operation = 2
+size = Vector3(0.825, 0.45, 0.35)
+
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="." unique_id=83357696]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.024999999, -1.9936124e-09, -1.9936124e-09)
+mesh = SubResource("ArrayMesh_h37vv")
+surface_material_override/0 = ExtResource("3_5low5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=110110566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+shape = SubResource("BoxShape3D_e2bgc")
+
+[node name="Connection" parent="." unique_id=742626708 instance=ExtResource("5_3lot5")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=1507003678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.00049999356, 0.25)
+shape = SubResource("BoxShape3D_oxj7w")
+
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=1786313244]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
+
+[node name="LandingPlaceDetect" type="Area3D" parent="." unique_id=2094675313]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LandingPlaceDetect" unique_id=202913412]
+shape = SubResource("SphereShape3D_3lot5")
+
+[node name="Interaction" type="Area3D" parent="." unique_id=66922454 node_paths=PackedStringArray("delegate")]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("6_oxj7w")
+delegate = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interaction" unique_id=1750372877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0.25)
+shape = SubResource("SphereShape3D_oxj7w")
+
+[connection signal="pressed_by" from="Interaction" to="." method="_on_interaction_pressed_by"]

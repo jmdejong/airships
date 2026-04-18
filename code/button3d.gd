@@ -5,7 +5,7 @@ extends Area3D
 signal pressed();
 signal pressed_by(player: Player);
 
-func mouseover_description() -> String:
+func mouseover_description(_player: Player) -> String:
 	return description
 
 func press(player: Player) -> void:

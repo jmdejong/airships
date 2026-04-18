@@ -20,6 +20,12 @@ extends BaseComponent
 @export var envelope_density: float = 0.5 # kg / m^2
 @export var structure_mass: float = 10
 
+@export var mooring_connect_point: Node3D:
+	set(point):
+		mooring_point = point
+	get():
+		return mooring_point
+
 func _ready() -> void:
 	var tube: float = length - radius * 2
 	volume = 4.0/3 * PI * radius * radius * radius + tube * PI * radius * radius

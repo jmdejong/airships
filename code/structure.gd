@@ -13,6 +13,8 @@ static var tree: Structure = Structure.new(preload("res://scenes/structures/tree
 static var small_tree: Structure = Structure.new(preload("res://scenes/structures/small_tree.tscn"), null)
 static var rock: Structure = Structure.new(preload("res://scenes/structures/rock.tscn"), null)
 static var house: Structure = Structure.new(preload("res://scenes/structures/house.tscn"), null)
+static var hangar: Structure = Structure.new(preload("res://scenes/structures/hangar.tscn"), null)
+static var mooring_mast: Structure = Structure.new(preload("res://scenes/structures/mooring_mast.tscn"), null)
 
 
 

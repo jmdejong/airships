@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bacp7ifjnlyi6"]
+[gd_scene format=3 uid="uid://bacp7ifjnlyi6"]
 
 [ext_resource type="Script" uid="uid://xq10sq0rmxby" path="res://code/airship.gd" id="1_81adk"]
 [ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="9_17pty"]
@@ -12,7 +12,7 @@ albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 0.53333336)
 
 [sub_resource type="PrismMesh" id="PrismMesh_iu160"]
 
-[node name="Airship" type="RigidBody3D"]
+[node name="Airship" type="RigidBody3D" unique_id=47758217]
 collision_layer = 197
 collision_mask = 5
 mass = 0.001
@@ -22,17 +22,17 @@ angular_damp_mode = 1
 angular_damp = 1.0
 script = ExtResource("1_81adk")
 
-[node name="Components" parent="." instance=ExtResource("9_17pty")]
+[node name="Components" parent="." unique_id=2108642172 instance=ExtResource("9_17pty")]
 keep_empty = true
 
-[node name="Custom" parent="Components" instance=ExtResource("9_17pty")]
+[node name="Custom" parent="Components" unique_id=242065529 instance=ExtResource("9_17pty")]
 keep_empty = true
 
-[node name="CenterOfMassMarker" type="MeshInstance3D" parent="."]
+[node name="CenterOfMassMarker" type="MeshInstance3D" parent="." unique_id=1900955261]
 visible = false
 mesh = SubResource("CylinderMesh_gy0ok")
 surface_material_override/0 = SubResource("StandardMaterial3D_g6i7b")
 
-[node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="."]
+[node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="." unique_id=1136416547]
 visible = false
 mesh = SubResource("PrismMesh_iu160")

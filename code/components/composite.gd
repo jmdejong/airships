@@ -63,6 +63,7 @@ func _recalculate_shapes() -> void:
 	if !is_inside_tree():
 		return
 	_shapes = []
+	mooring_point = null
 	if !keep_empty and get_child_count() == 0 and get_parent != null:
 		queue_free()
 	for child in get_children():
@@ -73,6 +74,8 @@ func _recalculate_shapes() -> void:
 			var shape = source_shape.duplicate()
 			shape.transform = transform * shape.transform
 			_shapes.append(shape)
+		if component.mooring_point != null:
+			mooring_point = component.mooring_point
 	changed_shapes.emit()
 
 func recalculate_physics() -> void:

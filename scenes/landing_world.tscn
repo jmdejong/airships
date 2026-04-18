@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dssa2xcd1sym8"]
+
+[ext_resource type="Material" uid="uid://q4n5nwvhivs4" path="res://materials/groundsh.tres" id="1_v3hcm"]
+[ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/ships/gunboat.tscn" id="2_bp4bo"]
+[ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="3_3wqs7"]
+[ext_resource type="PackedScene" uid="uid://dj7s3br8gri5r" path="res://scenes/structures/mooring_mast.tscn" id="4_c4qrx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bgi73"]
+
+[sub_resource type="Sky" id="Sky_4wyf3"]
+sky_material = SubResource("ProceduralSkyMaterial_bgi73")
+
+[sub_resource type="Environment" id="Environment_2ohso"]
+background_mode = 2
+sky = SubResource("Sky_4wyf3")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bp4bo"]
+size = Vector2(256, 265)
+subdivide_width = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3wqs7"]
+size = Vector3(256, 10, 256)
+
+[node name="LandingWorld" type="Node3D" unique_id=1243979777]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=864573002]
+environment = SubResource("Environment_2ohso")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1529573917]
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 30, 0)
+light_energy = 0.75
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_opacity = 0.9
+shadow_blur = 3.0
+directional_shadow_mode = 1
+
+[node name="Player" parent="." unique_id=903246191 instance=ExtResource("3_3wqs7")]
+transform = Transform3D(0, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 0, -1.9936124e-09, 23.5, -1.9936124e-09)
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1233231840]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=189402634]
+mesh = SubResource("PlaneMesh_bp4bo")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_v3hcm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=2112203865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -5, -1.9936124e-09)
+shape = SubResource("BoxShape3D_3wqs7")
+
+[node name="GunBoat" parent="." unique_id=1842036152 instance=ExtResource("2_bp4bo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 21.5, -1.9936124e-09)
+
+[node name="MooringMast" parent="." unique_id=1423220962 instance=ExtResource("4_c4qrx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
