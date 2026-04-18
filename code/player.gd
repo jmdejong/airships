@@ -182,6 +182,11 @@ func _unhandled_input(_event: InputEvent):
 			posture = Posture.FlyDebug
 		elif posture == Posture.FlyDebug:
 			posture = Posture.Standing
+	if Input.is_action_just_pressed("show_ship"):
+		if used_platform != null:
+			print(JSON.stringify(used_platform.to_json()))
+		else:
+			print("no ship")
 
 
 func _process(_delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://y3r5symbcup6"]
+[gd_scene format=3 uid="uid://y3r5symbcup6"]
 
 [ext_resource type="Script" uid="uid://twbm7s4dogih" path="res://code/components/ballast.gd" id="1_ega2e"]
 [ext_resource type="Material" uid="uid://ygt2tr4mwdlq" path="res://materials/button/less.tres" id="3_dbjq7"]
@@ -28,39 +28,40 @@ albedo_color = Color(0, 0, 1, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_dbjq7"]
 radius = 0.6
 
-[node name="Ballast" type="Node3D"]
+[node name="Ballast" type="Node3D" unique_id=2024310234]
 script = ExtResource("1_ega2e")
+typ = "Ballast"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1185069904]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 shape = SubResource("BoxShape3D_xlykn")
 
-[node name="Tank" type="MeshInstance3D" parent="."]
+[node name="Tank" type="MeshInstance3D" parent="." unique_id=1800222657]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 mesh = SubResource("BoxMesh_xlykn")
 surface_material_override/0 = SubResource("StandardMaterial3D_ega2e")
 
-[node name="Less" parent="Tank" instance=ExtResource("3_rkelu")]
+[node name="Less" parent="Tank" unique_id=1576260385 instance=ExtResource("3_rkelu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, 0.125)
 description = "Decrease ballast"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Less"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/Less" unique_id=1638243155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_ugx7q")
 surface_material_override/0 = ExtResource("3_dbjq7")
 
-[node name="More" parent="Tank" instance=ExtResource("3_rkelu")]
+[node name="More" parent="Tank" unique_id=808384736 instance=ExtResource("3_rkelu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0.125)
 description = "Increase ballast"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/More"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tank/More" unique_id=1766225345]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_ugx7q")
 surface_material_override/0 = ExtResource("4_7p7wn")
 
-[node name="StatusPanel" type="Label3D" parent="Tank"]
+[node name="StatusPanel" type="Label3D" parent="Tank" unique_id=293750386]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, -0.125)
 text = "ballast tank
@@ -69,23 +70,23 @@ text = "ballast tank
 font_size = 24
 outline_size = 7
 
-[node name="Water" type="Node3D" parent="Tank"]
+[node name="Water" type="Node3D" parent="Tank" unique_id=725965667]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)
 
-[node name="WaterBox" type="MeshInstance3D" parent="Tank/Water"]
+[node name="WaterBox" type="MeshInstance3D" parent="Tank/Water" unique_id=2130573523]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 mesh = SubResource("BoxMesh_ugx7q")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_xlykn")
 
-[node name="CenterOfMass" type="Node3D" parent="."]
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=180919168]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.5, 0.5, 0.5)
 
-[node name="Connection" parent="." instance=ExtResource("5_rkelu")]
+[node name="Connection" parent="." unique_id=333272717 instance=ExtResource("5_rkelu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=2023838772]
 shape = SubResource("SphereShape3D_dbjq7")
 
 [connection signal="pressed" from="Tank/Less" to="." method="_on_less_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnh82toixngca"]
+[gd_scene format=3 uid="uid://bnh82toixngca"]
 
 [ext_resource type="Script" uid="uid://cv4oa72xgm6qh" path="res://code/components/box_component.gd" id="1_yroly"]
 [ext_resource type="Material" uid="uid://bi5p87x5rqiw6" path="res://materials/metal_dark.tres" id="2_bwuwa"]
@@ -11,24 +11,25 @@ size = Vector3(0.05, 8.1, 0.05)
 material = ExtResource("2_bwuwa")
 size = Vector3(0.063, 8, 0.063)
 
-[node name="Cable8m" type="Node3D"]
+[node name="Cable8m" type="Node3D" unique_id=1729715073]
 script = ExtResource("1_yroly")
+typ = "Cable8m"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1895769760]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 4, 0.125)
 shape = SubResource("BoxShape3D_uw4vd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=422902189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 4, 0.125)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_uw4vd")
 
-[node name="CenterOfMass" type="Node3D" parent="."]
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=1863070879]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 4, 0.125)
 
-[node name="Connection" parent="." instance=ExtResource("2_p2b17")]
+[node name="Connection" parent="." unique_id=817175772 instance=ExtResource("2_p2b17")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, -1.9936124e-09, 0.125)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection" unique_id=512133063]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 shape = SubResource("BoxShape3D_uw4vd")

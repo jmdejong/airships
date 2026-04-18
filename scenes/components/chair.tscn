@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://4ejh32drlk0w"]
+[gd_scene format=3 uid="uid://4ejh32drlk0w"]
 
 [ext_resource type="Script" uid="uid://d1p3l21yllvm" path="res://code/components/chair.gd" id="1_f307t"]
 [ext_resource type="Material" uid="uid://itbsqlrcr84h" path="res://materials/metal_light.tres" id="2_hcjnm"]
@@ -24,47 +24,48 @@ size = Vector3(0.45, 0.125, 0.45)
 [sub_resource type="BoxShape3D" id="BoxShape3D_5b6ql"]
 size = Vector3(0.3, 0.1, 0.3)
 
-[node name="Chair" type="Node3D"]
+[node name="Chair" type="Node3D" unique_id=618984325]
 script = ExtResource("1_f307t")
+typ = "Chair"
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=1505494791]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
 mesh = SubResource("BoxMesh_5t4bf")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_hcjnm")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=706543357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.45, 0.25)
 mesh = SubResource("BoxMesh_7ba4c")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=1468910909]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.7, 0.5)
 mesh = SubResource("BoxMesh_v3byo")
 skeleton = NodePath("../..")
 
-[node name="Sitbox" type="Area3D" parent="."]
+[node name="Sitbox" type="Area3D" parent="." unique_id=1690135681]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource("3_f307t")
 description = "Sit"
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Sitbox"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Sitbox" unique_id=768749746]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.563, 0.25)
 shape = SubResource("BoxShape3D_a5k4w")
 
-[node name="Seat" type="Node3D" parent="."]
+[node name="Seat" type="Node3D" parent="." unique_id=2061900040]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0.25)
 script = ExtResource("4_hcjnm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1736417117]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.4375, 0.25)
 shape = SubResource("BoxShape3D_5t4bf")
 
-[node name="Connection" parent="." instance=ExtResource("5_f307t")]
+[node name="Connection" parent="." unique_id=923538966 instance=ExtResource("5_f307t")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=335837173]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1.9936124e-09, 0.25)
 shape = SubResource("BoxShape3D_5b6ql")
 

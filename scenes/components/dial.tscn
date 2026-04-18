@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://87gm1mtw3812"]
+[gd_scene format=3 uid="uid://87gm1mtw3812"]
 
 [ext_resource type="Script" uid="uid://b01bx8dovrts3" path="res://code/components/dial.gd" id="1_q80i2"]
 [ext_resource type="PackedScene" uid="uid://4ev7n8xin8g8" path="res://scenes/button3d.tscn" id="2_jc46c"]
@@ -46,96 +46,97 @@ size = Vector3(0.6, 0.1, 0.3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_0qsep"]
 size = Vector3(0.3, 0.1, 0.6)
 
-[node name="Dial" type="Node3D"]
+[node name="Dial" type="Node3D" unique_id=915737361]
 script = ExtResource("1_q80i2")
+typ = "Dial"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1492693328]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
 shape = SubResource("BoxShape3D_jc46c")
 
-[node name="More" parent="." instance=ExtResource("2_jc46c")]
+[node name="More" parent="." unique_id=932990006 instance=ExtResource("2_jc46c")]
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.1, 0.2, 0.25)
 description = "increase"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="More"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="More" unique_id=924726182]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_5sv2v")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_licny")
 
-[node name="Reset" parent="." instance=ExtResource("2_jc46c")]
+[node name="Reset" parent="." unique_id=1849755547 instance=ExtResource("2_jc46c")]
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.25, 0.2, 0.25)
 description = "Reset"
 
-[node name="Less" parent="." instance=ExtResource("2_jc46c")]
+[node name="Less" parent="." unique_id=1160693963 instance=ExtResource("2_jc46c")]
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4, 0.2, 0.25)
 description = "decrease"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Less"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Less" unique_id=661651169]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00999999, 0)
 cast_shadow = 0
 mesh = SubResource("QuadMesh_5sv2v")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("4_5sv2v")
 
-[node name="Case" type="MeshInstance3D" parent="."]
+[node name="Case" type="MeshInstance3D" parent="." unique_id=542386196]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
 mesh = SubResource("CylinderMesh_licny")
 skeleton = NodePath("../CenterOfMass")
 surface_material_override/0 = SubResource("StandardMaterial3D_8dutg")
 
-[node name="Screw" type="Node3D" parent="."]
+[node name="Screw" type="Node3D" parent="." unique_id=325261076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
 
-[node name="Hand" type="MeshInstance3D" parent="Screw"]
+[node name="Hand" type="MeshInstance3D" parent="Screw" unique_id=1584128257]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
 mesh = SubResource("BoxMesh_5sv2v")
 skeleton = NodePath("../../CenterOfMass")
 surface_material_override/0 = SubResource("StandardMaterial3D_0qsep")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Screw"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Screw" unique_id=1017508330]
 mesh = SubResource("CylinderMesh_q80i2")
 
-[node name="CenterOfMass" type="Node3D" parent="."]
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=932002779]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.25)
 
-[node name="Connection" parent="." instance=ExtResource("2_sgqlt")]
+[node name="Connection" parent="." unique_id=505764893 instance=ExtResource("2_sgqlt")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=883893168]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
 shape = SubResource("BoxShape3D_5sv2v")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection" unique_id=747153112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
 shape = SubResource("BoxShape3D_3fopc")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Connection"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Connection" unique_id=1130782229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
 shape = SubResource("BoxShape3D_0qsep")
 
-[node name="SignalConnection" parent="." instance=ExtResource("3_sgqlt")]
+[node name="SignalConnection" parent="." unique_id=2079614055 instance=ExtResource("3_sgqlt")]
 
-[node name="SignalControl" parent="SignalConnection" instance=ExtResource("7_5sv2v")]
+[node name="SignalControl" parent="SignalConnection" unique_id=1769650969 instance=ExtResource("7_5sv2v")]
 unique_name_in_owner = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection" unique_id=1290963658]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0.25)
 shape = SubResource("BoxShape3D_5sv2v")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="SignalConnection"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="SignalConnection" unique_id=1928367045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
 shape = SubResource("BoxShape3D_3fopc")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="SignalConnection"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="SignalConnection" unique_id=1010825187]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.125, 0.25)
 shape = SubResource("BoxShape3D_0qsep")
 
-[node name="StatusText" type="Label3D" parent="."]
+[node name="StatusText" type="Label3D" parent="." unique_id=233609435]
 unique_name_in_owner = true
 transform = Transform3D(-0.5, -4.371139e-08, -1.9106855e-15, 0, -2.1855694e-08, 0.5, -4.371139e-08, 0.5, 2.1855694e-08, 0.25, 0.205, 0.125)
 text = "0000.00 Uni"

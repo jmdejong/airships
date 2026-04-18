@@ -25,6 +25,7 @@ size = Vector3(0.35, 0.3, 0.35)
 
 [node name="LifeAnchor" type="Node3D" unique_id=145821459]
 script = ExtResource("1_ug0vp")
+typ = "LifeAnchor"
 
 [node name="AnchorPoint" type="Node3D" parent="." unique_id=229518812]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.3, 0.25)

@@ -125,6 +125,10 @@ func build_component(pos: Vector3, component: ComponentBlueprint, build_transfor
 	var comp_node: Component = component.create()
 	comp_node.transform = build_transform
 	comp_node.position += pos
+	if !has_node("Components/Custom"):
+		var custom_components: CompositeComponent = preload("res://scenes/components/composite.tscn").instantiate()
+		custom_components.name = "Custom"
+		$Components.add_component(custom_components)
 	$Components/Custom.add_component(comp_node)
 
 func destroy_component(component: Component, pos: Vector3):
@@ -155,3 +159,13 @@ func move_moor():
 	mooring_joint.node_a = get_path()
 	mooring_joint.node_b = moored_to.body.get_path()
 	add_sibling(mooring_joint)
+
+
+func to_json() -> Dictionary[String, Variant]:
+	return {
+		"type": "ship",
+		"name": name,
+		"components": $Components.to_json(),
+		"pos": [position.x, position.y, position.z],
+		"r": [rotation.x, rotation.y, rotation.z]
+	}

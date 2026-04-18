@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ffgia4xpcrqh"]
+[gd_scene format=3 uid="uid://ffgia4xpcrqh"]
 
 [ext_resource type="Script" uid="uid://cvd7e25ltpnun" path="res://code/components/composite.gd" id="1_cjyd5"]
 
-[node name="Composite" type="Node3D"]
+[node name="Composite" type="Node3D" unique_id=2042909610]
 script = ExtResource("1_cjyd5")
+typ = "Composite"

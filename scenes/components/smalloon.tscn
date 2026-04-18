@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cunwan507e0sg"]
+[gd_scene format=3 uid="uid://cunwan507e0sg"]
 
 [ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_wjom8"]
 [ext_resource type="Texture2D" uid="uid://bg6g6ukjsiuh8" path="res://textures/envelopes/blue.png" id="2_wjom8"]
@@ -18,27 +18,28 @@ albedo_texture = ExtResource("2_wjom8")
 uv1_scale = Vector3(2, 1, 1)
 texture_filter = 0
 
-[node name="Smalloon" type="Node3D"]
+[node name="Smalloon" type="Node3D" unique_id=668164737]
 script = ExtResource("1_wjom8")
 radius = 6.0
 length = 15.0
-mass_ = 180.95573684677208
+mass_ = 407.1504079052372
 volume = 1244.070690821558
+typ = "Smalloon"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=264109327]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_tvt4f")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=784312019]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 cast_shadow = 2
 mesh = SubResource("CapsuleMesh_tvt4f")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
 
-[node name="CenterOfMass" type="Node3D" parent="."]
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=1993681427]
 
-[node name="Connection" parent="." instance=ExtResource("3_lwris")]
+[node name="Connection" parent="." unique_id=1993763738 instance=ExtResource("3_lwris")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=75047430]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_tvt4f")

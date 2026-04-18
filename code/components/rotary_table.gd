@@ -89,3 +89,10 @@ func rotate_counterclockwise() -> void:
 func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, value: float) -> void:
 	if channel == rotation_channel:
 		rotate_to(value)
+
+func to_own_json() -> Dictionary[String, Variant]:
+	return {"child": $RComponents.to_json(), "rot": rot}
+
+func initialize_from_json(json: Dictionary[String, Variant]) -> void:
+	rot = json.rot
+	$RComponents.initialize_from_json(json.child)
