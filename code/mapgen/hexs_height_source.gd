@@ -254,7 +254,7 @@ class Hangar extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
 	func fill(height_source: HeightSource) -> void:
-		_structures.add(Structure.hangar, height_source.pos_at(global_pos + Vector2(0, -20)), 0)
-		_structures.add(Structure.mooring_mast, height_source.pos_at(global_pos + Vector2(rid.pick([30, -30]), 20)), 0)
+		_structures.add(Structure.hangar, height_source.pos_at(global_pos + Vector2(0, -20)), PI/2)
+		_structures.add(Structure.mooring_mast, height_source.pos_at(global_pos + Vector2(0, 50)),0)
 	func center_size() -> float:
 		return 0.5

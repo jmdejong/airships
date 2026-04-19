@@ -23,6 +23,7 @@ var last_since_floor: float = 0
 var was_on_ground := false
 const last_since_floor_max: float = 5
 var specific_info: String = ""
+var destination: Variant = null
 @onready var lifeline: Lifeline = $Lifeline
 
 enum Posture {Standing, Sitting, FlyDebug}
@@ -169,6 +170,9 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 		was_on_ground = false
 		apply_central_force(deltav * mass * 0.5)
 	lifeline.apply(self)
+	if destination is Vector3:
+		global_position = destination
+		destination = null
 	
 	for ray in separation_rays:
 		ray.disabled = !(is_on_ground || was_on_ground)
@@ -224,3 +228,6 @@ func _on_ui_move_view(delta: Vector2) -> void:
 func on_platform_teleport(from: Vector3, to: Vector3):
 	prints("platform teleport", to - from)
 	global_position += to - from
+
+func teleport_to(to: Vector3) -> void:
+	destination = to

@@ -12,11 +12,14 @@ func seat_position() -> Vector3:
 
 func handle_player_input(delta: float) -> void:
 	for binding in bindings:
-		if Input.is_key_pressed(binding.key):
+		if Input.is_key_pressed(binding.key) and binding.action != Binding.Action.None:
 			var control: SignalControl = get_node(binding.control)
 			if control == null:
 				continue
-			control.change_raw_value(delta * binding.change)
+			if binding.action == Binding.Action.Change:
+				control.change_raw_value(delta * binding.change)
+			elif binding.action == Binding.Action.Set:
+				control.set_value(binding.set_to)
 
 func get_component() -> Component:
 	return get_parent()

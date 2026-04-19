@@ -31,7 +31,7 @@ func _update_sizes() -> void:
 func destroy(where: Vector3) -> void:
 	if get_parent() == null:
 		return
-	var local_where: Vector3 = where * transform
+	var local_where: Vector3 = where * global_transform
 	var closest: Vector3i = Vector3i(local_where / Global.block_size).clamp(Vector3i.ZERO, size_block - Vector3i.ONE)
 	if size_block != Vector3i.ONE:
 		var new_components: Array[Component] = []

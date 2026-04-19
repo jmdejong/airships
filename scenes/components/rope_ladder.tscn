@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://ce6mxn0ghywxo"]
+
+[ext_resource type="Texture2D" uid="uid://bx0xpgiq564bf" path="res://textures/rope_ladder_rolled.png" id="1_kt2k0"]
+[ext_resource type="Script" uid="uid://c82ykcecsvua" path="res://code/components/rope_ladder.gd" id="1_u55ag"]
+[ext_resource type="Material" uid="uid://m16cuhaildqp" path="res://materials/metal_bar.tres" id="2_avpeb"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_8wo15"]
+[ext_resource type="Texture2D" uid="uid://21qufl3bc5es" path="res://textures/rope_ladder_unrolled.png" id="4_yduph"]
+[ext_resource type="Script" uid="uid://cuiyitoas3wtg" path="res://code/button3d.gd" id="6_u55ag"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_avpeb"]
+top_radius = 0.375
+bottom_radius = 0.375
+height = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wo15"]
+albedo_texture = ExtResource("1_kt2k0")
+
+[sub_resource type="BoxMesh" id="BoxMesh_8wo15"]
+size = Vector3(0.1, 0.1, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yduph"]
+size = Vector3(0.1, 0.2, 0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8dl38"]
+size = Vector2(0.75, 20)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u55ag"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("4_yduph")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_83vwt"]
+size = Vector3(0.25, 19.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u55ag"]
+size = Vector3(0.75, 0.5, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n5mh5"]
+size = Vector3(0.25, 0.6, 0.8)
+
+[node name="RopeLadder" type="Node3D" unique_id=752186276]
+script = ExtResource("1_u55ag")
+mass_ = 9.9999999999998
+volume = 9.9999999999998
+
+[node name="RolledUp" type="MeshInstance3D" parent="." unique_id=713083055]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0.375, 0.375, 0.5)
+visible = false
+mesh = SubResource("CylinderMesh_avpeb")
+surface_material_override/0 = SubResource("StandardMaterial3D_8wo15")
+
+[node name="TopBar" type="MeshInstance3D" parent="." unique_id=1761617512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999997, 0.5, 0.5)
+mesh = SubResource("BoxMesh_8wo15")
+surface_material_override/0 = ExtResource("2_avpeb")
+
+[node name="BottomBar" type="MeshInstance3D" parent="." unique_id=809696636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999997, 0.25, 0.5)
+mesh = SubResource("BoxMesh_8wo15")
+surface_material_override/0 = ExtResource("2_avpeb")
+
+[node name="Connection" parent="." unique_id=899869947 instance=ExtResource("3_8wo15")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=2058345226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.375, 0.5)
+shape = SubResource("BoxShape3D_yduph")
+
+[node name="Unrolled" type="MeshInstance3D" parent="." unique_id=1797628501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11, -9.5, 0.5)
+mesh = SubResource("PlaneMesh_8dl38")
+surface_material_override/0 = SubResource("StandardMaterial3D_u55ag")
+
+[node name="ClimbPoint" type="Node3D" parent="." unique_id=1565818630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.75, 0.5)
+
+[node name="ClimbShape" type="Area3D" parent="." unique_id=232540211]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("6_u55ag")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ClimbShape" unique_id=128348884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, -9.5, 0.5)
+shape = SubResource("BoxShape3D_83vwt")
+
+[node name="Deploy" type="Area3D" parent="." unique_id=762370563]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("6_u55ag")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Deploy" unique_id=597068677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.5, 0.5)
+shape = SubResource("BoxShape3D_u55ag")
+
+[node name="RollUp" type="Area3D" parent="." unique_id=1048772050]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("6_u55ag")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RollUp" unique_id=1408583902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.3, 0.5)
+shape = SubResource("BoxShape3D_n5mh5")
+
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=461870567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.25, 0)
+
+[connection signal="pressed_by" from="ClimbShape" to="." method="_on_climb_shape_pressed_by"]
+[connection signal="pressed_by" from="Deploy" to="." method="_on_deploy_pressed_by"]
+[connection signal="pressed_by" from="RollUp" to="." method="_on_roll_up_pressed_by"]

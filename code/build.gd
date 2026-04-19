@@ -72,7 +72,7 @@ func try_remove() -> void:
 		return
 	var component: Node3D = shape.get_meta("component")
 	var ship: Airship = collider
-	ship.destroy_component(component, get_collision_point() * collider.transform)
+	ship.destroy_component(component, get_collision_point())
 
 func show_preview(vis: bool) -> void:
 	set_process(vis)
