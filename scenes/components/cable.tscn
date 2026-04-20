@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c5ulqcqx1nl70"]
+
+[ext_resource type="Script" uid="uid://bb4oaeu7flg2t" path="res://code/components/cable.gd" id="1_kvc70"]
+[ext_resource type="Material" uid="uid://m16cuhaildqp" path="res://materials/metal_bar.tres" id="2_chgte"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_he73h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kvc70"]
+size = Vector3(0.05, 1, 0.05)
+
+[sub_resource type="BoxMesh" id="BoxMesh_chgte"]
+size = Vector3(0.063, 1, 0.063)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_he73h"]
+size = Vector3(0.1, 1.1, 0.1)
+
+[node name="Cable" type="Node3D" unique_id=719893920]
+script = ExtResource("1_kvc70")
+mass_ = 2.5000000000000004
+volume = 0.0025000000000000005
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1496919829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.5, 0.125)
+shape = SubResource("BoxShape3D_kvc70")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1929497540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.5, 0.125)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_chgte")
+surface_material_override/0 = ExtResource("2_chgte")
+
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=1936524081]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.5, 0.125)
+
+[node name="Connection" parent="." unique_id=447788407 instance=ExtResource("3_he73h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.5, 0.125)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=896895552]
+shape = SubResource("BoxShape3D_he73h")
