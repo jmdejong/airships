@@ -30,6 +30,9 @@ ctyp = "LifeAnchor"
 [node name="AnchorPoint" type="Node3D" parent="." unique_id=229518812]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.3, 0.25)
 
+[node name="SpawnPoint" type="Node3D" parent="." unique_id=1138681955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 1, 0.25)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=453709548]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.049999997, 0.25)
 shape = SubResource("BoxShape3D_d3p8t")

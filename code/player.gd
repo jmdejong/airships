@@ -226,7 +226,6 @@ func _on_ui_move_view(delta: Vector2) -> void:
 	view_movement += delta
 
 func on_platform_teleport(from: Vector3, to: Vector3):
-	prints("platform teleport", to - from)
 	global_position += to - from
 
 func teleport_to(to: Vector3) -> void:

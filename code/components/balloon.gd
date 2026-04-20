@@ -31,3 +31,5 @@ func _ready() -> void:
 	volume = 4.0/3 * PI * radius * radius * radius + tube * PI * radius * radius
 	var surface = 4 * PI * radius * radius + 2 * PI * radius * tube
 	mass_ = filling_density * volume + surface * envelope_density
+	if mooring_point == null:
+		push_error("No mooring point for ", self)

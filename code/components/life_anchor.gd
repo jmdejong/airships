@@ -7,3 +7,6 @@ func _on_attach_box_pressed_by(player: Player) -> void:
 
 func anchor_point() -> Vector3:
 	return $AnchorPoint.global_position
+
+func spawn_point() -> Vector3:
+	return $SpawnPoint.global_position

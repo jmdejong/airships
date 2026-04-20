@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://6vmbojg8oxif"]
+
+[ext_resource type="Script" uid="uid://b3r2y5g4ip56x" path="res://code/player_buildspace.gd" id="1_485m2"]
+
+[node name="BuildSpace" type="Node3D" unique_id=221274330]
+
+[node name="Player" type="Camera3D" parent="." unique_id=1101142859]
+script = ExtResource("1_485m2")

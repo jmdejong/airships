@@ -25,7 +25,7 @@ func detach() -> void:
 func reel_in(player: Player) -> void:
 	if anchor == null:
 		return
-	player.position = anchor.anchor_point()
+	player.position = anchor.spawn_point() - position
 	player.linear_velocity = anchor.get_ship().linear_velocity + Vector3(0, -1, 0)
 	
 func apply_force(player: Player) -> void:

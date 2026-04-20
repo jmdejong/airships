@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_wjom8"]
 [ext_resource type="Texture2D" uid="uid://bg6g6ukjsiuh8" path="res://textures/envelopes/blue.png" id="2_wjom8"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_lwris"]
+[ext_resource type="Material" uid="uid://itbsqlrcr84h" path="res://materials/metal_light.tres" id="4_7uoif"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvt4f"]
 radius = 6.0
@@ -18,18 +19,28 @@ albedo_texture = ExtResource("2_wjom8")
 uv1_scale = Vector3(2, 1, 1)
 texture_filter = 0
 
-[node name="Smalloon" type="Node3D" unique_id=668164737]
+[sub_resource type="BoxShape3D" id="BoxShape3D_wjom8"]
+size = Vector3(0.5, 5.5, 1.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjom8"]
+size = Vector3(5.5, 0.5, 1.9)
+
+[node name="Smalloon" type="Node3D" unique_id=668164737 node_paths=PackedStringArray("mooring_connect_point")]
 script = ExtResource("1_wjom8")
 radius = 5.99999999999988
 length = 17.99999999999964
+structure_mass = 19.9999999999996
+mooring_connect_point = NodePath("MooringPoint")
+mass_ = 497.62827632860024
+volume = 1583.3626974091608
 ctyp = "Smalloon"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=264109327]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.9936124e-09, 6, -1.9936124e-09)
 shape = SubResource("CapsuleShape3D_tvt4f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=784312019]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.9936124e-09, 6, -1.9936124e-09)
 cast_shadow = 2
 mesh = SubResource("CapsuleMesh_tvt4f")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
@@ -39,5 +50,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
 [node name="Connection" parent="." unique_id=1993763738 instance=ExtResource("3_lwris")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=75047430]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_tvt4f")
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.9936124e-09, 0.25, -1.9936124e-09)
+shape = SubResource("BoxShape3D_wjom8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Connection" unique_id=770492086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.24, -1.9936124e-09)
+mesh = SubResource("BoxMesh_wjom8")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7uoif")
+
+[node name="MooringPoint" type="Node3D" parent="." unique_id=1174639318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.75, 6, 0)
