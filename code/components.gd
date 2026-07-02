@@ -4,17 +4,18 @@ extends Node
 
 var components: Dictionary[String, PackedScene]
 
-func _ready() -> void:
+func _init() -> void:
 	register(preload("res://scenes/components/ballast.tscn"))
 	register(preload("res://scenes/components/balloon.tscn"))
 	register(preload("res://scenes/components/barometer.tscn"))
-	register(preload("res://scenes/components/engine.tscn"))
-	register(preload("res://scenes/components/cable4m.tscn"))
+	register(preload("res://scenes/components/cable.tscn"))
 	register(preload("res://scenes/components/cannon.tscn"))
 	register(preload("res://scenes/components/chair.tscn"))
 	register(preload("res://scenes/components/dial.tscn"))
+	register(preload("res://scenes/components/engine.tscn"))
 	register(preload("res://scenes/components/life_anchor.tscn"))
 	register(preload("res://scenes/components/mooring_line.tscn"))
+	register(preload("res://scenes/components/rope_ladder.tscn"))
 	register(preload("res://scenes/components/rotary_table.tscn"))
 	register(preload("res://scenes/components/slider.tscn"))
 	register(preload("res://scenes/components/smalloon.tscn"))
@@ -33,6 +34,7 @@ func register(scene: PackedScene) -> void:
 	if components.has(instance.ctyp):
 		push_error("Duplicate type for " + components[instance.ctyp].to_string() + " and " + scene.to_string())
 	components[instance.ctyp] = scene
+	instance.queue_free()
 
 func from_json(json: Dictionary) -> Component:
 	var ctyp: String = json.get("_ct")

@@ -89,3 +89,8 @@ func to_own_json() -> Dictionary[String, Variant]:
 
 func initialize_from_json(_json: Dictionary) -> void:
 	pass
+
+#func connections() -> Array[Vector3]:
+	#$Connection.connection_points()
+	
+		

@@ -25,6 +25,12 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
 
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_q5onr"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 1000.0
+dof_blur_far_transition = -1.0
+dof_blur_amount = 0.02
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_qfnet"]
 size = Vector2(8192, 8192)
 subdivide_width = 63
@@ -38,6 +44,7 @@ random_seed = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2048037922]
 environment = SubResource("Environment_k0juu")
+camera_attributes = SubResource("CameraAttributesPractical_q5onr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=915971005]
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 30, 0)

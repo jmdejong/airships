@@ -22,6 +22,6 @@ static func from_json(json: Dictionary) -> Binding:
 	binding.key = json.key
 	binding.control = json.control
 	binding.action = json.action
-	binding.change = json.get("change")
-	binding.set_to = json.get("set_to")
+	binding.change = json.get("change", 0.0)
+	binding.set_to = json.get("set_to", 0.0)
 	return binding

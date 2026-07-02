@@ -121,6 +121,16 @@ func check_connections() -> void:
 		get_parent().add_child(new_ship)
 		new_components.recalculate_all()
 
+class ConnectionGraph:
+	var components: Array[Component]
+	var connections: Dictionary[Vector3, Array]
+	var edges: Dictionary[Component, Dictionary]
+	func _init(components_: Array[Component]) -> void:
+		components = components_
+		for component: Component in components:
+			component._neigbours = {}
+			#var component_connections: Array[Vector3] = componet.
+
 func build_component(pos: Vector3, component: ComponentBlueprint, build_transform: Transform3D) -> void:
 	var comp_node: Component = component.create()
 	comp_node.transform = build_transform

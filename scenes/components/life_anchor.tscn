@@ -12,6 +12,8 @@ size = Vector3(0.4, 0.1, 0.4)
 material = ExtResource("2_ug0vp")
 inner_radius = 0.1
 outer_radius = 0.17
+rings = 24
+ring_segments = 12
 
 [sub_resource type="BoxMesh" id="BoxMesh_flx6q"]
 material = ExtResource("2_ug0vp")

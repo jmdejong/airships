@@ -16,6 +16,8 @@ size = Vector3(0.9, 0.7, 0.9)
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.063
+radial_segments = 16
+rings = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vo2m1"]
 albedo_color = Color(1, 0, 0, 1)

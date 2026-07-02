@@ -25,8 +25,11 @@ size = Vector3(0.9, 0.9, 0.9)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xlykn"]
 albedo_color = Color(0, 0, 1, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_dbjq7"]
-radius = 0.6
+[sub_resource type="BoxShape3D" id="BoxShape3D_rkelu"]
+size = Vector3(1.1, 1, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dbjq7"]
+size = Vector3(0.8, 1, 1.1)
 
 [node name="Ballast" type="Node3D" unique_id=2024310234]
 script = ExtResource("1_ega2e")
@@ -86,8 +89,13 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.5, 0
 [node name="Connection" parent="." unique_id=333272717 instance=ExtResource("5_rkelu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=2023838772]
-shape = SubResource("SphereShape3D_dbjq7")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=810327206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.1, -1.9936124e-09)
+shape = SubResource("BoxShape3D_rkelu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection" unique_id=66974097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.1, -1.9936124e-09)
+shape = SubResource("BoxShape3D_dbjq7")
 
 [connection signal="pressed" from="Tank/Less" to="." method="_on_less_pressed"]
 [connection signal="pressed" from="Tank/More" to="." method="_on_more_pressed"]

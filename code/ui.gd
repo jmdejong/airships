@@ -1,7 +1,6 @@
 class_name UI
 extends Node
 
-const MOUSE_SENSITIVITY: float = 0.003
 @export var build: Build = null
 @onready var move_joystick: TouchJoystick = %MoveJoystick
 signal press
@@ -38,10 +37,10 @@ func show_tooltip(target: Node, player: Player) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventScreenDrag and event.index != %UI.move_joystick.touch_index:
+	if event is InputEventScreenDrag and event.index != move_joystick.touch_index:
 		move_view.emit(-event.relative / get_window().size.y)
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		move_view.emit(event.relative * MOUSE_SENSITIVITY)
+		move_view.emit(event.relative * Global.MOUSE_SENSITIVITY)
 	if Input.is_action_just_pressed("toggle_build"):
 		if mouse_mode == MouseMode.SelectBuild:
 			mouse_mode = MouseMode.Play

@@ -30,6 +30,7 @@ rings = 1
 top_radius = 0.03
 bottom_radius = 0.03
 height = 0.6
+radial_segments = 12
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rrhl7"]
 size = Vector3(0.6, 0.6, 1.1)

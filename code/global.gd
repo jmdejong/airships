@@ -1,6 +1,7 @@
 @tool
 extends Node
 
+const MOUSE_SENSITIVITY: float = 0.003
 var block_size: float = 0.25
 var block_center: Vector3 = Vector3.ONE * block_size / 2.0
 

@@ -1,8 +1,93 @@
 [gd_scene format=3 uid="uid://6vmbojg8oxif"]
 
 [ext_resource type="Script" uid="uid://b3r2y5g4ip56x" path="res://code/player_buildspace.gd" id="1_485m2"]
+[ext_resource type="Script" uid="uid://b0o2dwna7su4o" path="res://code/build_space.gd" id="1_vxili"]
+[ext_resource type="Script" uid="uid://mqsfgpsghetb" path="res://code/touch_ui.gd" id="3_arebo"]
+[ext_resource type="Script" uid="uid://bnmp0q34upwxe" path="res://code/build.gd" id="3_e2xyx"]
+[ext_resource type="Script" uid="uid://behx1e4glx3yw" path="res://code/touch_joystick.gd" id="4_e2xyx"]
+[ext_resource type="PackedScene" uid="uid://yrqwva1k2mo1" path="res://scenes/build_tab.tscn" id="6_ektvi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_arebo"]
+
+[sub_resource type="Sky" id="Sky_e2xyx"]
+sky_material = SubResource("ProceduralSkyMaterial_arebo")
+
+[sub_resource type="Environment" id="Environment_ektvi"]
+background_mode = 2
+sky = SubResource("Sky_e2xyx")
 
 [node name="BuildSpace" type="Node3D" unique_id=221274330]
+script = ExtResource("1_vxili")
 
 [node name="Player" type="Camera3D" parent="." unique_id=1101142859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.75)
 script = ExtResource("1_485m2")
+
+[node name="Build" type="RayCast3D" parent="Player" unique_id=773907801]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -4)
+collision_mask = 64
+collide_with_areas = true
+script = ExtResource("3_e2xyx")
+
+[node name="Node3D" type="Node3D" parent="Player/Build" unique_id=1623818137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="BuildPreview" type="Node3D" parent="Player/Build/Node3D" unique_id=1286361085]
+unique_name_in_owner = true
+visible = false
+
+[node name="UI" type="Control" parent="." unique_id=1024283952]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TouchUi" type="Control" parent="UI" unique_id=1597337780]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_arebo")
+
+[node name="MoveJoystick" type="Control" parent="UI/TouchUi" unique_id=51431153]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 130.0
+offset_bottom = -130.0
+grow_vertical = 0
+script = ExtResource("4_e2xyx")
+
+[node name="BuildTab" parent="UI" unique_id=835920371 instance=ExtResource("6_ektvi")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 100.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1546086586]
+environment = SubResource("Environment_ektvi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=508818275]
+transform = Transform3D(0.8660254, 0.43301272, -0.24999999, 0, 0.49999997, 0.86602545, 0.5, -0.75, 0.43301266, 0.75, 4.25, 0.75)
+
+[connection signal="select_build" from="UI/BuildTab" to="Player" method="_on_build_tab_select_build"]
+[connection signal="select_remove" from="UI/BuildTab" to="Player" method="_on_build_tab_select_remove"]

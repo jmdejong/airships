@@ -52,3 +52,5 @@ func to_own_json() -> Dictionary[String, Variant]
 
 @abstract
 func initialize_from_json(json: Dictionary) -> void
+
+#@abstract func connections() -> Array[Vector3]

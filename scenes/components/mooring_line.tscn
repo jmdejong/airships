@@ -51,7 +51,7 @@ radius = 0.3
 [node name="MooringLine" type="Node3D" unique_id=1215390951]
 script = ExtResource("1_e2bgc")
 mass_ = 9.9999999999998
-volume = 9.9999999999998
+volume = 0.049999999999999
 ctyp = "MooringLine"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=235778295]
