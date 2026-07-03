@@ -6,30 +6,52 @@ extends Node
 signal press
 signal move_view(delta: Vector2)
 
-enum MouseMode {Unfocused, Play, SelectBuild, Build, Remove, Help}
+enum UiMode {Unfocused, Active, SelectBuild, Help}
+enum CursorMode {Play, Build, Remove}
 
-var mouse_mode: MouseMode = MouseMode.Unfocused:
+var ui_mode: UiMode = UiMode.Unfocused:
 	set(value):
-		mouse_mode = value
-		if value == MouseMode.Unfocused or value == MouseMode.SelectBuild or value == MouseMode.Help:
+		ui_mode = value
+		if value != UiMode.Active:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		elif not $TouchUi.visible:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		%BuildTab.visible = mouse_mode == MouseMode.SelectBuild
-		%HelpMenu.visible = mouse_mode == MouseMode.Help
-		build.show_preview(mouse_mode == MouseMode.Build)
-		if value == MouseMode.Remove:
+		%BuildTab.visible = ui_mode == UiMode.SelectBuild
+		%HelpMenu.visible = ui_mode == UiMode.Help
+		if ui_mode != UiMode.Help:
+			get_viewport().gui_release_focus()
+
+var cursor_mode: CursorMode = CursorMode.Play:
+	set(value):
+		cursor_mode = value
+		build.show_preview(cursor_mode == CursorMode.Build)
+		if value == CursorMode.Remove:
 			%CrosshairTexture.texture = preload("res://textures/ui/break.png")
 		else:
 			%CrosshairTexture.texture = preload("res://textures/ui/crosshair.png")
-		if mouse_mode != MouseMode.Help:
-			get_viewport().gui_release_focus()
+
+#var mouse_mode: MouseMode = MouseMode.Unfocused:
+	#set(value):
+		#mouse_mode = value
+		#if value == MouseMode.Unfocused or value == MouseMode.SelectBuild or value == MouseMode.Help:
+			#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		#elif not $TouchUi.visible:
+			#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#%BuildTab.visible = mouse_mode == MouseMode.SelectBuild
+		#%HelpMenu.visible = mouse_mode == MouseMode.Help
+		#build.show_preview(mouse_mode == MouseMode.Build)
+		#if value == MouseMode.Remove:
+			#%CrosshairTexture.texture = preload("res://textures/ui/break.png")
+		#else:
+			#%CrosshairTexture.texture = preload("res://textures/ui/crosshair.png")
+		#if mouse_mode != MouseMode.Help:
+			#get_viewport().gui_release_focus()
 
 func set_info_text(text: String) -> void:
 	%Info.text = text
 
 func show_tooltip(target: Node, player: Player) -> void:
-	if mouse_mode == MouseMode.Play and target != null and target.has_method("mouseover_description"):
+	if ui_mode == UiMode.Active and cursor_mode == CursorMode.Play and target != null and target.has_method("mouseover_description"):
 		%Tooltip.text = target.mouseover_description(player)
 		%Tooltip.visible = %Tooltip.text != ""
 	else:
@@ -42,14 +64,14 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		move_view.emit(event.relative * Global.MOUSE_SENSITIVITY)
 	if Input.is_action_just_pressed("toggle_build"):
-		if mouse_mode == MouseMode.SelectBuild:
-			mouse_mode = MouseMode.Play
+		if ui_mode == UiMode.SelectBuild:
+			ui_mode = UiMode.Active
 		else:
-			mouse_mode = MouseMode.SelectBuild
+			ui_mode = UiMode.SelectBuild
 
 func _unhandled_input(_event: InputEvent):
 	
-	if mouse_mode == MouseMode.Build and Input.is_action_just_released("rotate_left") or Input.is_action_just_released("rotate_right"):
+	if cursor_mode == CursorMode.Build and Input.is_action_just_released("rotate_left") or Input.is_action_just_released("rotate_right"):
 		var d: int = int(Input.is_action_just_released("rotate_left")) - int(Input.is_action_just_released("rotate_right"))
 		if Input.is_action_pressed("rotate_roll"):
 			build.roll_rotation_mode += d
@@ -60,11 +82,12 @@ func _unhandled_input(_event: InputEvent):
 	
 	# Capturing/Freeing the cursor
 	if Input.is_action_just_pressed("escape"):
-		mouse_mode = MouseMode.Unfocused
+		ui_mode = UiMode.Unfocused
 	if Input.is_action_just_pressed("click"):
 		click()
 	if Input.is_action_just_pressed("cancel_click"):
-		mouse_mode = MouseMode.Play
+		ui_mode = UiMode.Active
+		cursor_mode = CursorMode.Play
 	if Input.is_action_just_pressed("switch_render"):
 		var vp := get_viewport()
 		vp.debug_draw = (vp.debug_draw + 1) % 6 as Viewport.DebugDraw
@@ -73,33 +96,34 @@ func _unhandled_input(_event: InputEvent):
 
 
 func toggle_help() -> void:
-	if mouse_mode == MouseMode.Help:
-		mouse_mode = MouseMode.Play
+	if ui_mode == UiMode.Help:
+		ui_mode = UiMode.Active
 	else:
-		mouse_mode = MouseMode.Help
+		ui_mode = UiMode.Help
 
 func click() -> void:
-	if mouse_mode == MouseMode.Play:
-		press.emit()
-	elif mouse_mode == MouseMode.Build:
-		build.try_build()
-	elif mouse_mode == MouseMode.Remove:
-		build.try_remove()
+	if ui_mode == UiMode.Active:
+		if cursor_mode == CursorMode.Play:
+			press.emit()
+		elif cursor_mode == CursorMode.Build:
+			build.try_build()
+		elif cursor_mode == CursorMode.Remove:
+			build.try_remove()
 	else:
-		mouse_mode = MouseMode.Play
+		ui_mode = UiMode.Active
+		cursor_mode = CursorMode.Play
 
 func enable_touch() -> void:
-	mouse_mode = MouseMode.Play
+	ui_mode = UiMode.Active
 
 func _on_build_tab_select_build(component: ComponentBlueprint) -> void:
-	mouse_mode = MouseMode.Build
+	ui_mode = UiMode.Active
+	cursor_mode = CursorMode.Build
 	build.select_build(component)
 
 func _on_build_tab_select_remove() -> void:
-	mouse_mode = MouseMode.Remove
-
-func should_jump() -> bool:
-	return %JumpButton.is_pressed()
+	ui_mode = UiMode.Active
+	cursor_mode = CursorMode.Remove
 
 func set_lifeline_attached(attached: bool) -> void:
 	if attached:

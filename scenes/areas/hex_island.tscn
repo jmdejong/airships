@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cxbhh4qjufira"]
+
+[ext_resource type="PackedScene" uid="uid://b7d18yub2hl4u" path="res://scenes/ground.tscn" id="1_cxrf3"]
+[ext_resource type="Script" uid="uid://denjq6u6lvuon" path="res://code/mapgen/hexs_height_source.gd" id="2_fsacg"]
+[ext_resource type="PackedScene" uid="uid://ckvhddih8pih4" path="res://scenes/structures/house.tscn" id="3_tp7gy"]
+[ext_resource type="PackedScene" uid="uid://bxgiwy7folhqu" path="res://scenes/structures/tree.tscn" id="4_mhgm5"]
+[ext_resource type="PackedScene" uid="uid://7aus8kw62omx" path="res://scenes/structures/small_tree.tscn" id="5_x7o67"]
+[ext_resource type="PackedScene" uid="uid://dj7s3br8gri5r" path="res://scenes/structures/mooring_mast.tscn" id="6_0uds8"]
+[ext_resource type="Material" uid="uid://bx6whd5thqdwx" path="res://materials/sea.tres" id="7_tf67t"]
+
+[sub_resource type="Resource" id="Resource_q5onr"]
+script = ExtResource("2_fsacg")
+random_seed = null
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qfnet"]
+size = Vector2(8192, 8192)
+subdivide_width = 63
+subdivide_depth = 63
+
+[node name="HexIsland" type="Node3D" unique_id=1896444308]
+
+[node name="Ground" parent="." unique_id=837981477 instance=ExtResource("1_cxrf3")]
+height_source = SubResource("Resource_q5onr")
+
+[node name="CentralVillage" type="Node3D" parent="." unique_id=326382834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 10, -1.9936124e-09)
+
+[node name="House" parent="CentralVillage" unique_id=909676520 instance=ExtResource("3_tp7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
+
+[node name="House2" parent="CentralVillage" unique_id=49871910 instance=ExtResource("3_tp7gy")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -12, 0, -26)
+
+[node name="House4" parent="CentralVillage" unique_id=237019859 instance=ExtResource("3_tp7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+
+[node name="House15" parent="CentralVillage" unique_id=1219204312 instance=ExtResource("3_tp7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -25)
+
+[node name="House14" parent="CentralVillage" unique_id=360006747 instance=ExtResource("3_tp7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 17)
+
+[node name="House16" parent="CentralVillage" unique_id=1236857401 instance=ExtResource("3_tp7gy")]
+transform = Transform3D(0.7071064, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.7071064, -49, 0, 23)
+
+[node name="House17" parent="CentralVillage" unique_id=88411807 instance=ExtResource("3_tp7gy")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, 0, 31)
+
+[node name="Tree3" parent="CentralVillage" unique_id=1023021274 instance=ExtResource("4_mhgm5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, -2)
+
+[node name="SmallTree2" parent="CentralVillage" unique_id=812930894 instance=ExtResource("5_x7o67")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 9)
+
+[node name="Tree2" parent="CentralVillage" unique_id=783494169 instance=ExtResource("4_mhgm5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, -16)
+
+[node name="MooringMast" parent="CentralVillage" unique_id=1423220962 instance=ExtResource("6_0uds8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 53)
+
+[node name="Sea" type="MeshInstance3D" parent="." unique_id=1239243666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.35, -1.9936124e-09)
+visible = false
+mesh = SubResource("PlaneMesh_qfnet")
+skeleton = NodePath("../Ground")
+surface_material_override/0 = ExtResource("7_tf67t")

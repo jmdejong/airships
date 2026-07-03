@@ -128,6 +128,7 @@ grow_vertical = 0
 unique_name_in_owner = true
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("6_p7vwb")
+action = "up"
 
 [node name="HelpButton" type="Button" parent="." unique_id=1834785924]
 custom_minimum_size = Vector2(50, 50)
@@ -166,24 +167,27 @@ grow_vertical = 0
 texture = ExtResource("8_ktti3")
 expand_mode = 2
 
-[node name="HelpMenu" type="TabContainer" parent="." unique_id=1281420601]
+[node name="HelpMenu" type="Control" parent="." unique_id=871908355]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.1
 anchor_right = 0.9
 anchor_bottom = 0.9
-offset_left = -4.0
-offset_top = -20.0
-offset_right = 4.0
-offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HelpTabs" type="TabContainer" parent="HelpMenu" unique_id=1281420601]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -31.0
+grow_horizontal = 2
 current_tab = 0
 
-[node name="Basic movement" type="RichTextLabel" parent="HelpMenu" unique_id=696537852]
+[node name="Basic movement" type="RichTextLabel" parent="HelpMenu/HelpTabs" unique_id=696537852]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Welcome to Yet-To-Be-Named-Airship-Experiment[/b]
@@ -201,7 +205,7 @@ Currently there is a debug flying mode. Press G to toggle it. When flying, press
 There is some basic (but not full) touchscreen support. Any touch event will draw a joystick on the screen that can be used to move around. Dragging the screen will look around."
 metadata/_tab_index = 0
 
-[node name="Ship controls" type="RichTextLabel" parent="HelpMenu" unique_id=801008091]
+[node name="Ship controls" type="RichTextLabel" parent="HelpMenu/HelpTabs" unique_id=801008091]
 visible = false
 layout_mode = 2
 text = "Many items in the ship are interactable.
@@ -218,9 +222,23 @@ The precise controls are different for each airship and each chair (will be cust
 Press Shift or Space to leave the chair"
 metadata/_tab_index = 1
 
+[node name="CloseHelp" type="Button" parent="HelpMenu" unique_id=1305666197]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 1.0
+anchor_right = 0.8
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close help"
+
 [connection signal="gui_input" from="Tooltip/TouchClick" to="TouchUi" method="_on_touch_click_gui_input"]
 [connection signal="select_build" from="BuildTab" to="." method="_on_build_tab_select_build"]
 [connection signal="select_remove" from="BuildTab" to="." method="_on_build_tab_select_remove"]
 [connection signal="enable_touch" from="TouchUi" to="." method="enable_touch"]
 [connection signal="touch_click" from="TouchUi" to="." method="click"]
 [connection signal="pressed" from="HelpButton" to="." method="toggle_help"]
+[connection signal="pressed" from="HelpMenu/CloseHelp" to="." method="toggle_help"]
