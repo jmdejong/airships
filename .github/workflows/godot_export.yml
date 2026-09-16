@@ -36,8 +36,8 @@ jobs:
         relative_project_path: ./
         archive_output: true
 
-    - name: set index
-      run: cp ${{ steps.export.outputs.build_directory }}/Web/*.html ${{ steps.export.outputs.build_directory }}/Web/index.html
+    # - name: set index
+      # run: cp ${{ steps.export.outputs.build_directory }}/Web/*.html ${{ steps.export.outputs.build_directory }}/Web/index.html
 
     - name: publish page
       uses: peaceiris/actions-gh-pages@v4

@@ -221,6 +221,14 @@ class Forest extends Area:
 				continue
 			#tree.position = Vector3(pos.x, 0, pos.y)
 			_structures.add(Structure.tree, height_source.pos_at(pos), 0)
+		for i in range(20):
+			var r: Hasher = rid.with(i).with(3578)
+			#var tree: Node3D = Structure.tree.scene.instantiate()# if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
+			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
+			if pos.distance_to(global_pos) > m:
+				continue
+			#tree.position = Vector3(pos.x, 0, pos.y)
+			_structures.add(Structure.small_tree, height_source.pos_at(pos), 0)
 	func center_size() -> float:
 		return 0.3
 
