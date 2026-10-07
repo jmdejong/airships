@@ -154,7 +154,8 @@ func _add_collider(collider: TerrainCollider) -> void:
 
 func prune_colliders(player_pos: Vector2) -> void:
 	for collider: TerrainCollider in $Colliders.get_children():
-		if collider.relative_axis_distance(player_pos) > 4.8:
+		# todo: don't pune colliders with active rigidbodies on them
+		if collider.relative_axis_distance(player_pos) > 4.8 and collider.relative_axis_distance(Vector2(0, 0)) > 6:
 			loaded_colliders.erase(collider.region_id)
 			collider.queue_free()
 		else:

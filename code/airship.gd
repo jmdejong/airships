@@ -23,7 +23,8 @@ func _ready() -> void:
 	calculate_components_physics()
 	calculate_components_forces()
 	calculate_components_shapes()
-	await get_tree().create_timer(0.05).timeout
+	await get_tree().physics_frame
+	await get_tree().physics_frame
 	check_connections()
 	for child in get_children():
 		if child is Component and child != $Components:
@@ -111,6 +112,7 @@ func check_connections() -> void:
 		var new_ship: Airship = preload("res://scenes/airship.tscn").instantiate()
 		ndetached += 1
 		new_ship.name = name + "_D" + str(ndetached)
+		prints("disconnected!", name, new_ship.name)
 		new_ship.transform = transform
 		new_ship.linear_velocity = linear_velocity
 		new_ship.angular_velocity = angular_velocity
