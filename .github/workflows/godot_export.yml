@@ -15,8 +15,7 @@ jobs:
     steps:
 
     - name: checkout
-      uses: actions/checkout@v4.1.4
-
+      uses: actions/checkout@v7
 
     - name: calculate version
       run: echo "v0.1.${{ github.run_number }}" > version.txt
@@ -27,23 +26,24 @@ jobs:
 
     - name: export game
       id: export
-      uses: firebelley/godot-export@v5.2.1
+      uses: firebelley/godot-export@v8.0.0
       with:
         # Defining all the required inputs
-        godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.5.1-stable/Godot_v4.5.1-stable_linux.x86_64.zip
-        godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.5.1-stable/Godot_v4.5.1-stable_export_templates.tpz
+        godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+        godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
         cache: true
         relative_project_path: ./
         archive_output: true
 
-    # - name: set index
-      # run: cp ${{ steps.export.outputs.build_directory }}/Web/*.html ${{ steps.export.outputs.build_directory }}/Web/index.html
-
-    - name: publish page
-      uses: peaceiris/actions-gh-pages@v4
+    - name: Upload static files as artifact
+      id: upload_pages
+      uses: actions/upload-pages-artifact@v5
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{ steps.export.outputs.build_directory }}/Web
+        path: ${{ steps.export.outputs.build_directory }}/Web/
+
+    - name: Deploy to GitHub Pages
+      id: deploy_pages
+      uses: actions/deploy-pages@v4
 
     - name: create release
       uses: ncipollo/release-action@v1.14.0
