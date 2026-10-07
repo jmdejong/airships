@@ -24,10 +24,14 @@ config/icon="res://icon.svg"
 Atmosphere="*res://code/atmosphere.gd"
 Global="*res://code/global.gd"
 Components="*uid://b6w0k32w0y3p8"
+Measure="*uid://pjyv6o1mp278"
+Hrc="*uid://cb31qahkbpwec"
+FaceMeshes="*uid://cljcl513hr40f"
 
 [debug]
 
 gdscript/warnings/shadowed_variable=0
+gdscript/warnings/integer_division=0
 
 [display]
 
@@ -191,8 +195,11 @@ duplicate_ship={
 
 [physics]
 
+common/physics_ticks_per_second=30
+common/max_physics_steps_per_frame=1
 3d/physics_engine="Jolt Physics"
 3d/default_gravity=9.81
+common/physics_interpolation=true
 
 [rendering]
 

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://daylhmvtjod2b"]
+
+[ext_resource type="Script" uid="uid://ceeor1jeib1wr" path="res://code/terrain/region.gd" id="1_hx7ro"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_it4ap"]
+size = Vector2(1, 1)
+subdivide_width = 511
+subdivide_depth = 511
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_hx7ro"]
+resource_local_to_scene = true
+map_width = 3
+map_depth = 3
+map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="Region" type="Node3D" unique_id=2038851073]
+script = ExtResource("1_hx7ro")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1551868446]
+visible = false
+mesh = SubResource("PlaneMesh_it4ap")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=258925379]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1353660230]
+shape = SubResource("HeightMapShape3D_hx7ro")

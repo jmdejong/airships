@@ -27,7 +27,7 @@ var destination: Variant = null
 @onready var lifeline: Lifeline = $Lifeline
 
 enum Posture {Standing, Sitting, FlyDebug}
-var posture: Posture = Posture.Standing:
+@export var posture: Posture = Posture.Standing:
 	set(v):
 		if posture == v:
 			return

@@ -8,8 +8,14 @@ var areas: Dictionary[Vector2i, Area] = {}
 @export var hex_rad: float = 192
 @export var random_seed = 3851644
 @export var center_height: int = 10
+@export var height_source_material: ShaderMaterial = _default_height_source_material()
 
 var hasher: Hasher
+
+static func _default_height_source_material() -> ShaderMaterial:
+	var mat: ShaderMaterial = ShaderMaterial.new()
+	mat.shader = preload("res://code/shaders/hexs_height.gdshader")
+	return mat
 
 func _init() -> void:
 	hasher = Hasher.new(random_seed)
@@ -45,6 +51,81 @@ func _init() -> void:
 	
 	color_noise.seed = hasher.with(44).randi()
 	color_noise.frequency = 0.05
+	_handle_hexes()
+
+func _handle_hexes() -> void:
+	var hexes_x: int = 48
+	var lowest_hex: Vector2i = Vector2i(-hexes_x/2, -hexes_x/2)
+	height_source_material.set_shader_parameter("hexes_x", hexes_x)
+	height_source_material.set_shader_parameter("lowest_hex", lowest_hex)
+	var hexes_vecs: PackedVector4Array = PackedVector4Array()
+	hexes_vecs.resize(hexes_x * hexes_x)
+	for y in hexes_x:
+		for x in hexes_x:
+			var ind: int = y * hexes_x + x
+			var area_id = Vector2i(x, y) + lowest_hex
+			var area: Area = get_area(area_id)
+			hexes_vecs[ind] = Vector4(area.height, area.center_size(), 0, 0)
+	height_source_material.set_shader_parameter("hexes", hexes_vecs)
+	height_source_material.set_shader_parameter("hex_rad", hex_rad)
+
+
+func buffers_at(area: Rect2, segments: int) -> TileBuffers:
+	var height_scale: float = 256
+	var height_min: float = -48
+	var step: Vector2 = area.size / segments
+	var height_img: Image = height_image_at(
+		AABB(Vector3(area.position.x, height_min, area.position.y),Vector3(area.size.x, height_scale, area.size.y)),
+		segments + 1
+	).height
+	height_img.convert(Image.Format.FORMAT_RH)
+	#var height_data: PackedFloat16Array = height_img.get_data().
+	#var normal_img: Image = normal_texture.get_image()
+	#normal_img.convert(Image.Format.FORMAT_RGB8)
+	const texture_size: float = 8
+	var buf: TileBuffers = TileBuffers.new(area, segments)
+	var size: Vector2i = buf.size
+	for y in size.y:
+		for x in size.x:
+			var ind: int = x + y*size.x
+			var tile: Vector2 = Vector2(x, y)
+			var pos: Vector2 = buf.tile_to_pos * tile
+			var height: float = height_img.get_pixel(x, y).r * height_scale + height_min
+			var position: Vector3 = Vector3(pos.x, height, pos.y)
+			buf.heights[ind] = position.y
+			buf.positions[ind] = position
+			buf.colors[ind] = color_modifier(pos)
+			buf.tex_uvs[ind] = pos / texture_size
+			buf.normals[ind] = -Vector3(step.x, height_img.get_pixel(x+1, y).r * height_scale + height_min - height, 0) \
+				.cross(Vector3(0, height_img.get_pixel(x, y+1).r * height_scale + height_min - height, step.y)) \
+				.normalized()
+	return buf
+
+func height_image_at(area: AABB, segments: int) -> ImageBuffers:
+	var step: Vector2 = Vector2(area.size.x, area.size.z) / segments
+	var resolution: int = segments + 1
+	var height_texture: DrawableTexture2D = DrawableTexture2D.new()
+	height_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBAH)
+	var normal_texture: DrawableTexture2D = DrawableTexture2D.new()
+	normal_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBA8)
+	height_source_material.set_shader_parameter("area_pos", area.position)
+	height_source_material.set_shader_parameter("area_size", area.size)
+	height_source_material.set_shader_parameter("area_segments", segments)
+	height_source_material.set_shader_parameter("step_size", step)
+	height_texture.blit_rect_multi(
+		Rect2i(Vector2i.ZERO, Vector2i.ONE * resolution),
+		[preload("res://icon.svg")],
+		[normal_texture],
+		Color.BLACK,
+		0,
+		height_source_material
+	)
+	var image_buffers: ImageBuffers = ImageBuffers.new()
+	image_buffers.height = height_texture.get_image()
+	image_buffers.normal = normal_texture.get_image()
+	image_buffers.area = area
+	image_buffers.segments = segments
+	return image_buffers
 
 func color_modifier(pos: Vector2) -> Color:
 	return (color_noise.get_noise_2dv(pos)+9)/10 * Color.WHITE
@@ -75,7 +156,7 @@ func _combine_areas(area_a: Area, area_b: Area, area_c: Area, w: Vector3, pos: V
 	var center_influences: Vector3 = influences(w, 0.8)
 	w = influences(w, center_influences.x * area_a.center_size() + center_influences.y * area_b.center_size() + center_influences.z * area_c.center_size())
 	var n: float = clamp((1-max(w.x, w.y, w.z))*5, 0, 1)
-	return float(area_a.height) * w.x + float(area_b.height) * w.y + float(area_c.height) * w.z  + noise.get_noise_2d(pos.x, pos.y) * n * 5.0
+	return float(area_a.height) * w.x + float(area_b.height) * w.y + float(area_c.height) * w.z + noise.get_noise_2d(pos.x, pos.y) * n * 5.0
 
 
 func influences(w: Vector3, center_size: float) -> Vector3:

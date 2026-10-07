@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dofsa2q4wvi7o"]
+
+[ext_resource type="PackedScene" uid="uid://c82ueiacjfp87" path="res://scenes/day_environment.tscn" id="1_30hiq"]
+[ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="2_cp41f"]
+[ext_resource type="PackedScene" uid="uid://csl5q8o83348y" path="res://scenes/terrain/terrain.tscn" id="3_y1nu0"]
+
+[node name="TerrainWorld" type="Node3D" unique_id=37726284]
+
+[node name="DayEnvironment" parent="." unique_id=1125925271 instance=ExtResource("1_30hiq")]
+
+[node name="Player" parent="." unique_id=903246191 instance=ExtResource("2_cp41f")]
+transform = Transform3D(-0.96592593, 0, 0.25881907, 0, 1, 0, -0.25881907, 0, -0.96592593, -15, 64, -10)
+posture = 2
+
+[node name="Terrain" parent="." unique_id=999141092 instance=ExtResource("3_y1nu0")]

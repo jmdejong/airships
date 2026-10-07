@@ -3,8 +3,8 @@ extends Node3D
 
 @export var height_source: HeightSource = HexsHeightSource.new()
 
-@export var level: int = 9
-@export var segments: int = 16
+@export var level: int = 6
+@export var segments: int = 32
 @export var min_vertex_size: float = 1
 var size: float = segments * 2**level * min_vertex_size
 var area: Rect2 = Rect2(-size/2, -size/2, size, size)

@@ -152,7 +152,7 @@ func update_camera(pos: Vector3, tasks_per_tick: Counter) -> void:
 	var nearest_to_cam: Vector3 = pos.clamp(aabb.position, aabb.end)
 	var distance: float = pos.distance_to(nearest_to_cam)
 	var my_size: float = area.size.length()
-	if self_active and distance < my_size and level > 0 and tasks_per_tick.value > 0 and height_source.prepare_area(area, config.segments * 2):
+	if self_active and distance < my_size * 0.667 and level > 0 and tasks_per_tick.value > 0 and height_source.prepare_area(area, config.segments * 2):
 		tasks_per_tick.value -= 1
 		self_active = false
 		subfaces_active = true

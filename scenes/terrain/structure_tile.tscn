@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ie8oj71pyxvm"]
+
+[ext_resource type="Script" uid="uid://cn0gu2xuxgjup" path="res://code/terrain/structure_tile.gd" id="1_rl7ju"]
+
+[node name="StructureTile" type="Node3D" unique_id=723407401]
+script = ExtResource("1_rl7ju")

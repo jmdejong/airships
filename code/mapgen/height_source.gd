@@ -37,6 +37,9 @@ func buffers_at(area: Rect2, segments: int) -> TileBuffers:
 	buf.normals[indbr] = normalbr
 	return buf
 
+func height_image_at(_area: AABB, _segments: int) -> ImageBuffers:
+	return null
+
 func prepare_area(_area: Rect2, _segments: int) -> bool:
 	return true
 
