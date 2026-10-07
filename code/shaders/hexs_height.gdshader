@@ -10,6 +10,7 @@ uniform vec4[2304] hexes;
 uniform int hexes_x;
 uniform ivec2 lowest_hex;
 uniform float hex_rad;
+uniform sampler2D height_gradient : repeat_disable;
 
 const float SQRT3 = 1.7320508075688772;
 
@@ -81,4 +82,6 @@ void blit() {
 		vec3(0, height_at(pos+vec2(0, 0.1))-height, 0.1)
 	));
 	COLOR1 = vec4(normal/2.0+vec3(0.5), 1);
+	COLOR2 = vec4(texture(height_gradient, vec2(height/100.0+0.5, 0)).xyz, 1);
+	//COLOR2 = vec4(0, height/100.0+0.5, 0, 1);
 }

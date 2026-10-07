@@ -112,7 +112,6 @@ func check_connections() -> void:
 		var new_ship: Airship = preload("res://scenes/airship.tscn").instantiate()
 		ndetached += 1
 		new_ship.name = name + "_D" + str(ndetached)
-		prints("disconnected!", name, new_ship.name)
 		new_ship.transform = transform
 		new_ship.linear_velocity = linear_velocity
 		new_ship.angular_velocity = angular_velocity

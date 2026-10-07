@@ -1,4 +1,4 @@
-#@tool
+@tool
 extends Node3D
 
 var super_region_level: int = 12
@@ -17,14 +17,15 @@ var loaded_colliders: Dictionary[Vector3i, TerrainCollider] = {}
 var faces: Dictionary[Vector3i, TerrainFace] = {}
 var structure_tiles: Dictionary[Vector3i, StructureTile] = {}
 var map_changed: bool = true
-var height_source = HexsHeightSource.new()
+@export var height_source: HeightSource
 @export var base_ground_material: ShaderMaterial
 
 func _ready() -> void:
 	for t: Vector2i in [Vector2i(0, 0), Vector2i(0, -1), Vector2i(-1, 0), Vector2i(-1, -1)]:
 		load_region_at(Vector3i(t.x, t.y, super_region_level))
 		load_region_at(Vector3i(t.x, t.y, region_level))
-		build_collider_at(Vector3i(t.x, t.y, collider_level))
+		if not Engine.is_editor_hint():
+			build_collider_at(Vector3i(t.x, t.y, collider_level))
 
 func _physics_process(_delta: float) -> void:
 	var camera: Camera3D = get_viewport().get_camera_3d()
@@ -40,7 +41,8 @@ func _physics_process(_delta: float) -> void:
 		prune_colliders(player_pos)
 		prune_structures(player_pos)
 	load_regions()
-	build_one_collider(player_pos)
+	if not Engine.is_editor_hint():
+		build_one_collider(player_pos)
 	build_structures(player_pos)
 	if map_changed:
 		update_faces(player_pos)

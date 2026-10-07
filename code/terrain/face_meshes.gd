@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 const face_level: int = 5

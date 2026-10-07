@@ -3,7 +3,6 @@ class_name Region
 extends Node3D
 
 var area: Rect2
-var area3: AABB
 var region_id: Vector3i
 var segments: int
 var image_buffers: ImageBuffers
@@ -19,19 +18,18 @@ static func create(region_id: Vector3i, segments: int, height_source: HeightSour
 
 func initialize(height_source: HeightSource, base_material: ShaderMaterial) -> void:
 	area = Hrc.hrc_area(region_id)
-	area3 = AABB(
-		Vector3(area.position.x, -48, area.position.y),
-		Vector3(area.size.x, 256, area.size.y)
-	)
+
 	position = Vector3(area.get_center().x, 0, area.get_center().y)
-	image_buffers = height_source.height_image_at(area3, segments)
+	image_buffers = height_source.height_image_at(area, segments)
 	var height_tex: ImageTexture = ImageTexture.create_from_image(image_buffers.height)
 	var normal_tex: ImageTexture = ImageTexture.create_from_image(image_buffers.normal)
+	var color_tex: ImageTexture = ImageTexture.create_from_image(image_buffers.color)
 	ground_material = base_material.duplicate()
 	ground_material.set_shader_parameter("height_tex", height_tex)
 	ground_material.set_shader_parameter("normal_tex", normal_tex)
-	ground_material.set_shader_parameter("position", area3.position)
-	ground_material.set_shader_parameter("size", area3.size)
+	ground_material.set_shader_parameter("color_tex", color_tex)
+	ground_material.set_shader_parameter("position", image_buffers.area.position)
+	ground_material.set_shader_parameter("size", image_buffers.area.size)
 	ground_material.set_shader_parameter("subtiles", segments)
 
 func draw_terrain() -> void:

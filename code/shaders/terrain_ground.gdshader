@@ -3,6 +3,7 @@ render_mode world_vertex_coords, specular_disabled, diffuse_lambert;
 
 uniform sampler2D height_tex;
 uniform sampler2D normal_tex;
+uniform sampler2D color_tex : source_color;
 uniform vec3 position;
 uniform vec3 size;
 uniform int subtiles;
@@ -18,10 +19,11 @@ void vertex() {
 	VERTEX.y = texture(height_tex, uv).r * size.y + position.y;
 	NORMAL = texture(normal_tex, uv).xyz * 2.0 - vec3(1.0);
 	world_position = VERTEX;
+	COLOR = texture(color_tex, uv);
 }
 
 void fragment() {
-	vec2 tex_uv = fract(world_position.xz / texture_size);
+	vec2 tex_uv = world_position.xz / texture_size;
 	ALBEDO = texture(ground_texture, tex_uv).xyz * COLOR.xyz;
 	//float seam_distance = min(min(uv.x, uv.y), min(1.0-uv.x, 1.0-uv.y));
 	//float seam_marking = seam_distance > 0.002 ? 0.0 : 0.5;
