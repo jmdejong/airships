@@ -11,6 +11,8 @@ uniform int hexes_x;
 uniform ivec2 lowest_hex;
 uniform float hex_rad;
 uniform sampler2D height_gradient : repeat_disable;
+uniform float absolute_minimum;
+uniform float height_resolution;
 
 const float SQRT3 = 1.7320508075688772;
 
@@ -73,10 +75,20 @@ float height_at(vec2 pos) {
 	return hex_height(hex_a) * w.x + hex_height(hex_b) * w.y + hex_height(hex_c) * w.z + fnlGetNoise2D(noise, pos.x, pos.y) * n * 5.0;
 }
 
+vec3 encode_height(float height) {
+	int h = int(floor((height - absolute_minimum) * height_resolution));
+	return vec3(
+		float(h%256) / 255.0,
+		float((h/256)%256) / 255.0,
+		0
+		//float((h/256/256)%256) / 255.0
+	);
+}
+
 void blit() {
 	vec2 pos = (FRAGCOORD.xy - vec2(0.5)) * step_size + area_pos.xz;
 	float height = height_at(pos);
-	COLOR0 = vec4((height - area_pos.y) / area_size.y, 0, 0, 1);
+	COLOR0 = vec4(encode_height(height), 1);
 	vec3 normal = -normalize(cross(
 		vec3(0.1, height_at(pos+vec2(0.1, 0))-height, 0),
 		vec3(0, height_at(pos+vec2(0, 0.1))-height, 0.1)

@@ -43,7 +43,7 @@ func initialize() -> void:
 	%Mesh.mesh = FaceMeshes.default_mesh
 	%Mesh.scale = Vector3(area.size.x, 1, area.size.y)
 	%Water.scale = Vector3(area.size.x, 1, area.size.y)
-	%Mesh.custom_aabb = AABB(Vector3(-0.5, -512, -0.5), Vector3(1, 2048, 1))
+	%Mesh.custom_aabb = AABB(Vector3(-0.5, -1024, -0.5), Vector3(1, 2048, 1))
 	%Mesh.material_override = material
 
 func set_neighbour(direction: Vector2i, exists: bool) -> void:

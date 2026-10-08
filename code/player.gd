@@ -113,12 +113,13 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	elif posture == Posture.Sitting:
 		pass
 	
-	%UI.set_info_text("fps: %3.1f\nspeed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f)\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\n%s" % [
+	%UI.set_info_text("fps: %3.1f\nspeed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f) %3.2f\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\n%s" % [
 		Engine.get_frames_per_second(),
 		Vector2(linear_velocity.x, linear_velocity.z).length(),
 		position.x,
 		position.y,
 		position.z,
+		$Head/Camera3D.global_position.y,
 		Atmosphere.temperature(position.y),
 		Atmosphere.pressure(position.y) / 1000,
 		Atmosphere.air_density(position.y),

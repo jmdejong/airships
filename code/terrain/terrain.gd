@@ -18,7 +18,6 @@ var faces: Dictionary[Vector3i, TerrainFace] = {}
 var structure_tiles: Dictionary[Vector3i, StructureTile] = {}
 var map_changed: bool = true
 @export var height_source: HeightSource
-@export var base_ground_material: ShaderMaterial
 
 func _ready() -> void:
 	for t: Vector2i in [Vector2i(0, 0), Vector2i(0, -1), Vector2i(-1, 0), Vector2i(-1, -1)]:
@@ -58,7 +57,7 @@ func region_for(hrc: Vector3i) -> Region:
 	return region
 
 func load_region_at(region_id: Vector3i) -> void:
-	var region: Region = Region.create(region_id, region_step_count, height_source, base_ground_material)
+	var region: Region = Region.create(region_id, region_step_count, height_source)
 	loaded_regions[region_id] = region
 	if region_id.z == super_region_level or faces.has(region_id):
 		add_face(region_id)

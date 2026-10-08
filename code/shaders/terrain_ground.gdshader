@@ -12,11 +12,20 @@ uniform float texture_size = 2;
 
 varying vec3 world_position;
 varying vec2 uv;
+uniform float absolute_minimum;
+uniform float red_scale;
+uniform float green_scale;
+uniform float blue_scale;
+
+float decode_height(vec3 encoded) {
+	//return encoded.g * green_scale;
+	return absolute_minimum + encoded.r * red_scale + encoded.g * green_scale + encoded.b * blue_scale;
+}
 
 void vertex() {
 	vec2 tile_size = size.xz / float(subtiles);
 	uv = (VERTEX.xz - position.xz + tile_size / 2.0) / (size.xz + tile_size);
-	VERTEX.y = texture(height_tex, uv).r * size.y + position.y;
+	VERTEX.y = decode_height(texture(height_tex, uv).rgb);// * size.y + position.y;
 	NORMAL = texture(normal_tex, uv).xyz * 2.0 - vec3(1.0);
 	world_position = VERTEX;
 	COLOR = texture(color_tex, uv);

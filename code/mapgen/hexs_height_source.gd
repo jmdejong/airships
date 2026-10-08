@@ -8,11 +8,18 @@ var areas: Dictionary[Vector2i, Area] = {}
 @export var hex_rad: float = 192
 @export var random_seed = 3851644
 @export var center_height: int = 10
-@export var height_source_material: ShaderMaterial = _default_height_source_material()
+var height_source_material: ShaderMaterial = _default_height_source_material()
 @export var height_gradient: GradientTexture1D
 var height_scale: float = 128
 var height_min: float = -32
 var hasher: Hasher
+var absolute_minimum: float = -1024
+var height_resolution: float = 16.0
+var red_scale: float = 255.0/height_resolution
+var green_scale: float = 255.0*256.0/height_resolution
+var blue_scale: float = 0
+
+@export var base_terrain_material: ShaderMaterial
 
 static func _default_height_source_material() -> ShaderMaterial:
 	var mat: ShaderMaterial = ShaderMaterial.new()
@@ -103,7 +110,7 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	var area3 = AABB(Vector3(area.position.x, height_min, area.position.y),Vector3(area.size.x, height_scale, area.size.y))
 	var resolution: int = segments + 1
 	var height_texture: DrawableTexture2D = DrawableTexture2D.new()
-	height_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBAH)
+	height_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBA8)
 	var normal_texture: DrawableTexture2D = DrawableTexture2D.new()
 	normal_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBA8)
 	var color_texture: DrawableTexture2D = DrawableTexture2D.new()
@@ -113,7 +120,8 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	height_source_material.set_shader_parameter("area_segments", segments)
 	height_source_material.set_shader_parameter("step_size", step)
 	height_source_material.set_shader_parameter("height_gradient", ImageTexture.create_from_image(height_gradient.get_image()))
-	
+	height_source_material.set_shader_parameter("absolute_minimum", absolute_minimum)
+	height_source_material.set_shader_parameter("height_resolution", height_resolution)
 	height_texture.blit_rect_multi(
 		Rect2i(Vector2i.ZERO, Vector2i.ONE * resolution),
 		[preload("res://icon.svg")],
@@ -126,9 +134,14 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	image_buffers.height = height_texture.get_image()
 	image_buffers.normal = normal_texture.get_image()
 	image_buffers.color = color_texture.get_image()
-	#image_buffers.height.save_png("user://color_"+str(area)+".png")
+	#image_buffers.height.save_png("user://height_"+str(area)+".png")
 	image_buffers.area = area3
 	image_buffers.segments = segments
+	image_buffers.absolute_minimum = absolute_minimum
+	image_buffers.red_scale = red_scale
+	image_buffers.green_scale = green_scale
+	image_buffers.blue_scale = blue_scale
+	image_buffers.base_material = base_terrain_material
 	return image_buffers
 
 func color_modifier(pos: Vector2) -> Color:

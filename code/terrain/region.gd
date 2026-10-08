@@ -9,28 +9,19 @@ var image_buffers: ImageBuffers
 var root_face: TerrainFace
 var ground_material: ShaderMaterial
 
-static func create(region_id: Vector3i, segments: int, height_source: HeightSource, base_material: ShaderMaterial) -> Region:
+static func create(region_id: Vector3i, segments: int, height_source: HeightSource) -> Region:
 	var region = preload("res://scenes/terrain/region.tscn").instantiate()
 	region.region_id = region_id
 	region.segments = segments
-	region.initialize(height_source, base_material)
+	region.initialize(height_source)
 	return region
 
-func initialize(height_source: HeightSource, base_material: ShaderMaterial) -> void:
+func initialize(height_source: HeightSource) -> void:
 	area = Hrc.hrc_area(region_id)
 
 	position = Vector3(area.get_center().x, 0, area.get_center().y)
 	image_buffers = height_source.height_image_at(area, segments)
-	var height_tex: ImageTexture = ImageTexture.create_from_image(image_buffers.height)
-	var normal_tex: ImageTexture = ImageTexture.create_from_image(image_buffers.normal)
-	var color_tex: ImageTexture = ImageTexture.create_from_image(image_buffers.color)
-	ground_material = base_material.duplicate()
-	ground_material.set_shader_parameter("height_tex", height_tex)
-	ground_material.set_shader_parameter("normal_tex", normal_tex)
-	ground_material.set_shader_parameter("color_tex", color_tex)
-	ground_material.set_shader_parameter("position", image_buffers.area.position)
-	ground_material.set_shader_parameter("size", image_buffers.area.size)
-	ground_material.set_shader_parameter("subtiles", segments)
+	ground_material = image_buffers.terrain_material()
 
 func draw_terrain() -> void:
 	var mesh_shape: PlaneMesh = $MeshInstance3D.mesh
