@@ -1,4 +1,5 @@
 @tool
+class_name Terrain
 extends Node3D
 
 var super_region_level: int = 12
@@ -168,7 +169,7 @@ func build_structures(player_pos: Vector2) -> void:
 		for y: int in range(-structure_load_distance, structure_load_distance + 1):
 			var tile_id: Vector3i = Hrc.world_to_hrc_id(player_pos, structure_level) + Vector3i(x, y, 0)
 			if not structure_tiles.has(tile_id):
-				var structure_tile: StructureTile = StructureTile.create(tile_id, height_source)
+				var structure_tile: StructureTile = StructureTile.create(tile_id, height_source, self)
 				structure_tiles[tile_id] = structure_tile
 				$Structures.add_child(structure_tile)
 				return
@@ -178,3 +179,11 @@ func prune_structures(player_pos: Vector2) -> void:
 		if Hrc.relative_axis_distance(structure.tile_id, player_pos) > 2.8:
 			structure_tiles.erase(structure.tile_id)
 			structure.queue_free()
+
+func height_at(pos: Vector2) -> float:
+	var region_id: Vector3i = Hrc.world_to_hrc_id(pos, region_level)
+	if not loaded_regions.has(region_id):
+		region_id = Hrc.world_to_hrc_id(pos, super_region_level)
+		if not loaded_regions.has(region_id):
+			return 200
+	return loaded_regions[region_id].height_at(pos)

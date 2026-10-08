@@ -13,7 +13,14 @@ var blue_scale: float
 var base_material: ShaderMaterial
 
 func height_at_pixel(pix: Vector2i) -> float:
-	return height.get_pixelv(pix).r * area.size.y + area.position.y
+	var c: Color = height.get_pixelv(pix)
+	return absolute_minimum + c.r * red_scale + c.g * green_scale
+
+func height_at(pos: Vector2) -> float:
+	return height_at_pixel(Vector2i(
+		round((pos.x - area.position.x) / area.size.x * segments),
+		round((pos.y - area.position.z) / area.size.z * segments)
+	))
 
 func height_sub_image(sub_area: Rect2i) -> Image:
 	var area2: Rect2i = Rect2i(int(area.position.x), int(area.position.z), segments, segments)

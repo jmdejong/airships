@@ -49,3 +49,6 @@ func build_collider() -> void:
 func relative_axis_distance(to: Vector2) -> float:
 	var d: Vector2 = (to - area.get_center()).abs() / area.size - Vector2(0.5, 0.5)
 	return max(d.x, d.y)
+
+func height_at(pos: Vector2) -> float:
+	return image_buffers.height_at(pos)
