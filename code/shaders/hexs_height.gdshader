@@ -69,7 +69,7 @@ float height_at(vec2 pos) {
 	w = influences(w, center_influences.x * hex_center_size(hex_a) + center_influences.y * hex_center_size(hex_b) + center_influences.z * hex_center_size(hex_c));
 	float n = clamp((1.0-max(w.x, max(w.y, w.z))) * 5.0, 0.0, 1.0);
 	fnl_state noise = fnlCreateState(5346);
-	noise.octaves = 3;
+	noise.octaves = 4;
 	noise.frequency = 0.02;
 	//noise.noise_type = FNL_NOISE_OPENSIMPLEX2S;
 	return hex_height(hex_a) * w.x + hex_height(hex_b) * w.y + hex_height(hex_c) * w.z + fnlGetNoise2D(noise, pos.x, pos.y) * n * 5.0;

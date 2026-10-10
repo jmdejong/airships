@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://d0ani4rjc7lwx"]
+
+[ext_resource type="Shader" uid="uid://caidppaxoo31b" path="res://code/shaders/sea.gdshader" id="1_fa61x"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fa61x"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_cq21f"]
+sky_material = SubResource("ProceduralSkyMaterial_fa61x")
+
+[sub_resource type="Environment" id="Environment_leeok"]
+background_mode = 2
+sky = SubResource("Sky_cq21f")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_it4ap"]
+size = Vector2(1024, 1024)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_00jve"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4xpdj"]
+noise = SubResource("FastNoiseLite_00jve")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cdsqw"]
+render_priority = 0
+shader = ExtResource("1_fa61x")
+shader_parameter/base_color = Color(0.06666667, 0.06666667, 0.53333336, 1)
+shader_parameter/normal_map = SubResource("NoiseTexture2D_4xpdj")
+
+[sub_resource type="TorusMesh" id="TorusMesh_cdsqw"]
+inner_radius = 24.0
+outer_radius = 32.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_it4ap"]
+size = Vector3(10, 40, 10)
+
+[node name="Node3D" type="Node3D" unique_id=964828838]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1819489954]
+environment = SubResource("Environment_leeok")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2115535122]
+transform = Transform3D(-0.8660255, -0.43301278, 0.25000006, 0.49999997, -0.75, 0.43301266, 2.9802322e-08, 0.5, 0.86602545, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 1.0
+
+[node name="Water" type="MeshInstance3D" parent="." unique_id=818290457]
+mesh = SubResource("PlaneMesh_it4ap")
+surface_material_override/0 = SubResource("ShaderMaterial_cdsqw")
+
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=576901115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+mesh = SubResource("TorusMesh_cdsqw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1322453122]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, -12.75, -12.25, 0)
+mesh = SubResource("BoxMesh_it4ap")

@@ -1,13 +1,26 @@
 [gd_scene format=3 uid="uid://bk1b323m44txy"]
 
 [ext_resource type="Script" uid="uid://coa630podct50" path="res://code/terrain/terrain_face.gd" id="1_ixoj5"]
-[ext_resource type="Material" uid="uid://bx6whd5thqdwx" path="res://materials/sea.tres" id="2_1hx56"]
+[ext_resource type="Shader" uid="uid://caidppaxoo31b" path="res://code/shaders/sea.gdshader" id="2_ixoj5"]
 [ext_resource type="Material" uid="uid://q4n5nwvhivs4" path="res://materials/groundsh.tres" id="3_dqy70"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jg3am"]
 size = Vector2(1, 1)
 subdivide_width = 3
 subdivide_depth = 3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cq21f"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fa61x"]
+noise = SubResource("FastNoiseLite_cq21f")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_egbr2"]
+render_priority = 0
+shader = ExtResource("2_ixoj5")
+shader_parameter/base_color = Color(0.06666667, 0.06666667, 0.53333336, 1)
+shader_parameter/normal_map = SubResource("NoiseTexture2D_fa61x")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hn2sr"]
 custom_aabb = AABB(-16, -1024, -16, 32, 4096, 32)
@@ -22,9 +35,10 @@ script = ExtResource("1_ixoj5")
 unique_name_in_owner = true
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_jg3am")
-surface_material_override/0 = ExtResource("2_1hx56")
+surface_material_override/0 = SubResource("ShaderMaterial_egbr2")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=919369572]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = ExtResource("3_dqy70")
 mesh = SubResource("PlaneMesh_hn2sr")
