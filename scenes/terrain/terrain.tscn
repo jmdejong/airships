@@ -9,6 +9,8 @@ colors = PackedColorArray(0.8, 0.8, 0.8, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_uqx3c"]
 frequency = 0.08
+domain_warp_enabled = true
+domain_warp_amplitude = 10.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ine53"]
 width = 256

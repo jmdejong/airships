@@ -16,6 +16,11 @@ height = 1.8
 radius = 0.3
 height = 0.8
 
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_fa61x"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 3800.0
+dof_blur_far_transition = 500.0
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_fjrip"]
 top_radius = 0.01
 bottom_radius = 0.01
@@ -54,6 +59,7 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1420705398]
+attributes = SubResource("CameraAttributesPractical_fa61x")
 current = true
 near = 0.1
 

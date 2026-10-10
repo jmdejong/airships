@@ -28,4 +28,3 @@ shadow_enabled = true
 shadow_bias = 0.05
 shadow_opacity = 0.9
 shadow_blur = 3.0
-directional_shadow_mode = 1
