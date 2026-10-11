@@ -28,10 +28,10 @@ static func _default_height_source_material() -> ShaderMaterial:
 
 func _init() -> void:
 	hasher = Hasher.new(random_seed)
-	noise.fractal_octaves = 3
+	noise.fractal_octaves = 4
 	noise.seed = hasher.with(3).randi()
 	noise.frequency = 0.02
-	noise.noise_type = FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH
+	#noise.noise_type = FastNoiseLite.NoiseType.TYPE_SIMPLEX_SMOOTH
 	var arw: int = hexes_to_shore+2
 	for z: int in range(-arw, arw+1):
 		for x: int in range(max(-arw, -z-arw), min(arw, arw-z)+1):
@@ -122,6 +122,7 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	height_source_material.set_shader_parameter("height_gradient", ImageTexture.create_from_image(height_gradient.get_image()))
 	height_source_material.set_shader_parameter("absolute_minimum", absolute_minimum)
 	height_source_material.set_shader_parameter("height_resolution", height_resolution)
+	height_source_material.set_shader_parameter("noise_between_seed", noise.seed)
 	height_texture.blit_rect_multi(
 		Rect2i(Vector2i.ZERO, Vector2i.ONE * resolution),
 		[preload("res://icon.svg")],

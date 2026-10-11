@@ -17,6 +17,9 @@ func initialize(image_buffers: ImageBuffers) -> void:
 	var img_data: PackedByteArray = _get_img_data(image_buffers)
 	var map_data: PackedFloat32Array = _create_collider_data(img_data, image_buffers.absolute_minimum, image_buffers.red_scale, image_buffers.green_scale, image_buffers.blue_scale)
 	_apply_collider_data(map_data, r)
+	var loaded_shape: BoxShape3D = BoxShape3D.new()
+	loaded_shape.size  = Vector3(area.size.x, 16384, area.size.y)
+	$LoadedArea/CollisionShape3D.shape = loaded_shape
 
 func _get_img_data(image_buffers: ImageBuffers) -> PackedByteArray:
 	return image_buffers.height_sub_image(area).get_data()

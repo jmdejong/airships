@@ -192,6 +192,7 @@ duplicate_ship={
 3d_physics/layer_7="BuildAttach"
 3d_physics/layer_8="clickable"
 3d_physics/layer_9="Landing"
+3d_physics/layer_10="terrain_active"
 
 [physics]
 

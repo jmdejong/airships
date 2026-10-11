@@ -1,11 +1,55 @@
 [gd_scene format=3 uid="uid://cxbhh4qjufira"]
 
 [ext_resource type="PackedScene" uid="uid://csl5q8o83348y" path="res://scenes/terrain/terrain.tscn" id="1_g8pm3"]
+[ext_resource type="Shader" uid="uid://b8w8v1030vv4h" path="res://code/shaders/terrain_ground.gdshader" id="2_fsacg"]
+[ext_resource type="Script" uid="uid://denjq6u6lvuon" path="res://code/mapgen/hexs_height_source.gd" id="3_mhgm5"]
 [ext_resource type="PackedScene" uid="uid://ckvhddih8pih4" path="res://scenes/structures/house.tscn" id="3_tp7gy"]
 [ext_resource type="PackedScene" uid="uid://bxgiwy7folhqu" path="res://scenes/structures/tree.tscn" id="4_mhgm5"]
 [ext_resource type="PackedScene" uid="uid://7aus8kw62omx" path="res://scenes/structures/small_tree.tscn" id="5_x7o67"]
 [ext_resource type="PackedScene" uid="uid://dj7s3br8gri5r" path="res://scenes/structures/mooring_mast.tscn" id="6_0uds8"]
 [ext_resource type="Material" uid="uid://bx6whd5thqdwx" path="res://materials/sea.tres" id="7_tf67t"]
+
+[sub_resource type="Gradient" id="Gradient_x7o67"]
+colors = PackedColorArray(0.8, 0.8, 0.8, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0uds8"]
+frequency = 0.08
+domain_warp_enabled = true
+domain_warp_amplitude = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tf67t"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_0uds8")
+color_ramp = SubResource("Gradient_x7o67")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_svbv2"]
+render_priority = 0
+shader = ExtResource("2_fsacg")
+shader_parameter/position = Vector3(0, 0, 0)
+shader_parameter/size = Vector3(0, 0, 0)
+shader_parameter/subtiles = 0
+shader_parameter/ground_texture = SubResource("NoiseTexture2D_tf67t")
+shader_parameter/texture_size = 8.0
+shader_parameter/absolute_minimum = -1024.0
+shader_parameter/red_scale = 32.0
+shader_parameter/green_scale = 4096.0
+shader_parameter/blue_scale = 0.0
+
+[sub_resource type="Gradient" id="Gradient_8cl4m"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.4, 0.46, 0.5, 0.504, 0.505, 0.7, 1)
+colors = PackedColorArray(0, 0, 0.06666667, 1, 0.06666667, 0.13333334, 0.26666668, 1, 0.13333334, 0.26666668, 0.53333336, 1, 0.93333334, 0.8, 0.4, 1, 0.93333334, 0.8, 0.4, 1, 0.2, 0.6, 0.2, 1, 0.4, 0.53333336, 0.26666668, 1, 0.53333336, 0.53333336, 0.53333336, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n0q8u"]
+gradient = SubResource("Gradient_8cl4m")
+width = 512
+
+[sub_resource type="Resource" id="Resource_b1lky"]
+script = ExtResource("3_mhgm5")
+height_gradient = SubResource("GradientTexture1D_n0q8u")
+base_terrain_material = SubResource("ShaderMaterial_svbv2")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qfnet"]
 size = Vector2(8192, 8192)
@@ -15,6 +59,7 @@ subdivide_depth = 63
 [node name="HexIsland" type="Node3D" unique_id=1896444308]
 
 [node name="Terrain" parent="." unique_id=999141092 instance=ExtResource("1_g8pm3")]
+height_source = SubResource("Resource_b1lky")
 
 [node name="CentralVillage" type="Node3D" parent="." unique_id=326382834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 10, -1.9936124e-09)

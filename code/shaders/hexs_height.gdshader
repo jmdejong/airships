@@ -13,6 +13,7 @@ uniform float hex_rad;
 uniform sampler2D height_gradient : repeat_disable;
 uniform float absolute_minimum;
 uniform float height_resolution;
+uniform int noise_between_seed;
 
 const float SQRT3 = 1.7320508075688772;
 
@@ -68,11 +69,11 @@ float height_at(vec2 pos) {
 	vec3 center_influences = influences(w, 0.8);
 	w = influences(w, center_influences.x * hex_center_size(hex_a) + center_influences.y * hex_center_size(hex_b) + center_influences.z * hex_center_size(hex_c));
 	float n = clamp((1.0-max(w.x, max(w.y, w.z))) * 5.0, 0.0, 1.0);
-	fnl_state noise = fnlCreateState(5346);
-	noise.octaves = 4;
-	noise.frequency = 0.02;
+	fnl_state noise_between = fnlCreateState(noise_between_seed);
+	noise_between.octaves = 4;
+	noise_between.frequency = 0.02;
 	//noise.noise_type = FNL_NOISE_OPENSIMPLEX2S;
-	return hex_height(hex_a) * w.x + hex_height(hex_b) * w.y + hex_height(hex_c) * w.z + fnlGetNoise2D(noise, pos.x, pos.y) * n * 5.0;
+	return hex_height(hex_a) * w.x + hex_height(hex_b) * w.y + hex_height(hex_c) * w.z + fnlGetNoise2D(noise_between, pos.x, pos.y) * n * 5.0;
 }
 
 vec3 encode_height(float height) {
@@ -94,6 +95,6 @@ void blit() {
 		vec3(0, height_at(pos+vec2(0, 0.1))-height, 0.1)
 	));
 	COLOR1 = vec4(normal/2.0+vec3(0.5), 1);
-	COLOR2 = vec4(texture(height_gradient, vec2(height/100.0+0.5, 0)).xyz, 1);
+	COLOR2 = vec4(texture(height_gradient, vec2(height/200.0+0.5, 0)).xyz, 1);
 	//COLOR2 = vec4(0, height/100.0+0.5, 0, 1);
 }

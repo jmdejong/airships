@@ -12,11 +12,14 @@ albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 0.53333336)
 
 [sub_resource type="PrismMesh" id="PrismMesh_iu160"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_it4ap"]
+
 [node name="Airship" type="RigidBody3D" unique_id=47758217]
 collision_layer = 197
 collision_mask = 5
 mass = 0.001
 center_of_mass_mode = 1
+freeze = true
 linear_damp_mode = 1
 angular_damp_mode = 1
 angular_damp = 1.0
@@ -33,3 +36,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_g6i7b")
 [node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="." unique_id=1136416547]
 visible = false
 mesh = SubResource("PrismMesh_iu160")
+
+[node name="TerrainLoadChecker" type="Area3D" parent="." unique_id=612549180]
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TerrainLoadChecker" unique_id=209738876]
+shape = SubResource("BoxShape3D_it4ap")

@@ -20,12 +20,12 @@ var structure_tiles: Dictionary[Vector3i, StructureTile] = {}
 var map_changed: bool = true
 @export var height_source: HeightSource
 
-func _ready() -> void:
-	for t: Vector2i in [Vector2i(0, 0), Vector2i(0, -1), Vector2i(-1, 0), Vector2i(-1, -1)]:
-		load_region_at(Vector3i(t.x, t.y, super_region_level))
-		load_region_at(Vector3i(t.x, t.y, region_level))
-		if not Engine.is_editor_hint():
-			build_collider_at(Vector3i(t.x, t.y, collider_level))
+#func _ready() -> void:
+	#for t: Vector2i in [Vector2i(0, 0), Vector2i(0, -1), Vector2i(-1, 0), Vector2i(-1, -1)]:
+		#load_region_at(Vector3i(t.x, t.y, super_region_level))
+		#load_region_at(Vector3i(t.x, t.y, region_level))
+		#if not Engine.is_editor_hint():
+			#build_collider_at(Vector3i(t.x, t.y, collider_level))
 
 func _physics_process(_delta: float) -> void:
 	var camera: Camera3D = get_viewport().get_camera_3d()
@@ -168,8 +168,9 @@ func build_structures(player_pos: Vector2) -> void:
 	for x: int in range(-structure_load_distance, structure_load_distance + 1):
 		for y: int in range(-structure_load_distance, structure_load_distance + 1):
 			var tile_id: Vector3i = Hrc.world_to_hrc_id(player_pos, structure_level) + Vector3i(x, y, 0)
-			if not structure_tiles.has(tile_id):
-				var structure_tile: StructureTile = StructureTile.create(tile_id, height_source, self)
+			var region: Region = loaded_regions.get(Hrc.ancestor_at_level(tile_id, region_level))
+			if region != null and not structure_tiles.has(tile_id):
+				var structure_tile: StructureTile = StructureTile.create(tile_id, height_source, region)
 				structure_tiles[tile_id] = structure_tile
 				$Structures.add_child(structure_tile)
 				return

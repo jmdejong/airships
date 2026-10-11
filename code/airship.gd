@@ -55,6 +55,9 @@ func set_shapes() -> void:
 		add_child(shape)
 
 func _physics_process(_delta: float) -> void:
+	freeze = not $TerrainLoadChecker.has_overlapping_areas()
+	if freeze:
+		return
 	if moored_to != null and mooring_joint == null:
 		move_moor()
 	var air_density: float = Atmosphere.air_density(to_global(center_of_volume).y)

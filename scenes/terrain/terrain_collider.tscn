@@ -8,8 +8,18 @@ map_width = 3
 map_depth = 3
 map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_it4ap"]
+
 [node name="TerrainCollision" type="StaticBody3D" unique_id=1208272398]
 script = ExtResource("1_rfihc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=788435894]
 shape = SubResource("HeightMapShape3D_8jrkk")
+
+[node name="LoadedArea" type="Area3D" parent="." unique_id=1705275984]
+collision_layer = 512
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LoadedArea" unique_id=1612352843]
+shape = SubResource("BoxShape3D_it4ap")
