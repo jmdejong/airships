@@ -23,6 +23,8 @@ size = Vector3(10, 40, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_it4ap"]
 size = Vector2(1024, 1024)
+subdivide_width = 1024
+subdivide_depth = 1024
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_00jve"]
 
@@ -36,6 +38,7 @@ render_priority = 0
 shader = ExtResource("1_fa61x")
 shader_parameter/base_color = Color(0.03137255, 0.03137255, 0.4, 1)
 shader_parameter/normal_map = SubResource("NoiseTexture2D_4xpdj")
+shader_parameter/wave_noise_seed = 0
 
 [node name="Node3D" type="Node3D" unique_id=964828838]
 
@@ -56,5 +59,6 @@ transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0
 mesh = SubResource("BoxMesh_it4ap")
 
 [node name="Water" type="MeshInstance3D" parent="." unique_id=818290457]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.25, -4.5, 7)
 mesh = SubResource("PlaneMesh_it4ap")
 surface_material_override/0 = SubResource("ShaderMaterial_cdsqw")

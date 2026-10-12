@@ -22,6 +22,7 @@ var material: Material
 #var _active = true
 var step_size: float
 static var scene: PackedScene = preload("res://scenes/terrain/terrain_face.tscn")
+@export var backup_water_material: Material
 
 static func create(face_id: Vector3i, material: Material) -> TerrainFace:
 	var face: TerrainFace = scene.instantiate()
@@ -41,6 +42,8 @@ func initialize() -> void:
 	assert(area.size.x == area.size.y)
 	step_size = area.size.x / FaceMeshes.face_segments
 	%Mesh.mesh = FaceMeshes.default_mesh
+	if Config.performance == Config.Perf.FAST:
+		%Water.set_surface_override_material(0, backup_water_material)
 	%Mesh.scale = Vector3(area.size.x, 1, area.size.y)
 	%Water.scale = Vector3(area.size.x, 1, area.size.y)
 	%Mesh.custom_aabb = AABB(Vector3(-0.5, -1024, -0.5), Vector3(1, 2048, 1))
