@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://c82ueiacjfp87"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwgxs"]
-sky_top_color = Color(0.22409998, 0.47655836, 0.83, 1)
-sky_curve = 0.025
 
 [sub_resource type="Sky" id="Sky_4wyf3"]
 sky_material = SubResource("ProceduralSkyMaterial_rwgxs")
@@ -10,9 +8,17 @@ sky_material = SubResource("ProceduralSkyMaterial_rwgxs")
 [sub_resource type="Environment" id="Environment_k0juu"]
 background_mode = 2
 sky = SubResource("Sky_4wyf3")
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.1
+fog_mode = 1
+fog_light_color = Color(1, 1, 1, 1)
+fog_light_energy = 0.9
+fog_density = 1.0
+fog_aerial_perspective = 0.8
+fog_sky_affect = 0.0
+fog_height = 100.0
+fog_height_density = 1.0
+fog_depth_begin = 3500.0
+fog_depth_end = 4000.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_q5onr"]
 dof_blur_far_distance = 1000.0
@@ -23,7 +29,7 @@ dof_blur_amount = 0.02
 environment = SubResource("Environment_k0juu")
 camera_attributes = SubResource("CameraAttributesPractical_q5onr")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1312286928]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1312286928 groups=["sun"]]
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 30, 0)
 light_energy = 0.75
 shadow_enabled = true

@@ -1,0 +1,10 @@
+[gd_resource type="GradientTexture1D" format=3 uid="uid://dxed52x64rxra"]
+
+[sub_resource type="Gradient" id="Gradient_tuyoq"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.5, 0.501, 0.6, 0.7, 1)
+colors = PackedColorArray(0.06666667, 0.06666667, 0.4, 1, 0.13333334, 0.13333334, 0.53333336, 1, 0.8, 0.8, 1, 1, 0.53333336, 0.53333336, 1, 1, 0.33333334, 0.33333334, 1, 1, 0.2, 0.2, 1, 1)
+
+[resource]
+gradient = SubResource("Gradient_tuyoq")

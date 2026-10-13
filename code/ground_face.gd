@@ -3,7 +3,7 @@ class_name GroundFace
 extends Node3D
 
 var area: Rect2
-var config: Config
+var config: GroundConfig
 var height_source: HeightSource
 var aabb: AABB
 var level: int
@@ -49,7 +49,7 @@ var subfaces_active: bool = false:
 				#remove_child(subfaces)
 		
 
-static func create(level: int, area: Rect2, config: Config, height_source: HeightSource, face_id: Vector3i, all_positions: Dictionary[Vector3i, GroundFace]) -> GroundFace:
+static func create(level: int, area: Rect2, config: GroundConfig, height_source: HeightSource, face_id: Vector3i, all_positions: Dictionary[Vector3i, GroundFace]) -> GroundFace:
 	var face: GroundFace = scene.instantiate()
 	face.level = level
 	face.config = config
@@ -257,14 +257,14 @@ func build_border(direction: Vector2i, detailed: bool) -> Mesh:
 
 class MeshBuilder:
 	var tile_buffers: TileBuffers
-	var config: Config
+	var config: GroundConfig
 	var vertices := PackedVector3Array()
 	var normals := PackedVector3Array()
 	var tex_uvs := PackedVector2Array()
 	var colors := PackedColorArray()
 	var indices := PackedInt32Array()
 	
-	func _init(tile_buffers: TileBuffers, config: Config) -> void:
+	func _init(tile_buffers: TileBuffers, config: GroundConfig) -> void:
 		self.tile_buffers = tile_buffers
 		self.config = config
 		
@@ -294,7 +294,7 @@ class MeshBuilder:
 			{}
 		)
 
-class Config extends RefCounted:
+class GroundConfig extends RefCounted:
 	var segments: int
 	var structure_node_level: int = 4
 	var structure_mesh_level: int = 5

@@ -14,7 +14,7 @@ var root_face: GroundFace
 
 func _ready() -> void:
 	$StartPreview.visible = false
-	var config: GroundFace.Config = GroundFace.Config.new(segments)
+	var config: GroundFace.GroundConfig = GroundFace.GroundConfig.new(segments)
 	root_face = GroundFace.create(level, area, config, height_source, Vector3i(0, 0, 0), {})
 	add_child(root_face)
 	root_face.activate()

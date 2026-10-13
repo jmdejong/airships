@@ -6,11 +6,13 @@ render_mode world_vertex_coords, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec3 base_color: source_color;
 uniform sampler2D normal_map: repeat_enable;
-uniform sampler2D depth_texture: hint_depth_texture;
+//uniform sampler2D depth_texture: hint_depth_texture;
 uniform int wave_noise_seed = 536;
+uniform sampler2D bg_gradient: source_color;
 
 varying vec3 vert;
-varying float camera_distance;
+//varying float camera_distance;
+varying vec3 cam_dir;
 
 float detail_for(vec2 pos) {
 	return clamp(1.0-max(length(dFdx(pos)), length(dFdy(pos))), 0.0, 1.0);
@@ -21,12 +23,12 @@ float noise_octave(vec3 pos) {
 }
 
 float height_at(vec2 pos) {
-	return 0.2 * (
+	return 0.1 * (
 		noise_octave(vec3(pos*0.12, TIME/4.0))/2.0
 		+ noise_octave(vec3(pos*0.3, TIME/4.0))/4.0
 		+ noise_octave(vec3(pos*0.8, TIME/4.0))/8.0
-		+ noise_octave(vec3(pos*1.8, TIME/3.0))/16.0
-		+ noise_octave(vec3(pos*4.0, TIME/2.0))/32.0
+		+ noise_octave(vec3(pos*2.0, TIME/3.0))/16.0
+		+ noise_octave(vec3(pos*5.0, TIME/2.0))/32.0
 	);
 	
 	//fnl_state noise = fnlCreateState(wave_noise_seed);
@@ -39,7 +41,8 @@ float height_at(vec2 pos) {
 
 void vertex() {
 	vert = VERTEX;
-	camera_distance = distance(VERTEX, CAMERA_POSITION_WORLD);
+	//camera_distance = distance(VERTEX, CAMERA_POSITION_WORLD);
+	cam_dir = VERTEX - CAMERA_POSITION_WORLD;
 	//VERTEX.y = height_at(VERTEX.xz);
 }
 
@@ -62,23 +65,29 @@ void fragment() {
 	//NORMAL = (VIEW_MATRIX * vec4(-normal, 1.0)).xyz;
 	NORMAL_MAP = normal * 0.5 + 0.5;
 	
-	float depth = texture(depth_texture, SCREEN_UV).x;
-	#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
-	vec3 ndc = vec3(SCREEN_UV, depth) * 2.0 - 1.0;
-	#else
-	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
-	#endif
-	vec4 world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
-	vec3 world_position = world.xyz / world.w;
-	float water_depth = -world_position.y;
+	//float depth = texture(depth_texture, SCREEN_UV).x;
+	//#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+	//vec3 ndc = vec3(SCREEN_UV, depth) * 2.0 - 1.0;
+	//#else
+	//vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
+	//#endif
+	//vec4 world = INV_VIEW_MATRIX * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	//vec3 world_position = world.xyz / world.w;
+	//float water_depth = -world_position.y;
 	
-	ALBEDO = base_color;// * (1.0-fres);
-	ALPHA = 1.0-0.4/(water_depth*water_depth*fres*2.0 + 1.0);//mix(1.0, 0.75, fres);
-	ROUGHNESS = 0.2;//mix(0.1, 0.4, fres);
+	float h = normalize(cam_dir).y;
+	//if (-VERTEX.z < 64.0) {
+	//ALPHA = 1.0-0.4/(water_depth*water_depth*fres*2.0 + 1.0);//mix(1.0, 0.75, fres);
+	//}
+	float camera_factor = clamp((-VERTEX.z - 0000.0) / 3200.0, 0.0, 1.0);
+	//ALBEDO = mix(base_color, texture(bg_gradient, vec2(h*0.49+0.5, 0)).rgb, camera_factor);
+	//ALBEDO = texture(bg_gradient, vec2(h*0.49+0.5, 0)).rgb;
+	ALBEDO = base_color;
+	FOG = vec4(texture(bg_gradient, vec2(h*0.49+0.5, 0)).rgb, camera_factor);
+	//ALBEDO = vec3(camera_factor, 0, 0);
+	//ROUGHNESS = mix(0.1, 0.4, fres);
+	//ROUGHNESS = mix(0.1, 1.0, camera_factor);
+	ROUGHNESS = 0.1;//mix(0.1, 1.0, fres*fres);
+	SPECULAR = mix(0.5, 0.0, fres*fres*fres);
 	METALLIC = 0.0;
 }
-
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}

@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://pwyriqsixxyi" path="res://code/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bnmp0q34upwxe" path="res://code/build.gd" id="2_dqkch"]
+[ext_resource type="Shader" uid="uid://b7fdt34b8harm" path="res://code/shaders/background.gdshader" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dxed52x64rxra" path="res://materials/background_gradient.tres" id="3_fjrip"]
+[ext_resource type="Script" uid="uid://c5qm655ofgtdl" path="res://code/camera_background.gd" id="4_smehm"]
 [ext_resource type="PackedScene" uid="uid://bk820enlqiw65" path="res://scenes/ui.tscn" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://btnqbksq62264" path="res://code/lifeline.gd" id="7_fjrip"]
 [ext_resource type="Material" uid="uid://dy4fdlkfsarko" path="res://materials/life_rope.tres" id="8_smehm"]
@@ -17,9 +20,18 @@ radius = 0.3
 height = 0.8
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_fa61x"]
-dof_blur_far_enabled = true
 dof_blur_far_distance = 3800.0
 dof_blur_far_transition = 500.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlg0r"]
+render_priority = 0
+shader = ExtResource("2_tuyoq")
+shader_parameter/bg_gradient = ExtResource("3_fjrip")
+shader_parameter/sun_color = Color(1, 1, 1, 1)
+shader_parameter/sun = Vector3(0, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_it4ap"]
+size = Vector2(40000, 40000)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fjrip"]
 top_radius = 0.01
@@ -61,7 +73,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1420705398]
 attributes = SubResource("CameraAttributesPractical_fa61x")
 current = true
-near = 0.1
+near = 0.2
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D" unique_id=1897041223]
 light_energy = 0.7
@@ -69,6 +81,12 @@ light_indirect_energy = 0.0
 light_volumetric_fog_energy = 0.0
 distance_fade_enabled = true
 omni_range = 10.0
+
+[node name="Background" type="MeshInstance3D" parent="Head/Camera3D" unique_id=1065176450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3999)
+material_override = SubResource("ShaderMaterial_qlg0r")
+mesh = SubResource("QuadMesh_it4ap")
+script = ExtResource("4_smehm")
 
 [node name="EyeCast" type="RayCast3D" parent="Head" unique_id=206039924]
 unique_name_in_owner = true

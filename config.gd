@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 const config_path: String = "user://config.cfg"

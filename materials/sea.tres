@@ -1,9 +1,11 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://bx6whd5thqdwx"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dtjmgqxiw7lt8"]
+
+[ext_resource type="Shader" uid="uid://caidppaxoo31b" path="res://code/shaders/sea.gdshader" id="1_02fr6"]
+[ext_resource type="Texture2D" uid="uid://dxed52x64rxra" path="res://materials/background_gradient.tres" id="2_r4gma"]
 
 [resource]
-transparency = 1
-cull_mode = 2
-vertex_color_is_srgb = true
-albedo_color = Color(0, 0, 1, 0.53333336)
-metallic_specular = 1.0
-roughness = 0.15
+render_priority = 0
+shader = ExtResource("1_02fr6")
+shader_parameter/base_color = Color(0.13333334, 0.13333334, 0.4, 1)
+shader_parameter/wave_noise_seed = 536
+shader_parameter/bg_gradient = ExtResource("2_r4gma")
