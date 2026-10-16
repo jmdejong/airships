@@ -23,7 +23,7 @@ float noise_octave(vec3 pos) {
 }
 
 float height_at(vec2 pos) {
-	return 0.1 * (
+	return 0.2 * (
 		noise_octave(vec3(pos*0.12, TIME/4.0))/2.0
 		+ noise_octave(vec3(pos*0.3, TIME/4.0))/4.0
 		+ noise_octave(vec3(pos*0.8, TIME/4.0))/8.0

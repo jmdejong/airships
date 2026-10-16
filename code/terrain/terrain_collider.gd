@@ -23,9 +23,12 @@ func initialize(image_buffers: ImageBuffers) -> void:
 
 func _get_img_data(image_buffers: ImageBuffers) -> PackedByteArray:
 	return image_buffers.height_sub_image(area).get_data()
-func _create_collider_data(img_data: PackedByteArray, absolute_minimum: float, red_scale: float, green_scale: float, blue_scale: float) -> PackedFloat32Array:
+func _create_collider_array(img_data: PackedByteArray) -> PackedFloat32Array:
 	var map_data: PackedFloat32Array = PackedFloat32Array()
 	map_data.resize(img_data.size() / 4)
+	return map_data
+func _create_collider_data(img_data: PackedByteArray, absolute_minimum: float, red_scale: float, green_scale: float, blue_scale: float) -> PackedFloat32Array:
+	var map_data: PackedFloat32Array = _create_collider_array(img_data)
 	# Heavy loop. Make sure to optimize
 	for i: int in map_data.size():
 		map_data[i] = absolute_minimum \

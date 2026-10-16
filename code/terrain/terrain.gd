@@ -4,8 +4,8 @@ extends Node3D
 
 
 var settings_for_perf: Dictionary[Config.Perf, Settings] = {
-	Config.Perf.FAST: Settings.new(8, 10, 7),
-	Config.Perf.PRETTY: Settings.new(9, 12, 8),
+	Config.Perf.FAST: Settings.new(8, 10, 256),
+	Config.Perf.PRETTY: Settings.new(9, 12, 512),
 }
 var settings: Settings = settings_for_perf[Config.performance]
 var load_update_camera_snap: Vector2 = Vector2(16, 16)
@@ -83,7 +83,6 @@ func prune_regions(player_pos: Vector2) -> void:
 
 
 func update_faces(player_pos) -> void:
-	#var faces_by_level: Array[TerrainFace] = []
 	for face: TerrainFace in $Faces.get_children():
 		if Hrc.relative_axis_distance(face.face_id, player_pos) < 1.0 and face.face_id.z > settings.min_face_level:
 			var subfaces: Array = Hrc.children(face.face_id)
@@ -126,49 +125,48 @@ func deactivate_face(face_id: Vector3i) -> void:
 	face.queue_free()
 
 func build_one_collider(player_pos: Vector2) -> void:
-	var collider_load_distance: int = 2
-	for x: int in range(-collider_load_distance, collider_load_distance + 1):
-		for y: int in range(-collider_load_distance, collider_load_distance + 1):
-			var collider_id: Vector3i = Hrc.world_to_hrc_id(player_pos, settings.collider_level) + Vector3i(x, y, 0)
-			if build_collider_at(collider_id):
+	var lo: Vector3i = Hrc.world_to_hrc_id(player_pos - Vector2.ONE * settings.collider_min_distance, settings.collider_level)
+	var hi: Vector3i = Hrc.world_to_hrc_id(player_pos + Vector2.ONE * settings.collider_min_distance, settings.collider_level)
+	for x: int in range(lo.x, hi.x + 1):
+		for y: int in range(lo.y, hi.y + 1):
+			var collider_id: Vector3i = Vector3i(x, y, settings.collider_level)
+			var region: Region = loaded_regions.get(Hrc.ancestor_at_level(collider_id, settings.region_level))
+			if region != null and not loaded_colliders.has(collider_id):
+				build_collider_at(collider_id, region)
 				return
 
-func build_collider_at(collider_id: Vector3i) -> bool:
-	var region: Region = loaded_regions.get(Hrc.ancestor_at_level(collider_id, settings.region_level))
-	if region != null and not loaded_colliders.has(collider_id):
-		var collider: TerrainCollider = TerrainCollider.create(collider_id, region.image_buffers)
-		loaded_colliders[collider_id] = collider
-		_add_collider(collider)
-		return true
-	return false
+func build_collider_at(collider_id: Vector3i, region: Region) -> void:
+	var collider: TerrainCollider = TerrainCollider.create(collider_id, region.image_buffers)
+	loaded_colliders[collider_id] = collider
+	_add_collider(collider)
 
 func _add_collider(collider: TerrainCollider) -> void:
 	$Colliders.add_child(collider)
 
 func prune_colliders(player_pos: Vector2) -> void:
 	for collider: TerrainCollider in $Colliders.get_children():
-		# todo: don't pune colliders with active rigidbodies on them
-		if collider.relative_axis_distance(player_pos) > 4.8 and collider.relative_axis_distance(Vector2(0, 0)) > 6:
+		if Hrc.absolute_axis_distance(collider.region_id, player_pos) >= settings.collider_min_distance * 2:
 			loaded_colliders.erase(collider.region_id)
 			collider.queue_free()
 		else:
 			loaded_colliders[collider.region_id] = collider
 
 func build_structures(player_pos: Vector2) -> void:
-	var structure_load_distance: int = 2
-	for x: int in range(-structure_load_distance, structure_load_distance + 1):
-		for y: int in range(-structure_load_distance, structure_load_distance + 1):
-			var tile_id: Vector3i = Hrc.world_to_hrc_id(player_pos, settings.structure_level) + Vector3i(x, y, 0)
+	var lo: Vector3i = Hrc.world_to_hrc_id(player_pos - Vector2.ONE * settings.structure_min_distance, settings.structure_level)
+	var hi: Vector3i = Hrc.world_to_hrc_id(player_pos + Vector2.ONE * settings.structure_min_distance, settings.structure_level)
+	for x: int in range(lo.x, hi.x + 1):
+		for y: int in range(lo.y, hi.y + 1):
+			var tile_id: Vector3i = Vector3i(x, y, settings.structure_level)
 			var region: Region = loaded_regions.get(Hrc.ancestor_at_level(tile_id, settings.region_level))
 			if region != null and not structure_tiles.has(tile_id):
 				var structure_tile: StructureTile = StructureTile.create(tile_id, height_source, region)
-				structure_tiles[tile_id] = structure_tile
 				$Structures.add_child(structure_tile)
+				structure_tiles[tile_id] = structure_tile
 				return
 
 func prune_structures(player_pos: Vector2) -> void:
 	for structure: StructureTile in $Structures.get_children():
-		if Hrc.relative_axis_distance(structure.tile_id, player_pos) > 2.8:
+		if Hrc.absolute_axis_distance(structure.tile_id, player_pos) >= settings.structure_min_distance * 2:
 			structure_tiles.erase(structure.tile_id)
 			structure.queue_free()
 
@@ -187,13 +185,15 @@ class Settings:
 	var region_level_range: int = region_level
 	var region_step_count: int = 2**region_level_range
 	var min_face_level: int = 5
-	var collider_level: int = 8
-	var structure_level: int = 8
+	var collider_level: int = 7
+	var structure_level: int = 7
 	var face_uses_region_level: int = super_region_level - region_level + min_face_level
+	var collider_min_distance: float = 512
+	var structure_min_distance: float = 512
 
 	
-	func _init(region_level: int, super_region_level: int, physics_level: int) -> void:
+	func _init(region_level: int, super_region_level: int, physics_min_distance: float) -> void:
 		self.region_level = region_level
 		self.super_region_level = super_region_level
-		self.collider_level = physics_level
-		self.structure_level = physics_level
+		self.collider_min_distance = physics_min_distance
+		self.structure_min_distance = physics_min_distance
