@@ -21,7 +21,7 @@ var used_platform: Airship = null:
 var platform_movement: Vector3 = Vector3.ZERO
 var last_since_floor: float = 0
 var was_on_ground := false
-const last_since_floor_max: float = 5
+const last_since_floor_max: float = 3
 var specific_info: String = ""
 var destination: Variant = null
 @onready var lifeline: Lifeline = $Lifeline
@@ -113,7 +113,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	elif posture == Posture.Sitting:
 		pass
 	
-	%UI.set_info_text("fps: %3.1f\nspeed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f) %3.2f\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\n%s" % [
+	%UI.set_info_text("""fps: %3.1f\nspeed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f) %3.2f\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\nship: %s %.2f\n%s""" % [
 		Engine.get_frames_per_second(),
 		Vector2(linear_velocity.x, linear_velocity.z).length(),
 		position.x,
@@ -124,6 +124,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		Atmosphere.pressure(position.y) / 1000,
 		Atmosphere.air_density(position.y),
 		was_on_ground,
+		used_platform,
+		(last_since_floor_max - last_since_floor) / last_since_floor_max,
 		specific_info
 	])
 

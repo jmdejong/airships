@@ -15,11 +15,12 @@ albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 0.53333336)
 [sub_resource type="BoxShape3D" id="BoxShape3D_it4ap"]
 
 [node name="Airship" type="RigidBody3D" unique_id=47758217]
-collision_layer = 197
-collision_mask = 5
+collision_layer = 198
+collision_mask = 7
 mass = 0.001
 center_of_mass_mode = 1
 freeze = true
+continuous_cd = true
 linear_damp_mode = 1
 angular_damp_mode = 1
 angular_damp = 1.0

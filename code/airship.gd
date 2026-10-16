@@ -122,6 +122,7 @@ func check_connections() -> void:
 		for c in unconnected:
 			c.transform = new_ship.transform.inverse() * c.transform
 			new_components.add_child(c)
+		await get_tree().physics_frame
 		get_parent().add_child(new_ship)
 		new_components.recalculate_all()
 
@@ -147,7 +148,8 @@ func build_component(pos: Vector3, component: ComponentBlueprint, build_transfor
 
 func destroy_component(component: Component, pos: Vector3):
 	component.destroy(pos)
-	await get_tree().create_timer(0.05).timeout
+	await get_tree().physics_frame
+	await get_tree().physics_frame
 	check_connections()
 
 func impact(shape: CollisionShape3D, impactor: RigidBody3D) -> void:
