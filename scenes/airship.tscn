@@ -23,7 +23,7 @@ freeze = true
 continuous_cd = true
 linear_damp_mode = 1
 angular_damp_mode = 1
-angular_damp = 1.0
+angular_damp = 0.2
 script = ExtResource("1_81adk")
 
 [node name="Components" parent="." unique_id=2108642172 instance=ExtResource("9_17pty")]

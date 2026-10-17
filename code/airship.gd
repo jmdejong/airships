@@ -60,14 +60,14 @@ func _physics_process(_delta: float) -> void:
 		return
 	if moored_to != null and mooring_joint == null:
 		move_moor()
-	var air_density: float = Atmosphere.air_density(to_global(center_of_volume).y)
+	var air_density: float = Atmosphere.air_density(to_global(center_of_volume))
 	var displaced_air_mass := displaced_volume * air_density
 	apply_force(-displaced_air_mass * Atmosphere.gravity_vec(), to_global(center_of_volume) - global_position)
 	for local_force: Force in forces:
 		if local_force.power == 0:
 			continue
 		var force: Force = local_force.transformed(global_transform)
-		var thrust = pow(force.power * force.power * 2 * 10 * Atmosphere.air_density(force.pos.y), 0.3333333333333)
+		var thrust = pow(force.power * force.power * 2 * 10 * Atmosphere.air_density(force.pos), 0.3333333333333)
 		apply_force(force.direction * thrust, force.pos - global_position)
 	# https://en.wikipedia.org/wiki/Drag_(physics)#The_drag_equation
 	var drag: float = 0.5 * air_density * linear_velocity.length_squared() * drag_area_coefficient

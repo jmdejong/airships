@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://7dgt1vi50uem"]
+
+[ext_resource type="Script" uid="uid://dpevhbstdsgsf" path="res://code/components/fin.gd" id="1_f3eow"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_pfkeg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6i7b"]
+albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_op4mh"]
+size = Vector3(12, 6, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4xpdj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cdsqw"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_op4mh"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s3nhk"]
+size = Vector3(0.2, 5.8, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ylmi7"]
+size = Vector3(12, 6, 0.5)
+
+[node name="FinRear" type="Node3D" unique_id=2065927277]
+script = ExtResource("1_f3eow")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1169309816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+material_override = SubResource("StandardMaterial3D_g6i7b")
+mesh = SubResource("BoxMesh_op4mh")
+
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=1860298038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="WindIndicator" type="MeshInstance3D" parent="CenterOfMass" unique_id=1341039943]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("BoxMesh_4xpdj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_cdsqw")
+
+[node name="ForceIndicator" type="MeshInstance3D" parent="CenterOfMass" unique_id=32902123]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("BoxMesh_4xpdj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_op4mh")
+
+[node name="Connection" parent="." unique_id=39199665 instance=ExtResource("2_pfkeg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=331164908]
+shape = SubResource("BoxShape3D_s3nhk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1321364706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+shape = SubResource("BoxShape3D_ylmi7")

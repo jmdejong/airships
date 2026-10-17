@@ -10,7 +10,7 @@ extends BaseComponent
 var step: float = 5000
 var max_power: float = 50000
 var min_power: float = -50000
-var signal_scale = 1000
+var signal_scale: float = 1000
 
 func _ready() -> void:
 	mass_ = 100.0

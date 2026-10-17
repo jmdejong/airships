@@ -10,10 +10,6 @@ var size_block: Vector3i
 		size = size_block * Global.block_size
 		_update_sizes()
 
-
-func physics_properties() -> PhysicsProperties:
-	return PhysicsProperties.box(transform * (size / 2), size, density)
-
 func _update_sizes() -> void:
 		var origin: Vector3 = size / 2.0
 		$CollisionShape3D.shape = _box_shape(size)
@@ -27,6 +23,9 @@ func _update_sizes() -> void:
 		$Connection/CollisionShapeX.shape = _box_shape(size + Vector3(0.1, -0.2, -0.2))
 		$Connection/CollisionShapeY.shape = _box_shape(size + Vector3(-0.2, 0.1, -0.2))
 		$Connection/CollisionShapeZ.shape = _box_shape(size + Vector3(-0.2, -0.2, 0.1))
+
+func physics_properties() -> PhysicsProperties:
+	return PhysicsProperties.box(transform * (size / 2), size, density)
 
 func destroy(where: Vector3) -> void:
 	if get_parent() == null:

@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://bdyy87xh6bshr" path="res://code/records/binding.gd" id="17_plvvq"]
 [ext_resource type="PackedScene" uid="uid://ce6mxn0ghywxo" path="res://scenes/components/rope_ladder.tscn" id="17_swjpl"]
 [ext_resource type="PackedScene" uid="uid://c5ulqcqx1nl70" path="res://scenes/components/cable.tscn" id="18_swjpl"]
+[ext_resource type="PackedScene" uid="uid://7dgt1vi50uem" path="res://scenes/components/fin_rear.tscn" id="19_mrsml"]
 
 [sub_resource type="Resource" id="Resource_okq7b"]
 script = ExtResource("17_plvvq")
@@ -102,7 +103,9 @@ metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 [node name="GunBoat" unique_id=1842036152 instance=ExtResource("1_rb74k")]
 
 [node name="Balloon" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="0" unique_id=1796301960 instance=ExtResource("2_iel0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
+mass_ = 1781.2830345854127
+volume = 7634.070148223197
 
 [node name="Machines" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="1" unique_id=1792181632 instance=ExtResource("3_3nb3f")]
 
@@ -124,19 +127,19 @@ power_channel = 2
 
 [node name="Ballast" parent="Components/Machines" index="4" unique_id=142350728 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.75, 0.5, 3)
-initial_filling = 699.999999999986
+initial_filling = 100.0
 
 [node name="Ballast2" parent="Components/Machines" index="5" unique_id=1244896176 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.75, 0.5, -2)
-initial_filling = 799.999999999984
+initial_filling = 100.0
 
 [node name="Ballast3" parent="Components/Machines" index="6" unique_id=368494447 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0.5, -1)
-initial_filling = 99.999999999998
+initial_filling = 600.0
 
 [node name="Ballast4" parent="Components/Machines" index="7" unique_id=117874394 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0.5, 2)
-initial_filling = 99.999999999998
+initial_filling = 600.0
 
 [node name="StatusPanel" parent="Components/Machines" index="8" unique_id=1867408882 instance=ExtResource("6_0m87h")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.75, 0.5, -0.5)
@@ -418,40 +421,54 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3, 
 
 [node name="Cable" parent="Components/Rigging" index="0" unique_id=719893920 instance=ExtResource("18_swjpl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -3.25)
-length = 4.0
-mass_ = 10.000000000000002
-volume = 0.010000000000000002
+length = 3.5
+mass_ = 8.75
+volume = 0.00875
 
 [node name="Cable2" parent="Components/Rigging" index="1" unique_id=454186075 instance=ExtResource("18_swjpl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 1, -3.25)
-length = 4.0
-mass_ = 10.000000000000002
-volume = 0.010000000000000002
+length = 3.5
+mass_ = 8.75
+volume = 0.00875
 
 [node name="Cable3" parent="Components/Rigging" index="2" unique_id=66003080 instance=ExtResource("18_swjpl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 3)
-length = 4.0
-mass_ = 10.000000000000002
-volume = 0.010000000000000002
+length = 3.5
+mass_ = 8.75
+volume = 0.00875
 
 [node name="Cable4" parent="Components/Rigging" index="3" unique_id=2049753424 instance=ExtResource("18_swjpl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 1, 3)
-length = 4.0
-mass_ = 10.000000000000002
-volume = 0.010000000000000002
+length = 3.5
+mass_ = 8.75
+volume = 0.00875
 
 [node name="Cable5" parent="Components/Rigging" index="4" unique_id=1238243071 instance=ExtResource("18_swjpl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0.5, 1)
-length = 4.0
-mass_ = 10.000000000000002
-volume = 0.010000000000000002
+length = 3.5
+mass_ = 8.75
+volume = 0.00875
 
 [node name="Cable6" parent="Components/Rigging" index="5" unique_id=1406096291 instance=ExtResource("18_swjpl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0.5, -1.25)
-length = 4.0
-mass_ = 10.000000000000002
-volume = 0.010000000000000002
+length = 3.5
+mass_ = 8.75
+volume = 0.00875
 
 [node name="Chair" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="5" unique_id=2013074350 instance=ExtResource("16_wjquc")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.5, 0.5, -0.25)
 bindings = Array[ExtResource("17_plvvq")]([SubResource("Resource_okq7b"), SubResource("Resource_plvvq"), SubResource("Resource_028c7"), SubResource("Resource_swjpl"), SubResource("Resource_mrsml"), SubResource("Resource_ibp7l"), SubResource("Resource_cl6mw"), SubResource("Resource_odg74"), SubResource("Resource_66ram"), SubResource("Resource_omr4m")])
+
+[node name="Fins" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="6" unique_id=2042909610 instance=ExtResource("3_3nb3f")]
+
+[node name="Fin" parent="Components/Fins" index="0" unique_id=2065927277 instance=ExtResource("19_mrsml")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 19, 0)
+
+[node name="Fin2" parent="Components/Fins" index="1" unique_id=1246360228 instance=ExtResource("19_mrsml")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -16, 13, 6)
+
+[node name="Fin3" parent="Components/Fins" index="2" unique_id=869628865 instance=ExtResource("19_mrsml")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 7, -0.25)
+
+[node name="Fin4" parent="Components/Fins" index="3" unique_id=577307395 instance=ExtResource("19_mrsml")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -16, 13, -6)

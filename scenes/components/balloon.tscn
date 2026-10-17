@@ -7,12 +7,12 @@
 [ext_resource type="Material" uid="uid://itbsqlrcr84h" path="res://materials/metal_light.tres" id="4_mswl6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvt4f"]
-radius = 10.0
-height = 30.0
+radius = 9.0
+height = 36.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tvt4f"]
-radius = 10.0
-height = 30.0
+radius = 9.0
+height = 36.0
 radial_segments = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qy7f"]
@@ -20,21 +20,27 @@ albedo_texture = ExtResource("2_ivyex")
 uv1_scale = Vector3(2, 1, 1)
 texture_filter = 0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ivyex"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ibp7l"]
 radius = 0.125
+height = 18.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_j78af"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cl6mw"]
 radius = 0.125
-height = 0.25
+height = 18.0
 radial_segments = 16
-rings = 8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_it4ap"]
+radius = 8.5
+height = 35.0
 
 [node name="Balloon" type="Node3D" unique_id=2084783816 node_paths=PackedStringArray("mooring_connect_point")]
 script = ExtResource("1_vcytr")
+radius = 9.0
+length = 36.0
 structure_mass = 99.999999999998
 mooring_connect_point = NodePath("MooringPoint")
-mass_ = 1675.5160819145563
-volume = 7330.382858376184
+mass_ = 1781.2830345854127
+volume = 7634.070148223197
 ctyp = "Balloon"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=956216547]
@@ -51,136 +57,44 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
 
 [node name="Connection" parent="." unique_id=1759811097 instance=ExtResource("2_tvt4f")]
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Connection" unique_id=1375705932]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, -9.375, 3.125)
-shape = SubResource("SphereShape3D_ivyex")
+[node name="RightLow" type="CollisionShape3D" parent="Connection" unique_id=811950983]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.875, 1.125)
+shape = SubResource("CapsuleShape3D_ibp7l")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D2" unique_id=60885698]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/RightLow" unique_id=1467728224]
 material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
+mesh = SubResource("CapsuleMesh_cl6mw")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Connection" unique_id=797188013]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.875, -9.375, 3.125)
-shape = SubResource("SphereShape3D_ivyex")
+[node name="RightLow2" type="CollisionShape3D" parent="Connection" unique_id=1984245866]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.375, 3.125)
+shape = SubResource("CapsuleShape3D_ibp7l")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D4" unique_id=362012820]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/RightLow2" unique_id=694835828]
 material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
+mesh = SubResource("CapsuleMesh_cl6mw")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Connection" unique_id=169916304]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.875, -9.375, 3.125)
-shape = SubResource("SphereShape3D_ivyex")
+[node name="LeftLow" type="CollisionShape3D" parent="Connection" unique_id=939716288]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.875, -1.125)
+shape = SubResource("CapsuleShape3D_ibp7l")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D3" unique_id=1957194329]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/LeftLow" unique_id=1757795853]
 material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
+mesh = SubResource("CapsuleMesh_cl6mw")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="Connection" unique_id=1532624645]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.875, -9.375, 3.125)
-shape = SubResource("SphereShape3D_ivyex")
+[node name="LeftLow2" type="CollisionShape3D" parent="Connection" unique_id=1380018055]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.375, -3.125)
+shape = SubResource("CapsuleShape3D_ibp7l")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D5" unique_id=2018315879]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/LeftLow2" unique_id=1587866757]
 material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
+mesh = SubResource("CapsuleMesh_cl6mw")
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="Connection" unique_id=966588240]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, -9.375, -3.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D6" unique_id=1000226721]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="Connection" unique_id=1168379870]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.875, -9.375, -3.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D7" unique_id=978516086]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="Connection" unique_id=1107554854]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.875, -9.375, -3.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D8" unique_id=342004453]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="Connection" unique_id=90037050]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.875, -9.375, -3.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D9" unique_id=1860447551]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D10" type="CollisionShape3D" parent="Connection" unique_id=1993301882]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, -9.875, 1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D10" unique_id=615429645]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D11" type="CollisionShape3D" parent="Connection" unique_id=811950983]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.875, -9.875, 1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D11" unique_id=1467728224]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D12" type="CollisionShape3D" parent="Connection" unique_id=1620874295]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.875, -9.875, 1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D12" unique_id=561746058]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D13" type="CollisionShape3D" parent="Connection" unique_id=717635078]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.875, -9.875, 1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D13" unique_id=1670181333]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D14" type="CollisionShape3D" parent="Connection" unique_id=308558103]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, -9.875, -1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D14" unique_id=758552960]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D15" type="CollisionShape3D" parent="Connection" unique_id=1252371270]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.875, -9.875, -1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D15" unique_id=25890282]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D16" type="CollisionShape3D" parent="Connection" unique_id=840694292]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.875, -9.875, -1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D16" unique_id=641311764]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
-
-[node name="CollisionShape3D17" type="CollisionShape3D" parent="Connection" unique_id=2127447770]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.875, -9.875, -1.125)
-shape = SubResource("SphereShape3D_ivyex")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/CollisionShape3D17" unique_id=11060938]
-material_override = ExtResource("4_mswl6")
-mesh = SubResource("SphereMesh_j78af")
+[node name="Interior" type="CollisionShape3D" parent="Connection" unique_id=963498650]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_it4ap")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2026630025]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
 size = Vector3(2.5, 0.5, 1.5)
 material = ExtResource("4_j78af")
 
@@ -191,4 +105,4 @@ size = Vector3(2, 0.25, 1)
 material = ExtResource("4_j78af")
 
 [node name="MooringPoint" type="Node3D" parent="." unique_id=340311161]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 0)

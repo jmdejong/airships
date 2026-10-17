@@ -29,20 +29,20 @@ func _troposphere_pressure(height: float) -> float:
 func _tropopause_pressure(height: float) -> float:
 	return tropopause_cutoff_pressure * exp(-(height-tropopause_cutoff) * HEIGHT_MULTIPLIER / TROPOPAUSE_PRESSURE_DROP)
 
-func temperature(height: float) -> float:
-	if height >= tropopause_cutoff:
+func temperature(pos: Vector3) -> float:
+	if pos.y >= tropopause_cutoff:
 		return tropopause_temperature
 	else:
-		return _troposphere_temperature(height)
+		return _troposphere_temperature(pos.y)
 
-func pressure(height: float) -> float:
-	if height >= tropopause_cutoff:
-		return _tropopause_pressure(height)
+func pressure(pos: Vector3) -> float:
+	if pos.y >= tropopause_cutoff:
+		return _tropopause_pressure(pos.y)
 	else:
-		return _troposphere_pressure(height)
+		return _troposphere_pressure(pos.y)
 
-func air_density(height: float) -> float:
-	var density := pressure(height) * AIR_MOLAR_MASS / (IDEAL_GAS_CONSTANT * temperature(height))
+func air_density(pos: Vector3) -> float:
+	var density := pressure(pos) * AIR_MOLAR_MASS / (IDEAL_GAS_CONSTANT * temperature(pos))
 	return density
 
 func gravity_vec() -> Vector3:

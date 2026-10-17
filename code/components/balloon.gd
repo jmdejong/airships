@@ -25,6 +25,7 @@ extends BaseComponent
 		mooring_point = point
 	get():
 		return mooring_point
+var previous_position: Vector3
 
 func _ready() -> void:
 	var tube: float = length - radius * 2
