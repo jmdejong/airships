@@ -103,7 +103,9 @@ func toggle_help() -> void:
 
 func click() -> void:
 	if ui_mode == UiMode.Active:
-		if cursor_mode == CursorMode.Play:
+		if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		elif cursor_mode == CursorMode.Play:
 			press.emit()
 		elif cursor_mode == CursorMode.Build:
 			build.try_build()
