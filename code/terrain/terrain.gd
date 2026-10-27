@@ -157,9 +157,8 @@ func build_structures(player_pos: Vector2) -> void:
 	for x: int in range(lo.x, hi.x + 1):
 		for y: int in range(lo.y, hi.y + 1):
 			var tile_id: Vector3i = Vector3i(x, y, settings.structure_level)
-			var region: Region = loaded_regions.get(Hrc.ancestor_at_level(tile_id, settings.region_level))
-			if region != null and not structure_tiles.has(tile_id):
-				var structure_tile: StructureTile = StructureTile.create(tile_id, height_source, region)
+			if not structure_tiles.has(tile_id):
+				var structure_tile: StructureTile = StructureTile.create(tile_id, height_source)
 				$Structures.add_child(structure_tile)
 				structure_tiles[tile_id] = structure_tile
 				return

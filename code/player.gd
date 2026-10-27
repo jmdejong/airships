@@ -125,7 +125,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		Atmosphere.air_density(position),
 		was_on_ground,
 		used_platform,
-		(last_since_floor_max - last_since_floor) / last_since_floor_max,
+		max(0, (last_since_floor_max - last_since_floor) / last_since_floor_max),
 		specific_info
 	])
 

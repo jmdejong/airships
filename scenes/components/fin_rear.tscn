@@ -25,6 +25,7 @@ size = Vector3(12, 6, 0.5)
 
 [node name="FinRear" type="Node3D" unique_id=2065927277]
 script = ExtResource("1_f3eow")
+ctyp = "fin_rear"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1169309816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dhx5digueongt"]
+
+[ext_resource type="Script" uid="uid://cpabs1jemgn5x" path="res://code/ui/sound_message.gd" id="1_bow2g"]
+
+[node name="SoundMessage" type="RichTextLabel" unique_id=1788076187]
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("1_bow2g")

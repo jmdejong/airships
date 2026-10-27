@@ -13,6 +13,7 @@ func _init() -> void:
 	register(preload("res://scenes/components/chair.tscn"))
 	register(preload("res://scenes/components/dial.tscn"))
 	register(preload("res://scenes/components/engine.tscn"))
+	register(preload("res://scenes/components/fin_rear.tscn"))
 	register(preload("res://scenes/components/life_anchor.tscn"))
 	register(preload("res://scenes/components/mooring_line.tscn"))
 	register(preload("res://scenes/components/rope_ladder.tscn"))

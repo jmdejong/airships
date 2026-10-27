@@ -73,7 +73,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1420705398]
 attributes = SubResource("CameraAttributesPractical_fa61x")
 current = true
-near = 0.2
+near = 0.125
+far = 8192.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D" unique_id=1897041223]
 light_energy = 0.7
@@ -83,7 +84,7 @@ distance_fade_enabled = true
 omni_range = 10.0
 
 [node name="Background" type="MeshInstance3D" parent="Head/Camera3D" unique_id=1065176450]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3999)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8000)
 material_override = SubResource("ShaderMaterial_qlg0r")
 mesh = SubResource("QuadMesh_it4ap")
 script = ExtResource("4_smehm")

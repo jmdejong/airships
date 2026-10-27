@@ -4,7 +4,7 @@ extends Node3D
 
 var tile_id: Vector3i
 
-static func create(tile_id: Vector3i, height_source: HeightSource, region: Region) -> StructureTile:
+static func create(tile_id: Vector3i, height_source: HeightSource) -> StructureTile:
 	var structure_tile: StructureTile = preload("res://scenes/terrain/structure_tile.tscn").instantiate()
 	structure_tile.tile_id = tile_id
 	var area = Hrc.hrc_area(tile_id)
