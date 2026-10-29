@@ -19,10 +19,15 @@ var map_changed: bool = true
 @export var height_source: HeightSource
 
 func _physics_process(_delta: float) -> void:
-	var camera: Camera3D = get_viewport().get_camera_3d()
-	if camera == null:
+	if height_source == null:
 		return
-	var player_pos: Vector2 = Vector2(camera.global_position.x, camera.global_position.z)
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	var player_pos: Vector2 = Vector2.ZERO
+	if camera == null:
+		if not Engine.is_editor_hint():
+			return
+	else:
+		player_pos = Vector2(camera.global_position.x, camera.global_position.z)
 	var snapped_player_pos: Vector2 = player_pos.snapped(load_update_camera_snap)
 	if snapped_player_pos != previous_snapped_player_pos:
 		previous_snapped_player_pos = snapped_player_pos

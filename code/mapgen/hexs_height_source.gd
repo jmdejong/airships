@@ -10,6 +10,7 @@ var areas: Dictionary[Vector2i, Area] = {}
 @export var center_height: int = 10
 var height_source_material: ShaderMaterial = _default_height_source_material()
 @export var height_gradient: GradientTexture1D
+@export var height_gradient2: GradientTexture1D
 var height_scale: float = 128
 var height_min: float = -32
 var hasher: Hasher
@@ -120,6 +121,7 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	height_source_material.set_shader_parameter("area_segments", segments)
 	height_source_material.set_shader_parameter("step_size", step)
 	height_source_material.set_shader_parameter("height_gradient", ImageTexture.create_from_image(height_gradient.get_image()))
+	height_source_material.set_shader_parameter("height_gradient2", ImageTexture.create_from_image(height_gradient2.get_image()))
 	height_source_material.set_shader_parameter("absolute_minimum", absolute_minimum)
 	height_source_material.set_shader_parameter("height_resolution", height_resolution)
 	height_source_material.set_shader_parameter("noise_between_seed", noise.seed)

@@ -11,6 +11,7 @@ uniform int hexes_x;
 uniform ivec2 lowest_hex;
 uniform float hex_rad;
 uniform sampler2D height_gradient : repeat_disable;
+uniform sampler2D height_gradient2 : repeat_disable;
 uniform float absolute_minimum;
 uniform float height_resolution;
 uniform int noise_between_seed;
@@ -86,6 +87,16 @@ vec3 encode_height(float height) {
 	);
 }
 
+vec3 terrain_color(vec2 pos, float height) {
+	vec3 t1 = texture(height_gradient, vec2(height/200.0+0.5, 0)).xyz;
+	vec3 t2 = texture(height_gradient2, vec2(height/200.0+0.5, 0)).xyz;
+	fnl_state noise_color_patch = fnlCreateState(noise_between_seed^9403);
+	noise_color_patch.octaves = 4;
+	noise_color_patch.frequency = 0.05;
+	float h = clamp(fnlGetNoise2D(noise_color_patch, pos.x, pos.y)/2.0 + 0.5, 0.0, 1.0);
+	return mix(t1, t2, h) * (1.0 + 0.0625*fnlGetNoise2D(noise_color_patch, 19324.0-pos.x, 38748.0-pos.y));
+}
+
 void blit() {
 	vec2 pos = (FRAGCOORD.xy - vec2(0.5)) * step_size + area_pos.xz;
 	float height = height_at(pos);
@@ -95,6 +106,6 @@ void blit() {
 		vec3(0, height_at(pos+vec2(0, 0.1))-height, 0.1)
 	));
 	COLOR1 = vec4(normal/2.0+vec3(0.5), 1);
-	COLOR2 = vec4(texture(height_gradient, vec2(height/200.0+0.5, 0)).xyz, 1);
+	COLOR2 = vec4(terrain_color(pos, height), 1);
 	//COLOR2 = vec4(0, height/100.0+0.5, 0, 1);
 }
