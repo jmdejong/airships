@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxgiwy7folhqu"]
+[gd_scene format=3 uid="uid://bxgiwy7folhqu"]
+
+[ext_resource type="ArrayMesh" uid="uid://bmhp4ox5ehjn0" path="res://models/generated/tree.mesh" id="1_fk1xd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4wyf3"]
 height = 10.5
@@ -20,18 +22,23 @@ rings = 8
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71j4m"]
 albedo_color = Color(0, 0.533333, 0, 1)
 
-[node name="Tree" type="StaticBody3D"]
+[node name="Tree" type="StaticBody3D" unique_id=1130484317]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=9393259]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
 shape = SubResource("CapsuleShape3D_4wyf3")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2075461406]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+visible = false
 mesh = SubResource("CylinderMesh_4wyf3")
 surface_material_override/0 = SubResource("StandardMaterial3D_k0juu")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1276550201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+visible = false
 mesh = SubResource("SphereMesh_4wyf3")
 surface_material_override/0 = SubResource("StandardMaterial3D_71j4m")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=646359433]
+mesh = ExtResource("1_fk1xd")
