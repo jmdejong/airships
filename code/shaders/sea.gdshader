@@ -79,7 +79,7 @@ void fragment() {
 	//if (-VERTEX.z < 64.0) {
 	//ALPHA = 1.0-0.4/(water_depth*water_depth*fres*2.0 + 1.0);//mix(1.0, 0.75, fres);
 	//}
-	float camera_factor = clamp((-VERTEX.z - 0000.0) / 3200.0, 0.0, 1.0);
+	float camera_factor = clamp((-VERTEX.z - 0000.0) / 6400.0, 0.0, 1.0);
 	//ALBEDO = mix(base_color, texture(bg_gradient, vec2(h*0.49+0.5, 0)).rgb, camera_factor);
 	//ALBEDO = texture(bg_gradient, vec2(h*0.49+0.5, 0)).rgb;
 	ALBEDO = base_color;

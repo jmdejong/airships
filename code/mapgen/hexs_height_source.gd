@@ -116,6 +116,8 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	normal_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBA8)
 	var color_texture: DrawableTexture2D = DrawableTexture2D.new()
 	color_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBA8)
+	var detail_texture: DrawableTexture2D = DrawableTexture2D.new()
+	detail_texture.setup(resolution, resolution, DrawableTexture2D.DrawableFormat.DRAWABLE_FORMAT_RGBA8)
 	height_source_material.set_shader_parameter("area_pos", area3.position)
 	height_source_material.set_shader_parameter("area_size", area3.size)
 	height_source_material.set_shader_parameter("area_segments", segments)
@@ -128,7 +130,7 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	height_texture.blit_rect_multi(
 		Rect2i(Vector2i.ZERO, Vector2i.ONE * resolution),
 		[preload("res://icon.svg")],
-		[normal_texture, color_texture],
+		[normal_texture, color_texture, detail_texture],
 		Color.BLACK,
 		0,
 		height_source_material
@@ -137,7 +139,8 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	image_buffers.height = height_texture.get_image()
 	image_buffers.normal = normal_texture.get_image()
 	image_buffers.color = color_texture.get_image()
-	#image_buffers.height.save_png("user://height_"+str(area)+".png")
+	image_buffers.detail = detail_texture.get_image()
+	#image_buffers.detail.save_png("user://detail_"+str(area)+".png")
 	image_buffers.area = area3
 	image_buffers.segments = segments
 	image_buffers.absolute_minimum = absolute_minimum

@@ -12,3 +12,5 @@ script = ExtResource("1_mxlkd")
 [node name="Faces" type="Node3D" parent="." unique_id=1519287711]
 
 [node name="Structures" type="Node3D" parent="." unique_id=667243556]
+
+[node name="Grass" type="Node3D" parent="." unique_id=780892736]

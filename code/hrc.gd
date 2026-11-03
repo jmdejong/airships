@@ -50,3 +50,12 @@ func absolute_axis_distance(hrc: Vector3i, to: Vector2) -> float:
 	var area: Rect2 = hrc_area(hrc)
 	var d: Vector2 = (to - area.get_center()).abs() - Vector2(0.5, 0.5) * area.size
 	return max(d.x, d.y)
+
+func iterate_near(pos: Vector2, radius: float, level: int) -> Array[Vector3i]:
+	var lo: Vector3i = Hrc.world_to_hrc_id(pos - Vector2.ONE * radius, level)
+	var hi: Vector3i = Hrc.world_to_hrc_id(pos + Vector2.ONE * radius, level)
+	var hrcs: Array[Vector3i] = []
+	for x: int in range(lo.x, hi.x + 1):
+		for y: int in range(lo.y, hi.y + 1):
+			hrcs.append(Vector3i(x, y, level))
+	return hrcs

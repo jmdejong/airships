@@ -52,3 +52,13 @@ func relative_axis_distance(to: Vector2) -> float:
 
 func height_at(pos: Vector2) -> float:
 	return image_buffers.height_at(pos)
+
+func grass_density_at(pos: Vector2) -> float:
+	return image_buffers.detail.get_pixelv(image_buffers.pos_to_pixel(pos))[0]
+
+func color_at(pos: Vector2) -> Color:
+	var c: Color = image_buffers.color.get_pixelv(image_buffers.pos_to_pixel(pos))
+	if Global.is_srgb:
+		return c.srgb_to_linear()
+	else:
+		return c 

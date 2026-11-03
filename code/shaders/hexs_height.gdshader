@@ -97,6 +97,15 @@ vec3 terrain_color(vec2 pos, float height) {
 	return mix(t1, t2, h) * (1.0 + 0.0625*fnlGetNoise2D(noise_color_patch, 19324.0-pos.x, 38748.0-pos.y));
 }
 
+float grass_density(vec2 pos, float height, vec3 normal) {
+	fnl_state noise = fnlCreateState(noise_between_seed^9403);
+	noise.octaves = 2;
+	noise.frequency = 0.02;
+	float noise_effect = pow(fnlGetNoise2D(noise, pos.x, pos.y), 2.0);
+	float height_effect = min((height-1.0)/3.0, pow((32.0-height)/8.0, 3.0));
+	return clamp(height_effect * noise_effect * normal.y, 0.0, 1.0);
+}
+
 void blit() {
 	vec2 pos = (FRAGCOORD.xy - vec2(0.5)) * step_size + area_pos.xz;
 	float height = height_at(pos);
@@ -107,5 +116,6 @@ void blit() {
 	));
 	COLOR1 = vec4(normal/2.0+vec3(0.5), 1);
 	COLOR2 = vec4(terrain_color(pos, height), 1);
+	COLOR3 = vec4(grass_density(pos, height, normal), 0, 0, 1);
 	//COLOR2 = vec4(0, height/100.0+0.5, 0, 1);
 }

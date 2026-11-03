@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cj5siamwwil4n"]
+
+[ext_resource type="Script" uid="uid://c3kecxw8yloju" path="res://code/terrain/grass_tile.gd" id="1_yr0er"]
+[ext_resource type="ArrayMesh" uid="uid://05dgctc1py68" path="res://models/generated/grass.mesh" id="2_ad2lf"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_yr0er"]
+resource_local_to_scene = true
+transform_format = 1
+use_colors = true
+mesh = ExtResource("2_ad2lf")
+
+[node name="GrassTile" type="Node3D" unique_id=938228411]
+script = ExtResource("1_yr0er")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1752595217]
+cast_shadow = 0
+multimesh = SubResource("MultiMesh_yr0er")

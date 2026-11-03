@@ -2,7 +2,7 @@ shader_type texture_blit;
 
 uniform uint leaf_count = 128u;
 uniform float edge_brighness = 0.5;
-uniform float edge_widht = 0.2;
+uniform float edge_width = 0.5;
 uniform float brightness_veriation = 0.2;
 uniform float leaf_radius = 0.09;
 uniform uint seed = 0;
@@ -41,8 +41,8 @@ void blit() {
 		}
 	}
 	if (leaf_index < leaf_count) {
-		float edge_factor = clamp((1.7 - leaf_center_distance*1.0), 0.0, 1.0);
-		float brightness = (1.0 - brightness_veriation) * edge_factor + 2.0 * brightness_veriation * hash_to_f(h+2000u);
+		float edge_factor = mix(edge_brighness, 1.0, clamp((1.0-leaf_center_distance) / edge_width, 0.0, 1.0));
+		float brightness = (1.0 + brightness_veriation * (hash_to_f(h+2000u)* 2.0 - 1.0)) * edge_factor;
 		COLOR0 = vec4(brightness, brightness, brightness, 1.0);
 	} else {
 		COLOR0 = vec4(0, 0, 0, 0);

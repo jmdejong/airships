@@ -22,6 +22,7 @@ backup_water_material = ExtResource("2_1hx56")
 
 [node name="Water" type="MeshInstance3D" parent="." unique_id=292173894]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_jg3am")
 surface_material_override/0 = ExtResource("3_1hx56")

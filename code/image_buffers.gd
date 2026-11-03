@@ -4,6 +4,7 @@ extends Resource
 var height: Image
 var normal: Image
 var color: Image
+var detail: Image
 var area: AABB
 var segments: int
 var absolute_minimum: float
@@ -17,12 +18,16 @@ func height_at_pixel(pix: Vector2i) -> float:
 	return absolute_minimum + c.r * red_scale + c.g * green_scale
 
 func height_at(pos: Vector2) -> float:
+	return height_at_pixel(pos_to_pixel(pos))
+
+func pos_to_pixel(pos: Vector2) -> Vector2i:
 	var area2: Rect2 = Rect2(Vector2(area.position.x, area.position.z), Vector2(area.size.x, area.size.z))
 	assert(area2.has_point(pos))
-	return height_at_pixel(Vector2i(
+	return Vector2i(
 		round((pos.x - area.position.x) / area.size.x * segments),
 		round((pos.y - area.position.z) / area.size.z * segments)
-	))
+	)
+
 
 func height_sub_image(sub_area: Rect2i) -> Image:
 	var area2: Rect2i = Rect2i(int(area.position.x), int(area.position.z), segments, segments)
