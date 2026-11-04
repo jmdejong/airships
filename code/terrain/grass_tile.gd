@@ -2,7 +2,7 @@
 class_name GrassTile
 extends TerrainTile
 
-var axis_instance_count: int = 64
+var axis_instance_count: int = 32
 
 static func create(tile_id: Vector3i, height_source: Region) -> GrassTile:
 	var grass_tile: GrassTile = preload("res://scenes/terrain/grass_tile.tscn").instantiate()
@@ -26,7 +26,7 @@ func initialize(region: Region) -> void:
 			var pb := Vector2(x + rng.randf_range(0.2, 0.8), y+rng.randf_range(0.2, 0.8)) / axis_instance_count * area.size + area.position
 			if region.grass_density_at(pb) < rng.randf():
 				continue
-			var pos = Vector3(pb.x, region.height_at(pb), pb.y)
+			var pos = Vector3(pb.x, region.height_at(pb) - rng.randf_range(0.0, 0.2), pb.y)
 			if pos.y > hi:
 				hi = pos.y
 			if pos.y < lo:

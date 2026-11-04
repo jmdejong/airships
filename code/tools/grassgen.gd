@@ -23,16 +23,30 @@ func generate() -> void:
 		var pos := Vector2(randf_range(-blade_spread_rad, blade_spread_rad), randf_range(-blade_spread_rad, blade_spread_rad))
 		var vs: int = vertices.size()
 		var rot: float = randf_range(0, TAU)
+		var left := Vector3(pos.x + blade_width * sin(rot), blade_bottom, pos.y + blade_width * cos(rot))
+		var right := Vector3(pos.x - blade_width * sin(rot), blade_bottom, pos.y - blade_width * cos(rot))
+		var top := Vector3(pos.x, blade_top, pos.y) + Vector3(randf_range(-htr, htr), randf_range(-vtr, vtr), randf_range(-htr, htr))
+		var leftmid := (left + top) / 2.0;
+		leftmid.y = top.y * 0.75 + blade_bottom * 0.25;
+		var rightmid := (right + top) / 2.0;
+		rightmid.y = top.y * 0.75 + blade_bottom * 0.25;
 		vertices.append_array(PackedVector3Array([
-			Vector3(pos.x + blade_width * sin(rot), blade_bottom, pos.y + blade_width * cos(rot)),
-			Vector3(pos.x - blade_width * sin(rot), blade_bottom, pos.y - blade_width * cos(rot)),
-			Vector3(pos.x, blade_top, pos.y) + Vector3(randf_range(-htr, htr), randf_range(-vtr, vtr), randf_range(-htr, htr))
+			left,
+			right,
+			leftmid,
+			rightmid,
+			top
 		]))
-		indices.append_array(PackedInt32Array([vs, vs+1, vs+2]))
-		normals.append_array(PackedVector3Array([Vector3.UP, Vector3.UP, Vector3.UP]))
-		uvs.append_array(PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(0.5, 1)]))
+		var normal: Vector3 = -(left - top).cross(right - top).normalized()
+		indices.append_array(PackedInt32Array([
+			vs, vs+1, vs+2,
+			vs+1, vs+3, vs+2,
+			vs+2, vs+3, vs+4
+		]))
+		normals.append_array(PackedVector3Array([normal, normal, normal, normal, normal]))
+		uvs.append_array(PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(0, 0.5), Vector2(1, 0.5), Vector2(0.5, 1)]))
 		var c: Color = Color.WHITE * randf_range(0.8, 1.2)
-		colors.append_array(PackedColorArray([c, c, c]))
+		colors.append_array(PackedColorArray([c, c, c, c, c]))
 	var grass_mesh := ArrayMesh.new()
 	var surface_array: Array = []
 	surface_array.resize(Mesh.ARRAY_MAX)
@@ -40,7 +54,7 @@ func generate() -> void:
 	surface_array[Mesh.ARRAY_NORMAL] = normals
 	surface_array[Mesh.ARRAY_TEX_UV] = uvs
 	surface_array[Mesh.ARRAY_INDEX] = indices
-	surface_array[Mesh.ARRAY_COLOR] = colors
+	#surface_array[Mesh.ARRAY_COLOR] = colors
 	grass_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
 	grass_mesh.surface_set_material(0, grass_material)
 	mesh = grass_mesh
