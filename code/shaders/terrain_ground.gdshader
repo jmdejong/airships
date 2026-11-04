@@ -4,8 +4,8 @@ render_mode world_vertex_coords, specular_disabled, diffuse_lambert;
 uniform sampler2D height_tex;
 uniform sampler2D normal_tex;
 uniform sampler2D color_tex : source_color;
-uniform vec3 position;
-uniform vec3 size;
+uniform vec2 position;
+uniform vec2 size;
 uniform int subtiles;
 uniform sampler2D ground_texture : source_color, filter_linear_mipmap;
 uniform float texture_size = 2;
@@ -23,9 +23,9 @@ float decode_height(vec3 encoded) {
 }
 
 void vertex() {
-	vec2 tile_size = size.xz / float(subtiles);
-	uv = (VERTEX.xz - position.xz + tile_size / 2.0) / (size.xz + tile_size);
-	VERTEX.y = decode_height(texture(height_tex, uv).rgb);// * size.y + position.y;
+	vec2 tile_size = size / float(subtiles);
+	uv = (VERTEX.xz - position + tile_size / 2.0) / (size + tile_size);
+	VERTEX.y = decode_height(texture(height_tex, uv).rgb);
 	NORMAL = texture(normal_tex, uv).xyz * 2.0 - vec3(1.0);
 	world_position = VERTEX;
 	COLOR = texture(color_tex, uv);

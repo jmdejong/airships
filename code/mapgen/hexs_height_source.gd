@@ -15,9 +15,10 @@ var height_scale: float = 128
 var height_min: float = -32
 var hasher: Hasher
 var absolute_minimum: float = -1024
-var height_resolution: float = 16.0
-var red_scale: float = 255.0/height_resolution
-var green_scale: float = 255.0*256.0/height_resolution
+var height_min_step: float = 0.125
+var height_channel_resolution = (height_min_step * 256.0)
+var red_scale: float = 255.0/height_channel_resolution
+var green_scale: float = 255.0*256.0/height_channel_resolution
 var blue_scale: float = 0
 
 @export var base_terrain_material: ShaderMaterial
@@ -125,7 +126,7 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	height_source_material.set_shader_parameter("height_gradient", ImageTexture.create_from_image(height_gradient.get_image()))
 	height_source_material.set_shader_parameter("height_gradient2", ImageTexture.create_from_image(height_gradient2.get_image()))
 	height_source_material.set_shader_parameter("absolute_minimum", absolute_minimum)
-	height_source_material.set_shader_parameter("height_resolution", height_resolution)
+	height_source_material.set_shader_parameter("height_resolution", height_channel_resolution)
 	height_source_material.set_shader_parameter("noise_between_seed", noise.seed)
 	height_texture.blit_rect_multi(
 		Rect2i(Vector2i.ZERO, Vector2i.ONE * resolution),
@@ -149,6 +150,9 @@ func height_image_at(area: Rect2, segments: int) -> ImageBuffers:
 	image_buffers.blue_scale = blue_scale
 	image_buffers.base_material = base_terrain_material
 	return image_buffers
+
+func base_material() -> ShaderMaterial:
+	return base_terrain_material.duplicate()
 
 func color_modifier(pos: Vector2) -> Color:
 	return (color_noise.get_noise_2dv(pos)+9)/10 * Color.WHITE

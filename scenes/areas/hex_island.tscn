@@ -13,7 +13,7 @@ colors = PackedColorArray(0.8, 0.8, 0.8, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0uds8"]
 frequency = 0.08
-fractal_octaves = 3
+fractal_octaves = 2
 domain_warp_enabled = true
 domain_warp_amplitude = 10.0
 

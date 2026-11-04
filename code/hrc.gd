@@ -37,9 +37,16 @@ func world_to_hrc_uv(world: Vector2, level: int) -> Vector2:
 
 func ancestor_at_level(hrc: Vector3i, level: int) -> Vector3i:
 	assert(level >= hrc.z)
-	while level > hrc.z:
-		hrc = parent(hrc)
-	return hrc
+	var f: float = float(2**(level - hrc.z))
+	return Vector3i(floori(hrc.x / f), floori(hrc.y / f), level)
+
+func first_child(hrc: Vector3i) -> Vector3i:
+	return Vector3i(hrc.x * 2, hrc.y * 2, hrc.z - 1)
+
+func child_at_level(hrc: Vector3i, level: int) -> Vector3i:
+	assert(level <= hrc.z)
+	var f: int = 2**(hrc.z - level)
+	return Vector3i(hrc.x * f, hrc.y * f, level)
 
 func relative_axis_distance(hrc: Vector3i, to: Vector2) -> float:
 	var area: Rect2 = hrc_area(hrc)

@@ -22,5 +22,5 @@ void fragment() {
 	if (!FRONT_FACING) {
 		NORMAL = -NORMAL;
 	}
-	ALBEDO = mix(base_color, top_color, UV.y) * COLOR.xyz;
+	ALBEDO = mix(base_color, top_color, UV.y) * COLOR.g;
 }

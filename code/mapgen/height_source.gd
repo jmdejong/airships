@@ -55,6 +55,8 @@ func color_modifier3(pos: Vector3) -> Color:
 #func get_area_height(area: Rect2i) -> PackedFloat32Array:
 	#var p: PackedFloat32Array = []
 
+@abstract func base_material() -> ShaderMaterial
+
 @abstract
 func extremes(area: Rect2) -> Vector2
 

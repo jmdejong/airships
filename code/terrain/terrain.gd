@@ -35,14 +35,15 @@ func _physics_process(_delta: float) -> void:
 		map_changed = true
 		prune_regions(player_pos)
 		identify_load_regions(player_pos)
-		prune_colliders(player_pos)
-		prune_structures(player_pos)
-		prune_grass(player_pos)
+		prune_tile_layer(player_pos, loaded_colliders, settings.collider_min_distance * 2)
+		prune_tile_layer(player_pos, structure_tiles, settings.structure_min_distance * 2)
+		prune_tile_layer(player_pos, grass_tiles, settings.grass_min_distance * 2)
 	load_regions()
 	if not Engine.is_editor_hint():
 		build_one_collider(player_pos)
 	build_structures(player_pos)
 	build_grass(player_pos)
+	#build_tile_layer(GrassTile.create, grass_tiles, settings.grass_level, settings.grass_min_distance, $Grass, player_pos)
 	if map_changed:
 		update_faces(player_pos)
 		map_changed = false
@@ -57,7 +58,7 @@ func region_for_face(hrc: Vector3i) -> Region:
 	return region
 
 func load_region_at(region_id: Vector3i) -> void:
-	var region: Region = Region.create(region_id, settings.region_step_count, height_source)
+	var region: Region = Region.new(region_id, settings.region_level_range, height_source)
 	loaded_regions[region_id] = region
 	if region_id.z == settings.super_region_level or faces.has(region_id):
 		add_face(region_id)
@@ -87,8 +88,6 @@ func prune_regions(player_pos: Vector2) -> void:
 		var region: Region = loaded_regions[region_id]
 		if region.relative_axis_distance(player_pos) > 2.8:
 			loaded_regions.erase(region_id)
-			region.queue_free()
-
 
 func update_faces(player_pos) -> void:
 	for face: TerrainFace in $Faces.get_children():
@@ -136,24 +135,10 @@ func build_one_collider(player_pos: Vector2) -> void:
 	for collider_id: Vector3i in Hrc.iterate_near(player_pos, settings.collider_min_distance, settings.collider_level):
 		var region: Region = loaded_regions.get(Hrc.ancestor_at_level(collider_id, settings.region_level))
 		if region != null and not loaded_colliders.has(collider_id):
-			build_collider_at(collider_id, region)
+			var collider: TerrainCollider = TerrainCollider.create(collider_id, region)
+			loaded_colliders[collider_id] = collider
+			$Colliders.add_child(collider)
 			return
-
-func build_collider_at(collider_id: Vector3i, region: Region) -> void:
-	var collider: TerrainCollider = TerrainCollider.create(collider_id, region.image_buffers)
-	loaded_colliders[collider_id] = collider
-	_add_collider(collider)
-
-func _add_collider(collider: TerrainCollider) -> void:
-	$Colliders.add_child(collider)
-
-func prune_colliders(player_pos: Vector2) -> void:
-	for collider: TerrainCollider in $Colliders.get_children():
-		if Hrc.absolute_axis_distance(collider.region_id, player_pos) >= settings.collider_min_distance * 2:
-			loaded_colliders.erase(collider.region_id)
-			collider.queue_free()
-		else:
-			loaded_colliders[collider.region_id] = collider
 
 func build_structures(player_pos: Vector2) -> void:
 	for tile_id: Vector3i in Hrc.iterate_near(player_pos, settings.structure_min_distance, settings.structure_level):
@@ -162,12 +147,6 @@ func build_structures(player_pos: Vector2) -> void:
 			$Structures.add_child(structure_tile)
 			structure_tiles[tile_id] = structure_tile
 			return
-
-func prune_structures(player_pos: Vector2) -> void:
-	for structure: StructureTile in $Structures.get_children():
-		if Hrc.absolute_axis_distance(structure.tile_id, player_pos) >= settings.structure_min_distance * 2:
-			structure_tiles.erase(structure.tile_id)
-			structure.queue_free()
 
 func build_grass(player_pos: Vector2) -> void:
 	for tile_id: Vector3i in Hrc.iterate_near(player_pos, settings.grass_min_distance, settings.grass_level):
@@ -180,13 +159,22 @@ func build_grass(player_pos: Vector2) -> void:
 			$Grass.add_child(grass_tile)
 			return
 
-func prune_grass(player_pos: Vector2) -> void:
-	for grass: GrassTile in grass_tiles.values():
-		if Hrc.absolute_axis_distance(grass.tile_id, player_pos) >= settings.grass_min_distance * 2:
-			grass_tiles.erase(grass.tile_id)
-			grass.queue_free()
+func build_tile_layer(factory: Callable, collection: Dictionary, level: int, min_distance: float, parent: Node3D, player_pos) -> void:
+	for tile_id: Vector3i in Hrc.iterate_near(player_pos, min_distance, level):
+		if not collection.has(tile_id):
+			var region: Region = loaded_regions.get(Hrc.ancestor_at_level(tile_id, settings.region_level))
+			if region == null:
+				continue
+			var tile: TerrainTile = factory.call(tile_id, region)
+			collection[tile_id] = tile
+			parent.add_child(tile)
+			return
 
-
+func prune_tile_layer(player_pos: Vector2, tiles: Dictionary, prune_distance: float) -> void:
+	for tile: TerrainTile in tiles.values():
+		if Hrc.absolute_axis_distance(tile.tile_id, player_pos) >= prune_distance:
+			tiles.erase(tile.tile_id)
+			tile.queue_free()
 
 func height_at(pos: Vector2) -> float:
 	var region_id: Vector3i = Hrc.world_to_hrc_id(pos, settings.region_level)
@@ -201,7 +189,7 @@ class Settings:
 	var region_level: int = 9
 	var super_region_level: int = 12
 	var region_level_range: int = region_level
-	var region_step_count: int = 2**region_level_range
+	#var region_step_count: int = 2**region_level_range
 	var min_face_level: int = 5
 	var collider_level: int = 7
 	var structure_level: int = 7
