@@ -21,11 +21,10 @@ var has_neighbour: Dictionary[Vector2i, bool] = {}
 var material: Material
 #var _active = true
 var step_size: float
-static var scene: PackedScene = preload("res://scenes/terrain/terrain_face.tscn")
 @export var backup_water_material: Material
 
 static func create(face_id: Vector3i, material: Material) -> TerrainFace:
-	var face: TerrainFace = scene.instantiate()
+	var face: TerrainFace = preload("res://scenes/terrain/terrain_face.tscn").instantiate()
 	#face.level = level
 	face.face_id = face_id
 	var center: Vector2 = face.area.get_center()

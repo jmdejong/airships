@@ -48,6 +48,11 @@ func _physics_process(_delta: float) -> void:
 		update_faces(player_pos)
 		map_changed = false
 
+func _exit_tree() -> void:
+	for face: TerrainFace in faces.values():
+		if is_instance_valid(face) and not face.is_inside_tree():
+			face.free()
+
 func region_for_face(hrc: Vector3i) -> Region:
 	var region_hrc: Vector3i
 	if hrc.z < settings.face_uses_region_level:
@@ -102,9 +107,9 @@ func update_faces(player_pos) -> void:
 		if not face.is_inside_tree() and Hrc.relative_axis_distance(face.face_id, player_pos) > 3.0:
 			$Faces.add_child(face)
 			for sub_id: Vector3i in Hrc.children(face.face_id):
-				deactivate_face(sub_id)
+				remove_face(sub_id)
 		if face.level == settings.super_region_level and not loaded_regions.has(face.face_id):
-			deactivate_face(face.face_id)
+			remove_face(face.face_id)
 
 func add_face(face_id: Vector3i) -> void:
 	if not faces.has(face_id):
@@ -117,13 +122,14 @@ func add_face(face_id: Vector3i) -> void:
 			faces[face_id].set_neighbour(direction, true)
 			faces[neighbour_id].set_neighbour(-direction, true)
 
-func deactivate_face(face_id: Vector3i) -> void:
+func remove_face(face_id: Vector3i) -> void:
 	if !faces.has(face_id):
 		return
 	var face: TerrainFace = faces[face_id]
 	for sub_id: Vector3i in Hrc.children(face_id):
-		deactivate_face(sub_id)
+		remove_face(sub_id)
 	faces.erase(face_id)
+	face.queue_free()
 	for direction: Vector2i in [Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, -1), Vector2i(-1, 0)]:
 		var neighbour_id: Vector3i = Hrc.neighbour_in(face_id, direction)
 		if faces.has(neighbour_id):

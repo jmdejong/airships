@@ -49,9 +49,12 @@ func calculate_components_shapes() -> void:
 func set_shapes() -> void:
 	for child in get_children():
 		if child is CollisionShape3D:
-			remove_child(child)
-	for source_shape: CollisionShape3D in $Components.shapes():
-		var shape = source_shape.duplicate()
+			child.queue_free()
+	for source_shape: Component.CShape in $Components.shapes():
+		var shape := CollisionShape3D.new()
+		shape.transform = source_shape.transform
+		shape.shape = source_shape.shape
+		shape.set_meta("component", source_shape.component)
 		add_child(shape)
 
 func _physics_process(_delta: float) -> void:

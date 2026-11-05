@@ -19,7 +19,7 @@ func physics_properties() -> PhysicsProperties
 func forces() -> Array[Force]:
 	return []
 
-func shapes() -> Array[CollisionShape3D]:
+func shapes() -> Array[CShape]:
 	return []
 
 @abstract
@@ -52,5 +52,18 @@ func to_own_json() -> Dictionary[String, Variant]
 
 @abstract
 func initialize_from_json(json: Dictionary) -> void
+
+class CShape extends RefCounted:
+	var transform: Transform3D
+	var shape: Shape3D
+	var component: Component
+	
+	func _init(transform_: Transform3D, shape_: Shape3D, component_: Component) -> void:
+		transform = transform_
+		shape = shape_
+		component = component_
+	
+	func transformed(new_transform: Transform3D) -> CShape:
+		return CShape.new(new_transform * transform, shape, component)
 
 #@abstract func connections() -> Array[Vector3]

@@ -16,7 +16,6 @@ var no_detail_border_meshes: Dictionary[Vector2i, Mesh] = {}
 var _active = true
 var step_size: float
 var tile_buffers: TileBuffers
-static var scene: PackedScene = preload("res://scenes/ground_face.tscn")
 var self_node: Node3D
 var subfaces: Node3D
 var self_active: bool = true:
@@ -50,7 +49,7 @@ var subfaces_active: bool = false:
 		
 
 static func create(level: int, area: Rect2, config: GroundConfig, height_source: HeightSource, face_id: Vector3i, all_positions: Dictionary[Vector3i, GroundFace]) -> GroundFace:
-	var face: GroundFace = scene.instantiate()
+	var face: GroundFace = preload("res://scenes/ground_face.tscn").instantiate()
 	face.level = level
 	face.config = config
 	face.height_source = height_source

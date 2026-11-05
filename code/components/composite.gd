@@ -4,7 +4,7 @@ extends Component
 @export var keep_empty: bool
 
 var _physics_properties: PhysicsProperties
-var _shapes: Array[CollisionShape3D]
+var _shapes: Array[Component.CShape]
 var _forces: Array[Force]
 var _physics_changed := true
 var _forces_changed := true
@@ -71,10 +71,8 @@ func _recalculate_shapes() -> void:
 		if not (child is Component):
 			continue
 		var component: Component = child
-		for source_shape: CollisionShape3D in component.shapes():
-			var shape = source_shape.duplicate()
-			shape.transform = transform * shape.transform
-			_shapes.append(shape)
+		for source_shape: Component.CShape in component.shapes():
+			_shapes.append(source_shape.transformed(transform))
 		if component.mooring_point != null:
 			mooring_point = component.mooring_point
 	changed_shapes.emit()
@@ -94,7 +92,7 @@ func recalculate_all() -> void:
 	recalculate_forces()
 	recalculate_shapes()
 
-func shapes() -> Array[CollisionShape3D]:
+func shapes() -> Array[Component.CShape]:
 	return _shapes
 
 func forces() -> Array[Force]:

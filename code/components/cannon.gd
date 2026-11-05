@@ -17,15 +17,15 @@ func _ready() -> void:
 func mass() -> float:
 	return 500
 
-func shapes() -> Array[CollisionShape3D]:
-	var collisionshapes: Array[CollisionShape3D] = []
+func shapes() -> Array[Component.CShape]:
+	var cshapes: Array[Component.CShape] = []
 	for child: CollisionShape3D in [$Barrel/BarrelShape, $MountShape]:
-		#if child is CollisionShape3D:
-			var c: CollisionShape3D = child.duplicate()
-			c.set_meta("component", self)
-			c.transform = (get_parent().global_transform.inverse() * child.global_transform)
-			collisionshapes.append(c)
-	return collisionshapes
+		cshapes.append(Component.CShape.new(
+			(get_parent().global_transform.inverse() * child.global_transform),
+			child.shape,
+			self
+		))
+	return cshapes
 
 func _on_fire_pressed() -> void:
 	if !can_fire:

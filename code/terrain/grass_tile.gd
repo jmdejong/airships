@@ -4,9 +4,9 @@ extends TerrainTile
 
 var axis_instance_count: int = 32
 
-static func create(tile_id: Vector3i, height_source: Region) -> GrassTile:
+static func create(tile_id_: Vector3i, height_source: Region) -> GrassTile:
 	var grass_tile: GrassTile = preload("res://scenes/terrain/grass_tile.tscn").instantiate()
-	grass_tile.tile_id = tile_id
+	grass_tile.tile_id = tile_id_
 	var pos: Vector2 = grass_tile.area.get_center()
 	grass_tile.position = Vector3(pos.x, 0, pos.y)
 	grass_tile.initialize(height_source)

@@ -20,17 +20,12 @@ func center_of_volume() -> Vector3:
 func physics_properties() -> PhysicsProperties:
 	return PhysicsProperties.new(mass(), center_of_mass(), displaced_volume(), center_of_volume())
 
-func shapes() -> Array[CollisionShape3D]:
-	var collisionshapes: Array[CollisionShape3D] = []
+func shapes() -> Array[Component.CShape]:
+	var cshapes: Array[Component.CShape] = []
 	for child: Node in get_children():
 		if child is CollisionShape3D && !child.disabled:
-			var c: CollisionShape3D = child.duplicate()
-			for inner_child: Node in c.get_children():
-				c.remove_child(inner_child)
-			c.set_meta("component", self)
-			c.transform = transform * c.transform
-			collisionshapes.append(c)
-	return collisionshapes
+			cshapes.append(CShape.new(transform * child.transform, child.shape, self))
+	return cshapes
 
 func destroy(_where: Vector3) -> void:
 	if get_parent() == null:
