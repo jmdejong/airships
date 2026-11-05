@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv20ntr61oneb"]
+[gd_scene format=3 uid="uid://dv20ntr61oneb"]
 
 [ext_resource type="Script" uid="uid://162ma0njlfxm" path="res://code/projectile.gd" id="1_77qtm"]
 [ext_resource type="Material" uid="uid://bi5p87x5rqiw6" path="res://materials/metal_dark.tres" id="2_402uy"]
@@ -10,7 +10,8 @@ radius = 0.23
 radius = 0.23
 height = 0.46
 
-[node name="CannonBall" type="RigidBody3D"]
+[node name="CannonBall" type="RigidBody3D" unique_id=1616588997]
+collision_mask = 3
 mass = 15.0
 continuous_cd = true
 contact_monitor = true
@@ -18,10 +19,10 @@ max_contacts_reported = 3
 linear_damp_mode = 1
 script = ExtResource("1_77qtm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=894716512]
 shape = SubResource("SphereShape3D_srq8n")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=6291659]
 mesh = SubResource("SphereMesh_srq8n")
 surface_material_override/0 = ExtResource("2_402uy")
 
