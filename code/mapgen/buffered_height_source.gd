@@ -25,3 +25,6 @@ func extremes(area: Rect2) -> Vector2:
 
 func structures(area: Rect2) -> Structure.Buffer:
 	return base_source.structures(area)
+
+func base_material() -> ShaderMaterial:
+	return base_source.base_material()
