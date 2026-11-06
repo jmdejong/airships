@@ -66,7 +66,7 @@ func generate_mesh() -> void:
 			vs+2, vs+3, vs+4
 		]))
 		normals.append_array(PackedVector3Array([left.normalized(), right.normalized(), leftmid.normalized(), rightmid.normalized(), top.normalized()]))
-		uvs.append_array(PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(0.25, 0.75), Vector2(0.75, 0.75), Vector2(0.5, 1)]))
+		uvs.append_array(PackedVector2Array([Vector2(0, 0), Vector2(1, 0), Vector2(0.375, 0.75), Vector2(0.625, 0.75), Vector2(0.5, 1)]))
 		#var c: Color = Color.WHITE * randf_range(0.8, 1.2)
 	
 	var bush_mesh := ArrayMesh.new()

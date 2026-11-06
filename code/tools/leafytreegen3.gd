@@ -3,6 +3,7 @@ extends MeshInstance3D
 
 @export var stem_height = 10
 @export var stem_radius = 0.5
+@export var stem_width: Curve
 @export var stem_material: BaseMaterial3D
 @export var leaf_material: Material
 @export var leaf_quad_width: float = 4
@@ -13,15 +14,9 @@ extends MeshInstance3D
 @export_tool_button("generate") var generate_action: Callable = generate_leafy_tree
 
 
-func clear() -> void:
-	for child: Node in get_children():
-		child.queue_free()
-
 
 func generate_leafy_tree() -> void:
-	clear()
 	%Leafgen.generate()
-	#leaf_material.set_shader_parameter("albedo_texture", %Leafgen.generate())
 	
 	var tree_mesh: ArrayMesh = ArrayMesh.new()
 	
@@ -29,9 +24,9 @@ func generate_leafy_tree() -> void:
 	
 	make_tube(PackedVector4Array([
 		Vector4(0, -1, 0, stem_radius * 2),
-		Vector4(0, 1, 0, stem_radius * 1.2),
-		Vector4(0, stem_height-1, 0, stem_radius * 0.6),
-		Vector4(0, stem_height+1, 0, 0)
+		Vector4(0, stem_height * 0.1, 0, stem_radius * 1.2),
+		Vector4(0, stem_height * 0.9, 0, stem_radius * 0.6),
+		Vector4(0, stem_height * 1.1, 0, 0)
 	]), 7, stem_surface)
 	tree_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, stem_surface)
 	tree_mesh.surface_set_material(tree_mesh.get_surface_count()-1, stem_material)
