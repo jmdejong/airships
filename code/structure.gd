@@ -11,6 +11,7 @@ func _init(scene: PackedScene, mesh: Mesh) -> void:
 
 static var tree: Structure = Structure.new(preload("res://scenes/structures/tree.tscn"), preload("res://models/tree.obj"))
 static var small_tree: Structure = Structure.new(preload("res://scenes/structures/small_tree.tscn"), null)
+static var bush: Structure = Structure.new(preload("res://scenes/structures/bush.tscn"), null)
 static var rock: Structure = Structure.new(preload("res://scenes/structures/rock.tscn"), null)
 static var house: Structure = Structure.new(preload("res://scenes/structures/house.tscn"), null)
 static var hangar: Structure = Structure.new(preload("res://scenes/structures/hangar.tscn"), null)

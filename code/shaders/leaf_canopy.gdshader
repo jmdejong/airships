@@ -3,7 +3,7 @@
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_disabled;
 
-uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_disable;
 uniform sampler2D albedo_gradient : source_color, filter_linear_mipmap, repeat_enable;
 uniform float canopy_height_variation = 1.0;
 

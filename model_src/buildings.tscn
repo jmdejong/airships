@@ -26,59 +26,75 @@ operation = 2
 size = Vector3(24, 28, 80)
 material = ExtResource("2_a0sok")
 
-[node name="Windows1" type="CSGBox3D" parent="Hangar" unique_id=1792075923]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 24)
+[node name="Windows" type="CSGCombiner3D" parent="Hangar" unique_id=253633014]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
 operation = 2
+
+[node name="Windows1" type="CSGBox3D" parent="Hangar/Windows" unique_id=1792075923]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
 size = Vector3(50, 2, 10)
 material = ExtResource("1_0g3lr")
 
-[node name="Windows2" type="CSGBox3D" parent="Hangar" unique_id=1293223832]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 8)
-operation = 2
+[node name="Windows2" type="CSGBox3D" parent="Hangar/Windows" unique_id=1293223832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 size = Vector3(50, 2, 10)
 material = ExtResource("1_0g3lr")
 
-[node name="Windows3" type="CSGBox3D" parent="Hangar" unique_id=1309584251]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, -8)
-operation = 2
+[node name="Windows3" type="CSGBox3D" parent="Hangar/Windows" unique_id=1309584251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 size = Vector3(50, 2, 10)
 material = ExtResource("1_0g3lr")
 
-[node name="Windows4" type="CSGBox3D" parent="Hangar" unique_id=315337202]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, -24)
-operation = 2
+[node name="Windows4" type="CSGBox3D" parent="Hangar/Windows" unique_id=315337202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24)
 size = Vector3(50, 2, 10)
 material = ExtResource("1_0g3lr")
 
 [node name="Floor" type="CSGBox3D" parent="Hangar" unique_id=571350034]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 size = Vector3(45, 2, 70)
 material = ExtResource("2_1kwrr")
 
-[node name="RoofCutoff1" type="CSGBox3D" parent="Hangar" unique_id=1847078158]
-transform = Transform3D(0.9238795, -0.38268346, 0, 0.38268346, 0.9238795, 0, 0, 0, 1, -10, 42, 0)
+[node name="RoofCutoff" type="CSGCombiner3D" parent="Hangar" unique_id=1737579851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0)
 operation = 2
+
+[node name="RoofCutoff2" type="CSGBox3D" parent="Hangar/RoofCutoff" unique_id=1477036410]
+transform = Transform3D(0.9238795, 0.38268346, 0, -0.38268346, 0.9238795, 0, 0, 0, 1, 10, 12, 0)
 size = Vector3(50, 20, 80)
 material = ExtResource("1_0g3lr")
 
-[node name="RoofCutoff2" type="CSGBox3D" parent="Hangar" unique_id=1477036410]
-transform = Transform3D(0.9238795, 0.38268346, 0, -0.38268346, 0.9238795, 0, 0, 0, 1, 10, 42, 0)
-operation = 2
+[node name="RoofCutoff1" type="CSGBox3D" parent="Hangar/RoofCutoff" unique_id=1847078158]
+transform = Transform3D(0.9238795, -0.38268346, 0, 0.38268346, 0.9238795, 0, 0, 0, 1, -10, 12, 0)
 size = Vector3(50, 20, 80)
 material = ExtResource("1_0g3lr")
 
-[node name="Roof1" type="CSGBox3D" parent="Hangar" unique_id=1768189349]
-transform = Transform3D(0.9238795, -0.38268346, 0, 0.38268346, 0.9238795, 0, 0, 0, 1, -12, 30, 0)
+[node name="Roof" type="CSGCombiner3D" parent="Hangar" unique_id=1567877951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0)
+
+[node name="Roof1" type="CSGBox3D" parent="Hangar/Roof" unique_id=1768189349]
+transform = Transform3D(0.9238795, -0.38268346, 0, 0.38268346, 0.9238795, 0, 0, 0, 1, -12, 0, 0)
 size = Vector3(26, 1, 72)
 material = ExtResource("4_a0sok")
 
-[node name="Roof2" type="CSGBox3D" parent="Hangar" unique_id=1628809371]
-transform = Transform3D(0.9238795, 0.38268346, 0, -0.38268346, 0.9238795, 0, 0, 0, 1, 12, 30, 0)
+[node name="Roof2" type="CSGBox3D" parent="Hangar/Roof" unique_id=1628809371]
+transform = Transform3D(0.9238795, 0.38268346, 0, -0.38268346, 0.9238795, 0, 0, 0, 1, 12, 0, 0)
 size = Vector3(26, 1, 72)
 material = ExtResource("4_a0sok")
 
-[node name="RoofMid" type="CSGCylinder3D" parent="Hangar" unique_id=2004676193]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 35.2, 0)
+[node name="RoofMid" type="CSGCylinder3D" parent="Hangar/Roof" unique_id=2004676193]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 5.2, 0)
 height = 72.0
 sides = 6
 material = ExtResource("4_a0sok")
+
+[node name="Ramp1" type="CSGPolygon3D" parent="Hangar" unique_id=919103420]
+transform = Transform3D(-4.371139e-08, 0, 0.99999994, 0, 0.9999999, 0, -0.99999994, 0, -4.371138e-08, 12, 0, -35)
+polygon = PackedVector2Array(0, -1, 0, 1, 1, 1, 5, -1)
+depth = 24.0
+material = ExtResource("2_1kwrr")
+
+[node name="Ramp2" type="CSGPolygon3D" parent="Hangar" unique_id=588742034]
+transform = Transform3D(1.3113414e-07, 0, -0.9999999, 0, 0.9999999, 0, 0.9999999, 0, 1.3113413e-07, -12, 0, 35)
+polygon = PackedVector2Array(0, -1, 0, 1, 1, 1, 5, -1)
+depth = 24.0
+material = ExtResource("2_1kwrr")

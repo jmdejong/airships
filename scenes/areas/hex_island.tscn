@@ -27,8 +27,8 @@ seamless = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_svbv2"]
 render_priority = 0
 shader = ExtResource("2_fsacg")
-shader_parameter/position = Vector3(0, 0, 0)
-shader_parameter/size = Vector3(0, 0, 0)
+shader_parameter/position = Vector2(0, 0)
+shader_parameter/size = Vector2(0, 0)
 shader_parameter/subtiles = 0
 shader_parameter/ground_texture = SubResource("NoiseTexture2D_tf67t")
 shader_parameter/texture_size = 8.0

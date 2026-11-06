@@ -32,7 +32,7 @@ void blit() {
 		h = i + seed;
 		float dist = hash_to_f(h);
 		float dir = hash_to_f(h+1000u) * 2.0 * PI;
-		vec2 leaf_pos = vec2(sin(dir), cos(dir)) * (sqrt(dist) - 2.0 * leaf_radius) / 2.0 + vec2(0.5, 0.5);
+		vec2 leaf_pos = vec2(sin(dir), cos(dir)) * (dist - 2.0 * leaf_radius) / 2.0 + vec2(0.5, 0.5);
 		float rad = leaf_radius * (0.8 + 0.4 * hash_to_f(h+3000u));
 		leaf_center_distance = distance(p, leaf_pos) / rad;
 		if (leaf_center_distance < 1.0) {

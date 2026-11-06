@@ -30,6 +30,7 @@ func _physics_process(_delta: float) -> void:
 	else:
 		player_pos = Vector2(camera.global_position.x, camera.global_position.z)
 	var snapped_player_pos: Vector2 = player_pos.snapped(load_update_camera_snap)
+	
 	if snapped_player_pos != previous_snapped_player_pos:
 		previous_snapped_player_pos = snapped_player_pos
 		map_changed = true
@@ -50,8 +51,14 @@ func _physics_process(_delta: float) -> void:
 
 func _exit_tree() -> void:
 	for face: TerrainFace in faces.values():
-		if is_instance_valid(face) and not face.is_inside_tree():
+		if is_instance_valid(face):
 			face.free()
+	faces = {}
+
+func _enter_tree() -> void:
+	for region_id: Vector3i in loaded_regions.keys():
+		if  region_id.z == settings.super_region_level:
+			add_face(region_id)
 
 func region_for_face(hrc: Vector3i) -> Region:
 	var region_hrc: Vector3i

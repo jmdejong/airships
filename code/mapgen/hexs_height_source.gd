@@ -321,7 +321,7 @@ class Forest extends Area:
 	func fill(height_source: HeightSource) -> void:
 		@warning_ignore("narrowing_conversion")
 		var m: int = area_radius * 0.9
-		for i in range(80):
+		for i in range(rid.with(349).randi_range(30, 100)):
 			var r: Hasher = rid.with(i)
 			#var tree: Node3D = Structure.tree.scene.instantiate()# if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
@@ -329,7 +329,7 @@ class Forest extends Area:
 				continue
 			#tree.position = Vector3(pos.x, 0, pos.y)
 			_structures.add(Structure.tree, height_source.pos_at(pos), 0)
-		for i in range(20):
+		for i in range(rid.with(383).randi_range(10, 40)):
 			var r: Hasher = rid.with(i).with(3578)
 			#var tree: Node3D = Structure.tree.scene.instantiate()# if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
@@ -337,6 +337,12 @@ class Forest extends Area:
 				continue
 			#tree.position = Vector3(pos.x, 0, pos.y)
 			_structures.add(Structure.small_tree, height_source.pos_at(pos), 0)
+		for i in range(rid.with(387).randi_range(10, 40)):
+			var r: Hasher = rid.with(i).with(4892)
+			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
+			if pos.distance_to(global_pos) > m:
+				continue
+			_structures.add(Structure.bush, height_source.pos_at(pos), 0)
 	func center_size() -> float:
 		return 0.3
 
