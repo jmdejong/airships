@@ -4,11 +4,8 @@ extends Node
 
 var base_tile_size: float = 1
 
-func _level_size(level: int) -> float:
-	return base_tile_size * 2**level
-
 func hrc_area(hrc: Vector3i) -> Rect2:
-	var s = _level_size(hrc.z)
+	var s: float = base_tile_size * float(1<<hrc.z)
 	return Rect2(hrc.x * s, hrc.y * s, s, s)
 
 func children(hrc: Vector3i) -> Array[Vector3i]:
@@ -26,7 +23,7 @@ func neighbour_in(hrc: Vector3i, direction: Vector2i) -> Vector3i:
 	return Vector3i(hrc.x + direction.x, hrc.y + direction.y, hrc.z)
 
 func world_to_hrc_pos(world: Vector2, level: int) -> Vector2:
-	return world / _level_size(level)
+	return world / (base_tile_size * float(1<<level))
 
 func world_to_hrc_id(world: Vector2, level: int) -> Vector3i:
 	var v: Vector2 = world_to_hrc_pos(world, level)
@@ -37,7 +34,7 @@ func world_to_hrc_uv(world: Vector2, level: int) -> Vector2:
 
 func ancestor_at_level(hrc: Vector3i, level: int) -> Vector3i:
 	assert(level >= hrc.z)
-	var f: float = float(2**(level - hrc.z))
+	var f: float = float(1<<(level - hrc.z))
 	return Vector3i(floori(hrc.x / f), floori(hrc.y / f), level)
 
 func first_child(hrc: Vector3i) -> Vector3i:
@@ -45,7 +42,7 @@ func first_child(hrc: Vector3i) -> Vector3i:
 
 func child_at_level(hrc: Vector3i, level: int) -> Vector3i:
 	assert(level <= hrc.z)
-	var f: int = 2**(hrc.z - level)
+	var f: int = 1<<(hrc.z - level)
 	return Vector3i(hrc.x * f, hrc.y * f, level)
 
 func relative_axis_distance(hrc: Vector3i, to: Vector2) -> float:

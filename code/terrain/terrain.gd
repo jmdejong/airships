@@ -156,7 +156,10 @@ func build_one_collider(player_pos: Vector2) -> void:
 func build_structures(player_pos: Vector2) -> void:
 	for tile_id: Vector3i in Hrc.iterate_near(player_pos, settings.structure_min_distance, settings.structure_level):
 		if not structure_tiles.has(tile_id):
-			var structure_tile: StructureTile = StructureTile.create(tile_id, height_source)
+			var region: Region = loaded_regions.get(Hrc.ancestor_at_level(tile_id, settings.region_level))
+			if region == null:
+				continue
+			var structure_tile: StructureTile = StructureTile.create(tile_id, region, height_source)
 			$Structures.add_child(structure_tile)
 			structure_tiles[tile_id] = structure_tile
 			return

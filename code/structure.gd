@@ -22,7 +22,7 @@ static var mooring_mast: Structure = Structure.new(preload("res://scenes/structu
 class Buffer extends RefCounted:
 	var structures: Array[Instance] = []
 	
-	func add(struct: Structure, pos: Vector3, rot: float):
+	func add(struct: Structure, pos: Vector2, rot: float):
 		var si: Instance = Instance.new()
 		si.typ = struct
 		si.pos = pos
@@ -33,7 +33,7 @@ class Buffer extends RefCounted:
 		var n: Array[Node3D] = []
 		for si: Instance in structures:
 			var node: Node3D = si.typ.scene.instantiate()
-			node.position = si.pos
+			node.position = si.pos3()
 			node.rotate_y(si.rot)
 			n.append(node)
 		return n
@@ -56,15 +56,22 @@ class Buffer extends RefCounted:
 			multimesh.instance_count = instances.size()
 			for i in instances.size():
 				var instance: Instance = instances[i]
-				var transform: Transform3D = Transform3D().rotated(Vector3.UP, instance.rot).translated(instance.pos)
+				var transform: Transform3D = Transform3D().rotated(Vector3.UP, instance.rot).translated(instance.pos3())
 				multimesh.set_instance_transform(i, transform)
 			mm.append(multimesh)
 		return mm
 	
 	func add_buffer(other: Buffer) -> void:
 		structures.append_array(other.structures)
+	
+	func filter_region(region: Rect2) -> Buffer:
+		var filtered: Buffer = Buffer.new()
+		filtered.structures.append_array(structures.filter(func(s): return region.has_point(s.pos)))
+		return filtered
 
 class Instance extends RefCounted:
 	var typ: Structure
-	var pos: Vector3
+	var pos: Vector2
 	var rot: float
+	func pos3() -> Vector3:
+		return Vector3(pos.x, 0, pos.y)

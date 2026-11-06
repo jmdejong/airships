@@ -5,7 +5,7 @@ var noise: FastNoiseLite = FastNoiseLite.new()
 var color_noise: FastNoiseLite = FastNoiseLite.new()
 var areas: Dictionary[Vector2i, Area] = {}
 @export var hexes_to_shore: int = 12
-@export var hex_rad: float = 192
+@export var hex_diameter: float = 192
 @export var random_seed = 3851644
 @export var center_height: int = 10
 var height_source_material: ShaderMaterial = _default_height_source_material()
@@ -57,7 +57,7 @@ func _init() -> void:
 					area = ShallowSea.new()
 				else:
 					area = Coast.new()
-			area.setup(hasher, v, hex_to_pix(v), hex_rad/2)
+			area.setup(hasher, v, hex_to_pix(v), hex_diameter/2)
 			areas[v] = area
 	
 	color_noise.seed = hasher.with(44).randi()
@@ -76,9 +76,9 @@ func _handle_hexes() -> void:
 			var ind: int = y * hexes_x + x
 			var area_id = Vector2i(x, y) + lowest_hex
 			var area: Area = get_area(area_id)
-			hexes_vecs[ind] = Vector4(area.height, area.center_size(), 0, 0)
+			hexes_vecs[ind] = Vector4(area.height, area.center_size(), area.bumpiness(), 0)
 	height_source_material.set_shader_parameter("hexes", hexes_vecs)
-	height_source_material.set_shader_parameter("hex_rad", hex_rad)
+	height_source_material.set_shader_parameter("hex_diameter", hex_diameter)
 
 
 func buffers_at(area: Rect2, segments: int) -> TileBuffers:
@@ -183,7 +183,8 @@ func _combine_areas(area_a: Area, area_b: Area, area_c: Area, w: Vector3, pos: V
 	var center_influences: Vector3 = influences(w, 0.8)
 	w = influences(w, center_influences.x * area_a.center_size() + center_influences.y * area_b.center_size() + center_influences.z * area_c.center_size())
 	var n: float = clamp((1-max(w.x, w.y, w.z))*5, 0, 1)
-	return float(area_a.height) * w.x + float(area_b.height) * w.y + float(area_c.height) * w.z + noise.get_noise_2d(pos.x, pos.y) * n * 5.0
+	var bumps: float = (area_a.bumpiness() * w.x + area_b.bumpiness() * w.y + area_c.bumpiness() * w.z) * noise.get_noise_2d(pos.x, pos.y) * n * 5.0
+	return float(area_a.height) * w.x + float(area_b.height) * w.y + float(area_c.height) * w.z + bumps
 
 
 func influences(w: Vector3, center_size: float) -> Vector3:
@@ -199,15 +200,9 @@ func extremes(_region: Rect2) -> Vector2:
 
 func structures(region: Rect2) -> Structure.Buffer:
 	var strucs: Structure.Buffer = Structure.Buffer.new()
-	for hex: Vector2i in hexes_in(region):
+	for hex: Vector2i in hexes_in(region.grow(hex_diameter)):
 		var area: Area = get_area(hex)
-		strucs.add_buffer(area.structures(self))
-		#for structure: Node3D in area.structures():
-			#var pos: Vector2 = Vector2(structure.position.x, structure.position.z)
-			##if region.has_point(pos):
-			#var s: Node3D = structure.duplicate()
-			#s.position.y += height_at(pos)
-			#strucs.append(s)
+		strucs.add_buffer(area.structures().filter_region(region))
 	return strucs
 
 func hexes_in(region: Rect2) -> Array[Vector2i]:
@@ -223,31 +218,31 @@ func hexes_in(region: Rect2) -> Array[Vector2i]:
 func get_area(vid: Vector2i) -> Area:
 	if not areas.has(vid):
 		areas[vid] = DeepSea.new()
-		areas[vid].setup(hasher, vid, hex_to_pix(vid), hex_rad)
+		areas[vid].setup(hasher, vid, hex_to_pix(vid), hex_diameter)
 	return areas[vid]
 
 const SQRT3: float = sqrt(3)
 #const SQRT3_INV: float = 1.0/SQRT3
 
 func pix_to_hex_z(pix_z: float) -> float:
-	return 2.0/SQRT3 * pix_z/hex_rad
+	return 2.0/SQRT3 * pix_z/hex_diameter
 
 func pix_to_hex_x(pix: Vector2) -> float:
-	var vs: Vector2 = pix/hex_rad
+	var vs: Vector2 = pix/hex_diameter
 	return vs.x - 1/SQRT3*vs.y
 
 func pix_to_hex(pix: Vector2) -> Vector2:
-	var vs: Vector2 = pix/hex_rad
+	var vs: Vector2 = pix/hex_diameter
 	return Vector2(vs.x - 1/SQRT3*vs.y, 2/SQRT3*vs.y)
 
 func pix_to_hex_i(pix: Vector2i) -> Vector2i:
 	return hex_round(pix_to_hex(pix))
 
 func hex_to_pix(hex: Vector2i) -> Vector2:
-	return Vector2(hex.x + 0.5 * hex.y, SQRT3/2.0 * hex.y) * hex_rad
+	return Vector2(hex.x + 0.5 * hex.y, SQRT3/2.0 * hex.y) * hex_diameter
 
 func hex_to_pix_z(hex_z: float) -> float:
-	return SQRT3/2.0 * hex_z * hex_rad
+	return SQRT3/2.0 * hex_z * hex_diameter
 
 func hex_round(v: Vector2) -> Vector2i:
 	var v3 := Vector3(v.x, v.y, -v.x-v.y)
@@ -277,17 +272,37 @@ class Area:
 		self.area_radius = radius
 		height = calc_height()
 		origin = Vector3(global_pos.x, height, global_pos.y)
-	func structures(height_source: HeightSource) -> Structure.Buffer:
+	func structures() -> Structure.Buffer:
 		if _structures == null:
 			_structures = Structure.Buffer.new()
-			fill(height_source)
+			fill()
 		return _structures
 	@abstract
 	func calc_height() -> float
-	func fill(_height_source: HeightSource) -> void:
+	func fill() -> void:
 		return
 	func center_size() -> float:
 		return 0
+	func bumpiness() -> float:
+		return 1
+
+	func area_cells(cell_diameter: float, displacement: float=0, fill_chance: float=1, extend: float=0) -> PackedVector2Array:
+		var cells := PackedVector2Array()
+		var cell_radius: float = cell_diameter / SQRT3
+		var n: int = floori((area_radius + extend) / cell_radius * 2.0 / 3.0)
+		for q: int in range(-n, n+1):
+			for r: int in range(max(-n, -q-n),  min(n, -q+n)+1):
+				#results.append(axial_add(center, Hex(q, r)))
+				var p := Vector2(q * 3.0/2.0, SQRT3/2.0 * q + SQRT3 * r) * cell_radius
+				var rl: Hasher = rid.with(q * n * 3 + r)
+				if rl.randf() > fill_chance:
+					continue
+				#if absf(p.x) <= rad and absf(p.x) + SQRT3 * absf(p.y) <= 2.0 * rad:
+				var offset_dir: float = rl.with(64309).randf() * TAU
+				var offset_radius: float = sqrt(rl.with(48291).randf()) * displacement*cell_diameter/2.0
+				var offset := offset_radius * Vector2(sin(offset_dir), cos(offset_dir))
+				cells.append(offset + p + global_pos)
+		return cells
 
 class StartArea extends Area:
 	func calc_height() -> float:
@@ -314,11 +329,14 @@ class Coast extends Area:
 class Field extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(4, 12) + int(rid.randf() * rid.randf() * 20)
+	func fill() -> void:
+		for pos: Vector2 in area_cells(9, 1, 0.25, -16):
+			_structures.add(Structure.bush, pos, 0)
 
 class Forest extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
-	func fill(height_source: HeightSource) -> void:
+	func fill() -> void:
 		@warning_ignore("narrowing_conversion")
 		var m: int = area_radius * 0.9
 		for i in range(rid.with(349).randi_range(30, 100)):
@@ -328,7 +346,7 @@ class Forest extends Area:
 			if pos.distance_to(global_pos) > m:
 				continue
 			#tree.position = Vector3(pos.x, 0, pos.y)
-			_structures.add(Structure.tree, height_source.pos_at(pos), 0)
+			_structures.add(Structure.tree, pos, 0)
 		for i in range(rid.with(383).randi_range(10, 40)):
 			var r: Hasher = rid.with(i).with(3578)
 			#var tree: Node3D = Structure.tree.scene.instantiate()# if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
@@ -336,20 +354,22 @@ class Forest extends Area:
 			if pos.distance_to(global_pos) > m:
 				continue
 			#tree.position = Vector3(pos.x, 0, pos.y)
-			_structures.add(Structure.small_tree, height_source.pos_at(pos), 0)
+			_structures.add(Structure.small_tree, pos, 0)
 		for i in range(rid.with(387).randi_range(10, 40)):
 			var r: Hasher = rid.with(i).with(4892)
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
 			if pos.distance_to(global_pos) > m:
 				continue
-			_structures.add(Structure.bush, height_source.pos_at(pos), 0)
+			_structures.add(Structure.bush, pos, 0)
 	func center_size() -> float:
-		return 0.3
+		return 0.2
+	func bumpiness() -> float:
+		return 0.5
 
 class Hill extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(20, 80)
-	func fill(height_source: HeightSource) -> void:
+	func fill() -> void:
 		@warning_ignore("narrowing_conversion")
 		var m: int = area_radius*0.66
 		for i in rid.with(-3).randi_range(0, 5):
@@ -358,25 +378,54 @@ class Hill extends Area:
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
 			#rock.position = Vector3(pos.x, 0, pos.y)
 			#rock.rotate_y(PI/2 * r.with(5).randi_range(0, 3))
-			_structures.add(Structure.rock, height_source.pos_at(pos), PI/2 * r.with(5).randi_range(0, 3))
+			_structures.add(Structure.rock, pos, PI/2 * r.with(5).randi_range(0, 3))
+	func bumpiness() -> float:
+		return 2.0
 
 class Village extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
-	func fill(height_source: HeightSource) -> void:
+	func fill() -> void:
 		var available_positions: Array[Vector2] = [Vector2(0, 0), Vector2(-20, -20), Vector2(20, -20), Vector2(-20, 20), Vector2(20, 20), Vector2(25, 0), Vector2(0, 25), Vector2(-25, 0), Vector2(0, -25)]
 		for i: int in rid.with(-4).randi_range(2, 6):
 			var r: Hasher = rid.with(i)
 			var pos: Vector2 = global_pos + available_positions.pop_at(r.with(3).randi() % available_positions.size()) + Vector2(r.with(9).randi_range(-3, 3) , r.with(5).randi_range(-3, 3))
-			_structures.add(Structure.house, height_source.pos_at(pos), PI / 4 * r.with(13).randi_range(0, 7))
+			_structures.add(Structure.house, pos, PI / 4 * r.with(13).randi_range(0, 7))
 	func center_size() -> float:
 		return 0.5
 
 class Hangar extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(6, 12)
-	func fill(height_source: HeightSource) -> void:
-		_structures.add(Structure.hangar, height_source.pos_at(global_pos + Vector2(0, -20)), PI/2)
-		_structures.add(Structure.mooring_mast, height_source.pos_at(global_pos + Vector2(0, 50)),0)
+	func fill() -> void:
+		_structures.add(Structure.hangar, global_pos + Vector2(0, -0), PI/2)
+		_structures.add(Structure.mooring_mast, global_pos + Vector2(-40, 50),0)
+		_structures.add(Structure.mooring_mast, global_pos + Vector2(40, -50),0)
 	func center_size() -> float:
-		return 0.5
+		return 0.6
+	func bumpiness() -> float:
+		return 0
+
+#func fill_random(area: Area, structures: Dictionary[Structure, float], grid_step_size: float, extend: float=0, fill_chance: float=1, displacement: float=1) -> Structure.Buffer:
+	##var rad: float = hex_diameter / 2.0 + extend
+	##var srad: int = floor(rad / grid_step_size)
+	##for sx: int in range(srad, srad + 1):
+		##var rx: float = sx * grid_step_size
+		##var sh: int = floor(rx
+		##for sy: int in range(
+	#return Structure.Buffer.new()
+
+#func area_cells(area: Area, cell_diameter: float, extend: float=0) -> PackedVector2Array:
+	#var rad: float = area.area_radius / 2.0 + extend
+	#var cells := PackedVector2Array()
+	#var limit := int(ceil(2.0 * rad / cell_diameter)) + 1
+#
+	#for q in range(-limit, limit + 1):
+		#for r in range(-limit, limit + 1):
+			#var p := Vector2(
+				#1.5 * cell_diameter * q,
+				#sqrt(3.0) * cell_diameter * (r + 0.5 * q)
+			#)
+			#if absf(p.x) <= rad and absf(p.x) + sqrt(3.0) * absf(p.y) <= 2.0 * rad:
+				#cells.append(p)
+	#return cells

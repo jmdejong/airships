@@ -57,6 +57,7 @@ width = 512
 
 [sub_resource type="Resource" id="Resource_b1lky"]
 script = ExtResource("3_mhgm5")
+hex_diameter = null
 height_gradient = SubResource("GradientTexture1D_n0q8u")
 height_gradient2 = SubResource("GradientTexture1D_tp7gy")
 base_terrain_material = SubResource("ShaderMaterial_svbv2")

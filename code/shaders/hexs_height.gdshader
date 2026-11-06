@@ -9,7 +9,7 @@ uniform vec2 step_size;
 uniform vec4[2304] hexes;
 uniform int hexes_x;
 uniform ivec2 lowest_hex;
-uniform float hex_rad;
+uniform float hex_diameter;
 uniform sampler2D height_gradient : repeat_disable;
 uniform sampler2D height_gradient2 : repeat_disable;
 uniform float absolute_minimum;
@@ -20,7 +20,7 @@ const float SQRT3 = 1.7320508075688772;
 
 
 vec2 world_to_hex(vec2 world) {
-	vec2 vs = world / hex_rad;
+	vec2 vs = world / hex_diameter;
 	return vec2(vs.x - 1.0/SQRT3*vs.y, 2.0/SQRT3*vs.y);
 }
 
@@ -69,12 +69,14 @@ float height_at(vec2 pos) {
 	vec4 hex_c = get_hex(vc);
 	vec3 center_influences = influences(w, 0.8);
 	w = influences(w, center_influences.x * hex_center_size(hex_a) + center_influences.y * hex_center_size(hex_b) + center_influences.z * hex_center_size(hex_c));
+	vec4 hex_avg = hex_a * w.x + hex_b * w.y + hex_c * w.z;
 	float n = clamp((1.0-max(w.x, max(w.y, w.z))) * 5.0, 0.0, 1.0);
 	fnl_state noise_between = fnlCreateState(noise_between_seed);
 	noise_between.octaves = 4;
 	noise_between.frequency = 0.02;
 	//noise.noise_type = FNL_NOISE_OPENSIMPLEX2S;
-	return hex_height(hex_a) * w.x + hex_height(hex_b) * w.y + hex_height(hex_c) * w.z + fnlGetNoise2D(noise_between, pos.x, pos.y) * n * 5.0;
+	float bumps = hex_avg.z * fnlGetNoise2D(noise_between, pos.x, pos.y) * n * 5.0;
+	return hex_height(hex_avg) + bumps;
 }
 
 vec3 encode_height(float height) {

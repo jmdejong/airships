@@ -14,7 +14,7 @@ var ground_material: ShaderMaterial
 func _init(region_id_: Vector3i, level_range_: int, height_source: HeightSource) -> void:
 	region_id = region_id_
 	level_range = level_range_
-	segments = 2**level_range
+	segments = 1<<level_range
 	segment_level = region_id.z - level_range
 	area = Hrc.hrc_area(region_id)
 	image_buffers = height_source.height_image_at(area, segments)
