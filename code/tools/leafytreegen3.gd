@@ -1,9 +1,10 @@
 @tool
 extends MeshInstance3D
 
-@export var stem_height = 10
-@export var stem_radius = 0.5
-@export var stem_width: Curve
+@export var stem_height: float = 10.0
+@export var stem_radius := 0.5
+@export var stem_offset_half := 0.01
+@export var stem_offset_top := 0.03
 @export var stem_material: BaseMaterial3D
 @export var leaf_material: Material
 @export var leaf_quad_width: float = 4
@@ -11,33 +12,70 @@ extends MeshInstance3D
 @export var leaf_rad: float = 5
 @export var filename: String = "tree.mesh"
 #var leaf_quad_height: float = leaf_quad_width
-@export_tool_button("generate") var generate_action: Callable = generate_leafy_tree
+@export var branch_count: int = 3
+@export var branch_dist_1_min: Vector2 = Vector2(0.5, 0.5)
+@export var branch_dist_1_max: Vector2 = Vector2(3, 2)
+@export var branch_dist_2_min: Vector2 = Vector2(1, 0.5)
+@export var branch_dist_2_max: Vector2 = Vector2(2, 2)
+@export var branch_height_min: float = 0.5
+@export var branch_height_max: float = 0.7
+@export_tool_button("generate") var generate_action: Callable = generate
 
+func random_direction() -> Vector2:
+	var r: float = randf() * TAU
+	return Vector2(cos(r), sin(r))
 
+func rand_in_circle() -> Vector2:
+	return random_direction() * sqrt(randf())
 
-func generate_leafy_tree() -> void:
+func generate() -> void:
 	%Leafgen.generate()
 	
 	var tree_mesh: ArrayMesh = ArrayMesh.new()
 	
 	var stem_surface: Array = create_surface_array()
+	var leaf_surface: Array = create_surface_array()
+	
+	var offset_half: Vector2 = random_direction() * stem_offset_half * stem_height
+	#var pos_half := Vector4(offset_half.x, stem_height * 0.9
+	var offset_top: Vector2 = offset_half + random_direction() * stem_offset_top * stem_height
+	var normal_center_warp: Vector3 = Vector3(offset_half.x + offset_top.x, stem_height * 1.5, offset_half.y + offset_top.y) / 2.0
 	
 	make_tube(PackedVector4Array([
 		Vector4(0, -1, 0, stem_radius * 2),
 		Vector4(0, stem_height * 0.1, 0, stem_radius * 1.2),
-		Vector4(0, stem_height * 0.9, 0, stem_radius * 0.6),
-		Vector4(0, stem_height * 1.1, 0, 0)
+		Vector4(offset_half.x, stem_height * 0.5, offset_half.y, stem_radius * 0.9),
+		Vector4(offset_top.x, stem_height * 0.9, offset_top.y, stem_radius * 0.6),
+		Vector4(offset_top.x, stem_height * 1.1, offset_top.y, 0)
 	]), 7, stem_surface)
+	for branch in branch_count:
+		var branch_height: float = randf_range(branch_height_min, branch_height_max)
+		var offset_start: Vector2 = lerp(offset_half, offset_top, branch_height*2-1)
+		var start := Vector4(offset_start.x, branch_height * stem_height, offset_start.y, stem_radius*0.5)
+		var d: float = (float(branch)+randf()) / branch_count * TAU
+		var dir := Vector2(cos(d), sin(d))
+		var half_to: Vector2 = branch_dist_1_min + (branch_dist_1_max-branch_dist_1_min) * Vector2(randf(), randf())
+		var half := start + Vector4(dir.x * half_to.x, half_to.y, dir.y * half_to.x, 0)
+		half.w = stem_radius*0.3
+		var dir2: Vector2 = (dir + random_direction() * 0.5).normalized()
+		var end_to: Vector2 = branch_dist_2_min + (branch_dist_2_max-branch_dist_2_min) * Vector2(randf(), randf())
+		var end := half + Vector4(dir2.x * end_to.x, end_to.y, dir2.y * end_to.x, 0)
+		end.w = 0
+		#prints("branch", start, half, end)
+		make_tube(PackedVector4Array([start, half, end]), 6, stem_surface)
+		make_leaf_cluster_around(Vector3(end.x, end.y, end.z), 1, leaf_quad_count / 8, normal_center_warp, leaf_surface)
+	
+	#make_leaf_cluster_around(Vector3(offset_top.x, stem_height, offset_top.y), leaf_rad, leaf_quad_count/2, normal_center_warp, leaf_surface)
+	make_leaf_cluster_around(Vector3(offset_top.x, stem_height*1.25, offset_top.y), leaf_rad, leaf_quad_count, normal_center_warp, leaf_surface)
+	
 	tree_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, stem_surface)
 	tree_mesh.surface_set_material(tree_mesh.get_surface_count()-1, stem_material)
-	
-	
-	var leaf_surface: Array = create_surface_array()
-	make_leaf_cluster_around(Vector3(0, stem_height, 0), leaf_rad, leaf_quad_count, leaf_surface)
 	tree_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, leaf_surface)
 	tree_mesh.surface_set_material(tree_mesh.get_surface_count()-1, leaf_material)
-	self.mesh = tree_mesh
-	ResourceSaver.save(tree_mesh, "res://models/generated/" + filename)
+	#self.mesh = tree_mesh
+	var file_path: String = "res://models/generated/" + filename
+	ResourceSaver.save(tree_mesh, file_path)
+	self.mesh = ResourceLoader.load(file_path, "", ResourceLoader.CACHE_MODE_REPLACE)
 
 func create_surface_array() -> Array:
 	var surface_array: Array = []
@@ -50,7 +88,7 @@ func create_surface_array() -> Array:
 
 const golden_angle := PI * (3.0 - sqrt(5.0))
 
-func make_leaf_cluster_around(center: Vector3, leaf_radius: float, leaf_count: int, surface_array: Array) -> void:
+func make_leaf_cluster_around(center: Vector3, leaf_radius: float, leaf_count: int, normal_warp: Vector3, surface_array: Array) -> void:
 	for i in leaf_count:
 		var cos_theta: float= 2.0 * (i+randf()) / float(leaf_count) - 1.0
 		var phi: float = i * golden_angle
@@ -58,7 +96,7 @@ func make_leaf_cluster_around(center: Vector3, leaf_radius: float, leaf_count: i
 		var dir := Vector3(sin_theta * cos(phi), sin_theta * sin(phi), cos_theta)
 		var radius: float = pow(randf(), 0.2)
 		var pos: Vector3 = center + dir * radius * leaf_radius
-		make_leaf_quad(pos, center, surface_array)
+		make_leaf_quad(pos, (center + normal_warp) / 2.0, surface_array)
 
 
 func make_leaf_quad(pos: Vector3, center: Vector3, surface_array: Array) -> void:

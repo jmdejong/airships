@@ -27,7 +27,7 @@ vec2 world_to_hex(vec2 world) {
 vec4 get_hex(ivec2 hex_id) {
 	ivec2 ind2 = hex_id - lowest_hex;
 	if (ind2.x < 0 || ind2.y < 0 || ind2.x >= hexes_x ||ind2.y >= hexes_x) {
-		return vec4(-150.0, 0.0, 0.0, 0.0);
+		return vec4(-250.0, 0.0, 0.0, 0.0);
 	} else {
 		return hexes[ind2.y * hexes_x + ind2.x];
 	}
@@ -50,7 +50,14 @@ float hex_height(vec4 hex) {
 	return hex.x;
 }
 
-float height_at(vec2 pos) {
+struct RelevantHexes {
+	vec4 hex_a;
+	vec4 hex_b;
+	vec4 hex_c;
+	vec3 weights;
+};
+
+RelevantHexes relevant_hexes(vec2 pos) {
 	vec2 vf = world_to_hex(pos);
 	vec2 vfloor = floor(vf);
 	vec2 vfrac = vf - vfloor;
@@ -69,7 +76,11 @@ float height_at(vec2 pos) {
 	vec4 hex_c = get_hex(vc);
 	vec3 center_influences = influences(w, 0.8);
 	w = influences(w, center_influences.x * hex_center_size(hex_a) + center_influences.y * hex_center_size(hex_b) + center_influences.z * hex_center_size(hex_c));
-	vec4 hex_avg = hex_a * w.x + hex_b * w.y + hex_c * w.z;
+	return RelevantHexes(hex_a, hex_b, hex_c, w);
+}
+
+float height(vec2 pos, vec4 hex_avg, vec3 w) {
+	//vec3 w = h.weights;
 	float n = clamp((1.0-max(w.x, max(w.y, w.z))) * 5.0, 0.0, 1.0);
 	fnl_state noise_between = fnlCreateState(noise_between_seed);
 	noise_between.octaves = 4;
@@ -108,10 +119,20 @@ float grass_density(vec2 pos, float height, vec3 normal) {
 	return clamp(height_effect * noise_effect * normal.y, 0.0, 1.0);
 }
 
+float height_at(vec2 pos) {
+	RelevantHexes h = relevant_hexes(pos);
+	vec4 hex_avg = h.hex_a * h.weights.x + h.hex_b * h.weights.y + h.hex_c * h.weights.z;
+	return height(pos, hex_avg, h.weights);
+}
+
 void blit() {
 	vec2 pos = (FRAGCOORD.xy - vec2(0.5)) * step_size + area_pos.xz;
-	float height = height_at(pos);
+	RelevantHexes h = relevant_hexes(pos);
+	vec4 hex_avg = h.hex_a * h.weights.x + h.hex_b * h.weights.y + h.hex_c * h.weights.z;
+	float height = height(pos, hex_avg, h.weights);
+	vec3 pos3 = vec3(pos.x, height, pos.y);
 	COLOR0 = vec4(encode_height(height), 1);
+	
 	vec3 normal = -normalize(cross(
 		vec3(0.1, height_at(pos+vec2(0.1, 0))-height, 0),
 		vec3(0, height_at(pos+vec2(0, 0.1))-height, 0.1)

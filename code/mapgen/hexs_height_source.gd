@@ -330,8 +330,10 @@ class Field extends Area:
 	func calc_height() -> float:
 		return rid.randi_range(4, 12) + int(rid.randf() * rid.randf() * 20)
 	func fill() -> void:
+		var i: int = 2
 		for pos: Vector2 in area_cells(9, 1, 0.25, -16):
-			_structures.add(Structure.bush, pos, 0)
+			_structures.add(Structure.bush, pos, rid.with(i).randf() * TAU)
+			i += 1
 
 class Forest extends Area:
 	func calc_height() -> float:
@@ -346,7 +348,7 @@ class Forest extends Area:
 			if pos.distance_to(global_pos) > m:
 				continue
 			#tree.position = Vector3(pos.x, 0, pos.y)
-			_structures.add(Structure.tree, pos, 0)
+			_structures.add(Structure.tree, pos, r.with(32).randf()*TAU)
 		for i in range(rid.with(383).randi_range(10, 40)):
 			var r: Hasher = rid.with(i).with(3578)
 			#var tree: Node3D = Structure.tree.scene.instantiate()# if r.with(-83).randf() < 0.5 else Structure.small_tree.scene.instantiate()
@@ -354,13 +356,13 @@ class Forest extends Area:
 			if pos.distance_to(global_pos) > m:
 				continue
 			#tree.position = Vector3(pos.x, 0, pos.y)
-			_structures.add(Structure.small_tree, pos, 0)
+			_structures.add(Structure.small_tree, pos, r.with(32).randf()*TAU)
 		for i in range(rid.with(387).randi_range(10, 40)):
 			var r: Hasher = rid.with(i).with(4892)
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
 			if pos.distance_to(global_pos) > m:
 				continue
-			_structures.add(Structure.bush, pos, 0)
+			_structures.add(Structure.bush, pos, r.with(32).randf()*TAU)
 	func center_size() -> float:
 		return 0.2
 	func bumpiness() -> float:
@@ -372,12 +374,9 @@ class Hill extends Area:
 	func fill() -> void:
 		@warning_ignore("narrowing_conversion")
 		var m: int = area_radius*0.66
-		for i in rid.with(-3).randi_range(0, 5):
+		for i in rid.with(-3).randi_range(10, 25):
 			var r: Hasher = rid.with(i)
-			#var rock: Node3D = Structure.rock.scene.instantiate()
 			var pos: Vector2 = global_pos + Vector2(r.with(910).randi_range(-m, m), r.with(915).randi_range(-m, m))
-			#rock.position = Vector3(pos.x, 0, pos.y)
-			#rock.rotate_y(PI/2 * r.with(5).randi_range(0, 3))
 			_structures.add(Structure.rock, pos, PI/2 * r.with(5).randi_range(0, 3))
 	func bumpiness() -> float:
 		return 2.0

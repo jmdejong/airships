@@ -5,7 +5,7 @@ extends MeshInstance3D
 @export var leaf_draw_material: ShaderMaterial
 @export var resolution: int = 128
 @export var leaves_filename: String = "bush_leaves.png"
-@export var mesh_filename: String = "bush.mesh"
+@export var mesh_filename: String = "bush2.mesh"
 @export var blades_count: int = 8
 @export var blade_width: float = 0.6
 @export var blade_top: float = 2
@@ -28,8 +28,9 @@ func generate_tex() -> Texture2D:
 	texture.setup(resolution, resolution, DrawableTexture2D.DRAWABLE_FORMAT_RGBA8)
 	texture.blit_rect(Rect2i(0, 0, resolution, resolution), preload("res://icon.svg"), Color.BLACK, 0, leaf_draw_material)
 	var image: Image = texture.get_image()
-	image.save_png("res://textures/generated/" + leaves_filename)
-	var img_tex := ImageTexture.create_from_image(image)
+	var file_path: String = "res://textures/generated/" + leaves_filename
+	image.save_png(file_path)
+	var img_tex: Texture2D = ResourceLoader.load(file_path, "", ResourceLoader.CACHE_MODE_REPLACE)
 	return img_tex
 
 func generate_mesh() -> void:
@@ -55,7 +56,7 @@ func generate_mesh() -> void:
 		var vs: int = vertices.size()
 		var verts: Array[Vector3] = [-a - b, a - b, a + b, -a + b]
 		vertices.append_array(PackedVector3Array(verts))
-		normals.append_array(PackedVector3Array(verts.map(func(v): return v.normalize())))
+		normals.append_array(PackedVector3Array(verts.map(func(v): return v.normalized())))
 		indices.append_array(PackedInt32Array([vs, vs+1, vs+2, vs, vs+2, vs+3]))
 		uvs.append_array(PackedVector2Array([Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(0, 0)]))
 	
@@ -70,4 +71,6 @@ func generate_mesh() -> void:
 	bush_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
 	bush_mesh.surface_set_material(0, leaf_material)
 	mesh = bush_mesh
-	ResourceSaver.save(bush_mesh, "res://models/generated/" + mesh_filename)
+	var file_path: String = "res://models/generated/" + mesh_filename
+	ResourceSaver.save(bush_mesh, file_path)
+	self.mesh = ResourceLoader.load(file_path, "", ResourceLoader.CACHE_MODE_REPLACE)

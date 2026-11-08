@@ -13,6 +13,9 @@ func generate() -> Texture2D:
 	texture.blit_rect(Rect2i(0, 0, resolution, resolution), preload("res://icon.svg"), Color.BLACK, 0, leaf_draw_material)
 	get_surface_override_material(0).albedo_texture = texture
 	var image: Image = texture.get_image()
-	image.save_png("res://textures/generated/" + filename)
-	var img_tex := ImageTexture.create_from_image(image)
+	var file_path: String = "res://textures/generated/" + filename
+	image.save_png(file_path)
+	var img_tex: Texture2D = ResourceLoader.load(file_path, "", ResourceLoader.CACHE_MODE_REPLACE)
+	#var img_tex := ImageTexture.create_from_image(image)
+	print("img", img_tex)
 	return img_tex

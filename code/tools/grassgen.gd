@@ -57,5 +57,6 @@ func generate() -> void:
 	#surface_array[Mesh.ARRAY_COLOR] = colors
 	grass_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
 	grass_mesh.surface_set_material(0, grass_material)
-	mesh = grass_mesh
-	ResourceSaver.save(grass_mesh, "res://models/generated/" + filename)
+	var file_path: String = "res://models/generated/" + filename
+	ResourceSaver.save(grass_mesh, file_path)
+	self.mesh = ResourceLoader.load(file_path, "", ResourceLoader.CACHE_MODE_REPLACE)

@@ -19,6 +19,7 @@ float hash_position(vec3 p) {
 void vertex() {
 	albedo_position_tint = texture(albedo_gradient, vec2(hash_position(MODEL_MATRIX[3].xyz), 0)).rgb;
 	VERTEX.y += canopy_height_variation * (hash_position(MODEL_MATRIX[3].xyz + vec3(12307.1, 3301.7, 11346.3)) * 2.0 - 1.0);
+	VERTEX *= 0.9 + 0.2 * hash_position(MODEL_MATRIX[3].xyz + vec3(5023.3, 20293.4, 93234.1));
 }
 
 void fragment() {
