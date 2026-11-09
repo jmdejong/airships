@@ -106,3 +106,9 @@ material = ExtResource("4_j78af")
 
 [node name="MooringPoint" type="Node3D" parent="." unique_id=340311161]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 0)
+
+[node name="ForeCenter" type="Node3D" parent="." unique_id=2010355425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
+
+[node name="AftCenter" type="Node3D" parent="." unique_id=1113108245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0)

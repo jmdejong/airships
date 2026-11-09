@@ -12,8 +12,8 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dqkch"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
-radius = 0.27
-height = 1.8
+radius = 0.32
+height = 1.7
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlg0r"]
 radius = 0.3

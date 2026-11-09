@@ -172,13 +172,13 @@ volume = 0.00625
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.5, -0.75)
 length = 3.0
 mass_ = 7.500000000000002
-volume = 0.0075000000000000015
+volume = 0.0075
 
 [node name="Cable4" parent="Components/Rigging" index="6" unique_id=2084994706 instance=ExtResource("14_aaamo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.5, 0.5)
 length = 3.0
 mass_ = 7.500000000000002
-volume = 0.0075000000000000015
+volume = 0.0075
 
 [node name="Wiring" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="4" unique_id=1092404277 instance=ExtResource("3_qcob2")]
 
