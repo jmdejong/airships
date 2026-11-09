@@ -50,3 +50,6 @@ func gravity_vec() -> Vector3:
 	
 func gravity() -> float:
 	return 9.81
+
+func wind_velocity(_pos: Vector3) -> Vector3:
+	return Vector3.ZERO

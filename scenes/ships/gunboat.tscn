@@ -104,8 +104,6 @@ metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
 [node name="Balloon" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="0" unique_id=1796301960 instance=ExtResource("2_iel0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
-mass_ = 1781.2830345854127
-volume = 7634.070148223197
 
 [node name="Machines" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="1" unique_id=1792181632 instance=ExtResource("3_3nb3f")]
 
@@ -127,11 +125,11 @@ power_channel = 2
 
 [node name="Ballast" parent="Components/Machines" index="4" unique_id=142350728 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.75, 0.5, 3)
-initial_filling = 100.0
+initial_filling = 300.0
 
 [node name="Ballast2" parent="Components/Machines" index="5" unique_id=1244896176 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.75, 0.5, -2)
-initial_filling = 100.0
+initial_filling = 300.0
 
 [node name="Ballast3" parent="Components/Machines" index="6" unique_id=368494447 instance=ExtResource("5_7pqw8")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0.5, -1)
@@ -462,13 +460,13 @@ bindings = Array[ExtResource("17_plvvq")]([SubResource("Resource_okq7b"), SubRes
 [node name="Fins" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="6" unique_id=2042909610 instance=ExtResource("3_3nb3f")]
 
 [node name="Fin" parent="Components/Fins" index="0" unique_id=2065927277 instance=ExtResource("19_mrsml")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 19, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -16, 19, 0)
 
 [node name="Fin2" parent="Components/Fins" index="1" unique_id=1246360228 instance=ExtResource("19_mrsml")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -16, 13, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 13, 6)
 
 [node name="Fin3" parent="Components/Fins" index="2" unique_id=869628865 instance=ExtResource("19_mrsml")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 7, -0.25)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -16, 7, -0.25)
 
 [node name="Fin4" parent="Components/Fins" index="3" unique_id=577307395 instance=ExtResource("19_mrsml")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -16, 13, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 13, -6)

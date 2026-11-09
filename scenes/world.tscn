@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/scout.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://bgiev8up864ym" path="res://scenes/ships/heli.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://cxbhh4qjufira" path="res://scenes/areas/hex_island.tscn" id="7_i7141"]
+[ext_resource type="PackedScene" uid="uid://bwdsk6naa8884" path="res://scenes/ships/drop_thing.tscn" id="8_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://bxsyqu2rwivui" path="res://scenes/ships/sheet.tscn" id="9_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://wefbat2oldop" path="res://scenes/ships/drop_thing2.tscn" id="10_e3hyu"]
 [ext_resource type="PackedScene" uid="uid://s7qd843d1ay0" path="res://scenes/ships/platform.tscn" id="10_w7kh3"]
 
 [node name="World" type="Node3D" unique_id=1581463641]
@@ -28,3 +31,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, 16)
 
 [node name="Platform" parent="." unique_id=1998976567 instance=ExtResource("10_w7kh3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 10, 16)
+
+[node name="DropThing" parent="." unique_id=1710930685 instance=ExtResource("8_4mrxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3221.25, 2500, 46.125)
+
+[node name="Sheet" parent="." unique_id=1273063806 instance=ExtResource("9_7r4gi")]
+transform = Transform3D(0.99619466, -0.08715573, 0, 0.08715573, 0.99619466, 0, 0, 0, 1, 3284.625, 2500, 94.125)
+
+[node name="DropThing2" parent="." unique_id=112384779 instance=ExtResource("10_e3hyu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3272.25, 2444.875, 0)
