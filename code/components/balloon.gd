@@ -89,4 +89,4 @@ func apply_drag() -> void:
 	var tube_forward_world: Vector3 = $CenterOfMass.global_basis.x
 	var roll_velocity: float = ship.angular_velocity.dot(tube_forward_world)
 	var roll_torque: Vector3 = -tube_forward_world * roll_velocity * 0.1 * ship.linear_velocity.length()
-	#ship.apply_torque(roll_torque)
+	ship.apply_torque(roll_torque)

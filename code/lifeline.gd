@@ -29,8 +29,11 @@ func reel_in(player: Player) -> void:
 	player.linear_velocity = anchor.get_ship().linear_velocity + Vector3(0, -1, 0)
 	
 func apply_force(player: Player) -> void:
-	if anchor == null:
+	if anchor == null or not is_instance_valid(anchor):
 		previous_stretch = 0
+		anchor = null
+		return
+	if not anchor.is_inside_tree():
 		return
 	var distance: float = global_position.distance_to(anchor.anchor_point())
 	var stretch = max(distance - length, 0)
@@ -45,8 +48,11 @@ func apply_force(player: Player) -> void:
 	anchor.get_ship().apply_force(-force, anchor.anchor_point() - anchor.get_ship().global_position)
 
 func _process(_delta: float) -> void:
-	if anchor == null:
+	if anchor == null or not is_instance_valid(anchor):
+		anchor = null
 		$Rope.visible = false
+		return
+	if not anchor.is_inside_tree():
 		return
 	$Rope.visible = true
 	var anchor_point: Vector3 = anchor.anchor_point()

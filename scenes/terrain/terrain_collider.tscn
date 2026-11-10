@@ -10,7 +10,7 @@ map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_it4ap"]
 
-[node name="TerrainCollision" type="StaticBody3D" unique_id=1208272398]
+[node name="TerrainCollider" type="StaticBody3D" unique_id=1208272398]
 script = ExtResource("1_rfihc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=788435894]

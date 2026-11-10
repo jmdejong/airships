@@ -88,9 +88,12 @@ func _physics_process(delta: float) -> void:
 	if last_since_floor >= last_since_floor_max:
 		used_platform = null
 	if posture == Posture.Sitting:
-		global_position = seat.seat_position()
-		linear_velocity = seat.get_component().get_ship().linear_velocity
-		seat.handle_player_input(delta)
+		if seat == null or not is_instance_valid(seat):
+			posture = Posture.Standing
+		else:
+			global_position = seat.seat_position()
+			linear_velocity = seat.get_component().get_ship().linear_velocity
+			seat.handle_player_input(delta)
 		
 	actual_velocity = (global_position - previous_position) / delta
 	previous_position = global_position
