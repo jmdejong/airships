@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b24jtesgl1y00"]
+
+[ext_resource type="Script" uid="uid://1ycpxkyeolue" path="res://code/components/resizable_component.gd" id="1_mc7qa"]
+[ext_resource type="Material" uid="uid://bev5qvka8ffsn" path="res://materials/ship_wood.tres" id="2_runrh"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_caxdv"]
+[ext_resource type="Script" uid="uid://ncvaioohtwn6" path="res://code/connection.gd" id="4_5nk8n"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_caxdv"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5nk8n"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ye0qf"]
+size = Vector3(0.15, 0.35, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q2cje"]
+size = Vector3(0.35, 0.15, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_js0n7"]
+size = Vector3(0.15, 0.15, 0.35)
+
+[node name="WoodFloor" type="Node3D" unique_id=1031728348]
+script = ExtResource("1_mc7qa")
+fixed_size = Vector3(-1, 0.25, -1)
+fixed_origin = Vector3(0.5, 0.125, 0.5)
+size = Vector3(0.25, 0.25, 0.25)
+connect_x = true
+connect_y = true
+connect_z = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=880911148]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+material_override = ExtResource("2_runrh")
+mesh = SubResource("BoxMesh_caxdv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1886739863]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+shape = SubResource("BoxShape3D_5nk8n")
+
+[node name="CenterOfMass" type="Node3D" parent="." unique_id=795673467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+
+[node name="Connection" type="Area3D" parent="." unique_id=39199665 instance=ExtResource("3_caxdv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.125, 0.125)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("4_5nk8n")
+
+[node name="CollisionShapeY" type="CollisionShape3D" parent="Connection" unique_id=1168334320]
+shape = SubResource("BoxShape3D_ye0qf")
+
+[node name="CollisionShapeX" type="CollisionShape3D" parent="Connection" unique_id=1936535231]
+shape = SubResource("BoxShape3D_q2cje")
+
+[node name="CollisionShapeZ" type="CollisionShape3D" parent="Connection" unique_id=1252231346]
+shape = SubResource("BoxShape3D_js0n7")

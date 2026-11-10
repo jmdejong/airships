@@ -13,7 +13,8 @@ func seat_position() -> Vector3:
 func handle_player_input(delta: float) -> void:
 	for binding in bindings:
 		if Input.is_key_pressed(binding.key) and binding.action != Binding.Action.None:
-			var control: SignalControl = get_node(binding.control)
+			# todo: better path for bindings
+			var control: SignalControl = owner.get_node(binding.control).get_node(^"SignalConnection/SignalControl")
 			if control == null:
 				continue
 			if binding.action == Binding.Action.Change:

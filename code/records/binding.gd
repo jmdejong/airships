@@ -4,7 +4,7 @@ extends Resource
 enum Action {None, Set, Change}
 
 @export var key: Key
-@export var control: String
+@export var control: NodePath
 @export var action: Action = Action.None
 @export var change: float
 @export var set_to: float

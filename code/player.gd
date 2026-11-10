@@ -25,6 +25,8 @@ const last_since_floor_max: float = 3
 var specific_info: String = ""
 var destination: Variant = null
 @onready var lifeline: Lifeline = $Lifeline
+var previous_position: Vector3 = Vector3.ZERO
+var actual_velocity: Vector3 = Vector3.ZERO
 
 enum Posture {Standing, Sitting, FlyDebug}
 @export var posture: Posture = Posture.Standing:
@@ -89,6 +91,9 @@ func _physics_process(delta: float) -> void:
 		global_position = seat.seat_position()
 		linear_velocity = seat.get_component().get_ship().linear_velocity
 		seat.handle_player_input(delta)
+		
+	actual_velocity = (global_position - previous_position) / delta
+	previous_position = global_position
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	specific_info = ""
@@ -113,9 +118,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	elif posture == Posture.Sitting:
 		pass
 	
-	%UI.set_info_text("""fps: %3.1f\nspeed: %1.1f m/s\n(%3.1f, %3.1f, %3.1f) %3.2f\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\nship: %s %.2f\n%s""" % [
+	%UI.set_info_text("""fps: %3.1f\nspeed: %1.1f m/s (%1.1f)\n(%3.1f, %3.1f, %3.1f) %3.2f\n%3.1fK %3.1fkPa %1.2fkg/m^3\nground: %s\nship: %s %.2f\n%s""" % [
 		Engine.get_frames_per_second(),
 		Vector2(linear_velocity.x, linear_velocity.z).length(),
+		Vector2(actual_velocity.x, actual_velocity.z).length(),
 		position.x,
 		position.y,
 		position.z,

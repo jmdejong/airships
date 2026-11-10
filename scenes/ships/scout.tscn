@@ -22,7 +22,7 @@
 [sub_resource type="Resource" id="Resource_p56v3"]
 script = ExtResource("14_tw0le")
 key = 87
-control = "../../SliderEng/SignalConnection/SignalControl"
+control = NodePath("../Throttle")
 action = 2
 change = 3.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
@@ -30,7 +30,7 @@ metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 [sub_resource type="Resource" id="Resource_pvp6t"]
 script = ExtResource("14_tw0le")
 key = 83
-control = "../../SliderEng/SignalConnection/SignalControl"
+control = NodePath("../Throttle")
 action = 2
 change = -3.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
@@ -38,7 +38,7 @@ metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 [sub_resource type="Resource" id="Resource_tw0le"]
 script = ExtResource("14_tw0le")
 key = 65
-control = "../../DialRot/SignalConnection/SignalControl"
+control = NodePath("../Turn")
 action = 2
 change = 3.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
@@ -46,9 +46,23 @@ metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 [sub_resource type="Resource" id="Resource_dvls8"]
 script = ExtResource("14_tw0le")
 key = 68
-control = "../../DialRot/SignalConnection/SignalControl"
+control = NodePath("../Turn")
 action = 2
 change = -3.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_5wnyb"]
+script = ExtResource("14_tw0le")
+key = 82
+control = NodePath("../Throttle")
+action = 1
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_aaamo"]
+script = ExtResource("14_tw0le")
+key = 82
+control = NodePath("../Turn")
+action = 1
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
 [node name="Scout" unique_id=1710930685 instance=ExtResource("1_2ad0o")]
@@ -158,25 +172,25 @@ transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0.75
 
 [node name="Cable2" parent="Components/Rigging" index="3" unique_id=490120099 instance=ExtResource("14_aaamo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0.75)
-length = 2.5
+size = Vector3(0.063, 2.5, 0.063)
 mass_ = 6.25
 volume = 0.00625
 
 [node name="Cable" parent="Components/Rigging" index="4" unique_id=719893920 instance=ExtResource("14_aaamo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
-length = 2.5
+size = Vector3(0.063, 2.5, 0.063)
 mass_ = 6.25
 volume = 0.00625
 
 [node name="Cable3" parent="Components/Rigging" index="5" unique_id=2044104819 instance=ExtResource("14_aaamo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.5, -0.75)
-length = 3.0
+size = Vector3(0.063, 3, 0.063)
 mass_ = 7.500000000000002
 volume = 0.0075
 
 [node name="Cable4" parent="Components/Rigging" index="6" unique_id=2084994706 instance=ExtResource("14_aaamo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.5, 0.5)
-length = 3.0
+size = Vector3(0.063, 3, 0.063)
 mass_ = 7.500000000000002
 volume = 0.0075
 
@@ -194,18 +208,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, -0.5)
 [node name="WireConnect4" parent="Components/Wiring" index="3" unique_id=1689866550 instance=ExtResource("12_b1l47")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -0.5)
 
-[node name="DialRot" parent="Components/Wiring" index="4" unique_id=2126999075 instance=ExtResource("13_5538s")]
+[node name="Turn" parent="Components/Wiring" index="4" unique_id=2126999075 instance=ExtResource("13_5538s")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.5, 0.75, 0.75)
 scale_degree = -1.0
 signal_channel = 1
 
-[node name="SliderEng" parent="Components/Wiring" index="5" unique_id=1357523095 instance=ExtResource("7_ium6c")]
+[node name="Throttle" parent="Components/Wiring" index="5" unique_id=1357523095 instance=ExtResource("7_ium6c")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.25, 0.75, -0.25)
 signal_channel = 2
 
 [node name="Chair" parent="Components/Wiring" index="6" unique_id=1406388681 instance=ExtResource("9_qcob2")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.25, 0.5, -0.25)
-bindings = Array[ExtResource("14_tw0le")]([SubResource("Resource_p56v3"), SubResource("Resource_pvp6t"), SubResource("Resource_tw0le"), SubResource("Resource_dvls8")])
+bindings = Array[ExtResource("14_tw0le")]([SubResource("Resource_p56v3"), SubResource("Resource_pvp6t"), SubResource("Resource_tw0le"), SubResource("Resource_dvls8"), SubResource("Resource_5wnyb"), SubResource("Resource_aaamo")])
 
 [node name="WireStraight" parent="Components/Wiring" index="7" unique_id=1267574098 instance=ExtResource("15_p56v3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0.5, 0.25)
