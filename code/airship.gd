@@ -61,6 +61,8 @@ func _physics_process(_delta: float) -> void:
 	freeze = get_tree().has_group("terrain") and not $TerrainLoadChecker.has_overlapping_areas()
 	if freeze:
 		return
+	if center_of_mass.length_squared() > 1.0:
+		recenter()
 	if moored_to != null and mooring_joint == null:
 		move_moor()
 	var air_density: float = Atmosphere.air_density(to_global(center_of_volume))
@@ -154,6 +156,13 @@ func destroy_component(component: Component, pos: Vector3):
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	check_connections()
+
+func recenter() -> void:
+	$Components.position -= center_of_mass
+	position = transform * center_of_mass
+	calculate_components_physics()
+	calculate_components_forces()
+	calculate_components_shapes()
 
 func impact(shape: CollisionShape3D, impactor: RigidBody3D) -> void:
 	if !is_instance_valid(shape) || !is_instance_valid(shape.get_meta("component")):

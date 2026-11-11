@@ -32,7 +32,7 @@ func _physics_process(_delta: float) -> void:
 func physics_properties() -> PhysicsProperties:
 	if _physics_properties == null:
 		_recalculate_physics()
-	return _physics_properties
+	return _physics_properties.transformed(transform)
 
 func _recalculate_physics() -> void:
 	var all_properties: Array[PhysicsProperties] = []
@@ -43,7 +43,7 @@ func _recalculate_physics() -> void:
 			continue
 		var component: Component = child
 		all_properties.append(component.physics_properties())
-	_physics_properties = PhysicsProperties.combine(all_properties).transformed(transform)
+	_physics_properties = PhysicsProperties.combine(all_properties)
 	changed_physics.emit()
 
 func _recalculate_forces() -> void:
@@ -72,7 +72,7 @@ func _recalculate_shapes() -> void:
 			continue
 		var component: Component = child
 		for source_shape: Component.CShape in component.shapes():
-			_shapes.append(source_shape.transformed(transform))
+			_shapes.append(source_shape)
 		if component.mooring_point != null:
 			mooring_point = component.mooring_point
 	changed_shapes.emit()
@@ -93,10 +93,14 @@ func recalculate_all() -> void:
 	recalculate_shapes()
 
 func shapes() -> Array[Component.CShape]:
-	return _shapes
+	var s: Array[Component.CShape] = []
+	s.assign(_shapes.map(func(shape): return shape.transformed(transform)))
+	return s
 
 func forces() -> Array[Force]:
-	return _forces
+	var f: Array[Force] = []
+	f.assign(_forces.map(func(force): return force.transformed(transform)))
+	return f
 
 func add_component(component: Component) -> void:
 	add_child(component)

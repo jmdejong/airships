@@ -32,6 +32,12 @@ func update_power() -> void:
 		#)
 		changed_forces.emit()
 
+#func _physics_process(_delta: float) -> void:
+	#var force: Vector3 = (%Rotor.global_position - $CenterOfMass.global_position).normalized() * power
+	#var ship: Airship = get_ship()
+	#ship.apply_force(force, %Rotor.global_position - ship.global_position)
+	
+	
 func forces() -> Array[Force]:
 	var direction: Vector3 = ($CenterOfMass.position-%Rotor.position).normalized() * sign(power)
 	return [Force.new(%Rotor.position, direction, abs(power)).transformed(transform)]
