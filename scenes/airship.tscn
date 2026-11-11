@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://xq10sq0rmxby" path="res://code/airship.gd" id="1_81adk"]
 [ext_resource type="PackedScene" uid="uid://ffgia4xpcrqh" path="res://scenes/components/composite.tscn" id="9_17pty"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2wxpc"]
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_gy0ok"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6i7b"]
@@ -18,6 +20,7 @@ albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 0.53333336)
 collision_layer = 198
 collision_mask = 7
 mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_2wxpc")
 center_of_mass_mode = 1
 freeze = true
 continuous_cd = true

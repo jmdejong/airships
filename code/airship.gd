@@ -58,7 +58,7 @@ func set_shapes() -> void:
 		add_child(shape)
 
 func _physics_process(_delta: float) -> void:
-	freeze = not $TerrainLoadChecker.has_overlapping_areas()
+	freeze = get_tree().has_group("terrain") and not $TerrainLoadChecker.has_overlapping_areas()
 	if freeze:
 		return
 	if moored_to != null and mooring_joint == null:
@@ -73,8 +73,8 @@ func _physics_process(_delta: float) -> void:
 		var thrust = pow(force.power * force.power * 2 * 10 * Atmosphere.air_density(force.pos), 0.3333333333333)
 		apply_force(force.direction * thrust, force.pos - global_position)
 	# https://en.wikipedia.org/wiki/Drag_(physics)#The_drag_equation
-	var drag: float = 0.5 * air_density * linear_velocity.length_squared() * drag_area_coefficient
-	apply_central_force(-linear_velocity.normalized() * drag)
+	#var drag: float = 0.5 * air_density * linear_velocity.length_squared() * drag_area_coefficient
+	#apply_central_force(-linear_velocity.normalized() * drag)
 
 func is_build_target() -> bool:
 	return true

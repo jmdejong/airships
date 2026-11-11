@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b15tuwvpgdfv"]
+
+[ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_5mkf1"]
+[ext_resource type="PackedScene" uid="uid://4ejh32drlk0w" path="res://scenes/components/chair.tscn" id="2_7f3ph"]
+
+[node name="DebrisChair" unique_id=47758217 instance=ExtResource("1_5mkf1")]
+mass = 2.5
+
+[node name="Chair" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="0" unique_id=618984325 instance=ExtResource("2_7f3ph")]

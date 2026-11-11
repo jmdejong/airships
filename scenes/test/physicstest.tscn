@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://djqt01dbhhxy3"]
+
+[ext_resource type="PackedScene" uid="uid://b15tuwvpgdfv" path="res://scenes/ships/debris_chair.tscn" id="2_myaak"]
+[ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="3_2wxpc"]
+[ext_resource type="Material" uid="uid://q4n5nwvhivs4" path="res://materials/groundsh.tres" id="3_myaak"]
+[ext_resource type="PackedScene" uid="uid://c82ueiacjfp87" path="res://scenes/day_environment.tscn" id="4_myaak"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_it4ap"]
+material = ExtResource("3_myaak")
+size = Vector2(256, 256)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_it4ap"]
+size = Vector3(256, 0.1, 256)
+
+[node name="Physicstest" type="Node3D" unique_id=166173860]
+
+[node name="DayEnvironment" parent="." unique_id=1125925271 instance=ExtResource("4_myaak")]
+
+[node name="DebrisChair" parent="DayEnvironment" unique_id=47758217 instance=ExtResource("2_myaak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 0.5)
+physics_material_override = null
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1162541249]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1193256133]
+mesh = SubResource("PlaneMesh_it4ap")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1375810375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_it4ap")
+
+[node name="Player" parent="." unique_id=903246191 instance=ExtResource("3_2wxpc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, 0, 4)

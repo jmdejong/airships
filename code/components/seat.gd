@@ -14,7 +14,10 @@ func handle_player_input(delta: float) -> void:
 	for binding in bindings:
 		if Input.is_key_pressed(binding.key) and binding.action != Binding.Action.None:
 			# todo: better path for bindings
-			var control: SignalControl = owner.get_node(binding.control).get_node(^"SignalConnection/SignalControl")
+			var control_component: Component = owner.get_node(binding.control)
+			if control_component == null:
+				continue
+			var control: SignalControl = control_component.get_node(^"SignalConnection/SignalControl")
 			if control == null:
 				continue
 			if binding.action == Binding.Action.Change:

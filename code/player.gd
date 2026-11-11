@@ -18,7 +18,7 @@ var used_platform: Airship = null:
 			val.teleport.connect(on_platform_teleport)
 		used_platform = val
 			
-var platform_movement: Vector3 = Vector3.ZERO
+var platform_velocity: Vector3 = Vector3.ZERO
 var last_since_floor: float = 0
 var was_on_ground := false
 const last_since_floor_max: float = 3
@@ -150,32 +150,31 @@ func move_around(state: PhysicsDirectBodyState3D, movement: Vector3) -> void:
 			contact_point = state.get_contact_collider_position(i)
 			if o is Airship:
 				used_platform = o
-				platform_movement = o.linear_velocity
+				platform_velocity = o.linear_velocity
 				last_since_floor = 0
 				break
 			else:
 				used_platform = null
 	var floor_movement: Vector3 = Vector3.ZERO
+	var opposing_force_scale: float = 0
 	if used_platform != null:
-		floor_movement = platform_movement * (last_since_floor_max - last_since_floor) / last_since_floor_max
+		opposing_force_scale = clamp(used_platform.mass / (2.0*mass), 0.0, 1.0)
+		floor_movement = platform_velocity * (last_since_floor_max - last_since_floor) / last_since_floor_max
 		
-	var desired_velocity: Vector3 = floor_movement + movement
+	var desired_velocity: Vector3 = floor_movement * opposing_force_scale + movement
 	var deltav: Vector3 = desired_velocity - linear_velocity
 	deltav.y = 0
 	if is_on_ground:
 		physics_material_override.friction = 1.0
 		var force: Vector3 = deltav * mass * 10
 		apply_force(force, contact_point - global_position)
-		if used_platform != null:
-			used_platform.apply_force(-force, contact_point - used_platform.global_position)
-		var platform_velocity = Vector3.ZERO
-		if used_platform != null:
-			platform_velocity = used_platform.linear_velocity
+		if used_platform != null and last_since_floor < 0.1:
+			used_platform.apply_force(-force * opposing_force_scale, contact_point - used_platform.global_position)
 		if Input.is_action_pressed("up") and was_on_ground and linear_velocity.y - platform_velocity.y < 1.0:
 			var jump_strength: Vector3 = Vector3(0, 350, 0)
 			apply_impulse(jump_strength, contact_point - global_position)
-			if used_platform != null:
-				used_platform.apply_impulse(-jump_strength, contact_point - used_platform.global_position)
+			if used_platform != null and last_since_floor < 0.1:
+				used_platform.apply_impulse(-jump_strength * opposing_force_scale, contact_point - used_platform.global_position)
 		was_on_ground = true
 	else:
 		physics_material_override.friction = 0.0

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://wf6wtq6dlrd6" path="res://code/terrain/terrain_collider.gd" id="1_rfihc"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4bfru"]
+
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_8jrkk"]
 resource_local_to_scene = true
 map_width = 3
@@ -11,6 +13,7 @@ map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
 [sub_resource type="BoxShape3D" id="BoxShape3D_it4ap"]
 
 [node name="TerrainCollider" type="StaticBody3D" unique_id=1208272398]
+physics_material_override = SubResource("PhysicsMaterial_4bfru")
 script = ExtResource("1_rfihc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=788435894]
