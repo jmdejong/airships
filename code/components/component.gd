@@ -5,8 +5,6 @@ extends Node3D
 @warning_ignore("unused_signal")
 signal changed_physics
 @warning_ignore("unused_signal")
-signal changed_forces
-@warning_ignore("unused_signal")
 signal changed_shapes
 
 @export var ctyp: String
@@ -15,9 +13,6 @@ var mooring_point: Node3D = null
 
 @abstract
 func physics_properties() -> PhysicsProperties
-
-func forces() -> Array[Force]:
-	return []
 
 func shapes() -> Array[CShape]:
 	return []

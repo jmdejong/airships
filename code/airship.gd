@@ -5,7 +5,6 @@ signal teleport(from: Vector3, to: Vector3)
 
 var displaced_volume: float
 var center_of_volume: Vector3
-var forces: Array[Force]
 const drag_coefficient: float = 0.5
 var drag_area_coefficient: float
 var ndetached: int = 0
@@ -18,10 +17,8 @@ var moored_to: MoorConnector = null:
 
 func _ready() -> void:
 	$Components.changed_physics.connect(calculate_components_physics)
-	$Components.changed_forces.connect(calculate_components_forces)
 	$Components.changed_shapes.connect(calculate_components_shapes)
 	calculate_components_physics()
-	calculate_components_forces()
 	calculate_components_shapes()
 	await get_tree().physics_frame
 	await get_tree().physics_frame
@@ -39,9 +36,6 @@ func calculate_components_physics() -> void:
 	self.drag_area_coefficient = pow(displaced_volume, 2.0/3.0) * drag_coefficient
 	$CenterOfMassMarker.position = center_of_mass
 	$CenterOfVolumeMarker.position = center_of_volume
-
-func calculate_components_forces() -> void:
-	self.forces = $Components.forces()
 
 func calculate_components_shapes() -> void:
 	self.set_shapes()
@@ -68,12 +62,6 @@ func _physics_process(_delta: float) -> void:
 	var air_density: float = Atmosphere.air_density(to_global(center_of_volume))
 	var displaced_air_mass := displaced_volume * air_density
 	apply_force(-displaced_air_mass * Atmosphere.gravity_vec(), to_global(center_of_volume) - global_position)
-	for local_force: Force in forces:
-		if local_force.power == 0:
-			continue
-		var force: Force = local_force.transformed(global_transform)
-		var thrust = pow(force.power * force.power * 2 * 10 * Atmosphere.air_density(force.pos), 0.3333333333333)
-		apply_force(force.direction * thrust, force.pos - global_position)
 	# https://en.wikipedia.org/wiki/Drag_(physics)#The_drag_equation
 	#var drag: float = 0.5 * air_density * linear_velocity.length_squared() * drag_area_coefficient
 	#apply_central_force(-linear_velocity.normalized() * drag)
@@ -161,7 +149,6 @@ func recenter() -> void:
 	$Components.position -= center_of_mass
 	position = transform * center_of_mass
 	calculate_components_physics()
-	calculate_components_forces()
 	calculate_components_shapes()
 
 func impact(shape: CollisionShape3D, impactor: RigidBody3D) -> void:

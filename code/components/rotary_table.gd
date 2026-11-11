@@ -15,7 +15,6 @@ func _ready() -> void:
 			child.transform = $RComponents.transform.inverse() * child.transform
 			$RComponents.add_component(child)
 	$RComponents.changed_physics.connect(func(): changed_physics.emit())
-	$RComponents.changed_forces.connect(func(): changed_forces.emit())
 	$RComponents.changed_shapes.connect(func(): changed_shapes.emit())
 	var typ: Dictionary[SignalConnection.Channel, SignalType] = {
 		rotation_channel: SignalType.new("deg", min_rotation, max_rotation, 5)
@@ -39,19 +38,12 @@ func shapes() -> Array[Component.CShape]:
 		cshapes.append(inner_shape_original.transformed(transform))
 	return cshapes
 
-func forces() -> Array[Force]:
-	var f: Array[Force] = []
-	for force in $RComponents.forces():
-		f.append(force.transformed(transform))
-	return f
-
 func destroy(_where: Vector3) -> void:
 	var parent: CompositeComponent = get_parent()
 	if parent == null:
 		return
 	parent.remove_child(self)
 	changed_physics.emit()
-	changed_forces.emit()
 	changed_shapes.emit()
 	var components: CompositeComponent = $RComponents
 	remove_child(components)

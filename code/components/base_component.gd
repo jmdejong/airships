@@ -32,7 +32,6 @@ func destroy(_where: Vector3) -> void:
 		return
 	get_parent().remove_child(self)
 	changed_physics.emit()
-	changed_forces.emit()
 	changed_shapes.emit()
 	queue_free()
 

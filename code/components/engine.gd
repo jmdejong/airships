@@ -25,22 +25,19 @@ func update_power() -> void:
 		if power == 0:
 			%Rotor.rps = sign(%Rotor.rps) * 0.02
 		else:
-			%Rotor.rps = power / 1000
+			%Rotor.rps = -power / 1000
 		#$SignalConnection.set_value(
 			#power_channel, 
 			#power / signal_scale
 		#)
-		changed_forces.emit()
 
-#func _physics_process(_delta: float) -> void:
-	#var force: Vector3 = (%Rotor.global_position - $CenterOfMass.global_position).normalized() * power
-	#var ship: Airship = get_ship()
-	#ship.apply_force(force, %Rotor.global_position - ship.global_position)
+func _physics_process(_delta: float) -> void:
+	# todo: I don't think this formula is correct
+	var thrust: float = pow(power * power * 2 * 10 * Atmosphere.air_density(%Rotor.global_position), 0.3333333333333)
+	var force: Vector3 = (%Rotor.global_position - $CenterOfMass.global_position).normalized() * thrust * sign(power)
+	var ship: Airship = get_ship()
+	ship.apply_force(force, %Rotor.global_position - ship.global_position)
 	
-	
-func forces() -> Array[Force]:
-	var direction: Vector3 = ($CenterOfMass.position-%Rotor.position).normalized() * sign(power)
-	return [Force.new(%Rotor.position, direction, abs(power)).transformed(transform)]
 
 func _on_signal_connection_typed_changed(channel: SignalConnection.Channel, value: float) -> void:
 	if channel == power_channel:

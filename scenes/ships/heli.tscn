@@ -157,5 +157,4 @@ volume = 0.02356194490192345
 
 [node name="Dial" parent="Components/Wiring" index="13" unique_id=2049202498 instance=ExtResource("9_gnvd4")]
 transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, -1.5, 1, 0)
-scale_degree = -2.0
 signal_channel = 1

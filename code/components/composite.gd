@@ -5,9 +5,7 @@ extends Component
 
 var _physics_properties: PhysicsProperties
 var _shapes: Array[Component.CShape]
-var _forces: Array[Force]
 var _physics_changed := true
-var _forces_changed := true
 var _shapes_changed := true
 
 
@@ -22,9 +20,6 @@ func _physics_process(_delta: float) -> void:
 	if _physics_changed:
 		_physics_changed = false
 		_recalculate_physics()
-	if _forces_changed:
-		_forces_changed = false
-		_recalculate_forces()
 	if _shapes_changed:
 		_shapes_changed = false
 		_recalculate_shapes()
@@ -46,20 +41,6 @@ func _recalculate_physics() -> void:
 	_physics_properties = PhysicsProperties.combine(all_properties)
 	changed_physics.emit()
 
-func _recalculate_forces() -> void:
-	if !is_inside_tree():
-		return
-	_forces = []
-	if !keep_empty and get_child_count() == 0 and get_parent != null:
-		queue_free()
-	for child in get_children():
-		if not (child is Component):
-			continue
-		var component: Component = child
-		for force: Force in component.forces():
-			_forces.append(force.transformed(transform))
-	changed_forces.emit()
-
 func _recalculate_shapes() -> void:
 	if !is_inside_tree():
 		return
@@ -80,27 +61,18 @@ func _recalculate_shapes() -> void:
 func recalculate_physics() -> void:
 	_physics_changed = true
 	set_physics_process(true)
-func recalculate_forces() -> void:
-	_forces_changed = true
-	set_physics_process(true)
 func recalculate_shapes() -> void:
 	_shapes_changed = true
 	set_physics_process(true)
 
 func recalculate_all() -> void:
 	recalculate_physics()
-	recalculate_forces()
 	recalculate_shapes()
 
 func shapes() -> Array[Component.CShape]:
 	var s: Array[Component.CShape] = []
 	s.assign(_shapes.map(func(shape): return shape.transformed(transform)))
 	return s
-
-func forces() -> Array[Force]:
-	var f: Array[Force] = []
-	f.assign(_forces.map(func(force): return force.transformed(transform)))
-	return f
 
 func add_component(component: Component) -> void:
 	add_child(component)
@@ -126,8 +98,6 @@ func connected_components() -> Array[Component]:
 func _connect_child_signals(component: Component) -> void:
 	if not component.changed_physics.is_connected(recalculate_physics):
 		component.changed_physics.connect(recalculate_physics)
-	if not component.changed_forces.is_connected(recalculate_forces):
-		component.changed_forces.connect(recalculate_forces)
 	if not component.changed_shapes.is_connected(recalculate_shapes):
 		component.changed_shapes.connect(recalculate_shapes)
 

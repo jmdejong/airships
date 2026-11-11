@@ -108,19 +108,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
 [node name="Machines" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="1" unique_id=1792181632 instance=ExtResource("3_3nb3f")]
 
 [node name="EngineLeft" parent="Components/Machines" index="0" unique_id=1889742839 instance=ExtResource("4_qxl6t")]
-transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.5, 0.75, -5)
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, -0.5, 0.75, -4)
 power_channel = 1
 
 [node name="EngineLeftOut" parent="Components/Machines" index="1" unique_id=1949605177 instance=ExtResource("4_qxl6t")]
-transform = Transform3D(-4.371139e-08, 0, -1, -1, -4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1.9106855e-15, 0.5, 0.75, -7)
+transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, -0.5, 0.75, -6)
 power_channel = 1
 
 [node name="EngineRight" parent="Components/Machines" index="2" unique_id=690393864 instance=ExtResource("4_qxl6t")]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0.5, -0.25, 5.25)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.5, -0.25, 4.25)
 power_channel = 2
 
 [node name="EngineRightOut" parent="Components/Machines" index="3" unique_id=449479973 instance=ExtResource("4_qxl6t")]
-transform = Transform3D(-4.371139e-08, 0, -1, 1, -4.371139e-08, -4.371139e-08, -4.371139e-08, -1, 1.9106855e-15, 0.5, -0.25, 7)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, -0.5, -0.25, 6)
 power_channel = 2
 
 [node name="Ballast" parent="Components/Machines" index="4" unique_id=142350728 instance=ExtResource("5_7pqw8")]
