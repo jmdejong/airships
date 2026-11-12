@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bmvbvfbt33bij"]
+
+[ext_resource type="Script" uid="uid://mvo1ow0yonlr" path="res://code/components/foil.gd" id="1_2rghi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nrai5"]
+size = Vector3(0.3, 1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrai5"]
+shading_mode = 2
+specular_mode = 2
+albedo_color = Color(0, 0, 1, 1)
+
+[node name="Foil" type="Node3D" unique_id=133344566]
+script = ExtResource("1_2rghi")
+
+[node name="ForceIndicator" type="MeshInstance3D" parent="." unique_id=1528978027]
+unique_name_in_owner = true
+visible = false
+cast_shadow = 0
+mesh = SubResource("BoxMesh_nrai5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_nrai5")

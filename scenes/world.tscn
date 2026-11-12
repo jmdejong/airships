@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bxsyqu2rwivui" path="res://scenes/ships/sheet.tscn" id="9_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://wefbat2oldop" path="res://scenes/ships/drop_thing2.tscn" id="10_e3hyu"]
 [ext_resource type="PackedScene" uid="uid://s7qd843d1ay0" path="res://scenes/ships/platform.tscn" id="10_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://d1b2743h1rxu6" path="res://scenes/ships/ruddy.tscn" id="11_e3hyu"]
 
 [node name="World" type="Node3D" unique_id=1581463641]
 
@@ -40,3 +41,6 @@ transform = Transform3D(0.99619466, -0.08715573, 0, 0.08715573, 0.99619466, 0, 0
 
 [node name="DropThing2" parent="." unique_id=112384779 instance=ExtResource("10_e3hyu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3272.25, 2444.875, 0)
+
+[node name="Ruddy" parent="." unique_id=47758217 instance=ExtResource("11_e3hyu")]
+transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 44.875, 43.375, 29.5)

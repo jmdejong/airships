@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpevhbstdsgsf" path="res://code/components/fin.gd" id="1_f3eow"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_pfkeg"]
+[ext_resource type="PackedScene" uid="uid://bmvbvfbt33bij" path="res://scenes/components/foil.tscn" id="3_pfkeg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6i7b"]
 albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
@@ -48,3 +49,7 @@ shape = SubResource("BoxShape3D_s3nhk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1321364706]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
 shape = SubResource("BoxShape3D_ylmi7")
+
+[node name="Foil" parent="." unique_id=133344566 instance=ExtResource("3_pfkeg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+surface_area = 72.0
