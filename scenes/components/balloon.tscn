@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://penueqo0mknq" path="res://code/components/balloon.gd" id="1_vcytr"]
 [ext_resource type="Texture2D" uid="uid://bxtghx3wseycs" path="res://textures/envelopes/purple.png" id="2_ivyex"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_tvt4f"]
-[ext_resource type="Material" uid="uid://l8gakslgrmhi" path="res://materials/apparatus.tres" id="4_j78af"]
 [ext_resource type="Material" uid="uid://itbsqlrcr84h" path="res://materials/metal_light.tres" id="4_mswl6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tvt4f"]
@@ -44,11 +43,11 @@ volume = 7634.070148223197
 ctyp = "Balloon"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=956216547]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_tvt4f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=453066736]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 cast_shadow = 2
 mesh = SubResource("CapsuleMesh_tvt4f")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
@@ -58,7 +57,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
 [node name="Connection" parent="." unique_id=1759811097 instance=ExtResource("2_tvt4f")]
 
 [node name="RightLow" type="CollisionShape3D" parent="Connection" unique_id=811950983]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.875, 1.125)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 1.125, -8.875, 0)
 shape = SubResource("CapsuleShape3D_ibp7l")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/RightLow" unique_id=1467728224]
@@ -66,7 +65,7 @@ material_override = ExtResource("4_mswl6")
 mesh = SubResource("CapsuleMesh_cl6mw")
 
 [node name="RightLow2" type="CollisionShape3D" parent="Connection" unique_id=1984245866]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.375, 3.125)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 3.125, -8.375, 0)
 shape = SubResource("CapsuleShape3D_ibp7l")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/RightLow2" unique_id=694835828]
@@ -74,7 +73,7 @@ material_override = ExtResource("4_mswl6")
 mesh = SubResource("CapsuleMesh_cl6mw")
 
 [node name="LeftLow" type="CollisionShape3D" parent="Connection" unique_id=939716288]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.875, -1.125)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.125, -8.875, 0)
 shape = SubResource("CapsuleShape3D_ibp7l")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/LeftLow" unique_id=1757795853]
@@ -82,7 +81,7 @@ material_override = ExtResource("4_mswl6")
 mesh = SubResource("CapsuleMesh_cl6mw")
 
 [node name="LeftLow2" type="CollisionShape3D" parent="Connection" unique_id=1380018055]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -8.375, -3.125)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -3.125, -8.375, 0)
 shape = SubResource("CapsuleShape3D_ibp7l")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Connection/LeftLow2" unique_id=1587866757]
@@ -90,25 +89,14 @@ material_override = ExtResource("4_mswl6")
 mesh = SubResource("CapsuleMesh_cl6mw")
 
 [node name="Interior" type="CollisionShape3D" parent="Connection" unique_id=963498650]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_it4ap")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2026630025]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
-size = Vector3(2.5, 0.5, 1.5)
-material = ExtResource("4_j78af")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D" unique_id=1663818928]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, -0.25, -1.9936124e-09)
-operation = 2
-size = Vector3(2, 0.25, 1)
-material = ExtResource("4_j78af")
-
 [node name="MooringPoint" type="Node3D" parent="." unique_id=340311161]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19)
 
 [node name="ForeCenter" type="Node3D" parent="." unique_id=2010355425]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
 
 [node name="AftCenter" type="Node3D" parent="." unique_id=1113108245]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9)

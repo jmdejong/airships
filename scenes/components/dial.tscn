@@ -58,7 +58,7 @@ shape = SubResource("BoxShape3D_jc46c")
 
 [node name="More" parent="." unique_id=932990006 instance=ExtResource("2_jc46c")]
 unique_name_in_owner = true
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.1, 0.2, 0.25)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4, 0.2, 0.25)
 description = "increase"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="More" unique_id=924726182]
@@ -75,7 +75,7 @@ description = "Reset"
 
 [node name="Less" parent="." unique_id=1160693963 instance=ExtResource("2_jc46c")]
 unique_name_in_owner = true
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4, 0.2, 0.25)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.1, 0.2, 0.25)
 description = "decrease"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Less" unique_id=661651169]
@@ -96,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.2, 0.25)
 
 [node name="Hand" type="MeshInstance3D" parent="Screw" unique_id=1584128257]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
 mesh = SubResource("BoxMesh_5sv2v")
 skeleton = NodePath("../../CenterOfMass")
 surface_material_override/0 = SubResource("StandardMaterial3D_0qsep")
@@ -140,7 +140,7 @@ shape = SubResource("BoxShape3D_0qsep")
 
 [node name="StatusText" type="Label3D" parent="." unique_id=233609435]
 unique_name_in_owner = true
-transform = Transform3D(-0.5, -4.371139e-08, -1.9106855e-15, 0, -2.1855694e-08, 0.5, -4.371139e-08, 0.5, 2.1855694e-08, 0.25, 0.205, 0.125)
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 0.25, 0.205, 0.375)
 text = "0000.00 Uni"
 font_size = 24
 outline_size = 7

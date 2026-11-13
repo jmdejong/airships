@@ -8,18 +8,13 @@
 albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_op4mh"]
-size = Vector3(12, 0.5, 6)
-
-[sub_resource type="BoxMesh" id="BoxMesh_4xpdj"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_op4mh"]
-albedo_color = Color(0, 0, 1, 1)
+size = Vector3(6, 0.5, 12)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s3nhk"]
-size = Vector3(0.2, 0.4, 5.8)
+size = Vector3(5.8, 0.4, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ylmi7"]
-size = Vector3(12, 0.5, 6)
+size = Vector3(6, 0.5, 12)
 
 [node name="FinRear" type="Node3D" unique_id=2065927277]
 script = ExtResource("1_f3eow")
@@ -27,19 +22,12 @@ volume = 0.1
 ctyp = "fin_rear"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1169309816]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 material_override = SubResource("StandardMaterial3D_g6i7b")
 mesh = SubResource("BoxMesh_op4mh")
 
 [node name="CenterOfMass" type="Node3D" parent="." unique_id=1860298038]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
-
-[node name="ForceIndicator" type="MeshInstance3D" parent="CenterOfMass" unique_id=32902123]
-unique_name_in_owner = true
-visible = false
-mesh = SubResource("BoxMesh_4xpdj")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_op4mh")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="Connection" parent="." unique_id=39199665 instance=ExtResource("2_pfkeg")]
 
@@ -47,9 +35,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_op4mh")
 shape = SubResource("BoxShape3D_s3nhk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1321364706]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 shape = SubResource("BoxShape3D_ylmi7")
 
 [node name="Foil" parent="." unique_id=133344566 instance=ExtResource("3_pfkeg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 surface_area = 72.0

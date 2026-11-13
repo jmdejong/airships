@@ -6,9 +6,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2wxpc"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_gy0ok"]
-top_radius = 0.2
-bottom_radius = 0.2
-height = 0.3
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6i7b"]
 transparency = 3
@@ -35,8 +35,10 @@ script = ExtResource("1_81adk")
 keep_empty = true
 
 [node name="CenterOfMassMarker" type="MeshInstance3D" parent="." unique_id=1900955261]
+visible = false
 mesh = SubResource("CylinderMesh_gy0ok")
 surface_material_override/0 = SubResource("StandardMaterial3D_g6i7b")
 
 [node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="." unique_id=1136416547]
+visible = false
 mesh = SubResource("PrismMesh_iu160")

@@ -11,13 +11,13 @@ size = Vector3(2, 1, 1)
 size = Vector3(2, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k8xt6"]
-size = Vector3(2.1, 0.9, 0.9)
+size = Vector3(2.01, 0.99, 0.99)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_guqs8"]
-size = Vector3(1.9, 1.1, 0.9)
+size = Vector3(1.99, 1.01, 0.99)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8sj3t"]
-size = Vector3(1.9, 0.9, 1.1)
+size = Vector3(1.99, 0.99, 1.01)
 
 [node name="WoodPanel" type="Node3D" unique_id=1588897242]
 script = ExtResource("1_1uhlu")

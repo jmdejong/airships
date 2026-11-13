@@ -1,4 +1,3 @@
-@tool
 class_name Fin
 extends BaseComponent
 
@@ -12,17 +11,8 @@ func mass() -> float:
 	return surface_area * thickness * density
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
 	$Foil.ship = get_ship()
 
 func _enter_tree() -> void:
-	if Engine.is_editor_hint():
-		return
 	if $Foil != null:
 		$Foil.ship = get_ship()
-
-func _box_shape(size: Vector3) -> BoxShape3D:
-	var bs: BoxShape3D = BoxShape3D.new()
-	bs.size = size
-	return bs

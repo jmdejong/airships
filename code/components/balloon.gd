@@ -67,8 +67,8 @@ func apply_drag() -> void:
 			continue
 		var local_air_direction: Vector3 = local_air_velocity.normalized()
 		
-		# Alignment is just the X component since local forward is (1, 0, 0)
-		var alignment: float = abs(local_air_direction.x)
+		# Alignment is the Z component since local forward is (0, 0, -1)
+		var alignment: float = abs(local_air_direction.z)
 		
 		var area: float = lerp(side_area_per_section, frontal_area_per_section, alignment)
 		var drag_coeff: float = lerp(0.8, 0.05, alignment)
@@ -78,7 +78,7 @@ func apply_drag() -> void:
 		var drag_force_local: Vector3 = local_air_direction * (dynamic_pressure * drag_coeff * area)
 		
 		# Keel effect in local space
-		var side_dir_local: Vector3 = Vector3(1, 0, 0).cross(local_air_direction).cross(local_air_direction).normalized()
+		var side_dir_local: Vector3 = Vector3(0, 0, -1).cross(local_air_direction).cross(local_air_direction).normalized()
 		var keel_force_local: Vector3 = side_dir_local * (dynamic_pressure * side_area_per_section * 0.1 * (1.0 - alignment))
 		
 		# Transform combined local force back to world space and apply

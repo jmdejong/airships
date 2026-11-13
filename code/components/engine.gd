@@ -25,7 +25,7 @@ func update_power() -> void:
 		if power == 0:
 			%Rotor.rps = sign(%Rotor.rps) * 0.02
 		else:
-			%Rotor.rps = -power / 1000
+			%Rotor.rps = power / 1000
 		#$SignalConnection.set_value(
 			#power_channel, 
 			#power / signal_scale

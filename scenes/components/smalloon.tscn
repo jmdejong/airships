@@ -20,10 +20,10 @@ uv1_scale = Vector3(2, 1, 1)
 texture_filter = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wjom8"]
-size = Vector3(0.5, 5.5, 1.9)
+size = Vector3(1.9, 0.5, 5.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_wjom8"]
-size = Vector3(5.5, 0.5, 1.9)
+size = Vector3(1.9, 0.5, 5.5)
 
 [node name="Smalloon" type="Node3D" unique_id=668164737 node_paths=PackedStringArray("mooring_connect_point")]
 script = ExtResource("1_wjom8")
@@ -36,11 +36,11 @@ volume = 1583.3626974091608
 ctyp = "Smalloon"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=264109327]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5, 0)
 shape = SubResource("CapsuleShape3D_tvt4f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=784312019]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 5, 0)
 cast_shadow = 2
 mesh = SubResource("CapsuleMesh_tvt4f")
 surface_material_override/0 = SubResource("StandardMaterial3D_3qy7f")
@@ -51,7 +51,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 [node name="Connection" parent="." unique_id=1993763738 instance=ExtResource("3_lwris")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=75047430]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.9936124e-09, 0.25, -1.9936124e-09)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 0.25, -1.9936124e-09)
 shape = SubResource("BoxShape3D_wjom8")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Connection" unique_id=770492086]
@@ -61,10 +61,10 @@ skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("4_7uoif")
 
 [node name="MooringPoint" type="Node3D" parent="." unique_id=1174639318]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.75, 6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -10.5)
 
 [node name="ForeCenter" type="Node3D" parent="." unique_id=538242494]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
 
 [node name="AftCenter" type="Node3D" parent="." unique_id=2002052349]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)

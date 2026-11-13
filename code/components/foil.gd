@@ -4,11 +4,12 @@ var ship: Airship
 @export var surface_area: float
 
 func _physics_process(_delta: float) -> void:
-	if Engine.is_editor_hint() or ship == null:
+	if Engine.is_editor_hint() or ship == null or surface_area <= 0:
 		return
 	var force := calculate_wing_force()
 	#var force := calculate_fin_force()
 	$ForceIndicator.global_position = global_position + (force * 10.0 / ship.mass)
+	
 	ship.apply_force(force, global_position - ship.global_position)
 
 func calculate_fin_force() -> Vector3:

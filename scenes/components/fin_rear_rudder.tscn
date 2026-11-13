@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cwcn5yu6pwj1r"]
 
-[ext_resource type="Script" uid="uid://i5aj2payy2hj" path="res://code/components/fin_rear_rudder.gd" id="1_73x3a"]
+[ext_resource type="Script" uid="uid://bplil0o75aoi3" path="res://code/components/fin_rudder.gd" id="1_73x3a"]
 [ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_73x3a"]
 [ext_resource type="PackedScene" uid="uid://bmvbvfbt33bij" path="res://scenes/components/foil.tscn" id="3_bcgki"]
 [ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="4_73x3a"]
@@ -12,56 +12,59 @@ albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
 size = Vector3(6, 0.5, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bcgki"]
-size = Vector3(0.2, 0.4, 5.8)
+size = Vector3(6, 0.5, 12)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lmwqm"]
-size = Vector3(12, 0.5, 6)
-
-[sub_resource type="BoxMesh" id="BoxMesh_r67xw"]
+[sub_resource type="BoxMesh" id="BoxMesh_lmwqm"]
 size = Vector3(6, 0.5, 6)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_r67xw"]
+size = Vector3(5.9, 0.4, 0.1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_kvrwy"]
-size = Vector3(0.2, 0.4, 5.8)
+size = Vector3(5.9, 0.4, 0.1)
 
 [node name="FinRearRudder" type="Node3D" unique_id=2065927277]
 script = ExtResource("1_73x3a")
-ctyp = "FinRearRudder"
+thickness = 0.5
+y_offset = 0.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1169309816]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
 material_override = SubResource("StandardMaterial3D_g6i7b")
 mesh = SubResource("BoxMesh_73x3a")
 
 [node name="CenterOfMass" type="Node3D" parent="." unique_id=1860298038]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1321364706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 6)
+shape = SubResource("BoxShape3D_bcgki")
+
+[node name="Foil" parent="." unique_id=133344566 instance=ExtResource("3_bcgki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+surface_area = 36.0
+
+[node name="Rudder" type="Node3D" parent="." unique_id=1513227086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rudder" unique_id=1833457202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+mesh = SubResource("BoxMesh_lmwqm")
+
+[node name="Foil" parent="Rudder" unique_id=921321481 instance=ExtResource("3_bcgki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+surface_area = 36.0
 
 [node name="Connection" parent="." unique_id=39199665 instance=ExtResource("2_73x3a")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=331164908]
-shape = SubResource("BoxShape3D_bcgki")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1321364706]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
-shape = SubResource("BoxShape3D_lmwqm")
-
-[node name="Foil" parent="." unique_id=133344566 instance=ExtResource("3_bcgki")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
-surface_area = 36.0
-
-[node name="Rudder" type="Node3D" parent="." unique_id=1513227086]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Rudder" unique_id=1833457202]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
-mesh = SubResource("BoxMesh_r67xw")
-
-[node name="Foil" parent="Rudder" unique_id=921321481 instance=ExtResource("3_bcgki")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
-surface_area = 36.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+shape = SubResource("BoxShape3D_r67xw")
 
 [node name="SignalConnection" parent="." unique_id=872104942 instance=ExtResource("4_73x3a")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection" unique_id=2009697020]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 shape = SubResource("BoxShape3D_kvrwy")
 
 [connection signal="typed_changed" from="SignalConnection" to="." method="_on_signal_connection_typed_changed"]

@@ -58,7 +58,7 @@ skeleton = NodePath("../CenterOfMass")
 surface_material_override/0 = ExtResource("2_ulco8")
 
 [node name="Display" type="MeshInstance3D" parent="Case" unique_id=2108085783]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.065, 0.054999996, 0)
+transform = Transform3D(-1, -8.742278e-08, -3.821371e-15, 0, -4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, 0.065, 0.054999992, 0)
 sorting_offset = 1.0
 cast_shadow = 0
 mesh = SubResource("QuadMesh_0kyjx")
@@ -67,7 +67,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_h2hu0")
 
 [node name="Less" parent="Case" unique_id=2048897376 instance=ExtResource("2_h2hu0")]
 unique_name_in_owner = true
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.055, 0.05, -0.085)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.055, 0.05, 0.085)
 description = "decrease"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Case/Less" unique_id=19044193]
@@ -79,7 +79,7 @@ surface_material_override/0 = ExtResource("4_5h15h")
 
 [node name="More" parent="Case" unique_id=48229557 instance=ExtResource("2_h2hu0")]
 unique_name_in_owner = true
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.055, 0.05, 0.08499999)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.055, 0.05, -0.085)
 description = "increase"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Case/More" unique_id=787826980]
@@ -96,7 +96,7 @@ description = "Reset"
 
 [node name="StatusText" type="Label3D" parent="Case" unique_id=710064782]
 unique_name_in_owner = true
-transform = Transform3D(-0.25, -3.774895e-08, -1.650059e-15, 0, -1.0927847e-08, 0.25, -3.774895e-08, 0.25, 1.0927847e-08, -0.055, 0.054999996, 0)
+transform = Transform3D(0.25, 1.5893256e-08, 6.947163e-16, 0, -1.0927847e-08, 0.25, 1.5893256e-08, -0.25, -1.0927847e-08, -0.055, 0.054999992, 0)
 text = "0000.00
 Uni"
 font_size = 24
