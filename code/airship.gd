@@ -52,7 +52,8 @@ func set_shapes() -> void:
 		add_child(shape)
 
 func _physics_process(_delta: float) -> void:
-	freeze = get_tree().has_group("terrain") and not $TerrainLoadChecker.has_overlapping_areas()
+	var terrain: Terrain = get_tree().get_first_node_in_group("terrain")
+	freeze = terrain != null and not terrain.is_physics_loaded(global_position, 1)
 	if freeze:
 		return
 	if center_of_mass.length_squared() > 1.0:

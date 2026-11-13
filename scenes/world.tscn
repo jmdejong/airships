@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://wefbat2oldop" path="res://scenes/ships/drop_thing2.tscn" id="10_e3hyu"]
 [ext_resource type="PackedScene" uid="uid://s7qd843d1ay0" path="res://scenes/ships/platform.tscn" id="10_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://d1b2743h1rxu6" path="res://scenes/ships/ruddy.tscn" id="11_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://bqb85kc1l83id" path="res://scenes/ships/birb.tscn" id="12_q5onr"]
 
 [node name="World" type="Node3D" unique_id=1581463641]
 
@@ -28,7 +29,7 @@ transform = Transform3D(-2.682209e-07, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -2.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 70, 52)
 
 [node name="Heli" parent="." unique_id=60126636 instance=ExtResource("5_71j4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5, 10, -8.375)
 
 [node name="Platform" parent="." unique_id=1998976567 instance=ExtResource("10_w7kh3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 10, 16)
@@ -44,3 +45,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3272.25, 2444.875, 0)
 
 [node name="Ruddy" parent="." unique_id=47758217 instance=ExtResource("11_e3hyu")]
 transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 44.875, 43.375, 29.5)
+
+[node name="Birb" parent="." unique_id=247054039 instance=ExtResource("12_q5onr")]
+transform = Transform3D(-0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, -0.9659258, 64.5, 11.5, -30.625)

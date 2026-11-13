@@ -12,9 +12,13 @@ func mass() -> float:
 	return surface_area * thickness * density
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	$Foil.ship = get_ship()
 
 func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		return
 	if $Foil != null:
 		$Foil.ship = get_ship()
 

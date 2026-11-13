@@ -1,0 +1,220 @@
+[gd_scene format=3 uid="uid://bqb85kc1l83id"]
+
+[ext_resource type="PackedScene" uid="uid://bacp7ifjnlyi6" path="res://scenes/airship.tscn" id="1_j6j2w"]
+[ext_resource type="PackedScene" uid="uid://b24jtesgl1y00" path="res://scenes/components/wood_floor.tscn" id="2_ai8ii"]
+[ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine.tscn" id="3_d737r"]
+[ext_resource type="PackedScene" uid="uid://4ejh32drlk0w" path="res://scenes/components/chair.tscn" id="4_r4jte"]
+[ext_resource type="PackedScene" uid="uid://ir48fky7lbl4" path="res://scenes/components/fin_side_rudder.tscn" id="5_dd8h0"]
+[ext_resource type="Script" uid="uid://bdyy87xh6bshr" path="res://code/records/binding.gd" id="5_r0qle"]
+[ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="6_fi1x1"]
+[ext_resource type="PackedScene" uid="uid://b222awqy5q2ev" path="res://scenes/components/wire_connect.tscn" id="7_lkgqh"]
+[ext_resource type="PackedScene" uid="uid://dg2lijml07p5x" path="res://scenes/components/wire_straight.tscn" id="8_ir2ry"]
+[ext_resource type="PackedScene" uid="uid://dy7asljtall0c" path="res://scenes/components/slider.tscn" id="9_ir2ry"]
+
+[sub_resource type="Resource" id="Resource_r0qle"]
+script = ExtResource("5_r0qle")
+key = 70
+control = NodePath("../Throttle")
+action = 2
+change = 6.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_osr7m"]
+script = ExtResource("5_r0qle")
+key = 67
+control = NodePath("../Throttle")
+action = 2
+change = -6.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_41uy8"]
+script = ExtResource("5_r0qle")
+key = 65
+control = NodePath("../Yaw")
+action = 2
+change = -4.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_lfjer"]
+script = ExtResource("5_r0qle")
+key = 68
+control = NodePath("../Yaw")
+action = 2
+change = 4.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_rs7qv"]
+script = ExtResource("5_r0qle")
+key = 87
+control = NodePath("../Pitch")
+action = 2
+change = 2.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_v6agy"]
+script = ExtResource("5_r0qle")
+key = 83
+control = NodePath("../Pitch")
+action = 2
+change = -2.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_d1ypd"]
+script = ExtResource("5_r0qle")
+key = 69
+control = NodePath("../Roll")
+action = 2
+change = 2.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[sub_resource type="Resource" id="Resource_apuvx"]
+script = ExtResource("5_r0qle")
+key = 81
+control = NodePath("../Roll")
+action = 2
+change = -2.0
+metadata/_custom_type_script = "uid://bdyy87xh6bshr"
+
+[node name="Birb" unique_id=47758217 instance=ExtResource("1_j6j2w")]
+
+[node name="WoodFloor" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="0" unique_id=1031728348 instance=ExtResource("2_ai8ii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.25, -0.5)
+size = Vector3(3, 0.25, 1)
+
+[node name="Engine" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="1" unique_id=1467381391 instance=ExtResource("3_d737r")]
+transform = Transform3D(-4.371139e-08, 0, 1, 1, -4.371139e-08, 4.371139e-08, 4.371139e-08, 1, 1.9106855e-15, 1, 0, -0.5)
+power_channel = 1
+
+[node name="Chair" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="2" unique_id=618984325 instance=ExtResource("4_r4jte")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.25, 0, -0.25)
+bindings = Array[ExtResource("5_r0qle")]([SubResource("Resource_r0qle"), SubResource("Resource_osr7m"), SubResource("Resource_41uy8"), SubResource("Resource_lfjer"), SubResource("Resource_rs7qv"), SubResource("Resource_v6agy"), SubResource("Resource_d1ypd"), SubResource("Resource_apuvx")])
+
+[node name="Tail" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="3" unique_id=335181585 instance=ExtResource("2_ai8ii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -0.25)
+size = Vector3(3, 0.25, 0.5)
+
+[node name="WingBottomRight" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="4" unique_id=35230671 instance=ExtResource("5_dd8h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.25, 0.75)
+fin_length = 1.0
+rudder_length = 0.5
+rudder_offset = 3.0
+rotation_channel = 4
+
+[node name="WingBottomRight2" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="5" unique_id=869157951 instance=ExtResource("5_dd8h0")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 1.5, 0, -0.75)
+fin_length = 1.0
+rudder_length = 0.5
+rudder_offset = 3.0
+rotation_channel = 4
+
+[node name="WoodPanel" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="6" unique_id=1588897242 instance=ExtResource("6_fi1x1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.75, 0.5)
+size = Vector3(0.25, 2.5, 0.25)
+
+[node name="WoodPanel2" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="7" unique_id=1930636010 instance=ExtResource("6_fi1x1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.75, -0.75)
+size = Vector3(0.25, 2.5, 0.25)
+
+[node name="FinTailRight" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="8" unique_id=1605115509 instance=ExtResource("5_dd8h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, 0.25)
+fin_length = 0.5
+rudder_length = 0.75
+width = 1.0
+rotation_channel = 3
+
+[node name="FinTailLeft" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="9" unique_id=581931669 instance=ExtResource("5_dd8h0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, -0.25)
+fin_length = 0.5
+rudder_length = 0.75
+width = 1.0
+z_mirror = true
+rotation_channel = 3
+
+[node name="FinTailTop" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="10" unique_id=245258745 instance=ExtResource("5_dd8h0")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -3.5, 0.25, 0)
+thickness = 0.5
+fin_length = 0.75
+rudder_length = 1.0
+width = 1.5
+y_offset = 0.0
+z_mirror = true
+rotation_channel = 2
+
+[node name="WireConnect" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="11" unique_id=978015016 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, 0, 0)
+
+[node name="WireConnect2" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="12" unique_id=776306042 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, 0, -0.25)
+
+[node name="WireConnect3" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="13" unique_id=1648954620 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, -0.25, -0.25)
+
+[node name="WireConnect4" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="14" unique_id=187569594 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.25, -0.25)
+
+[node name="WireConnect5" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="15" unique_id=1421997394 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.25, -0.5)
+
+[node name="WireConnect6" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="16" unique_id=1106368791 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -0.5)
+
+[node name="WireConnect7" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="17" unique_id=341585539 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.25, -0.75)
+
+[node name="WireConnect12" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="18" unique_id=1845505726 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.25, 0.5)
+
+[node name="WireConnect10" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="19" unique_id=2119938477 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 0.5)
+
+[node name="WireConnect11" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="20" unique_id=640977889 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, -0.75)
+
+[node name="WireConnect13" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="21" unique_id=2078044004 instance=ExtResource("7_lkgqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, -0.5)
+
+[node name="WireStraight" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="22" unique_id=1242049122 instance=ExtResource("8_ir2ry")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 1.5, 0.5)
+length = 1.0
+mass_ = 1.5707963267948968
+volume = 0.007853981633974483
+
+[node name="WireStraight2" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="23" unique_id=2059688786 instance=ExtResource("8_ir2ry")]
+transform = Transform3D(-4.371139e-08, 0, 1, -1, -4.371139e-08, -4.371139e-08, 4.371139e-08, -1, 1.9106855e-15, 1, 1.5, 0.75)
+length = 1.5
+mass_ = 2.356194490192345
+volume = 0.011780972450961725
+
+[node name="WireStraight3" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="24" unique_id=645072396 instance=ExtResource("8_ir2ry")]
+transform = Transform3D(-4.371139e-08, 0, 1, -1, -4.371139e-08, -4.371139e-08, 4.371139e-08, -1, 1.9106855e-15, 1, 1.5, -0.5)
+length = 1.5
+mass_ = 2.356194490192345
+volume = 0.011780972450961725
+
+[node name="WireStraight4" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="25" unique_id=958316270 instance=ExtResource("8_ir2ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, -0.5)
+length = 2.0
+mass_ = 3.1415926535897936
+volume = 0.015707963267948967
+
+[node name="WireStraight5" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="26" unique_id=1142661754 instance=ExtResource("8_ir2ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.25, -0.25)
+length = 2.5
+mass_ = 3.9269908169872414
+volume = 0.019634954084936207
+
+[node name="Yaw" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="27" unique_id=1852808318 instance=ExtResource("9_ir2ry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.25, -0.5)
+signal_channel = 2
+
+[node name="Pitch" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="28" unique_id=1172203591 instance=ExtResource("9_ir2ry")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.75, 0, 0)
+signal_channel = 3
+
+[node name="Roll" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="29" unique_id=15150787 instance=ExtResource("9_ir2ry")]
+transform = Transform3D(1.9106855e-15, -1, -4.371139e-08, -1, 1.9106855e-15, -8.742278e-08, 8.742278e-08, 4.371139e-08, -1, 1, 1.75, 0.75)
+signal_channel = 4
+
+[node name="Throttle" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="30" unique_id=111426212 instance=ExtResource("9_ir2ry")]
+transform = Transform3D(3.5527137e-15, -1, -4.371139e-08, -4.371139e-08, -4.3711385e-08, 1, -1, 0, -4.371139e-08, 1, 0.5000001, 0.25)
+signal_channel = 1

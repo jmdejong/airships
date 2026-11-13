@@ -57,7 +57,6 @@ width = 512
 
 [sub_resource type="Resource" id="Resource_b1lky"]
 script = ExtResource("3_mhgm5")
-hex_diameter = null
 height_gradient = SubResource("GradientTexture1D_n0q8u")
 height_gradient2 = SubResource("GradientTexture1D_tp7gy")
 base_terrain_material = SubResource("ShaderMaterial_svbv2")
@@ -74,13 +73,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 10, -1.993612
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
 
 [node name="House2" parent="CentralVillage" unique_id=49871910 instance=ExtResource("3_tp7gy")]
-transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -12, 0, -26)
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -15, 0, -20)
 
 [node name="House4" parent="CentralVillage" unique_id=237019859 instance=ExtResource("3_tp7gy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
 
 [node name="House15" parent="CentralVillage" unique_id=1219204312 instance=ExtResource("3_tp7gy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -20)
 
 [node name="House14" parent="CentralVillage" unique_id=360006747 instance=ExtResource("3_tp7gy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 17)

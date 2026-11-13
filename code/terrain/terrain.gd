@@ -34,6 +34,7 @@ func _physics_process(_delta: float) -> void:
 	if snapped_player_pos != previous_snapped_player_pos:
 		previous_snapped_player_pos = snapped_player_pos
 		map_changed = true
+	if map_changed:
 		prune_regions(player_pos)
 		identify_load_regions(player_pos)
 		prune_tile_layer(player_pos, loaded_colliders, settings.collider_min_distance * 2)
@@ -59,6 +60,7 @@ func _enter_tree() -> void:
 	for region_id: Vector3i in loaded_regions.keys():
 		if  region_id.z == settings.super_region_level:
 			add_face(region_id)
+	map_changed = true
 
 func region_for_face(hrc: Vector3i) -> Region:
 	var region_hrc: Vector3i
@@ -200,6 +202,10 @@ func height_at(pos: Vector2) -> float:
 			return 404
 	return loaded_regions[region_id].height_at(pos)
 
+func is_physics_loaded(pos3: Vector3, _radius: float) -> bool:
+	var pos: Vector2 = Vector2(pos3.x, pos3.z)
+	return loaded_colliders.has(Hrc.world_to_hrc_id(pos, settings.collider_level)) \
+		and structure_tiles.has(Hrc.world_to_hrc_id(pos, settings.structure_level))
 
 class Settings:
 	var region_level: int = 9

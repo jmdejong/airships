@@ -6,6 +6,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2wxpc"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_gy0ok"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6i7b"]
 transparency = 3
@@ -14,8 +17,6 @@ alpha_antialiasing_mode = 0
 albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 0.53333336)
 
 [sub_resource type="PrismMesh" id="PrismMesh_iu160"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_it4ap"]
 
 [node name="Airship" type="RigidBody3D" unique_id=47758217]
 collision_layer = 198
@@ -34,18 +35,8 @@ script = ExtResource("1_81adk")
 keep_empty = true
 
 [node name="CenterOfMassMarker" type="MeshInstance3D" parent="." unique_id=1900955261]
-visible = false
 mesh = SubResource("CylinderMesh_gy0ok")
 surface_material_override/0 = SubResource("StandardMaterial3D_g6i7b")
 
 [node name="CenterOfVolumeMarker" type="MeshInstance3D" parent="." unique_id=1136416547]
-visible = false
 mesh = SubResource("PrismMesh_iu160")
-
-[node name="TerrainLoadChecker" type="Area3D" parent="." unique_id=612549180]
-collision_layer = 0
-collision_mask = 512
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TerrainLoadChecker" unique_id=209738876]
-shape = SubResource("BoxShape3D_it4ap")
