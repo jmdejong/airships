@@ -154,3 +154,4 @@ size = Vector3(0.063, 2.5, 0.063)
 
 [node name="FinRearRudder" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="14" unique_id=2065927277 instance=ExtResource("8_6naax")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -2, 7.75)
+rotation_channel = 1

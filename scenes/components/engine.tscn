@@ -33,7 +33,7 @@ height = 0.6
 radial_segments = 12
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rrhl7"]
-size = Vector3(0.6, 0.6, 0.25)
+size = Vector3(0.6, 0.6, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nhv66"]
 size = Vector3(1.1, 0.6, 0.8)
@@ -120,7 +120,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 [node name="Connection" parent="." unique_id=1835529515 instance=ExtResource("6_8634w")]
 
 [node name="CollisionEnd" type="CollisionShape3D" parent="Connection" unique_id=1950984901]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.075)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1)
 shape = SubResource("BoxShape3D_rrhl7")
 
 [node name="CollisionSides" type="CollisionShape3D" parent="Connection" unique_id=896117962]
@@ -134,7 +134,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 shape = SubResource("BoxShape3D_nhv66")
 
 [node name="CollisionEnd" type="CollisionShape3D" parent="SignalConnection" unique_id=1127794469]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.07499999)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 1)
 shape = SubResource("BoxShape3D_rrhl7")
 
 [node name="Preview" type="Node3D" parent="." unique_id=1652853301]

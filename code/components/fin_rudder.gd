@@ -74,7 +74,7 @@ func update_sizes() -> void:
 	$Rudder/Foil.position = rudder_center
 	$Rudder/MeshInstance3D.position = rudder_center
 	$Rudder/MeshInstance3D.mesh = $Rudder/MeshInstance3D.mesh.duplicate()
-	$Rudder/MeshInstance3D.mesh.size = Vector3(rudder_length, thickness, width - rudder_offset)
+	$Rudder/MeshInstance3D.mesh.size = Vector3(width - rudder_offset, thickness, rudder_length)
 
 func mass() -> float:
 	return width * (fin_length + rudder_length) * thickness * density
@@ -91,13 +91,13 @@ func _ready() -> void:
 	rotate_to(rot)
 
 func _enter_tree() -> void:
+	update_sizes()
 	if Engine.is_editor_hint():
 		return
 	if $Foil != null:
 		$Foil.ship = get_ship()
 	if $Rudder/Foil != null:
 		$Rudder/Foil.ship = get_ship()
-	update_sizes()
 
 func rotate_to(r: float) -> void:
 	r = clamp(r, min_rotation, max_rotation)
