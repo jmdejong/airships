@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://q4n5nwvhivs4" path="res://materials/groundsh.tres" id="1_v3hcm"]
 [ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="3_3wqs7"]
-[ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/scout.tscn" id="4_bp4bo"]
+[ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/owl.tscn" id="4_bp4bo"]
 [ext_resource type="PackedScene" uid="uid://dj7s3br8gri5r" path="res://scenes/structures/mooring_mast.tscn" id="4_c4qrx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bgi73"]

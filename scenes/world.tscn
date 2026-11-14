@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cfu5yqefxgq4y"]
 
 [ext_resource type="PackedScene" uid="uid://c82ueiacjfp87" path="res://scenes/day_environment.tscn" id="1_jhx03"]
-[ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/ships/gunboat.tscn" id="2_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://d38pbjc6hq7vv" path="res://scenes/ships/goose.tscn" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://xt6mcv6w5ri5" path="res://scenes/player.tscn" id="2_rwgxs"]
-[ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/scout.tscn" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://b7mlj5h04xtu6" path="res://scenes/ships/owl.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://bgiev8up864ym" path="res://scenes/ships/heli.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://cxbhh4qjufira" path="res://scenes/areas/hex_island.tscn" id="7_i7141"]
-[ext_resource type="PackedScene" uid="uid://d1b2743h1rxu6" path="res://scenes/ships/ruddy.tscn" id="11_e3hyu"]
-[ext_resource type="PackedScene" uid="uid://bqb85kc1l83id" path="res://scenes/ships/birb.tscn" id="12_q5onr"]
+[ext_resource type="PackedScene" uid="uid://d1b2743h1rxu6" path="res://scenes/ships/rook.tscn" id="11_e3hyu"]
+[ext_resource type="PackedScene" uid="uid://bqb85kc1l83id" path="res://scenes/ships/sylph.tscn" id="12_q5onr"]
 
 [node name="World" type="Node3D" unique_id=1581463641]
 
@@ -18,17 +18,17 @@ transform = Transform3D(-0.96592593, 0, 0.25881907, 0, 1, 0, -0.25881907, 0, -0.
 
 [node name="HexIsland" parent="." unique_id=1896444308 instance=ExtResource("7_i7141")]
 
-[node name="GunBoat" parent="." unique_id=798839507 instance=ExtResource("2_4wyf3")]
+[node name="Goose" parent="." unique_id=798839507 instance=ExtResource("2_4wyf3")]
 transform = Transform3D(-2.682209e-07, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -2.682209e-07, 0, 23, 0)
 
-[node name="Scout" parent="." unique_id=795017595 instance=ExtResource("4_k0juu")]
+[node name="Owl" parent="." unique_id=795017595 instance=ExtResource("4_k0juu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 70, 52)
 
 [node name="Heli" parent="." unique_id=60126636 instance=ExtResource("5_71j4m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5, 10, -8.375)
 
-[node name="Ruddy" parent="." unique_id=47758217 instance=ExtResource("11_e3hyu")]
+[node name="Rook" parent="." unique_id=47758217 instance=ExtResource("11_e3hyu")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 45, 80, 30)
 
-[node name="Birb" parent="." unique_id=247054039 instance=ExtResource("12_q5onr")]
-transform = Transform3D(-0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, -0.9659258, 64.5, 11.5, -30.625)
+[node name="Sylph" parent="." unique_id=247054039 instance=ExtResource("12_q5onr")]
+transform = Transform3D(0.2588191, 0, 0.96592593, 0, 1, 0, -0.96592593, 0, 0.2588191, 55.875, 11.5, -34.875)

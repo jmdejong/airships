@@ -1,46 +1,46 @@
 [gd_scene format=3 uid="uid://ir48fky7lbl4"]
 
-[ext_resource type="Script" uid="uid://bplil0o75aoi3" path="res://code/components/fin_rudder.gd" id="1_us8ry"]
-[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="2_l3e8r"]
-[ext_resource type="PackedScene" uid="uid://bmvbvfbt33bij" path="res://scenes/components/foil.tscn" id="3_07xi4"]
-[ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="4_6t4f6"]
+[ext_resource type="Script" uid="uid://bplil0o75aoi3" path="res://code/components/fin_rudder.gd" id="1_p04w2"]
+[ext_resource type="PackedScene" uid="uid://bmvbvfbt33bij" path="res://scenes/components/foil.tscn" id="2_rjlc6"]
+[ext_resource type="PackedScene" uid="uid://c80fsqccc2hnu" path="res://scenes/connection.tscn" id="3_er0i1"]
+[ext_resource type="PackedScene" uid="uid://djd85005dvf4k" path="res://scenes/components/signal_connection.tscn" id="4_6212c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6i7b"]
 albedo_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_us8ry"]
+[sub_resource type="BoxMesh" id="BoxMesh_21lsk"]
 size = Vector3(6, 0.25, 6)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_l3e8r"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mccml"]
 size = Vector3(6, 0.25, 12)
 
-[sub_resource type="BoxMesh" id="BoxMesh_07xi4"]
+[sub_resource type="BoxMesh" id="BoxMesh_o6s7n"]
 size = Vector3(6, 0.25, 6)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6t4f6"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_e12cs"]
 size = Vector3(0.1, 0.15, 5.9)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_oxnh2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_j87wk"]
 size = Vector3(0.1, 0.15, 5.9)
 
-[node name="FinSideRudder" type="Node3D" unique_id=2065927277]
-script = ExtResource("1_us8ry")
+[node name="FinRudder" type="Node3D" unique_id=2065927277]
+script = ExtResource("1_p04w2")
 connect_side = true
 ctyp = "FinSideRudder"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1169309816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.125, 3)
 material_override = SubResource("StandardMaterial3D_g6i7b")
-mesh = SubResource("BoxMesh_us8ry")
+mesh = SubResource("BoxMesh_21lsk")
 
 [node name="CenterOfMass" type="Node3D" parent="." unique_id=1860298038]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.125, 6)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1321364706]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.125, 6)
-shape = SubResource("BoxShape3D_l3e8r")
+shape = SubResource("BoxShape3D_mccml")
 
-[node name="Foil" parent="." unique_id=133344566 instance=ExtResource("3_07xi4")]
+[node name="Foil" parent="." unique_id=133344566 instance=ExtResource("2_rjlc6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.125, 3)
 surface_area = 36.0
 
@@ -49,22 +49,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Rudder" unique_id=1833457202]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.125, 3)
-mesh = SubResource("BoxMesh_07xi4")
+mesh = SubResource("BoxMesh_o6s7n")
 
-[node name="Foil" parent="Rudder" unique_id=921321481 instance=ExtResource("3_07xi4")]
+[node name="Foil" parent="Rudder" unique_id=921321481 instance=ExtResource("2_rjlc6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.125, 3)
 surface_area = 36.0
 
-[node name="Connection" parent="." unique_id=39199665 instance=ExtResource("2_l3e8r")]
+[node name="Connection" parent="." unique_id=39199665 instance=ExtResource("3_er0i1")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Connection" unique_id=331164908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 3)
-shape = SubResource("BoxShape3D_6t4f6")
+shape = SubResource("BoxShape3D_e12cs")
 
-[node name="SignalConnection" parent="." unique_id=872104942 instance=ExtResource("4_6t4f6")]
+[node name="SignalConnection" parent="." unique_id=872104942 instance=ExtResource("4_6212c")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SignalConnection" unique_id=2009697020]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 3)
-shape = SubResource("BoxShape3D_oxnh2")
+shape = SubResource("BoxShape3D_j87wk")
 
 [connection signal="typed_changed" from="SignalConnection" to="." method="_on_signal_connection_typed_changed"]

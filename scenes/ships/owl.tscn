@@ -65,7 +65,7 @@ control = NodePath("../Turn")
 action = 1
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
-[node name="Scout" unique_id=1710930685 instance=ExtResource("1_2ad0o")]
+[node name="Owl" unique_id=1710930685 instance=ExtResource("1_2ad0o")]
 
 [node name="Smalloon" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="0" unique_id=1270561288 instance=ExtResource("6_uud2w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9936124e-09, 3.5, -1.9936124e-09)

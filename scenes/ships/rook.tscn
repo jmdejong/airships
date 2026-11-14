@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine.tscn" id="4_i853u"]
 [ext_resource type="PackedScene" uid="uid://c5ulqcqx1nl70" path="res://scenes/components/cable.tscn" id="5_hsm1o"]
 [ext_resource type="PackedScene" uid="uid://4ejh32drlk0w" path="res://scenes/components/chair.tscn" id="6_6tgml"]
-[ext_resource type="PackedScene" uid="uid://cwcn5yu6pwj1r" path="res://scenes/components/fin_rear_rudder.tscn" id="8_6naax"]
 [ext_resource type="Script" uid="uid://bdyy87xh6bshr" path="res://code/records/binding.gd" id="8_ayvpq"]
 [ext_resource type="PackedScene" uid="uid://y3r5symbcup6" path="res://scenes/components/ballast.tscn" id="9_ayvpq"]
 [ext_resource type="PackedScene" uid="uid://bkb1n67c8myy4" path="res://scenes/components/mooring_line.tscn" id="10_dins1"]
@@ -17,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dg2lijml07p5x" path="res://scenes/components/wire_straight.tscn" id="13_46y2r"]
 [ext_resource type="PackedScene" uid="uid://dy7asljtall0c" path="res://scenes/components/slider.tscn" id="14_rj1vl"]
 [ext_resource type="PackedScene" uid="uid://b5dw13s3ysqsr" path="res://scenes/components/status_panel.tscn" id="16_ayvpq"]
+[ext_resource type="PackedScene" uid="uid://ir48fky7lbl4" path="res://scenes/components/fin_rudder.tscn" id="18_fxex4"]
 
 [sub_resource type="Resource" id="Resource_nkfgs"]
 script = ExtResource("8_ayvpq")
@@ -64,7 +64,7 @@ control = NodePath("../../Slider")
 action = 1
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
-[node name="Ruddy" unique_id=47758217 instance=ExtResource("1_6nck8")]
+[node name="Rook" unique_id=47758217 instance=ExtResource("1_6nck8")]
 
 [node name="LifeAnchor" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="0" unique_id=145821459 instance=ExtResource("2_nkfgs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, 0.75)
@@ -152,6 +152,9 @@ size = Vector3(0.063, 2.5, 0.063)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.25, 2.5)
 size = Vector3(0.063, 2.5, 0.063)
 
-[node name="FinRearRudder" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="14" unique_id=2065927277 instance=ExtResource("8_6naax")]
+[node name="FinRudder" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="14" unique_id=1987121196 instance=ExtResource("18_fxex4")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -2, 7.75)
+thickness = 0.5
+y_offset = 0.0
+connect_side = false
 rotation_channel = 1

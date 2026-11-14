@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b24jtesgl1y00" path="res://scenes/components/wood_floor.tscn" id="2_ai8ii"]
 [ext_resource type="PackedScene" uid="uid://37i3vkcqr8ef" path="res://scenes/components/engine.tscn" id="3_d737r"]
 [ext_resource type="PackedScene" uid="uid://4ejh32drlk0w" path="res://scenes/components/chair.tscn" id="4_r4jte"]
-[ext_resource type="PackedScene" uid="uid://ir48fky7lbl4" path="res://scenes/components/fin_side_rudder.tscn" id="5_dd8h0"]
+[ext_resource type="PackedScene" uid="uid://ir48fky7lbl4" path="res://scenes/components/fin_rudder.tscn" id="5_dd8h0"]
 [ext_resource type="Script" uid="uid://bdyy87xh6bshr" path="res://code/records/binding.gd" id="5_r0qle"]
 [ext_resource type="PackedScene" uid="uid://gag3g3ctvxpx" path="res://scenes/components/wood_panel.tscn" id="6_fi1x1"]
 [ext_resource type="PackedScene" uid="uid://b222awqy5q2ev" path="res://scenes/components/wire_connect.tscn" id="7_lkgqh"]
@@ -76,7 +76,7 @@ action = 2
 change = -2.0
 metadata/_custom_type_script = "uid://bdyy87xh6bshr"
 
-[node name="Birb" unique_id=47758217 instance=ExtResource("1_j6j2w")]
+[node name="Sylph" unique_id=47758217 instance=ExtResource("1_j6j2w")]
 
 [node name="WoodFloor" parent="Components" parent_id_path=PackedInt32Array(2108642172) index="0" unique_id=1031728348 instance=ExtResource("2_ai8ii")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.25, -1.25)
